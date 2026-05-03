@@ -7,6 +7,7 @@ import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileT
 import { useTranslation } from '@/lib/use-translation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import InternationalIconsRow from '@/components/InternationalIconsRow';
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
