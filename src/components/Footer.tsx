@@ -73,7 +73,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link to="/training" className="font-paragraph text-sm text-background/70 hover:text-accent-gold transition-colors duration-300">
-                  Training
+                  Training Center
                 </Link>
               </li>
               <li>

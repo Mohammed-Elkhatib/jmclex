@@ -53,7 +53,7 @@ export default function TrainingPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            Legal Training & Certification
+            Legal Training Center & Certification
           </motion.h1>
           
           <motion.p
