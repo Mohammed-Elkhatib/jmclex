@@ -250,8 +250,11 @@ export default function HomePage() {
                 {/* Arabic Text Block - Exact Match Required */}
                 <div className="relative bg-optional-navy/50 border-l-2 border-accent-gold p-8 md:p-12 rounded-r-sm mb-12">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent-gold/5 blur-3xl rounded-full"></div>
-                  <p dir="rtl" className="relative z-10 font-paragraph text-2xl md:text-3xl text-foreground leading-relaxed text-right font-medium">
-                    "يمكنكم تنظيم وكالة عامة مدافعة ومرافعة لدى كاتب العدل في بلد إقامتكم، وتصديقها من وزارة الخارجية ومن القنصلية اللبنانية، وإرسالها إلينا لمتابعة قضاياكم في لبنان بكل احترافية وسرية تامة."
+                  <p dir="rtl" className="relative z-10 font-paragraph text-lg md:text-xl text-foreground leading-relaxed text-right font-medium mb-6">
+                    "يمكنكم تنظيم وكالة عامة مدافعة ومرافعة لدى السفارة اللبنانية في بلد إقامتكم، وتصديقها وفق الأصول القانونية، ومن ثم إرسالها إلينا لنتولى متابعة كافة الإجراءات القانونية في لبنان بكفاءة عالية، واحترافية تامة، وسرية مطلقة."
+                  </p>
+                  <p className="relative z-10 font-paragraph text-lg md:text-xl text-foreground leading-relaxed font-medium">
+                    "You may issue a general power of attorney for legal representation at the Lebanese embassy in your country of residence, have it duly legalized, and send it to us. We will handle all legal procedures in Lebanon with the highest level of professionalism, efficiency, and strict confidentiality."
                   </p>
                 </div>
                 

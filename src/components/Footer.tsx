@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -14,14 +14,33 @@ export default function Footer() {
             <p className="font-paragraph text-sm text-foreground/70 leading-relaxed mb-6">
               Strategic & International Law since 1990. Serving clients across Lebanon, France, UAE, and Saudi Arabia.
             </p>
-            <div className="flex flex-col gap-3">
-              <a href="mailto:contact@jmclegal.com" className="flex items-center gap-2 text-foreground/70 hover:text-accent-gold transition-colors">
+            <div className="flex flex-col gap-4">
+              {/* Email */}
+              <a href="mailto:contactjmc@gmail.com" className="flex items-center gap-2 text-foreground/70 hover:text-accent-gold transition-colors">
                 <Mail className="w-4 h-4" />
-                <span className="font-paragraph text-sm">contact@jmclegal.com</span>
+                <span className="font-paragraph text-sm">contactjmc@gmail.com</span>
               </a>
-              <a href="tel:+9611234567" className="flex items-center gap-2 text-foreground/70 hover:text-accent-gold transition-colors">
-                <Phone className="w-4 h-4" />
-                <span className="font-paragraph text-sm">+961 1 234 567</span>
+              
+              {/* Lebanon WhatsApp */}
+              <a 
+                href="https://api.whatsapp.com/send?phone=96178873196&text=Hello%20I%20would%20like%20a%20consultation" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-foreground/70 hover:text-accent-gold transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="font-paragraph text-sm">+961 78 873 196 (Lebanon)</span>
+              </a>
+              
+              {/* France WhatsApp */}
+              <a 
+                href="https://api.whatsapp.com/send?phone=33769596922&text=Hello%20I%20would%20like%20a%20consultation" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-foreground/70 hover:text-accent-gold transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="font-paragraph text-sm">+33 7 69 59 69 22 (France)</span>
               </a>
             </div>
           </div>
