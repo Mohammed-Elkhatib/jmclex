@@ -23,7 +23,7 @@ export default function TeamPage() {
       title: 'International Legal Strategist',
       bio: 'Founder. International lawyer with over 35 years of experience. Renowned for strategic legal structuring, cross-border transactions, and high-level advisory. Trusted by corporations and sophisticated clients for precision, discretion, and legal excellence.',
       additionalBio: 'Fluent in French, English, and Arabic. Extensive international experience across Europe and the Middle East.',
-      photo: 'https://static.wixstatic.com/media/5e1235_b5d61eefb8bf4d1499dde23d4394d0a0~mv2.jpg',
+      photo: 'https://static.wixstatic.com/media/5e1235_d451c70d91b640f2815e1aa2a149c445~mv2.jpg',
       contactEmail: 'contact@jmclegal.com'
     },
     {
@@ -95,7 +95,7 @@ export default function TeamPage() {
                       <Image
                         src={founder.photo}
                         alt={founder.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>

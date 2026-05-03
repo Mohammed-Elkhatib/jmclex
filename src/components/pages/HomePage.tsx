@@ -400,9 +400,9 @@ export default function HomePage() {
             >
               <div className="relative h-[500px] overflow-hidden rounded-lg mb-8 group">
                 <Image
-                  src="https://static.wixstatic.com/media/5e1235_b5d61eefb8bf4d1499dde23d4394d0a0~mv2.jpg"
+                  src="https://static.wixstatic.com/media/5e1235_d451c70d91b640f2815e1aa2a149c445~mv2.jpg"
                   alt="Claude Mcheik, Founder"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
               </div>
