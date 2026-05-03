@@ -96,8 +96,8 @@ export default function ContactPage() {
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
                 <Phone className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-optional-navy mb-4">Phone</h3>
-              <a href="tel:+9611234567" className="font-paragraph text-base text-optional-navy/80 hover:text-accent-gold transition-colors duration-300">
+              <h3 className="font-heading text-2xl text-background mb-4">Phone</h3>
+              <a href="tel:+9611234567" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
                 +961 1 234 567
               </a>
             </motion.div>
@@ -112,8 +112,8 @@ export default function ContactPage() {
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
                 <Mail className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-optional-navy mb-4">Email</h3>
-              <a href="mailto:contact@jmclegal.com" className="font-paragraph text-base text-optional-navy/80 hover:text-accent-gold transition-colors duration-300">
+              <h3 className="font-heading text-2xl text-background mb-4">Email</h3>
+              <a href="mailto:contact@jmclegal.com" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
                 contact@jmclegal.com
               </a>
             </motion.div>
@@ -128,8 +128,8 @@ export default function ContactPage() {
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
                 <MapPin className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-optional-navy mb-4">Offices</h3>
-              <p className="font-paragraph text-base text-optional-navy/80">
+              <h3 className="font-heading text-2xl text-background mb-4">Offices</h3>
+              <p className="font-paragraph text-base text-background/80">
                 Lebanon • France • UAE • Saudi Arabia
               </p>
             </motion.div>
@@ -137,7 +137,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form */}
+      {/* Contact Form - Phase 1 Upgrade */}
       <section className="w-full bg-background py-32">
         <div className="max-w-[100rem] mx-auto px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -168,7 +168,7 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
+                    <label className="font-paragraph text-sm font-medium text-optional-navy mb-3 block">
                       Full Name *
                     </label>
                     <Input
@@ -176,13 +176,13 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/15 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-accent-gold transition-all duration-300 placeholder:text-optional-navy/40"
                       placeholder="Your full name"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
+                    <label className="font-paragraph text-sm font-medium text-optional-navy mb-3 block">
                       Email Address *
                     </label>
                     <Input
@@ -190,26 +190,26 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/15 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-accent-gold transition-all duration-300 placeholder:text-optional-navy/40"
                       placeholder="your.email@example.com"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
+                    <label className="font-paragraph text-sm font-medium text-optional-navy mb-3 block">
                       Phone Number
                     </label>
                     <Input
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/15 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-accent-gold transition-all duration-300 placeholder:text-optional-navy/40"
                       placeholder="+1 234 567 8900"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
+                    <label className="font-paragraph text-sm font-medium text-optional-navy mb-3 block">
                       Subject *
                     </label>
                     <Input
@@ -217,20 +217,20 @@ export default function ContactPage() {
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/15 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-accent-gold transition-all duration-300 placeholder:text-optional-navy/40"
                       placeholder="How can we help you?"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
+                    <label className="font-paragraph text-sm font-medium text-optional-navy mb-3 block">
                       Message *
                     </label>
                     <Textarea
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="bg-secondary text-optional-navy border-optional-navy/20 min-h-[200px] rounded-lg transition-all duration-300"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/15 rounded-lg px-4 py-3 min-h-[200px] focus:outline-none focus:ring-2 focus:ring-accent-gold/50 focus:border-accent-gold transition-all duration-300 placeholder:text-optional-navy/40"
                       placeholder="Please provide details about your inquiry..."
                     />
                   </div>
@@ -238,7 +238,7 @@ export default function ContactPage() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-accent-gold text-optional-navy hover:bg-accent-gold/90 py-6 text-lg font-semibold rounded-lg transition-all duration-300 hover:shadow-lg"
+                    className="w-full bg-accent-gold text-optional-navy hover:bg-accent-gold/90 py-4 text-lg font-semibold rounded-lg transition-all duration-300 hover:shadow-lg"
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
