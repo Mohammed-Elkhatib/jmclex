@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart } from 'lucide-react';
+import { Menu, X, ShoppingCart, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/integrations';
 import { useLanguageStore } from '@/lib/language-store';
@@ -10,6 +10,7 @@ import type { Language } from '@/lib/language-store';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const location = useLocation();
   const { itemCount, actions } = useCart();
   const { language } = useLanguageStore();
@@ -17,6 +18,13 @@ export default function Header() {
   const setLanguage = useLanguageStore((state) => state.setLanguage);
 
   const languages = ['EN', 'FR', 'AR', 'ZH'] as const;
+  
+  const languageNames: Record<string, string> = {
+    EN: 'English',
+    FR: 'Français',
+    AR: 'العربية',
+    ZH: '中文'
+  };
   
   const languageFlags: Record<string, string> = {
     EN: '🇺🇸',
@@ -39,6 +47,11 @@ export default function Header() {
     { key: 'nav.contact', path: '/contact' }
   ];
 
+  const handleLanguageSelect = (lang: Language) => {
+    setLanguage(lang);
+    setIsLanguageOpen(false);
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-sm border-b border-optional-navy/10">
       <div className="max-w-[120rem] mx-auto px-8 py-6">
@@ -46,7 +59,7 @@ export default function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <div className="font-heading text-2xl md:text-3xl text-optional-navy">
-              JMC <span className="text-accent-gold">LEGAL</span>
+              JMC <span className="text-accent-gold">LEX</span>
             </div>
           </Link>
 
@@ -69,22 +82,50 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-6">
-            {/* Language Switcher */}
-            <div className="flex items-center gap-3">
-              {languages.map((lang) => (
-                <button
-                  key={lang}
-                  onClick={() => setLanguage(lang as Language)}
-                  className={`text-lg transition-all duration-300 ${
-                    language === lang
-                      ? 'opacity-100 scale-110'
-                      : 'opacity-60 hover:opacity-100'
-                  }`}
-                  title={lang}
+            {/* Globe Language Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                className="relative text-optional-navy hover:text-accent-gold transition-all duration-300 group"
+                aria-label="Language selector"
+              >
+                <motion.div
+                  animate={{ rotate: isLanguageOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
                 >
-                  {languageFlags[lang]}
-                </button>
-              ))}
+                  <Globe className="w-6 h-6" />
+                </motion.div>
+                <div className="absolute inset-0 rounded-full bg-accent-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md -z-10"></div>
+              </button>
+
+              {/* Language Dropdown */}
+              <AnimatePresence>
+                {isLanguageOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full right-0 mt-3 bg-background border border-optional-navy/20 rounded-lg shadow-lg overflow-hidden z-50 min-w-[200px]"
+                  >
+                    {languages.map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => handleLanguageSelect(lang as Language)}
+                        className={`w-full px-4 py-3 flex items-center gap-3 transition-all duration-300 ${
+                          language === lang
+                            ? 'bg-accent-gold/10 text-accent-gold font-medium'
+                            : 'text-optional-navy hover:bg-secondary'
+                        }`}
+                      >
+                        <span className="text-lg">{languageFlags[lang]}</span>
+                        <span className="font-paragraph text-sm">{languageNames[lang]}</span>
+                        <span className="font-paragraph text-xs text-optional-navy/50 ml-auto">({lang})</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Cart Icon */}
@@ -147,25 +188,44 @@ export default function Header() {
                 </Link>
               ))}
 
-              {/* Mobile Language Switcher */}
-              <div className="flex items-center gap-3 mt-4">
-                {languages.map((lang) => (
-                  <button
-                    key={lang}
-                    onClick={() => {
-                      setLanguage(lang as Language);
-                      setIsMenuOpen(false);
-                    }}
-                    className={`text-lg transition-all duration-300 ${
-                      language === lang
-                        ? 'opacity-100 scale-110'
-                        : 'opacity-60 hover:opacity-100'
-                    }`}
-                    title={lang}
+              {/* Mobile Language Selector */}
+              <div className="mt-4 pt-4 border-t border-optional-navy/10">
+                <button
+                  onClick={() => setIsLanguageOpen(!isLanguageOpen)}
+                  className="flex items-center gap-2 text-optional-navy hover:text-accent-gold transition-colors duration-300 font-paragraph text-sm font-medium mb-3"
+                >
+                  <Globe className="w-5 h-5" />
+                  <span>Select Language</span>
+                </button>
+                
+                {isLanguageOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex flex-col gap-2"
                   >
-                    {languageFlags[lang]}
-                  </button>
-                ))}
+                    {languages.map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => {
+                          handleLanguageSelect(lang as Language);
+                          setIsMenuOpen(false);
+                        }}
+                        className={`px-4 py-2 flex items-center gap-3 rounded transition-all duration-300 ${
+                          language === lang
+                            ? 'bg-accent-gold/10 text-accent-gold font-medium'
+                            : 'text-optional-navy hover:bg-secondary'
+                        }`}
+                      >
+                        <span className="text-lg">{languageFlags[lang]}</span>
+                        <span className="font-paragraph text-sm">{languageNames[lang]}</span>
+                        <span className="font-paragraph text-xs text-optional-navy/50 ml-auto">({lang})</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
               </div>
 
               {/* Mobile CTA */}

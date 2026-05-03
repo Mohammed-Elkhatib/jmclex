@@ -56,11 +56,11 @@ export default function HomePage() {
           />
         </motion.div>
         
-        {/* Gradient Overlays for Depth */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/30 via-background/50 to-background"></div>
-        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,#0A1F2F_100%)] opacity-60"></div>
+        {/* Gradient Overlays for Depth - Reduced Blur */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/20 via-background/40 to-background"></div>
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,#0A1F2F_100%)] opacity-40"></div>
         
-        <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 md:px-12 flex flex-col items-center text-center mt-20">
+        <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 md:px-12 flex flex-col items-center text-center mt-32">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -77,10 +77,8 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
           >
-            International Legal Strategy <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold to-accent-gold/70 italic font-light">
-              & Cross-Border Advisory
-            </span>
+            International Legal Strategy, <br className="hidden md:block" />
+            Architecture & Business Advisory
           </motion.h1>
           
           <motion.p
@@ -158,13 +156,13 @@ export default function HomePage() {
                 transition={{ duration: 0.8 }}
               >
                 <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-10 leading-[1.1] text-balance">
-                  JMC LEGAL <br/>
+                  JMC LEX <br/>
                   <span className="text-optional-navy/50">Strategic & International Law</span>
                 </h2>
                 
                 <div className="space-y-8 font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-3xl">
                   <p>
-                    With lawyers' expertise spanning since the 1990s, JMC LEGAL is a premier international law firm specializing in strategic legal advisory and cross-border operations. We serve as the trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
+                    With lawyers' expertise spanning since the 1990s, JMC LEX is a premier international law firm specializing in strategic legal advisory and cross-border operations. We serve as the trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
                   </p>
                   <p>
                     Our practice is built on the ability to navigate complex, multi-jurisdictional environments, providing clarity and decisive action in high-stakes scenarios.
@@ -384,7 +382,7 @@ export default function HomePage() {
               Leadership
             </h2>
             <p className="font-paragraph text-lg text-optional-navy/70">
-              Meet the founders of JMC LEGAL
+              Meet the founders of JMC LEX
             </p>
           </motion.div>
 
@@ -463,7 +461,7 @@ export default function HomePage() {
               </p>
 
               <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
-                Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region. His work reflects decades of litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and a highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEGAL, he contributes senior legal wisdom, regional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.
+                Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region. His work reflects decades of litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and a highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEX, he contributes senior legal wisdom, regional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.
               </p>
 
               <Link
