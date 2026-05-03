@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Calendar, Clock, Globe, Shield, Video } from 'lucide-react';
+import { Calendar, Clock, Globe, Shield, Video, AlertCircle } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import Cart from '@/components/Cart';
 
 export default function ConsultationPage() {
+  const [consultationType, setConsultationType] = useState<'standard' | 'emergency'>('standard');
   const [formData, setFormData] = useState({
     clientName: '',
     clientEmail: '',
@@ -26,6 +27,8 @@ export default function ConsultationPage() {
   const { addingItemId, actions: cartActions } = useCart();
   const { currency } = useCurrency();
 
+  const consultationPrice = consultationType === 'emergency' ? 500 : 250;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -40,8 +43,8 @@ export default function ConsultationPage() {
         preferredDate: formData.preferredDate,
         preferredTime: formData.preferredTime,
         isPaid: false,
-        itemName: 'Legal Consultation - 250 USD',
-        itemPrice: 250
+        itemName: `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation - ${formatPrice(consultationPrice, currency ?? DEFAULT_CURRENCY)}`,
+        itemPrice: consultationPrice
       });
 
       setSubmitSuccess(true);
@@ -67,8 +70,8 @@ export default function ConsultationPage() {
     
     await BaseCrudService.create('consultationrequests', {
       _id: consultationId,
-      itemName: 'Legal Consultation',
-      itemPrice: 250,
+      itemName: `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation`,
+      itemPrice: consultationPrice,
       isPaid: false
     });
 
@@ -119,8 +122,62 @@ export default function ConsultationPage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="inline-block bg-accent-gold text-secondary-foreground px-8 py-4 rounded"
           >
-            <span className="font-heading text-4xl">{formatPrice(250, currency ?? DEFAULT_CURRENCY)}</span>
+            <span className="font-heading text-4xl">{formatPrice(consultationPrice, currency ?? DEFAULT_CURRENCY)}</span>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Consultation Type Selection */}
+      <section className="w-full bg-optional-navy py-20">
+        <div className="max-w-[100rem] mx-auto px-8">
+          <h2 className="font-heading text-3xl text-foreground text-center mb-12">Choose Your Consultation Type</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Standard Consultation */}
+            <motion.button
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              onClick={() => setConsultationType('standard')}
+              className={`p-8 rounded transition-all ${
+                consultationType === 'standard'
+                  ? 'bg-accent-gold text-secondary-foreground ring-2 ring-accent-gold'
+                  : 'bg-background text-foreground border border-foreground/20 hover:border-accent-gold'
+              }`}
+            >
+              <h3 className="font-heading text-2xl mb-4">Book a Consultation</h3>
+              <p className="font-paragraph text-base mb-6">
+                Standard legal consultation for general matters and strategic advice
+              </p>
+              <div className="font-heading text-3xl">{formatPrice(250, currency ?? DEFAULT_CURRENCY)}</div>
+            </motion.button>
+
+            {/* Emergency Consultation */}
+            <motion.button
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              onClick={() => setConsultationType('emergency')}
+              className={`p-8 rounded transition-all relative ${
+                consultationType === 'emergency'
+                  ? 'bg-accent-gold text-secondary-foreground ring-2 ring-accent-gold'
+                  : 'bg-background text-foreground border border-foreground/20 hover:border-accent-gold'
+              }`}
+            >
+              <div className="absolute -top-3 right-6 bg-accent-gold text-secondary-foreground px-4 py-1 rounded-full text-xs font-paragraph font-semibold">
+                Priority
+              </div>
+              <div className="flex items-center gap-2 mb-4">
+                <AlertCircle className="w-6 h-6" />
+                <h3 className="font-heading text-2xl">Request Emergency Legal Assistance</h3>
+              </div>
+              <p className="font-paragraph text-base mb-6">
+                Urgent consultation for time-sensitive legal matters requiring immediate attention
+              </p>
+              <div className="font-heading text-3xl">{formatPrice(500, currency ?? DEFAULT_CURRENCY)}</div>
+            </motion.button>
+          </div>
         </div>
       </section>
 
@@ -163,11 +220,11 @@ export default function ConsultationPage() {
               transition={{ duration: 0.8 }}
             >
               <h2 className="font-heading text-4xl text-foreground mb-8">
-                Schedule Your Consultation
+                Schedule Your {consultationType === 'emergency' ? 'Emergency ' : ''}Consultation
               </h2>
 
               {submitSuccess ? (
-                <div className="bg-optional-navy p-8 rounded">
+                <div className="bg-secondary p-8 rounded border border-accent-gold/30">
                   <h3 className="font-heading text-2xl text-accent-gold mb-4">Request Submitted!</h3>
                   <p className="font-paragraph text-base text-foreground/90 mb-6">
                     Thank you for your consultation request. Our team will contact you within 24 hours to confirm your appointment and provide payment instructions.
@@ -190,7 +247,7 @@ export default function ConsultationPage() {
                       required
                       value={formData.clientName}
                       onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-white text-foreground border border-foreground/20 placeholder:text-foreground/40"
                       placeholder="Your full name"
                     />
                   </div>
@@ -204,7 +261,7 @@ export default function ConsultationPage() {
                       required
                       value={formData.clientEmail}
                       onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-white text-foreground border border-foreground/20 placeholder:text-foreground/40"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -218,7 +275,7 @@ export default function ConsultationPage() {
                       required
                       value={formData.clientPhone}
                       onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-white text-foreground border border-foreground/20 placeholder:text-foreground/40"
                       placeholder="+1 234 567 8900"
                     />
                   </div>
@@ -230,7 +287,7 @@ export default function ConsultationPage() {
                     <select
                       value={formData.language}
                       onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-                      className="w-full bg-optional-navy text-foreground border border-foreground/20 rounded px-4 py-3 font-paragraph"
+                      className="w-full bg-white text-foreground border border-foreground/20 rounded px-4 py-3 font-paragraph"
                     >
                       <option value="EN">English</option>
                       <option value="FR">French</option>
@@ -248,7 +305,7 @@ export default function ConsultationPage() {
                         required
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="bg-optional-navy text-foreground border-foreground/20"
+                        className="bg-white text-foreground border border-foreground/20"
                       />
                     </div>
 
@@ -261,7 +318,7 @@ export default function ConsultationPage() {
                         required
                         value={formData.preferredTime}
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                        className="bg-optional-navy text-foreground border-foreground/20"
+                        className="bg-white text-foreground border border-foreground/20"
                       />
                     </div>
                   </div>
@@ -274,7 +331,7 @@ export default function ConsultationPage() {
                       required
                       value={formData.caseDetails}
                       onChange={(e) => setFormData({ ...formData, caseDetails: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20 min-h-[150px]"
+                      className="bg-white text-foreground border border-foreground/20 min-h-[150px] placeholder:text-foreground/40"
                       placeholder="Please provide a brief description of your legal matter..."
                     />
                   </div>
@@ -302,7 +359,7 @@ export default function ConsultationPage() {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <div className="bg-optional-navy p-8 rounded">
+              <div className="bg-secondary p-8 rounded border border-accent-gold/30">
                 <h3 className="font-heading text-2xl text-foreground mb-6">What to Expect</h3>
                 <ul className="space-y-4">
                   {[
@@ -321,7 +378,7 @@ export default function ConsultationPage() {
                 </ul>
               </div>
 
-              <div className="bg-optional-navy p-8 rounded">
+              <div className="bg-secondary p-8 rounded border border-accent-gold/30">
                 <h3 className="font-heading text-2xl text-foreground mb-4">Quick Purchase</h3>
                 <p className="font-paragraph text-base text-foreground/80 mb-6">
                   Add consultation to cart and complete booking details during checkout.

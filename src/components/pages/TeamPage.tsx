@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight, Mail, ChevronDown } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { TeamMembers } from '@/entities';
 import Header from '@/components/Header';
@@ -12,6 +12,7 @@ export default function TeamPage() {
   const [team, setTeam] = useState<TeamMembers[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<string>('all');
+  const [expandedMemberId, setExpandedMemberId] = useState<string | null>(null);
 
   useEffect(() => {
     loadTeam();
@@ -33,8 +34,8 @@ export default function TeamPage() {
     name: 'Claude Mcheik',
     role: 'Founder – International Legal Strategist',
     expertise: 'International legal strategy and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
-    background: 'International legal strategist and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
-    photo: 'https://static.wixstatic.com/media/5e1235_2c1be2de293641faa0aedd10d2af8175~mv2.png?originWidth=320&originHeight=384'
+    background: 'Claude Mcheik is an international legal strategist, attorney at law, and PhD researcher specializing in cross-border business law, corporate structuring, and high-stakes legal environments. With over a decade of experience across Europe and the Middle East, he advises companies, institutions, and decision-makers on complex legal frameworks, international transactions, and strategic governance. His profile combines academic excellence, legal precision, and business vision, offering clients a unique approach to navigating global legal challenges.',
+    photo: 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png'
   };
 
   const filteredTeam = filter === 'all' 
@@ -113,10 +114,10 @@ export default function TeamPage() {
                     transition={{ duration: 0.8, delay: index * 0.1 }}
                     className="group"
                   >
-                    <Link to={`/team/${member._id}`} className="block">
+                    <div className="block">
                       <div className="relative h-[400px] mb-6 overflow-hidden rounded">
                         <Image
-                          src={member.photo || 'https://static.wixstatic.com/media/5e1235_2c1be2de293641faa0aedd10d2af8175~mv2.png?originWidth=320&originHeight=384'}
+                          src={member.photo || 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png'}
                           alt={member.name || 'Team member'}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         />
@@ -129,10 +130,38 @@ export default function TeamPage() {
                       <p className="font-paragraph text-sm text-foreground/80 mb-6 leading-relaxed line-clamp-3">
                         {member.expertise}
                       </p>
-                      <div className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all">
-                        View Profile <ArrowRight className="w-4 h-4" />
-                      </div>
-                    </Link>
+                      <button
+                        onClick={() => setExpandedMemberId(expandedMemberId === member._id ? null : member._id)}
+                        className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all"
+                      >
+                        {expandedMemberId === member._id ? 'Hide' : 'View'} Profile
+                        <ChevronDown className={`w-4 h-4 transition-transform ${expandedMemberId === member._id ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      {/* Expandable Biography */}
+                      {expandedMemberId === member._id && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="mt-6 pt-6 border-t border-accent-gold/30"
+                        >
+                          <p className="font-paragraph text-base text-foreground/90 leading-relaxed">
+                            {member.background}
+                          </p>
+                          {member.contactEmail && (
+                            <a
+                              href={`mailto:${member.contactEmail}`}
+                              className="inline-flex items-center gap-2 mt-4 text-accent-gold hover:text-accent-gold/80 transition-colors"
+                            >
+                              <Mail className="w-4 h-4" />
+                              {member.contactEmail}
+                            </a>
+                          )}
+                        </motion.div>
+                      )}
+                    </div>
                   </motion.div>
                 ))}
               </div>
