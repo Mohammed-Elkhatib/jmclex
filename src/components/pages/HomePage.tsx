@@ -41,7 +41,7 @@ export default function HomePage() {
   const opacityBg = useTransform(heroScroll, [0, 1], [0.4, 0]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-accent-gold selection:text-secondary-foreground overflow-clip">
+    <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
       <Header />
       
       {/* 1. HERO SECTION - Full Bleed, Cinematic */}
@@ -58,15 +58,15 @@ export default function HomePage() {
         </motion.div>
         
         {/* Gradient Overlays for Depth */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/40 via-background/60 to-background"></div>
-        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,#0B0B0B_100%)] opacity-80"></div>
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/30 via-background/50 to-background"></div>
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,#0A1F2F_100%)] opacity-60"></div>
         
         <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 md:px-12 flex flex-col items-center text-center mt-20">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-3 px-4 py-2 border border-accent-gold/30 rounded-full mb-8 backdrop-blur-sm"
+            className="inline-flex items-center gap-3 px-4 py-2 border border-accent-gold/40 rounded-full mb-8 backdrop-blur-md bg-background/20"
           >
             <span className="w-2 h-2 rounded-full bg-accent-gold animate-pulse"></span>
             <span className="font-paragraph text-xs tracking-[0.2em] uppercase text-accent-gold">Est. 1990 • Global Presence</span>
@@ -76,10 +76,10 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-foreground mb-8 max-w-6xl text-balance"
+            className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
           >
             International Legal Strategy <br className="hidden md:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold to-accent-gold/60 italic font-light">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold to-accent-gold/70 italic font-light">
               & Cross-Border Advisory
             </span>
           </motion.h1>
@@ -88,7 +88,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-paragraph text-lg md:text-2xl text-foreground/70 mb-12 max-w-3xl mx-auto font-light tracking-wide"
+            className="font-paragraph text-lg md:text-2xl text-background/80 mb-12 max-w-3xl mx-auto font-light tracking-wide"
           >
             Navigating complex legal environments. Delivering strategic solutions across jurisdictions for the world's most demanding clients.
           </motion.p>
@@ -101,7 +101,7 @@ export default function HomePage() {
           >
             <Link
               to="/consultation"
-              className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-secondary-foreground font-paragraph font-medium px-10 py-5 rounded-sm overflow-hidden transition-all hover:scale-[1.02]"
+              className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             >
               <span className="relative z-10">Book Consultation</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -109,7 +109,7 @@ export default function HomePage() {
             </Link>
             <Link
               to="/expertise"
-              className="w-full sm:w-auto flex items-center justify-center px-10 py-5 rounded-sm border border-foreground/20 font-paragraph font-medium text-foreground transition-all hover:border-accent-gold hover:text-accent-gold"
+              className="w-full sm:w-auto flex items-center justify-center px-10 py-5 rounded-lg border border-background/30 font-paragraph font-medium text-background transition-all duration-300 hover:border-accent-gold hover:text-accent-gold hover:bg-background/10"
             >
               Explore Expertise
             </Link>
@@ -123,8 +123,8 @@ export default function HomePage() {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20"
         >
-          <span className="font-paragraph text-xs tracking-widest text-foreground/50 uppercase">Scroll to explore</span>
-          <div className="w-[1px] h-16 bg-foreground/20 overflow-hidden">
+          <span className="font-paragraph text-xs tracking-widest text-background/60 uppercase">Scroll to explore</span>
+          <div className="w-[1px] h-16 bg-background/30 overflow-hidden">
             <motion.div 
               animate={{ y: ["-100%", "100%"] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
@@ -135,7 +135,7 @@ export default function HomePage() {
       </section>
 
       {/* 2. INTRO & KEY FIGURES - Architectural Layout */}
-      <section className="relative w-full bg-background pt-32 pb-20 border-t border-foreground/10">
+      <section className="relative w-full bg-background pt-32 pb-20 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
@@ -147,12 +147,12 @@ export default function HomePage() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-foreground mb-10 leading-[1.1] text-balance">
+                <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-10 leading-[1.1] text-balance">
                   JMC LEGAL <br/>
-                  <span className="text-foreground/50">Strategic & International Law</span>
+                  <span className="text-optional-navy/50">Strategic & International Law</span>
                 </h2>
                 
-                <div className="space-y-8 font-paragraph text-lg md:text-xl text-foreground/80 font-light leading-relaxed max-w-3xl">
+                <div className="space-y-8 font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-3xl">
                   <p>
                     Established in 1990, JMC LEGAL is a premier international law firm specializing in strategic legal advisory and cross-border operations. We serve as the trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
                   </p>
@@ -170,14 +170,14 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1 }}
-                className="relative h-[60vh] min-h-[500px] w-full overflow-hidden rounded-sm"
+                className="relative h-[60vh] min-h-[500px] w-full overflow-hidden rounded-lg"
               >
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_17d294d373744472ad855876521a8a6b~mv2.png?originWidth=1152&originHeight=896"
                   alt="JMC Legal office environment"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-optional-navy/20 mix-blend-multiply"></div>
+                <div className="absolute inset-0 bg-optional-navy/10 mix-blend-multiply"></div>
               </motion.div>
 
               {/* Floating Stats Box */}
@@ -186,16 +186,16 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="absolute -bottom-12 -left-12 md:-left-24 bg-optional-navy p-8 md:p-12 border border-accent-gold/20 shadow-2xl backdrop-blur-md"
+                className="absolute -bottom-12 -left-12 md:-left-24 bg-optional-navy p-8 md:p-12 border border-accent-gold/20 rounded-lg"
               >
                 <div className="grid grid-cols-2 gap-12">
                   <div>
                     <div className="text-accent-gold font-heading text-5xl md:text-6xl mb-2">200+</div>
-                    <div className="font-paragraph text-sm text-foreground/70 uppercase tracking-wider">Contracts<br/>Negotiated</div>
+                    <div className="font-paragraph text-sm text-background/70 uppercase tracking-wider">Contracts<br/>Negotiated</div>
                   </div>
                   <div>
                     <div className="text-accent-gold font-heading text-5xl md:text-6xl mb-2">100+</div>
-                    <div className="font-paragraph text-sm text-foreground/70 uppercase tracking-wider">Disputes<br/>Resolved</div>
+                    <div className="font-paragraph text-sm text-background/70 uppercase tracking-wider">Disputes<br/>Resolved</div>
                   </div>
                 </div>
               </motion.div>
@@ -206,22 +206,22 @@ export default function HomePage() {
       </section>
 
       {/* 3. DIASPORA - Sticky Narrative Section */}
-      <section className="relative w-full bg-background py-32">
+      <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
             
             {/* Sticky Image Side */}
             <div className="lg:w-5/12 relative">
-              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-sm">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
                   alt="Global diaspora services"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent"></div>
                 <div className="absolute bottom-8 left-8 right-8">
                   <Globe className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
-                  <h3 className="font-heading text-3xl text-foreground">Global Reach,<br/>Local Expertise.</h3>
+                  <h3 className="font-heading text-3xl text-optional-navy">Global Reach,<br/>Local Expertise.</h3>
                 </div>
               </div>
             </div>
@@ -239,21 +239,21 @@ export default function HomePage() {
                   <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Lebanese Diaspora</span>
                 </div>
                 
-                <h2 className="font-heading text-4xl md:text-6xl text-foreground mb-10 leading-[1.1]">
+                <h2 className="font-heading text-4xl md:text-6xl text-optional-navy mb-10 leading-[1.1]">
                   Serving Our Clients <br/>Worldwide
                 </h2>
                 
-                <p className="font-paragraph text-xl text-foreground/80 mb-12 font-light leading-relaxed">
+                <p className="font-paragraph text-xl text-optional-navy/80 mb-12 font-light leading-relaxed">
                   We provide comprehensive legal services to Lebanese clients across the globe. Whether you require representation, litigation support, or strategic advisory, our international framework ensures your interests are protected across all jurisdictions.
                 </p>
                 
                 {/* Arabic Text Block - Exact Match Required */}
-                <div className="relative bg-optional-navy/50 border-l-2 border-accent-gold p-8 md:p-12 rounded-r-sm mb-12">
+                <div className="relative bg-optional-navy/10 border-l-2 border-accent-gold p-8 md:p-12 rounded-r-lg mb-12">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent-gold/5 blur-3xl rounded-full"></div>
-                  <p dir="rtl" className="relative z-10 font-paragraph text-lg md:text-xl text-foreground leading-relaxed text-right font-medium mb-6">
+                  <p dir="rtl" className="relative z-10 font-paragraph text-lg md:text-xl text-optional-navy leading-relaxed text-right font-medium mb-6">
                     "يمكنكم تنظيم وكالة عامة مدافعة ومرافعة لدى السفارة اللبنانية في بلد إقامتكم، وتصديقها وفق الأصول القانونية، ومن ثم إرسالها إلينا لنتولى متابعة كافة الإجراءات القانونية في لبنان بكفاءة عالية، واحترافية تامة، وسرية مطلقة."
                   </p>
-                  <p className="relative z-10 font-paragraph text-lg md:text-xl text-foreground leading-relaxed font-medium">
+                  <p className="relative z-10 font-paragraph text-lg md:text-xl text-optional-navy leading-relaxed font-medium">
                     "You may issue a general power of attorney for legal representation at the Lebanese embassy in your country of residence, have it duly legalized, and send it to us. We will handle all legal procedures in Lebanon with the highest level of professionalism, efficiency, and strict confidentiality."
                   </p>
                 </div>
@@ -274,7 +274,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. EXPERTISE - Interactive Grid */}
-      <section className="relative w-full bg-optional-navy py-32 border-y border-foreground/10">
+      <section className="relative w-full bg-optional-navy py-32 border-y border-optional-navy/20">
         <div className="absolute inset-0 bg-[url('https://static.wixstatic.com/media/5e1235_329fa4ac6722408180b48c3f3e106a0a~mv2.png?originWidth=1152&originHeight=768')] opacity-5 mix-blend-overlay object-cover"></div>
         
         <div className="relative z-10 max-w-[120rem] mx-auto px-6 md:px-12">
@@ -286,10 +286,10 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="max-w-3xl"
             >
-              <h2 className="font-heading text-5xl md:text-7xl text-foreground mb-6">
+              <h2 className="font-heading text-5xl md:text-7xl text-background mb-6">
                 Areas of Expertise
               </h2>
-              <p className="font-paragraph text-xl text-foreground/70 font-light">
+              <p className="font-paragraph text-xl text-background/70 font-light">
                 Comprehensive legal services tailored for complex international matters and high-stakes scenarios.
               </p>
             </motion.div>
@@ -302,14 +302,14 @@ export default function HomePage() {
             >
               <Link
                 to="/expertise"
-                className="inline-flex items-center gap-3 px-8 py-4 border border-accent-gold/50 text-accent-gold font-paragraph hover:bg-accent-gold hover:text-secondary-foreground transition-colors rounded-sm"
+                className="inline-flex items-center gap-3 px-8 py-4 border border-accent-gold/50 text-accent-gold font-paragraph hover:bg-accent-gold hover:text-optional-navy transition-colors duration-300 rounded-lg"
               >
                 View All Practices
               </Link>
             </motion.div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-foreground/10 border border-foreground/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-background/10 border border-background/10">
             {EXPERTISE_AREAS.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -322,8 +322,8 @@ export default function HomePage() {
                 <div className="absolute top-0 left-0 w-full h-1 bg-accent-gold scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                 
                 <item.icon className="w-10 h-10 text-accent-gold mb-8 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
-                <h3 className="font-heading text-2xl text-foreground mb-4">{item.title}</h3>
-                <p className="font-paragraph text-sm text-foreground/60 mb-8 line-clamp-2 font-light">
+                <h3 className="font-heading text-2xl text-background mb-4">{item.title}</h3>
+                <p className="font-paragraph text-sm text-background/60 mb-8 line-clamp-2 font-light">
                   {item.desc}
                 </p>
                 
@@ -349,10 +349,10 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-20"
           >
-            <h2 className="font-heading text-4xl md:text-6xl text-foreground mb-6">
+            <h2 className="font-heading text-4xl md:text-6xl text-optional-navy mb-6">
               Digital Legal Platforms
             </h2>
-            <p className="font-paragraph text-xl text-foreground/70 font-light max-w-2xl mx-auto">
+            <p className="font-paragraph text-xl text-optional-navy/70 font-light max-w-2xl mx-auto">
               Access our proprietary knowledge base and specialized legal training programs.
             </p>
           </motion.div>
@@ -364,7 +364,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="group relative h-[600px] overflow-hidden rounded-sm"
+              className="group relative h-[600px] overflow-hidden rounded-lg"
             >
               <Image
                 src="https://static.wixstatic.com/media/5e1235_49e31005feeb4dd58a03eec3583427b0~mv2.png?originWidth=896&originHeight=576"
@@ -375,13 +375,13 @@ export default function HomePage() {
               
               <div className="absolute inset-0 p-12 flex flex-col justify-end">
                 <GraduationCap className="w-12 h-12 text-accent-gold mb-6" />
-                <h3 className="font-heading text-4xl text-foreground mb-4">Legal Training</h3>
-                <p className="font-paragraph text-lg text-foreground/80 mb-8 font-light max-w-md">
+                <h3 className="font-heading text-4xl text-optional-navy mb-4">Legal Training</h3>
+                <p className="font-paragraph text-lg text-optional-navy/80 mb-8 font-light max-w-md">
                   Professional courses, subscription access, and certification programs for legal practitioners and corporate teams.
                 </p>
                 <Link
                   to="/training"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-black font-paragraph font-medium rounded-sm w-fit hover:bg-accent-gold hover:text-white transition-colors"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-accent-gold text-optional-navy font-paragraph font-medium rounded-lg w-fit hover:shadow-lg transition-all duration-300"
                 >
                   Explore Subscriptions
                 </Link>
@@ -394,7 +394,7 @@ export default function HomePage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="group relative h-[600px] overflow-hidden rounded-sm"
+              className="group relative h-[600px] overflow-hidden rounded-lg"
             >
               <Image
                 src="https://static.wixstatic.com/media/5e1235_0f182e20b99b4b65a56a369a63ff7d16~mv2.png?originWidth=896&originHeight=576"
@@ -405,13 +405,13 @@ export default function HomePage() {
               
               <div className="absolute inset-0 p-12 flex flex-col justify-end">
                 <Database className="w-12 h-12 text-accent-gold mb-6" />
-                <h3 className="font-heading text-4xl text-foreground mb-4">Jurisprudence Database</h3>
-                <p className="font-paragraph text-lg text-foreground/80 mb-8 font-light max-w-md">
+                <h3 className="font-heading text-4xl text-optional-navy mb-4">Jurisprudence Database</h3>
+                <p className="font-paragraph text-lg text-optional-navy/80 mb-8 font-light max-w-md">
                   Exclusive access to our paid legal database, featuring comprehensive case law, analysis, and strategic precedents.
                 </p>
                 <Link
                   to="/jurisprudence"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-accent-gold text-secondary-foreground font-paragraph font-medium rounded-sm w-fit hover:bg-white hover:text-black transition-colors"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-accent-gold text-optional-navy font-paragraph font-medium rounded-lg w-fit hover:shadow-lg transition-all duration-300"
                 >
                   Access Database
                 </Link>
@@ -422,7 +422,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. AUTHORITY & PUBLICATIONS - Editorial Layout */}
-      <section className="relative w-full bg-background py-32 border-t border-foreground/10">
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <motion.div
@@ -431,16 +431,16 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-heading text-5xl md:text-6xl text-foreground mb-4">
+              <h2 className="font-heading text-5xl md:text-6xl text-optional-navy mb-4">
                 Legal Authority
               </h2>
-              <p className="font-paragraph text-xl text-foreground/70 font-light">
+              <p className="font-paragraph text-xl text-optional-navy/70 font-light">
                 Insights on geopolitical law, sanctions, and international developments.
               </p>
             </motion.div>
             <Link
               to="/publications"
-              className="group inline-flex items-center gap-2 font-paragraph text-accent-gold"
+              className="group inline-flex items-center gap-2 font-paragraph text-accent-gold hover:text-accent-gold/80 transition-colors duration-300"
             >
               View All Publications <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
@@ -456,7 +456,7 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 className="group cursor-pointer"
               >
-                <div className="relative h-[400px] mb-6 overflow-hidden rounded-sm">
+                <div className="relative h-[400px] mb-6 overflow-hidden rounded-lg">
                   <Image
                     src="https://static.wixstatic.com/media/5e1235_453b52eacd234d178ee10b0b5be9c32b~mv2.png?originWidth=576&originHeight=384"
                     alt={pub.title}
@@ -467,10 +467,10 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mb-3">
-                  <span className="font-paragraph text-sm text-foreground/50">{pub.date}</span>
-                  <span className="w-8 h-[1px] bg-foreground/20"></span>
+                  <span className="font-paragraph text-sm text-optional-navy/50">{pub.date}</span>
+                  <span className="w-8 h-[1px] bg-optional-navy/20"></span>
                 </div>
-                <h3 className="font-heading text-2xl text-foreground group-hover:text-accent-gold transition-colors">
+                <h3 className="font-heading text-2xl text-optional-navy group-hover:text-accent-gold transition-colors duration-300">
                   {pub.title}
                 </h3>
               </motion.div>
@@ -490,7 +490,7 @@ export default function HomePage() {
             className="mb-20"
           >
             <Globe className="w-12 h-12 text-accent-gold mx-auto mb-6 opacity-50" />
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground">Global Presence</h2>
+            <h2 className="font-heading text-4xl md:text-5xl text-background">Global Presence</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
@@ -507,7 +507,7 @@ export default function HomePage() {
                 </h3>
                 <ul className="space-y-4">
                   {region.cities.map(city => (
-                    <li key={city} className="font-heading text-3xl md:text-4xl text-foreground/80 hover:text-foreground transition-colors cursor-default">
+                    <li key={city} className="font-heading text-3xl md:text-4xl text-background/80 hover:text-background transition-colors cursor-default">
                       {city}
                     </li>
                   ))}
@@ -538,26 +538,26 @@ export default function HomePage() {
             transition={{ duration: 1 }}
           >
             <Lock className="w-12 h-12 text-accent-gold mx-auto mb-8" />
-            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl text-foreground mb-8 leading-[1.1]">
+            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl text-optional-navy mb-8 leading-[1.1]">
               Discuss Your Situation <br/>
               <span className="italic text-accent-gold font-light">Confidentially</span>
             </h2>
             
-            <p className="font-paragraph text-xl text-foreground/70 mb-12 max-w-2xl mx-auto font-light">
+            <p className="font-paragraph text-xl text-optional-navy/70 mb-12 max-w-2xl mx-auto font-light">
               Schedule a strategic consultation with our international legal team. All discussions are strictly protected by attorney-client privilege.
             </p>
             
             <div className="flex flex-col items-center gap-6">
               <Link
                 to="/consultation"
-                className="group relative flex items-center justify-center gap-3 bg-accent-gold text-secondary-foreground font-paragraph font-medium px-12 py-6 rounded-sm overflow-hidden transition-all hover:scale-[1.02]"
+                className="group relative flex items-center justify-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-medium px-12 py-6 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
               >
                 <span className="relative z-10 text-lg">Book Consultation – 250 USD</span>
                 <ArrowRight className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
               </Link>
               
-              <div className="flex items-center gap-4 text-foreground/50 font-paragraph text-sm uppercase tracking-widest">
+              <div className="flex items-center gap-4 text-optional-navy/50 font-paragraph text-sm uppercase tracking-widest">
                 <span>EN</span>
                 <span className="w-1 h-1 rounded-full bg-accent-gold"></span>
                 <span>FR</span>

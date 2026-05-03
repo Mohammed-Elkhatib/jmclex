@@ -41,8 +41,8 @@ export default function ExpertiseDetailPage() {
           </div>
         ) : !expertise ? (
           <div className="max-w-[100rem] mx-auto px-8 py-32 text-center">
-            <h2 className="font-heading text-4xl text-foreground mb-6">Expertise Area Not Found</h2>
-            <Link to="/expertise" className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all">
+            <h2 className="font-heading text-4xl text-optional-navy mb-6">Expertise Area Not Found</h2>
+            <Link to="/expertise" className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all duration-300">
               <ArrowLeft className="w-5 h-5" /> Back to Expertise
             </Link>
           </div>
@@ -60,14 +60,14 @@ export default function ExpertiseDetailPage() {
               </div>
               
               <div className="relative z-10 max-w-[100rem] mx-auto px-8 py-32">
-                <Link to="/expertise" className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all mb-8">
+                <Link to="/expertise" className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all duration-300 mb-8">
                   <ArrowLeft className="w-5 h-5" /> Back to Expertise
                 </Link>
                 <motion.h1
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
-                  className="font-heading text-5xl md:text-7xl text-foreground mb-6"
+                  className="font-heading text-5xl md:text-7xl text-optional-navy mb-6"
                 >
                   {expertise.practiceAreaName}
                 </motion.h1>
@@ -75,7 +75,7 @@ export default function ExpertiseDetailPage() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
-                  className="font-paragraph text-xl text-foreground/90 max-w-3xl"
+                  className="font-paragraph text-xl text-optional-navy/90 max-w-3xl"
                 >
                   {expertise.shortDescription}
                 </motion.p>
@@ -94,7 +94,7 @@ export default function ExpertiseDetailPage() {
                       transition={{ duration: 0.8 }}
                       className="prose prose-invert max-w-none"
                     >
-                      <div className="font-paragraph text-lg text-foreground/90 leading-relaxed whitespace-pre-line">
+                      <div className="font-paragraph text-lg text-optional-navy/90 leading-relaxed whitespace-pre-line">
                         {expertise.detailedContent}
                       </div>
                     </motion.div>
@@ -105,10 +105,10 @@ export default function ExpertiseDetailPage() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="mt-16 bg-optional-navy p-10 rounded"
+                        className="mt-16 bg-secondary p-10 rounded-lg"
                       >
-                        <h2 className="font-heading text-3xl text-foreground mb-6">Related Services</h2>
-                        <p className="font-paragraph text-base text-foreground/80 leading-relaxed">
+                        <h2 className="font-heading text-3xl text-optional-navy mb-6">Related Services</h2>
+                        <p className="font-paragraph text-base text-optional-navy/80 leading-relaxed">
                           {expertise.relatedServices}
                         </p>
                       </motion.div>
@@ -121,39 +121,39 @@ export default function ExpertiseDetailPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8 }}
-                      className="bg-optional-navy p-8 rounded sticky top-32"
+                      className="bg-optional-navy p-8 rounded-lg sticky top-32"
                     >
-                      <h3 className="font-heading text-2xl text-foreground mb-6">Need Expert Advice?</h3>
-                      <p className="font-paragraph text-base text-foreground/80 mb-8 leading-relaxed">
+                      <h3 className="font-heading text-2xl text-background mb-6">Need Expert Advice?</h3>
+                      <p className="font-paragraph text-base text-background/80 mb-8 leading-relaxed">
                         Schedule a confidential consultation to discuss your specific legal needs in this practice area.
                       </p>
                       <Link
                         to="/consultation"
-                        className="w-full inline-flex items-center justify-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-accent-gold text-optional-navy font-paragraph font-semibold px-6 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
                       >
                         Book Consultation <ArrowRight className="w-5 h-5" />
                       </Link>
                       
-                      <div className="mt-8 pt-8 border-t border-foreground/10">
-                        <h4 className="font-heading text-lg text-foreground mb-4">Quick Links</h4>
+                      <div className="mt-8 pt-8 border-t border-background/10">
+                        <h4 className="font-heading text-lg text-background mb-4">Quick Links</h4>
                         <ul className="space-y-3">
                           <li>
-                            <Link to="/expertise" className="font-paragraph text-sm text-foreground/70 hover:text-accent-gold transition-colors">
+                            <Link to="/expertise" className="font-paragraph text-sm text-background/70 hover:text-accent-gold transition-colors duration-300">
                               All Practice Areas
                             </Link>
                           </li>
                           <li>
-                            <Link to="/team" className="font-paragraph text-sm text-foreground/70 hover:text-accent-gold transition-colors">
+                            <Link to="/team" className="font-paragraph text-sm text-background/70 hover:text-accent-gold transition-colors duration-300">
                               Our Team
                             </Link>
                           </li>
                           <li>
-                            <Link to="/publications" className="font-paragraph text-sm text-foreground/70 hover:text-accent-gold transition-colors">
+                            <Link to="/publications" className="font-paragraph text-sm text-background/70 hover:text-accent-gold transition-colors duration-300">
                               Legal Publications
                             </Link>
                           </li>
                           <li>
-                            <Link to="/contact" className="font-paragraph text-sm text-foreground/70 hover:text-accent-gold transition-colors">
+                            <Link to="/contact" className="font-paragraph text-sm text-background/70 hover:text-accent-gold transition-colors duration-300">
                               Contact Us
                             </Link>
                           </li>

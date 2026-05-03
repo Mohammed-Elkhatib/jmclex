@@ -23,16 +23,16 @@ export default {
                 paragraph: "sora"
             },
             colors: {
-                'accent-gold': '#C9A96E',
-                'optional-navy': '#0D1B2A',
+                'accent-gold': '#C8A96A',
+                'optional-navy': '#0A1F2F',
                 destructive: '#ff0000',
                 'destructive-foreground': '#FFFFFF',
-                background: '#0B0B0B',
-                secondary: '#FFFFFF',
-                foreground: '#FFFFFF',
-                'secondary-foreground': '#0B0B0B',
-                'primary-foreground': '#FFFFFF',
-                primary: '#0B0B0B'
+                background: '#F8F9FA',
+                secondary: '#F4F1EC',
+                foreground: '#0A1F2F',
+                'secondary-foreground': '#F8F9FA',
+                'primary-foreground': '#0A1F2F',
+                primary: '#0A1F2F'
             },
         },
     },

@@ -28,12 +28,12 @@ export default function Header() {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-foreground/10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-sm border-b border-optional-navy/10">
       <div className="max-w-[120rem] mx-auto px-8 py-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="font-heading text-2xl md:text-3xl text-foreground">
+            <div className="font-heading text-2xl md:text-3xl text-optional-navy">
               JMC <span className="text-accent-gold">LEGAL</span>
             </div>
           </Link>
@@ -44,10 +44,10 @@ export default function Header() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`font-paragraph text-sm transition-colors ${
+                className={`font-paragraph text-sm transition-colors duration-300 ${
                   location.pathname === item.path
-                    ? 'text-accent-gold'
-                    : 'text-foreground hover:text-accent-gold'
+                    ? 'text-accent-gold font-medium'
+                    : 'text-optional-navy hover:text-accent-gold'
                 }`}
               >
                 {item.label}
@@ -59,14 +59,14 @@ export default function Header() {
           <div className="hidden xl:flex items-center gap-6">
             {/* Language Switcher */}
             <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-foreground/60" />
+              <Globe className="w-4 h-4 text-optional-navy/60" />
               <select
                 value={currentLanguage}
                 onChange={(e) => setCurrentLanguage(e.target.value)}
-                className="bg-transparent text-foreground font-paragraph text-sm border border-foreground/20 rounded px-3 py-1 cursor-pointer hover:border-accent-gold transition-colors"
+                className="bg-transparent text-optional-navy font-paragraph text-sm border border-optional-navy/20 rounded-lg px-3 py-1 cursor-pointer hover:border-accent-gold transition-colors duration-300"
               >
                 {languages.map((lang) => (
-                  <option key={lang} value={lang} className="bg-background text-foreground">
+                  <option key={lang} value={lang} className="bg-background text-optional-navy">
                     {lang}
                   </option>
                 ))}
@@ -76,12 +76,12 @@ export default function Header() {
             {/* Cart Icon */}
             <button
               onClick={actions.toggleCart}
-              className="relative text-foreground hover:text-accent-gold transition-colors"
+              className="relative text-optional-navy hover:text-accent-gold transition-colors duration-300"
               aria-label="Shopping cart"
             >
               <ShoppingCart className="w-6 h-6" />
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-accent-gold text-secondary-foreground text-xs font-paragraph font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-accent-gold text-background text-xs font-paragraph font-bold w-5 h-5 rounded-full flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
@@ -90,7 +90,7 @@ export default function Header() {
             {/* CTA Button */}
             <Link
               to="/consultation"
-              className="bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-3 rounded transition-all hover:scale-105"
+              className="bg-accent-gold text-background font-paragraph font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               Book Consultation
             </Link>
@@ -99,7 +99,7 @@ export default function Header() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="xl:hidden text-foreground"
+            className="xl:hidden text-optional-navy"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -115,7 +115,7 @@ export default function Header() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="xl:hidden bg-background border-t border-foreground/10 overflow-hidden"
+            className="xl:hidden bg-background border-t border-optional-navy/10 overflow-hidden"
           >
             <nav className="max-w-[120rem] mx-auto px-8 py-6 flex flex-col gap-4">
               {menuItems.map((item) => (
@@ -123,10 +123,10 @@ export default function Header() {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`font-paragraph text-base transition-colors ${
+                  className={`font-paragraph text-base transition-colors duration-300 ${
                     location.pathname === item.path
-                      ? 'text-accent-gold'
-                      : 'text-foreground hover:text-accent-gold'
+                      ? 'text-accent-gold font-medium'
+                      : 'text-optional-navy hover:text-accent-gold'
                   }`}
                 >
                   {item.label}
@@ -135,14 +135,14 @@ export default function Header() {
 
               {/* Mobile Language Switcher */}
               <div className="flex items-center gap-2 mt-4">
-                <Globe className="w-4 h-4 text-foreground/60" />
+                <Globe className="w-4 h-4 text-optional-navy/60" />
                 <select
                   value={currentLanguage}
                   onChange={(e) => setCurrentLanguage(e.target.value)}
-                  className="bg-transparent text-foreground font-paragraph text-sm border border-foreground/20 rounded px-3 py-1 cursor-pointer"
+                  className="bg-transparent text-optional-navy font-paragraph text-sm border border-optional-navy/20 rounded-lg px-3 py-1 cursor-pointer"
                 >
                   {languages.map((lang) => (
-                    <option key={lang} value={lang} className="bg-background text-foreground">
+                    <option key={lang} value={lang} className="bg-background text-optional-navy">
                       {lang}
                     </option>
                   ))}
@@ -153,7 +153,7 @@ export default function Header() {
               <Link
                 to="/consultation"
                 onClick={() => setIsMenuOpen(false)}
-                className="bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-3 rounded text-center mt-4 transition-all hover:scale-105"
+                className="bg-accent-gold text-background font-paragraph font-semibold px-6 py-3 rounded-lg text-center mt-4 transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
                 Book Consultation
               </Link>
@@ -164,7 +164,7 @@ export default function Header() {
                   setIsMenuOpen(false);
                   actions.toggleCart();
                 }}
-                className="flex items-center justify-center gap-2 bg-transparent text-foreground border border-foreground/20 font-paragraph font-medium px-6 py-3 rounded transition-all hover:bg-background mt-2"
+                className="flex items-center justify-center gap-2 bg-transparent text-optional-navy border border-optional-navy/20 font-paragraph font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:bg-secondary mt-2"
               >
                 <ShoppingCart className="w-5 h-5" />
                 Cart {itemCount > 0 && `(${itemCount})`}

@@ -52,7 +52,7 @@ export default function ExpertisePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-heading text-6xl md:text-7xl text-foreground mb-8"
+            className="font-heading text-6xl md:text-7xl text-optional-navy mb-8"
           >
             Legal Expertise
           </motion.h1>
@@ -61,7 +61,7 @@ export default function ExpertisePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
+            className="font-paragraph text-xl md:text-2xl text-optional-navy/90 max-w-4xl mx-auto"
           >
             Comprehensive legal services across multiple practice areas and jurisdictions
           </motion.p>
@@ -76,10 +76,10 @@ export default function ExpertisePage() {
               <button
                 key={filterOption}
                 onClick={() => setFilter(filterOption)}
-                className={`font-paragraph px-6 py-3 rounded transition-all ${
+                className={`font-paragraph px-6 py-3 rounded-lg transition-all duration-300 ${
                   filter === filterOption
-                    ? 'bg-accent-gold text-secondary-foreground'
-                    : 'bg-background text-foreground hover:bg-accent-gold hover:text-secondary-foreground'
+                    ? 'bg-accent-gold text-optional-navy'
+                    : 'bg-background text-optional-navy hover:bg-accent-gold hover:text-optional-navy'
                 }`}
               >
                 {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
@@ -105,7 +105,7 @@ export default function ExpertisePage() {
                     className="group"
                   >
                     <Link to={`/expertise/${item._id}`} className="block">
-                      <div className="relative h-[300px] mb-6 overflow-hidden rounded">
+                      <div className="relative h-[300px] mb-6 overflow-hidden rounded-lg">
                         <Image
                           src={item.practiceAreaImage || 'https://static.wixstatic.com/media/5e1235_b63838be0a05434bb6b170f28824a3cb~mv2.png?originWidth=384&originHeight=256'}
                           alt={item.practiceAreaName || 'Legal expertise'}
@@ -113,13 +113,13 @@ export default function ExpertisePage() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
                       </div>
-                      <h3 className="font-heading text-3xl text-foreground mb-4 group-hover:text-accent-gold transition-colors">
+                      <h3 className="font-heading text-3xl text-optional-navy mb-4 group-hover:text-accent-gold transition-colors duration-300">
                         {item.practiceAreaName}
                       </h3>
-                      <p className="font-paragraph text-base text-foreground/80 mb-6 leading-relaxed">
+                      <p className="font-paragraph text-base text-optional-navy/80 mb-6 leading-relaxed">
                         {item.shortDescription}
                       </p>
-                      <div className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all">
+                      <div className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all duration-300">
                         Learn More <ArrowRight className="w-4 h-4" />
                       </div>
                     </Link>
@@ -128,7 +128,7 @@ export default function ExpertisePage() {
               </div>
             ) : (
               <div className="text-center py-20">
-                <p className="font-paragraph text-lg text-foreground/60">
+                <p className="font-paragraph text-lg text-optional-navy/60">
                   No expertise areas found for this filter
                 </p>
               </div>
@@ -146,15 +146,15 @@ export default function ExpertisePage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="font-heading text-5xl md:text-6xl text-foreground mb-8">
+            <h2 className="font-heading text-5xl md:text-6xl text-background mb-8">
               Need Expert Legal Guidance?
             </h2>
-            <p className="font-paragraph text-xl text-foreground/80 mb-12 max-w-3xl mx-auto">
+            <p className="font-paragraph text-xl text-background/80 mb-12 max-w-3xl mx-auto">
               Discuss your legal needs with our experienced team across multiple practice areas
             </p>
             <Link
               to="/consultation"
-              className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-10 py-5 rounded text-lg transition-all hover:scale-105"
+              className="inline-flex items-center gap-2 bg-accent-gold text-optional-navy font-paragraph font-semibold px-10 py-5 rounded-lg text-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
               Schedule Consultation <ArrowRight className="w-6 h-6" />
             </Link>

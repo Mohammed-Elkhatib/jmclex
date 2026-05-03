@@ -66,7 +66,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-heading text-6xl md:text-7xl text-foreground mb-8"
+            className="font-heading text-6xl md:text-7xl text-optional-navy mb-8"
           >
             Contact Us
           </motion.h1>
@@ -75,7 +75,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
+            className="font-paragraph text-xl md:text-2xl text-optional-navy/90 max-w-4xl mx-auto"
           >
             Get in touch with our international legal team
           </motion.p>
@@ -94,10 +94,10 @@ export default function ContactPage() {
               className="text-center"
             >
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
-                <Phone className="w-8 h-8 text-secondary-foreground" />
+                <Phone className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-foreground mb-4">Phone</h3>
-              <a href="tel:+9611234567" className="font-paragraph text-base text-foreground/80 hover:text-accent-gold transition-colors">
+              <h3 className="font-heading text-2xl text-optional-navy mb-4">Phone</h3>
+              <a href="tel:+9611234567" className="font-paragraph text-base text-optional-navy/80 hover:text-accent-gold transition-colors duration-300">
                 +961 1 234 567
               </a>
             </motion.div>
@@ -110,10 +110,10 @@ export default function ContactPage() {
               className="text-center"
             >
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
-                <Mail className="w-8 h-8 text-secondary-foreground" />
+                <Mail className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-foreground mb-4">Email</h3>
-              <a href="mailto:contact@jmclegal.com" className="font-paragraph text-base text-foreground/80 hover:text-accent-gold transition-colors">
+              <h3 className="font-heading text-2xl text-optional-navy mb-4">Email</h3>
+              <a href="mailto:contact@jmclegal.com" className="font-paragraph text-base text-optional-navy/80 hover:text-accent-gold transition-colors duration-300">
                 contact@jmclegal.com
               </a>
             </motion.div>
@@ -126,10 +126,10 @@ export default function ContactPage() {
               className="text-center"
             >
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-8 h-8 text-secondary-foreground" />
+                <MapPin className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-foreground mb-4">Offices</h3>
-              <p className="font-paragraph text-base text-foreground/80">
+              <h3 className="font-heading text-2xl text-optional-navy mb-4">Offices</h3>
+              <p className="font-paragraph text-base text-optional-navy/80">
                 Lebanon • France • UAE • Saudi Arabia
               </p>
             </motion.div>
@@ -148,19 +148,19 @@ export default function ContactPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-heading text-4xl text-foreground mb-8">
+              <h2 className="font-heading text-4xl text-optional-navy mb-8">
                 Send Us a Message
               </h2>
 
               {submitSuccess ? (
-                <div className="bg-optional-navy p-8 rounded">
+                <div className="bg-optional-navy p-8 rounded-lg">
                   <h3 className="font-heading text-2xl text-accent-gold mb-4">Message Sent!</h3>
-                  <p className="font-paragraph text-base text-foreground/90 mb-6">
+                  <p className="font-paragraph text-base text-background/90 mb-6">
                     Thank you for contacting JMC LEGAL. We will respond to your inquiry within 24 hours.
                   </p>
                   <Button
                     onClick={() => setSubmitSuccess(false)}
-                    className="bg-accent-gold text-secondary-foreground hover:bg-accent-gold/90"
+                    className="bg-accent-gold text-optional-navy hover:bg-accent-gold/90 rounded-lg transition-all duration-300"
                   >
                     Send Another Message
                   </Button>
@@ -168,7 +168,7 @@ export default function ContactPage() {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
                       Full Name *
                     </label>
                     <Input
@@ -176,13 +176,13 @@ export default function ContactPage() {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
                       placeholder="Your full name"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
                       Email Address *
                     </label>
                     <Input
@@ -190,26 +190,26 @@ export default function ContactPage() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
                       placeholder="your.email@example.com"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
                       Phone Number
                     </label>
                     <Input
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
                       placeholder="+1 234 567 8900"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
                       Subject *
                     </label>
                     <Input
@@ -217,20 +217,20 @@ export default function ContactPage() {
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20"
+                      className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
                       placeholder="How can we help you?"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy mb-2 block">
                       Message *
                     </label>
                     <Textarea
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="bg-optional-navy text-foreground border-foreground/20 min-h-[200px]"
+                      className="bg-secondary text-optional-navy border-optional-navy/20 min-h-[200px] rounded-lg transition-all duration-300"
                       placeholder="Please provide details about your inquiry..."
                     />
                   </div>
@@ -238,7 +238,7 @@ export default function ContactPage() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-accent-gold text-secondary-foreground hover:bg-accent-gold/90 py-6 text-lg font-semibold"
+                    className="w-full bg-accent-gold text-optional-navy hover:bg-accent-gold/90 py-6 text-lg font-semibold rounded-lg transition-all duration-300 hover:shadow-lg"
                   >
                     {isSubmitting ? 'Sending...' : 'Send Message'}
                   </Button>
@@ -254,7 +254,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <div className="relative h-[400px] rounded overflow-hidden">
+              <div className="relative h-[400px] rounded-lg overflow-hidden">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_7c16727d91f3457b8a46ff70d1e76a06~mv2.png?originWidth=768&originHeight=384"
                   alt="Office locations map"
@@ -263,13 +263,13 @@ export default function ContactPage() {
                 <div className="absolute inset-0 flex items-center justify-center bg-background/40">
                   <div className="text-center">
                     <MapPin className="w-12 h-12 text-accent-gold mx-auto mb-4" />
-                    <p className="font-heading text-2xl text-foreground">Our Global Offices</p>
+                    <p className="font-heading text-2xl text-optional-navy">Our Global Offices</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-optional-navy p-8 rounded">
-                <h3 className="font-heading text-2xl text-foreground mb-6">Office Locations</h3>
+              <div className="bg-optional-navy p-8 rounded-lg">
+                <h3 className="font-heading text-2xl text-background mb-6">Office Locations</h3>
                 <div className="space-y-6">
                   {[
                     { country: 'Lebanon', cities: 'Beirut, Bekaa, Mount Lebanon' },
@@ -280,20 +280,20 @@ export default function ContactPage() {
                     <div key={location.country} className="flex items-start gap-3">
                       <MapPin className="w-5 h-5 text-accent-gold flex-shrink-0 mt-1" />
                       <div>
-                        <p className="font-paragraph text-base text-foreground font-medium">{location.country}</p>
-                        <p className="font-paragraph text-sm text-foreground/70">{location.cities}</p>
+                        <p className="font-paragraph text-base text-background font-medium">{location.country}</p>
+                        <p className="font-paragraph text-sm text-background/70">{location.cities}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-optional-navy p-8 rounded">
-                <h3 className="font-heading text-2xl text-foreground mb-4">Business Hours</h3>
-                <p className="font-paragraph text-base text-foreground/80 mb-4">
+              <div className="bg-optional-navy p-8 rounded-lg">
+                <h3 className="font-heading text-2xl text-background mb-4">Business Hours</h3>
+                <p className="font-paragraph text-base text-background/80 mb-4">
                   Monday - Friday: 9:00 AM - 6:00 PM
                 </p>
-                <p className="font-paragraph text-sm text-foreground/60">
+                <p className="font-paragraph text-sm text-background/60">
                   Emergency consultations available by appointment
                 </p>
               </div>
