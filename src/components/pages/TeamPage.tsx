@@ -8,8 +8,12 @@ import { TeamMembers } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+interface TeamMembersWithRegion extends TeamMembers {
+  region?: string;
+}
+
 export default function TeamPage() {
-  const [team, setTeam] = useState<TeamMembers[]>([]);
+  const [team, setTeam] = useState<TeamMembersWithRegion[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<string>('all');
 
@@ -19,7 +23,7 @@ export default function TeamPage() {
 
   const loadTeam = async () => {
     try {
-      const result = await BaseCrudService.getAll<TeamMembers>('teammembers');
+      const result = await BaseCrudService.getAll<TeamMembersWithRegion>('teammembers');
       setTeam(result.items);
     } catch (error) {
       console.error('Error loading team:', error);
@@ -28,9 +32,16 @@ export default function TeamPage() {
     }
   };
 
+  const regions = ['Lebanon', 'France', 'UAE', 'Saudi Arabia', 'Europe'];
+  
   const filteredTeam = filter === 'all' 
     ? team 
-    : team.filter(member => member.role?.toLowerCase().includes(filter.toLowerCase()));
+    : team.filter(member => {
+        if (regions.includes(filter)) {
+          return member.region === filter;
+        }
+        return member.role?.toLowerCase().includes(filter.toLowerCase());
+      });
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,7 +83,7 @@ export default function TeamPage() {
       <section className="w-full bg-optional-navy py-12">
         <div className="max-w-[100rem] mx-auto px-8">
           <div className="flex flex-wrap gap-4 justify-center">
-            {['all', 'founder', 'partner', 'associate', 'counsel'].map((filterOption) => (
+            {['all', ...regions, 'founder', 'partner', 'associate', 'counsel'].map((filterOption) => (
               <button
                 key={filterOption}
                 onClick={() => setFilter(filterOption)}

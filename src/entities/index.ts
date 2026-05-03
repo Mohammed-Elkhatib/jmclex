@@ -196,6 +196,8 @@ export interface TeamMembers {
   /** @wixFieldType text */
   name?: string;
   /** @wixFieldType text */
+  region?: string;
+  /** @wixFieldType text */
   role?: string;
   /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
   photo?: string;
