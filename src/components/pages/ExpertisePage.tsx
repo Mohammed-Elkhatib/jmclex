@@ -30,7 +30,11 @@ export default function ExpertisePage() {
 
   const filteredExpertise = filter === 'all' 
     ? expertise 
-    : expertise.filter(item => item.practiceAreaName?.toLowerCase().includes(filter.toLowerCase()));
+    : expertise.filter(item => {
+        const name = item.practiceAreaName?.toLowerCase() || '';
+        const filterLower = filter.toLowerCase();
+        return name.includes(filterLower);
+      });
 
   return (
     <div className="min-h-screen bg-background">
