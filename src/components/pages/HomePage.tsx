@@ -400,7 +400,7 @@ export default function HomePage() {
             >
               <div className="relative h-[500px] overflow-hidden rounded-lg mb-8 group">
                 <Image
-                  src="https://static.wixstatic.com/media/5e1235_d451c70d91b640f2815e1aa2a149c445~mv2.jpg"
+                  src="https://static.wixstatic.com/media/5e1235_8ccced5019da4821b2c124bf7919b832~mv2.jpg"
                   alt="Claude Mcheik, Founder"
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                 />
