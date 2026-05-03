@@ -3,28 +3,32 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Globe, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/integrations';
+import { useLanguageStore } from '@/lib/language-store';
+import { useTranslation } from '@/lib/use-translation';
 import Cart from '@/components/Cart';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('EN');
   const location = useLocation();
   const { itemCount, actions } = useCart();
+  const { language } = useLanguageStore();
+  const { t } = useTranslation();
+  const setLanguage = useLanguageStore((state) => state.setLanguage);
 
-  const languages = ['EN', 'FR', 'AR', 'ES', 'CN', 'HI'];
+  const languages = ['EN', 'FR', 'AR'] as const;
 
   const menuItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Strategic Advisory', path: '/strategic-advisory' },
-    { label: 'High-Stakes Cases', path: '/high-stakes-cases' },
-    { label: 'Expertise', path: '/expertise' },
-    { label: 'Publications', path: '/publications' },
-    { label: 'Training', path: '/training' },
-    { label: 'Jurisprudence', path: '/jurisprudence' },
-    { label: 'Global Presence', path: '/global-presence' },
-    { label: 'Our Team', path: '/team' },
-    { label: 'About', path: '/about' },
-    { label: 'Contact', path: '/contact' }
+    { key: 'nav.home', path: '/' },
+    { key: 'nav.strategic-advisory', path: '/strategic-advisory' },
+    { key: 'nav.high-stakes-cases', path: '/high-stakes-cases' },
+    { key: 'nav.expertise', path: '/expertise' },
+    { key: 'nav.publications', path: '/publications' },
+    { key: 'nav.training', path: '/training' },
+    { key: 'nav.jurisprudence', path: '/jurisprudence' },
+    { key: 'nav.global-presence', path: '/global-presence' },
+    { key: 'nav.team', path: '/team' },
+    { key: 'nav.about', path: '/about' },
+    { key: 'nav.contact', path: '/contact' }
   ];
 
   return (
@@ -50,7 +54,7 @@ export default function Header() {
                     : 'text-optional-navy hover:text-accent-gold'
                 }`}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
           </nav>
@@ -61,8 +65,8 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-optional-navy/60" />
               <select
-                value={currentLanguage}
-                onChange={(e) => setCurrentLanguage(e.target.value)}
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as 'EN' | 'FR' | 'AR')}
                 className="bg-transparent text-optional-navy font-paragraph text-sm border border-optional-navy/20 rounded-lg px-3 py-1 cursor-pointer hover:border-accent-gold transition-colors duration-300"
               >
                 {languages.map((lang) => (
@@ -92,7 +96,7 @@ export default function Header() {
               to="/consultation"
               className="bg-accent-gold text-background font-paragraph font-semibold px-6 py-3 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-105"
             >
-              Book Consultation
+              {t('header.book-consultation')}
             </Link>
           </div>
 
@@ -129,7 +133,7 @@ export default function Header() {
                       : 'text-optional-navy hover:text-accent-gold'
                   }`}
                 >
-                  {item.label}
+                  {t(item.key)}
                 </Link>
               ))}
 
@@ -137,8 +141,8 @@ export default function Header() {
               <div className="flex items-center gap-2 mt-4">
                 <Globe className="w-4 h-4 text-optional-navy/60" />
                 <select
-                  value={currentLanguage}
-                  onChange={(e) => setCurrentLanguage(e.target.value)}
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value as 'EN' | 'FR' | 'AR')}
                   className="bg-transparent text-optional-navy font-paragraph text-sm border border-optional-navy/20 rounded-lg px-3 py-1 cursor-pointer"
                 >
                   {languages.map((lang) => (
@@ -155,7 +159,7 @@ export default function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className="bg-accent-gold text-background font-paragraph font-semibold px-6 py-3 rounded-lg text-center mt-4 transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
-                Book Consultation
+                {t('header.book-consultation')}
               </Link>
 
               {/* Mobile Cart Button */}
@@ -167,7 +171,7 @@ export default function Header() {
                 className="flex items-center justify-center gap-2 bg-transparent text-optional-navy border border-optional-navy/20 font-paragraph font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:bg-secondary mt-2"
               >
                 <ShoppingCart className="w-5 h-5" />
-                Cart {itemCount > 0 && `(${itemCount})`}
+                {t('header.cart')} {itemCount > 0 && `(${itemCount})`}
               </button>
             </nav>
           </motion.div>

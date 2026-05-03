@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
+import { Mail, MapPin, MessageCircle } from 'lucide-react';
+import { useTranslation } from '@/lib/use-translation';
 
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="w-full bg-optional-navy border-t border-optional-navy/20">
       <div className="max-w-[100rem] mx-auto px-8 py-20">
@@ -12,7 +14,7 @@ export default function Footer() {
               JMC <span className="text-accent-gold">LEGAL</span>
             </div>
             <p className="font-paragraph text-sm text-background/70 leading-relaxed mb-6">
-              Strategic & International Law — Lawyers' expertise since the 1990s. Serving clients across Lebanon, France, UAE, and Saudi Arabia.
+              {t('footer.about')}
             </p>
             <div className="flex flex-col gap-4">
               {/* Email */}

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock } from 'lucide-react';
+import { useTranslation } from '@/lib/use-translation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -39,6 +40,7 @@ export default function HomePage() {
   
   const yBg = useTransform(heroScroll, [0, 1], ["0%", "20%"]);
   const opacityBg = useTransform(heroScroll, [0, 1], [0.4, 0]);
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
