@@ -21,20 +21,10 @@ export default function TrainingPage() {
 
   const loadCourses = async () => {
     try {
-      // Add timeout protection - max 5 seconds
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
-      );
-      
-      const result = await Promise.race([
-        BaseCrudService.getAll<TrainingCourses>('trainingcourses'),
-        timeoutPromise
-      ]) as any;
-      
-      setCourses(result?.items || []);
+      const result = await BaseCrudService.getAll<TrainingCourses>('trainingcourses');
+      setCourses(result.items);
     } catch (error) {
       console.error('Error loading courses:', error);
-      setCourses([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }

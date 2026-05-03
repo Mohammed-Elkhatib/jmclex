@@ -17,7 +17,6 @@ import GlobalPresencePage from '@/components/pages/GlobalPresencePage';
 import AboutPage from '@/components/pages/AboutPage';
 import ConsultationPage from '@/components/pages/ConsultationPage';
 import ContactPage from '@/components/pages/ContactPage';
-import LegalSolutionsPage from '@/components/pages/LegalSolutionsPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -97,10 +96,6 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <ContactPage />,
-      },
-      {
-        path: "legal-solutions",
-        element: <LegalSolutionsPage />,
       },
       {
         path: "*",

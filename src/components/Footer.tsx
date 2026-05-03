@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, MessageCircle } from 'lucide-react';
-import { CONTACT_INFO } from '@/lib/contact-constants';
 
 export default function Footer() {
   return (
@@ -17,31 +16,31 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-4">
               {/* Email */}
-              <a href={`mailto:${CONTACT_INFO.email}`} className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300">
+              <a href="mailto:contactjmc@gmail.com" className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300">
                 <Mail className="w-4 h-4" />
-                <span className="font-paragraph text-sm">{CONTACT_INFO.email}</span>
+                <span className="font-paragraph text-sm">contactjmc@gmail.com</span>
               </a>
               
               {/* Lebanon WhatsApp */}
               <a 
-                href={CONTACT_INFO.whatsapp.lebanon.url}
+                href="https://api.whatsapp.com/send?phone=96178873196&text=Hello%20I%20would%20like%20a%20consultation" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span className="font-paragraph text-sm">{CONTACT_INFO.whatsapp.lebanon.phone} ({CONTACT_INFO.whatsapp.lebanon.country})</span>
+                <span className="font-paragraph text-sm">+961 78 873 196 (Lebanon)</span>
               </a>
               
               {/* France WhatsApp */}
               <a 
-                href={CONTACT_INFO.whatsapp.france.url}
+                href="https://api.whatsapp.com/send?phone=33769596922&text=Hello%20I%20would%20like%20a%20consultation" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span className="font-paragraph text-sm">{CONTACT_INFO.whatsapp.france.phone} ({CONTACT_INFO.whatsapp.france.country})</span>
+                <span className="font-paragraph text-sm">+33 7 69 59 69 22 (France)</span>
               </a>
             </div>
           </div>

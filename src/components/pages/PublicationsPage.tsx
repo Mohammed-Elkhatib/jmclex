@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Search, ShoppingCart } from 'lucide-react';
-import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
+import { ArrowRight, Search } from 'lucide-react';
+import { BaseCrudService } from '@/integrations';
 import { Publications } from '@/entities';
 import { Input } from '@/components/ui/input';
 import Header from '@/components/Header';
@@ -14,8 +14,6 @@ export default function PublicationsPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const { addingItemId, actions: cartActions } = useCart();
-  const { currency } = useCurrency();
 
   useEffect(() => {
     loadPublications();
@@ -23,20 +21,10 @@ export default function PublicationsPage() {
 
   const loadPublications = async () => {
     try {
-      // Add timeout protection - max 5 seconds
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
-      );
-      
-      const result = await Promise.race([
-        BaseCrudService.getAll<Publications>('publications'),
-        timeoutPromise
-      ]) as any;
-      
-      setPublications(result?.items || []);
+      const result = await BaseCrudService.getAll<Publications>('publications');
+      setPublications(result.items);
     } catch (error) {
       console.error('Error loading publications:', error);
-      setPublications([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }
@@ -162,33 +150,10 @@ export default function PublicationsPage() {
                       <p className="font-paragraph text-base text-foreground/80 mb-6 leading-relaxed line-clamp-3">
                         {publication.summary}
                       </p>
-                      <div className="flex items-center justify-between">
-                        <div className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all">
-                          Read More <ArrowRight className="w-4 h-4" />
-                        </div>
-                        {publication.price && (
-                          <span className="font-paragraph font-semibold text-accent-gold">
-                            {formatPrice(publication.price, currency ?? DEFAULT_CURRENCY)}
-                          </span>
-                        )}
+                      <div className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all">
+                        Read More <ArrowRight className="w-4 h-4" />
                       </div>
                     </Link>
-                    <motion.button
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
-                      onClick={() => cartActions.addToCart({ 
-                        collectionId: 'publications', 
-                        itemId: publication._id,
-                        quantity: 1
-                      })}
-                      disabled={addingItemId === publication._id}
-                      className="w-full mt-6 inline-flex items-center justify-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-3 rounded transition-all hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                      <ShoppingCart className="w-4 h-4" />
-                      {addingItemId === publication._id ? 'Adding...' : 'Add to Cart'}
-                    </motion.button>
                   </motion.div>
                 ))}
               </div>

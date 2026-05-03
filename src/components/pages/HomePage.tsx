@@ -1,12 +1,11 @@
-// HPI 1.7-G - Phase 1 Professional Upgrade
+// HPI 1.7-G
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock, ChevronDown, Globe as GlobeIcon, CheckCircle2, Zap, Eye } from 'lucide-react';
+import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Head } from '@/components/Head';
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
@@ -31,30 +30,6 @@ const PUBLICATIONS = [
   { title: 'Cross-Border M&A Trends', category: 'Corporate Law', date: 'August 2023' }
 ];
 
-// Phase 1: Key Service Pillars (replacing floating dots)
-const SERVICE_PILLARS = [
-  {
-    icon: GlobeIcon,
-    title: 'International Coverage',
-    description: 'Seamless legal representation across Europe, Middle East, and beyond with local expertise in every jurisdiction.'
-  },
-  {
-    icon: CheckCircle2,
-    title: 'Risk Protection & Compliance',
-    description: 'Comprehensive compliance frameworks and risk mitigation strategies for complex regulatory environments.'
-  },
-  {
-    icon: Zap,
-    title: 'Strategic Responsiveness',
-    description: 'Rapid, decisive action on high-stakes matters with 24/7 availability across multiple time zones.'
-  },
-  {
-    icon: Eye,
-    title: 'Confidential Advisory',
-    description: 'Absolute discretion and attorney-client privilege protecting your most sensitive legal matters.'
-  }
-];
-
 export default function HomePage() {
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: heroScroll } = useScroll({
@@ -67,18 +42,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
-      <Head 
-        title="International Legal Advisory & Cross-Border Strategy | JMCLEX"
-        description="Premier international law firm specializing in cross-border legal strategy, corporate law, litigation, and compliance. Expert counsel for complex multi-jurisdictional matters."
-        keywords="international law, cross-border legal services, corporate law, litigation, legal advisory, compliance, international contracts, M&A, sanctions compliance"
-        ogTitle="International Legal Advisory & Cross-Border Strategy | JMCLEX"
-        ogDescription="Expert international legal advisory and cross-border strategy for complex multi-jurisdictional matters."
-        canonical="https://jmclex.com"
-      />
       <Header />
       
-      {/* 1. HERO SECTION - Full Bleed, Cinematic - Phase 1 Upgrade */}
-      <section ref={heroRef} className="relative w-full h-[100svh] flex items-center justify-center overflow-hidden pt-24">
+      {/* 1. HERO SECTION - Full Bleed, Cinematic */}
+      <section ref={heroRef} className="relative w-full h-[100svh] flex items-center justify-center overflow-hidden">
         <motion.div 
           style={{ y: yBg, opacity: opacityBg }}
           className="absolute inset-0 z-0"
@@ -90,16 +57,16 @@ export default function HomePage() {
           />
         </motion.div>
         
-        {/* Enhanced Gradient Overlays for Better Contrast */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/45 via-background/65 to-background"></div>
-        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_15%,#0A1F2F_95%)] opacity-75"></div>
+        {/* Gradient Overlays for Depth */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/30 via-background/50 to-background"></div>
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,#0A1F2F_100%)] opacity-60"></div>
         
-        <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 md:px-12 flex flex-col items-center text-center">
+        <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 md:px-12 flex flex-col items-center text-center mt-20">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-3 px-4 py-2 border border-accent-gold/40 rounded-full mb-6 backdrop-blur-md bg-background/20"
+            className="inline-flex items-center gap-3 px-4 py-2 border border-accent-gold/40 rounded-full mb-8 backdrop-blur-md bg-background/20"
           >
             <span className="w-2 h-2 rounded-full bg-accent-gold animate-pulse"></span>
             <span className="font-paragraph text-xs tracking-[0.2em] uppercase text-accent-gold">Expertise Since 1990 • Global Presence</span>
@@ -109,7 +76,7 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] text-background mb-6 max-w-5xl text-balance"
+            className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
           >
             International Legal Strategy <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold to-accent-gold/70 italic font-light">
@@ -117,13 +84,11 @@ export default function HomePage() {
             </span>
           </motion.h1>
           
-          <h2 className="sr-only">Expert Cross-Border Legal Solutions for International Clients</h2>
-           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-paragraph text-base md:text-lg text-background/90 mb-10 max-w-3xl mx-auto font-light tracking-wide"
+            className="font-paragraph text-lg md:text-2xl text-background/80 mb-12 max-w-3xl mx-auto font-light tracking-wide"
           >
             Navigating complex legal environments. Delivering strategic solutions across jurisdictions for the world's most demanding clients.
           </motion.p>
@@ -132,11 +97,11 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row gap-5 justify-center items-center w-full sm:w-auto"
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full sm:w-auto"
           >
             <Link
               to="/consultation"
-              className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-4 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+              className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             >
               <span className="relative z-10">Book Consultation</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
@@ -144,38 +109,33 @@ export default function HomePage() {
             </Link>
             <Link
               to="/expertise"
-              className="w-full sm:w-auto flex items-center justify-center px-10 py-4 rounded-lg border border-background/30 font-paragraph font-medium text-background transition-all duration-300 hover:border-accent-gold hover:text-accent-gold hover:bg-background/10"
+              className="w-full sm:w-auto flex items-center justify-center px-10 py-5 rounded-lg border border-background/30 font-paragraph font-medium text-background transition-all duration-300 hover:border-accent-gold hover:text-accent-gold hover:bg-background/10"
             >
               Explore Expertise
             </Link>
           </motion.div>
         </div>
 
-        {/* Scroll Indicator - Animated Arrow (Clickable) */}
-        <motion.button
-          onClick={() => {
-            const nextSection = document.querySelector('section:nth-of-type(2)');
-            nextSection?.scrollIntoView({ behavior: 'smooth' });
-          }}
+        {/* Scroll Indicator */}
+        <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer group"
-          aria-label="Scroll to next section"
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20"
         >
-          <span className="font-paragraph text-xs tracking-widest text-background/70 uppercase group-hover:text-background/90 transition-colors">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="text-background/70 group-hover:text-accent-gold transition-colors"
-          >
-            <ChevronDown className="w-6 h-6" />
-          </motion.div>
-        </motion.button>
+          <span className="font-paragraph text-xs tracking-widest text-background/60 uppercase">Scroll to explore</span>
+          <div className="w-[1px] h-16 bg-background/30 overflow-hidden">
+            <motion.div 
+              animate={{ y: ["-100%", "100%"] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+              className="w-full h-1/2 bg-accent-gold"
+            />
+          </div>
+        </motion.div>
       </section>
 
       {/* 2. INTRO & KEY FIGURES - Architectural Layout */}
-      <section className="relative w-full bg-background pt-40 pb-24 border-t border-optional-navy/10">
+      <section className="relative w-full bg-background pt-32 pb-20 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
@@ -241,49 +201,6 @@ export default function HomePage() {
               </motion.div>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* 2.5 SERVICE PILLARS - Phase 1 Addition (replacing floating dots) */}
-      <section className="relative w-full bg-background py-32">
-        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-20"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl text-optional-navy mb-6">
-              Why Choose JMC Legal
-            </h2>
-            <p className="font-paragraph text-xl text-optional-navy/70 font-light max-w-2xl mx-auto">
-              Strategic advantages that set us apart in international legal practice.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {SERVICE_PILLARS.map((pillar, index) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="group bg-secondary rounded-lg p-8 hover:bg-accent-gold/10 transition-colors duration-300"
-              >
-                <div className="w-12 h-12 bg-accent-gold/20 rounded-lg flex items-center justify-center mb-6 group-hover:bg-accent-gold/30 transition-colors">
-                  <pillar.icon className="w-6 h-6 text-accent-gold" />
-                </div>
-                <h3 className="font-heading text-xl text-optional-navy mb-4">
-                  {pillar.title}
-                </h3>
-                <p className="font-paragraph text-sm text-optional-navy/70 leading-relaxed">
-                  {pillar.description}
-                </p>
-              </motion.div>
-            ))}
           </div>
         </div>
       </section>
