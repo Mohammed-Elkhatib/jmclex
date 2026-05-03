@@ -244,11 +244,15 @@ export default function HomePage() {
                 </div>
                 
                 <h2 className="font-heading text-4xl md:text-6xl text-optional-navy mb-10 leading-[1.1]">
-                  Serving Our Clients <br/>Worldwide
+                  Global Clients & <br/>Lebanese Diaspora
                 </h2>
                 
                 <p className="font-paragraph text-xl text-optional-navy/80 mb-12 font-light leading-relaxed">
-                  We provide comprehensive legal services to Lebanese clients across the globe. Whether you require representation, litigation support, or strategic advisory, our international framework ensures your interests are protected across all jurisdictions.
+                  We provide comprehensive legal services to Lebanese clients worldwide, as well as to international individuals and businesses of all nationalities who have legal matters, disputes, or interests to manage in Lebanon.
+                  <br/><br/>
+                  Whether you require legal representation, litigation support, corporate structuring, or strategic advisory, our international approach ensures that your rights and interests are protected and efficiently handled across jurisdictions.
+                  <br/><br/>
+                  With a deep understanding of cross-border legal environments, we assist our clients in navigating complex procedures in Lebanon with precision, professionalism, and absolute confidentiality.
                 </p>
                 
                 {/* Arabic Text Block - Exact Match Required */}
