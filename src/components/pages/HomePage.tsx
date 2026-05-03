@@ -22,7 +22,7 @@ const EXPERTISE_AREAS = [
 
 const GLOBAL_LOCATIONS = [
   { region: 'Europe', cities: ['Strasbourg'] },
-  { region: 'Middle East', cities: ['Beirut', 'Bekaa'] }
+  { region: 'Middle East', cities: ['Beirut'] }
 ];
 
 const PUBLICATIONS = [
