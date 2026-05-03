@@ -7,7 +7,6 @@ import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileT
 import { useTranslation } from '@/lib/use-translation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import InternationalSymbols3D from '@/components/InternationalSymbols3D';
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
@@ -142,9 +141,6 @@ export default function HomePage() {
           </div>
         </motion.div>
       </section>
-
-      {/* 1.5. INTERNATIONAL SYMBOLS 3D - Premium Interactive Strip */}
-      <InternationalSymbols3D />
 
       {/* 2. INTRO & KEY FIGURES - Architectural Layout */}
       <section className="relative w-full bg-background pt-32 pb-20 border-t border-optional-navy/10">
