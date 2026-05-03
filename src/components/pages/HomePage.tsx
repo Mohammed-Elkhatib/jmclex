@@ -111,7 +111,7 @@ export default function HomePage() {
               to="/consultation"
               className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             >
-              <span className="relative z-10">Book a Consultation</span>
+              <span className="relative z-10">{t('hero.standard-consultation')}</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </Link>
@@ -119,7 +119,7 @@ export default function HomePage() {
               to="/consultation?type=emergency"
               className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border-2 border-accent-gold/50"
             >
-              <span className="relative z-10">Request Emergency Legal Assistance</span>
+              <span className="relative z-10">{t('hero.emergency-consultation')}</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </Link>
@@ -370,7 +370,88 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. EXPERTISE - Interactive Grid */}
+      {/* 3.7. CO-FOUNDER SECTION - Premium Profile */}
+      <section className="relative w-full bg-secondary py-32">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="font-heading text-4xl md:text-5xl text-optional-navy mb-4">
+              {t('cofounder.title')}
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            {/* Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="relative h-[600px] overflow-hidden rounded-lg"
+            >
+              <Image
+                src="https://static.wixstatic.com/media/5e1235_a82d059b574f4d67bdf7622e53d1c6d7~mv2.png?originWidth=576&originHeight=768"
+                alt="Me Antoine Y. S., Co-Founder"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
+            </motion.div>
+
+            {/* Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col justify-center"
+            >
+              <div className="inline-flex items-center gap-3 mb-6">
+                <span className="w-8 h-[1px] bg-accent-gold"></span>
+                <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Leadership</span>
+              </div>
+
+              <h3 className="font-heading text-3xl md:text-4xl text-optional-navy mb-2">
+                {t('cofounder.name')}
+              </h3>
+              <p className="font-paragraph text-lg text-accent-gold mb-8 font-medium">
+                {t('cofounder.role')}
+              </p>
+
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
+                {t('cofounder.bio')}
+              </p>
+
+              <div className="flex flex-col gap-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
+                  <p className="font-paragraph text-sm text-optional-navy/70">
+                    Decades of expertise in international law and cross-border transactions
+                  </p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
+                  <p className="font-paragraph text-sm text-optional-navy/70">
+                    Strategic advisor to multinational corporations and high-net-worth individuals
+                  </p>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
+                  <p className="font-paragraph text-sm text-optional-navy/70">
+                    Committed to delivering excellence and precision in every engagement
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ... keep existing code (4. EXPERTISE section and beyond) ... */}
       <section className="relative w-full bg-optional-navy py-32 border-y border-optional-navy/20">
         <div className="absolute inset-0 bg-[url('https://static.wixstatic.com/media/5e1235_329fa4ac6722408180b48c3f3e106a0a~mv2.png?originWidth=1152&originHeight=768')] opacity-5 mix-blend-overlay object-cover"></div>
         

@@ -109,7 +109,7 @@ export default function ConsultationPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-heading text-6xl md:text-7xl text-foreground mb-8"
+            className="font-heading text-6xl md:text-7xl text-optional-navy mb-8"
           >
             Book Your Consultation
           </motion.h1>
@@ -118,7 +118,7 @@ export default function ConsultationPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto mb-8"
+            className="font-paragraph text-xl md:text-2xl text-optional-navy/90 max-w-4xl mx-auto mb-8"
           >
             Strategic legal consultation with our international team
           </motion.p>
@@ -127,7 +127,7 @@ export default function ConsultationPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="inline-block bg-accent-gold text-secondary-foreground px-8 py-4 rounded"
+            className="inline-block bg-accent-gold text-background px-8 py-4 rounded-lg"
           >
             <span className="font-heading text-4xl">{formatPrice(consultationPrice, currency ?? DEFAULT_CURRENCY)}</span>
           </motion.div>
@@ -137,7 +137,7 @@ export default function ConsultationPage() {
       {/* Consultation Type Selection */}
       <section className="w-full bg-optional-navy py-20">
         <div className="max-w-[100rem] mx-auto px-8">
-          <h2 className="font-heading text-3xl text-foreground text-center mb-12">Choose Your Consultation Type</h2>
+          <h2 className="font-heading text-3xl text-background text-center mb-12">Choose Your Consultation Type</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Standard Consultation */}
             <motion.button
@@ -146,10 +146,10 @@ export default function ConsultationPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               onClick={() => setConsultationType('standard')}
-              className={`p-8 rounded transition-all ${
+              className={`p-8 rounded-lg transition-all ${
                 consultationType === 'standard'
-                  ? 'bg-accent-gold text-secondary-foreground ring-2 ring-accent-gold'
-                  : 'bg-background text-foreground border border-foreground/20 hover:border-accent-gold'
+                  ? 'bg-accent-gold text-background ring-2 ring-accent-gold'
+                  : 'bg-background text-optional-navy border border-optional-navy/20 hover:border-accent-gold'
               }`}
             >
               <h3 className="font-heading text-2xl mb-4">Book a Consultation</h3>
@@ -166,13 +166,13 @@ export default function ConsultationPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.1 }}
               onClick={() => setConsultationType('emergency')}
-              className={`p-8 rounded transition-all relative ${
+              className={`p-8 rounded-lg transition-all relative ${
                 consultationType === 'emergency'
-                  ? 'bg-accent-gold text-secondary-foreground ring-2 ring-accent-gold'
-                  : 'bg-background text-foreground border border-foreground/20 hover:border-accent-gold'
+                  ? 'bg-accent-gold text-background ring-2 ring-accent-gold'
+                  : 'bg-background text-optional-navy border border-optional-navy/20 hover:border-accent-gold'
               }`}
             >
-              <div className="absolute -top-3 right-6 bg-accent-gold text-secondary-foreground px-4 py-1 rounded-full text-xs font-paragraph font-semibold">
+              <div className="absolute -top-3 right-6 bg-accent-gold text-background px-4 py-1 rounded-full text-xs font-paragraph font-semibold">
                 Priority
               </div>
               <div className="flex items-center gap-2 mb-4">
@@ -194,7 +194,7 @@ export default function ConsultationPage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               { icon: Video, title: 'Video Consultation', description: 'Secure video conferencing available' },
-              { icon: Globe, title: 'Multilingual', description: 'Available in EN, FR, AR' },
+              { icon: Globe, title: 'Multilingual', description: 'Available in EN, FR, AR, ZH' },
               { icon: Shield, title: 'Confidential', description: 'Attorney-client privilege applies' },
               { icon: Clock, title: 'Flexible Scheduling', description: 'Choose your preferred time' }
             ].map((feature, index) => (
@@ -207,8 +207,8 @@ export default function ConsultationPage() {
                 className="text-center"
               >
                 <feature.icon className="w-12 h-12 text-accent-gold mx-auto mb-4" />
-                <h3 className="font-heading text-lg text-foreground mb-2">{feature.title}</h3>
-                <p className="font-paragraph text-sm text-foreground/70">{feature.description}</p>
+                <h3 className="font-heading text-lg text-background mb-2">{feature.title}</h3>
+                <p className="font-paragraph text-sm text-background/70">{feature.description}</p>
               </motion.div>
             ))}
           </div>
@@ -226,34 +226,34 @@ export default function ConsultationPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-heading text-4xl text-foreground mb-8">
+              <h2 className="font-heading text-4xl text-optional-navy mb-8">
                 Schedule Your {consultationType === 'emergency' ? 'Emergency ' : ''}Consultation
               </h2>
 
               {submitSuccess ? (
-                <div className="bg-secondary p-8 rounded border border-accent-gold/30">
+                <div className="bg-secondary p-8 rounded-lg border border-accent-gold/30">
                   <h3 className="font-heading text-2xl text-accent-gold mb-4">Request Submitted!</h3>
-                  <p className="font-paragraph text-base text-foreground/90 mb-6">
+                  <p className="font-paragraph text-base text-optional-navy/90 mb-6">
                     Thank you for your consultation request. Our team will contact you within 24 hours to confirm your appointment and provide payment instructions.
                   </p>
                   <Button
                     onClick={() => setSubmitSuccess(false)}
-                    className="bg-accent-gold text-secondary-foreground hover:bg-accent-gold/90"
+                    className="bg-accent-gold text-background hover:bg-accent-gold/90"
                   >
                     Submit Another Request
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded border border-foreground/10">
+                <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg border border-optional-navy/10 shadow-sm">
                   {consultationType === 'emergency' && (
-                    <div className="bg-accent-gold/10 border border-accent-gold/30 p-4 rounded">
-                      <p className="font-paragraph text-sm text-foreground font-medium">
+                    <div className="bg-accent-gold/10 border border-accent-gold/30 p-4 rounded-lg">
+                      <p className="font-paragraph text-sm text-optional-navy font-medium">
                         <span className="text-accent-gold font-semibold">Priority Request:</span> Your consultation has been marked as urgent and will receive expedited handling.
                       </p>
                     </div>
                   )}
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                       Full Name *
                     </label>
                     <Input
@@ -261,13 +261,13 @@ export default function ConsultationPage() {
                       required
                       value={formData.clientName}
                       onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                      className="bg-white text-foreground border border-foreground/20 placeholder:text-foreground/40"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
                       placeholder="Your full name"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                       Email Address *
                     </label>
                     <Input
@@ -275,13 +275,13 @@ export default function ConsultationPage() {
                       required
                       value={formData.clientEmail}
                       onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
-                      className="bg-white text-foreground border border-foreground/20 placeholder:text-foreground/40"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
                       placeholder="your.email@example.com"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                       Phone Number *
                     </label>
                     <Input
@@ -289,29 +289,30 @@ export default function ConsultationPage() {
                       required
                       value={formData.clientPhone}
                       onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
-                      className="bg-white text-foreground border border-foreground/20 placeholder:text-foreground/40"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
                       placeholder="+1 234 567 8900"
                     />
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                       Preferred Language
                     </label>
                     <select
                       value={formData.language}
                       onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-                      className="w-full bg-white text-foreground border border-foreground/20 rounded px-4 py-3 font-paragraph"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 font-paragraph focus:border-accent-gold focus:outline-none transition-colors"
                     >
                       <option value="EN">English</option>
                       <option value="FR">French</option>
                       <option value="AR">Arabic</option>
+                      <option value="ZH">Mandarin Chinese</option>
                     </select>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="font-paragraph text-sm text-foreground mb-2 block">
+                      <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                         Preferred Date *
                       </label>
                       <Input
@@ -319,12 +320,12 @@ export default function ConsultationPage() {
                         required
                         value={formData.preferredDate}
                         onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="bg-white text-foreground border border-foreground/20"
+                        className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 focus:border-accent-gold focus:outline-none transition-colors"
                       />
                     </div>
 
                     <div>
-                      <label className="font-paragraph text-sm text-foreground mb-2 block">
+                      <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                         Preferred Time *
                       </label>
                       <Input
@@ -332,20 +333,20 @@ export default function ConsultationPage() {
                         required
                         value={formData.preferredTime}
                         onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                        className="bg-white text-foreground border border-foreground/20"
+                        className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 focus:border-accent-gold focus:outline-none transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="font-paragraph text-sm text-foreground mb-2 block">
+                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
                       Case Details *
                     </label>
                     <Textarea
                       required
                       value={formData.caseDetails}
                       onChange={(e) => setFormData({ ...formData, caseDetails: e.target.value })}
-                      className="bg-white text-foreground border border-foreground/20 min-h-[150px] placeholder:text-foreground/40"
+                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 min-h-[150px] placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
                       placeholder="Please provide a brief description of your legal matter..."
                     />
                   </div>
@@ -353,12 +354,12 @@ export default function ConsultationPage() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-accent-gold text-secondary-foreground hover:bg-accent-gold/90 py-6 text-lg font-semibold"
+                    className="w-full bg-accent-gold text-background hover:bg-accent-gold/90 py-6 text-lg font-semibold rounded-lg"
                   >
                     {isSubmitting ? 'Submitting...' : 'Submit Consultation Request'}
                   </Button>
 
-                  <p className="font-paragraph text-xs text-foreground/60 text-center">
+                  <p className="font-paragraph text-xs text-optional-navy/60 text-center">
                     Payment instructions will be provided after confirmation. All consultations are subject to attorney-client privilege.
                   </p>
                 </form>
@@ -373,8 +374,8 @@ export default function ConsultationPage() {
               transition={{ duration: 0.8 }}
               className="space-y-8"
             >
-              <div className="bg-secondary p-8 rounded border border-accent-gold/30">
-                <h3 className="font-heading text-2xl text-foreground mb-6">What to Expect</h3>
+              <div className="bg-secondary p-8 rounded-lg border border-accent-gold/30">
+                <h3 className="font-heading text-2xl text-optional-navy mb-6">What to Expect</h3>
                 <ul className="space-y-4">
                   {[
                     'Confirmation within 24 hours',
@@ -386,27 +387,27 @@ export default function ConsultationPage() {
                   ].map((item, index) => (
                     <li key={index} className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="font-paragraph text-base text-foreground/90">{item}</span>
+                      <span className="font-paragraph text-base text-optional-navy/90">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="bg-secondary p-8 rounded border border-accent-gold/30">
-                <h3 className="font-heading text-2xl text-foreground mb-4">Quick Purchase</h3>
-                <p className="font-paragraph text-base text-foreground/80 mb-6">
+              <div className="bg-secondary p-8 rounded-lg border border-accent-gold/30">
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">Quick Purchase</h3>
+                <p className="font-paragraph text-base text-optional-navy/80 mb-6">
                   Add consultation to cart and complete booking details during checkout.
                 </p>
                 <button
                   onClick={handleAddToCart}
                   disabled={addingItemId !== null}
-                  className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105 disabled:opacity-50"
+                  className="w-full bg-accent-gold text-background font-paragraph font-semibold px-6 py-4 rounded-lg transition-all hover:scale-105 disabled:opacity-50"
                 >
                   {addingItemId ? 'Adding...' : 'Add to Cart'}
                 </button>
               </div>
 
-              <div className="relative h-[300px] rounded overflow-hidden">
+              <div className="relative h-[300px] rounded-lg overflow-hidden">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_7ba2916ffc2048a0ac5ced6085a7c1cf~mv2.png?originWidth=448&originHeight=256"
                   alt="Legal consultation"

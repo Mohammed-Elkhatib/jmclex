@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Globe, ShoppingCart } from 'lucide-react';
+import { Menu, X, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/integrations';
 import { useLanguageStore } from '@/lib/language-store';
 import { useTranslation } from '@/lib/use-translation';
 import Cart from '@/components/Cart';
+import type { Language } from '@/lib/language-store';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,7 +16,14 @@ export default function Header() {
   const { t } = useTranslation();
   const setLanguage = useLanguageStore((state) => state.setLanguage);
 
-  const languages = ['EN', 'FR', 'AR'] as const;
+  const languages = ['EN', 'FR', 'AR', 'ZH'] as const;
+  
+  const languageFlags: Record<string, string> = {
+    EN: '🇺🇸',
+    FR: '🇫🇷',
+    AR: '🇸🇦',
+    ZH: '🇨🇳'
+  };
 
   const menuItems = [
     { key: 'nav.home', path: '/' },
@@ -62,19 +70,21 @@ export default function Header() {
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-6">
             {/* Language Switcher */}
-            <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-optional-navy/60" />
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as 'EN' | 'FR' | 'AR')}
-                className="bg-transparent text-optional-navy font-paragraph text-sm border border-optional-navy/20 rounded-lg px-3 py-1 cursor-pointer hover:border-accent-gold transition-colors duration-300"
-              >
-                {languages.map((lang) => (
-                  <option key={lang} value={lang} className="bg-background text-optional-navy">
-                    {lang}
-                  </option>
-                ))}
-              </select>
+            <div className="flex items-center gap-3">
+              {languages.map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang as Language)}
+                  className={`text-lg transition-all duration-300 ${
+                    language === lang
+                      ? 'opacity-100 scale-110'
+                      : 'opacity-60 hover:opacity-100'
+                  }`}
+                  title={lang}
+                >
+                  {languageFlags[lang]}
+                </button>
+              ))}
             </div>
 
             {/* Cart Icon */}
@@ -138,19 +148,24 @@ export default function Header() {
               ))}
 
               {/* Mobile Language Switcher */}
-              <div className="flex items-center gap-2 mt-4">
-                <Globe className="w-4 h-4 text-optional-navy/60" />
-                <select
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value as 'EN' | 'FR' | 'AR')}
-                  className="bg-transparent text-optional-navy font-paragraph text-sm border border-optional-navy/20 rounded-lg px-3 py-1 cursor-pointer"
-                >
-                  {languages.map((lang) => (
-                    <option key={lang} value={lang} className="bg-background text-optional-navy">
-                      {lang}
-                    </option>
-                  ))}
-                </select>
+              <div className="flex items-center gap-3 mt-4">
+                {languages.map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => {
+                      setLanguage(lang as Language);
+                      setIsMenuOpen(false);
+                    }}
+                    className={`text-lg transition-all duration-300 ${
+                      language === lang
+                        ? 'opacity-100 scale-110'
+                        : 'opacity-60 hover:opacity-100'
+                    }`}
+                    title={lang}
+                  >
+                    {languageFlags[lang]}
+                  </button>
+                ))}
               </div>
 
               {/* Mobile CTA */}

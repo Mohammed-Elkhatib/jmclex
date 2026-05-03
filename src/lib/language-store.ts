@@ -3,7 +3,7 @@
 
 import { create } from 'zustand';
 
-export type Language = 'EN' | 'FR' | 'AR';
+export type Language = 'EN' | 'FR' | 'AR' | 'ZH';
 
 interface LanguageStore {
   language: Language;
@@ -20,8 +20,8 @@ const getInitialLanguage = (): Language => {
   if (typeof window === 'undefined') return DEFAULT_LANGUAGE;
   
   const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === 'EN' || stored === 'FR' || stored === 'AR') {
-    return stored;
+  if (stored === 'EN' || stored === 'FR' || stored === 'AR' || stored === 'ZH') {
+    return stored as Language;
   }
   return DEFAULT_LANGUAGE;
 };
