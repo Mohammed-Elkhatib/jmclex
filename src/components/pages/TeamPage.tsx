@@ -24,7 +24,7 @@ export default function TeamPage() {
       bio: 'Claude Mcheik is an attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience and more than 13 years as an attorney at law and senior legal advisor. He has built a cross-border legal career between France and Lebanon, advising companies, entrepreneurs, investors and decision-makers on complex legal, tax, corporate and multi-jurisdictional matters. His work covers international business structuring, M&A, commercial transactions, tax-driven legal analysis, governance, compliance, dispute strategy and high-level advisory across EMEA. Alongside his legal practice, he has taught law in leading universities and business schools and developed a strong research profile, combining academic rigor, strategic thinking and practical legal execution. Fluent in French, English and Arabic, he advises Lebanese diaspora clients, international investors and business leaders seeking to structure, secure and expand their projects across Europe, France, Switzerland, Lebanon and the wider Middle East.',
       additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_8ccced5019da4821b2c124bf7919b832~mv2.jpg',
-      contactEmail: 'contact@jmclegal.com'
+      contactEmail: 'Contact@JMCLex.com'
     },
     {
       _id: 'cofounder-antoine',
@@ -34,7 +34,17 @@ export default function TeamPage() {
       bio: "Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region. His work reflects decades of litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and a highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEGAL, he contributes senior legal wisdom, regional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.",
       additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png',
-      contactEmail: 'contact@jmclegal.com'
+      contactEmail: 'Contact@JMCLex.com'
+    },
+    {
+      _id: 'officemanager-julia',
+      name: 'Julia NAS',
+      role: 'Office Manager',
+      title: 'Office Manager — International Legal Operations',
+      bio: 'Julia NAS is a jurist specialized in international law and training management, with experience across multiple law firms and corporate environments. She has been a key member of JMC LEGAL since 2021, overseeing client relations, internal coordination, and ensuring efficiency, confidentiality, and responsiveness at all levels of the firm.',
+      additionalBio: null,
+      photo: 'https://static.wixstatic.com/media/5e1235_86cc71da96ec4c8cbad0b1ad56f3d853~mv2.jpg',
+      contactEmail: 'Contact@JMCLex.com'
     }
   ];
 
@@ -81,7 +91,7 @@ export default function TeamPage() {
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="min-h-[600px]">
             {isLoading ? null : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
                 {foundersData.map((founder, index) => (
                   <motion.div
                     key={founder._id}

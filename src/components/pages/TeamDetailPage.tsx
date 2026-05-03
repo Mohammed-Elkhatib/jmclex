@@ -15,7 +15,7 @@ export default function TeamDetailPage() {
     expertise: 'International legal strategy and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
     background: 'Claude Mcheik is an international legal strategist, attorney at law, and PhD researcher specializing in cross-border business law, corporate structuring, and high-stakes legal environments. With over a decade of experience across Europe and the Middle East, he advises companies, institutions, and decision-makers on complex legal frameworks, international transactions, and strategic governance. His profile combines academic excellence, legal precision, and business vision, offering clients a unique approach to navigating global legal challenges.',
     photo: 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png',
-    contactEmail: 'contact@jmclegal.com'
+    contactEmail: 'Contact@JMCLex.com'
   };
 
   const member = id === 'founder-claude' ? founderData : null;
