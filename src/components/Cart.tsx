@@ -78,7 +78,7 @@ export default function Cart() {
                             <div className="flex items-center gap-3">
                               <button
                                 onClick={() => actions.updateQuantity(item, Math.max(1, item.quantity - 1))}
-                                className="w-8 h-8 flex items-center justify-center bg-optional-navy text-foreground rounded hover:bg-accent-gold hover:text-secondary-foreground transition-colors"
+                                className="w-8 h-8 flex items-center justify-center bg-background text-foreground rounded hover:bg-accent-gold hover:text-secondary-foreground transition-colors"
                                 aria-label="Decrease quantity"
                               >
                                 <Minus className="w-4 h-4" />
@@ -88,7 +88,7 @@ export default function Cart() {
                               </span>
                               <button
                                 onClick={() => actions.updateQuantity(item, item.quantity + 1)}
-                                className="w-8 h-8 flex items-center justify-center bg-optional-navy text-foreground rounded hover:bg-accent-gold hover:text-secondary-foreground transition-colors"
+                                className="w-8 h-8 flex items-center justify-center bg-background text-foreground rounded hover:bg-accent-gold hover:text-secondary-foreground transition-colors"
                                 aria-label="Increase quantity"
                               >
                                 <Plus className="w-4 h-4" />
