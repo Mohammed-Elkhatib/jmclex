@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock } from 'lucide-react';
+import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock, Calendar } from 'lucide-react';
 import { useTranslation } from '@/lib/use-translation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -426,7 +426,7 @@ export default function HomePage() {
                 {t('cofounder.bio')}
               </p>
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 mb-10">
                 <div className="flex items-start gap-4">
                   <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
                   <p className="font-paragraph text-sm text-optional-navy/70">
@@ -445,6 +445,21 @@ export default function HomePage() {
                     Committed to delivering excellence and precision in every engagement
                   </p>
                 </div>
+              </div>
+
+              {/* CTA Button with Icon */}
+              <div className="flex flex-col items-start gap-3">
+                <Link
+                  to="/consultation"
+                  className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                >
+                  <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                  <span>Book a Consultation</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <p className="font-paragraph text-xs text-optional-navy/60 italic">
+                  Schedule a confidential consultation
+                </p>
               </div>
             </motion.div>
           </div>

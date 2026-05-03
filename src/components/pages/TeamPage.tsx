@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Mail } from 'lucide-react';
+import { ArrowRight, Mail, Calendar } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -113,14 +113,19 @@ export default function TeamPage() {
                           </a>
                         )}
                       </motion.div>
-                      <div className="mt-12">
-                        <Link
-                          to="/consultation"
-                          className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-10 py-5 rounded text-lg transition-all hover:scale-105"
-                        >
-                          Schedule Consultation <ArrowRight className="w-6 h-6" />
-                        </Link>
-                      </div>
+                      <div className="mt-12 flex flex-col items-center gap-3">
+                         <Link
+                           to="/consultation"
+                           className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                         >
+                           <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                           <span>Book a Consultation</span>
+                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                         </Link>
+                         <p className="font-paragraph text-xs text-optional-navy/60 italic">
+                           Schedule a confidential consultation
+                         </p>
+                       </div>
                     </div>
                   </div>
                 </motion.div>
