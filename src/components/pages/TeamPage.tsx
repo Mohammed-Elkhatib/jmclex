@@ -23,7 +23,7 @@ export default function TeamPage() {
       title: 'International Legal Strategist',
       bio: 'Founder. International lawyer with over 35 years of experience. Renowned for strategic legal structuring, cross-border transactions, and high-level advisory. Trusted by corporations and sophisticated clients for precision, discretion, and legal excellence.',
       additionalBio: 'Fluent in French, English, and Arabic. Extensive international experience across Europe and the Middle East.',
-      photo: 'https://static.wixstatic.com/media/5e1235_d451c70d91b640f2815e1aa2a149c445~mv2.jpg',
+      photo: 'https://static.wixstatic.com/media/5e1235_2145011525594167849d001084c4ca39~mv2.jpg',
       contactEmail: 'contact@jmclegal.com'
     },
     {
