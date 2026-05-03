@@ -6,6 +6,7 @@ import { Image } from '@/components/ui/image';
 import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock, ChevronDown, Globe as GlobeIcon, CheckCircle2, Zap, Eye } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Head } from '@/components/Head';
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
@@ -66,6 +67,14 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
+      <Head 
+        title="International Legal Advisory & Cross-Border Strategy | JMCLEX"
+        description="Premier international law firm specializing in cross-border legal strategy, corporate law, litigation, and compliance. Expert counsel for complex multi-jurisdictional matters."
+        keywords="international law, cross-border legal services, corporate law, litigation, legal advisory, compliance, international contracts, M&A, sanctions compliance"
+        ogTitle="International Legal Advisory & Cross-Border Strategy | JMCLEX"
+        ogDescription="Expert international legal advisory and cross-border strategy for complex multi-jurisdictional matters."
+        canonical="https://jmclex.com"
+      />
       <Header />
       
       {/* 1. HERO SECTION - Full Bleed, Cinematic - Phase 1 Upgrade */}
@@ -108,6 +117,8 @@ export default function HomePage() {
             </span>
           </motion.h1>
           
+          <h2 className="sr-only">Expert Cross-Border Legal Solutions for International Clients</h2>
+           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
