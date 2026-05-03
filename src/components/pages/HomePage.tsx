@@ -20,10 +20,7 @@ const EXPERTISE_AREAS = [
   { title: 'Real Estate', icon: MapPin, desc: 'International property transactions and development.' }
 ];
 
-const GLOBAL_LOCATIONS = [
-  { region: 'Europe', cities: ['Strasbourg'] },
-  { region: 'Middle East', cities: ['Beirut'] }
-];
+// ... keep existing code (GLOBAL_LOCATIONS removed as it's now hardcoded in the section) ...
 
 const PUBLICATIONS = [
   { title: 'Geopolitical Law Analysis', category: 'Strategic Insight', date: 'October 2023' },
@@ -90,9 +87,18 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-paragraph text-lg md:text-2xl text-background/80 mb-12 max-w-3xl mx-auto font-light tracking-wide"
+            className="font-paragraph text-lg md:text-2xl text-background/80 mb-6 max-w-3xl mx-auto font-light tracking-wide"
           >
             Navigating complex legal environments. Delivering strategic solutions across jurisdictions for the world's most demanding clients.
+          </motion.p>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="font-paragraph text-base md:text-lg text-background/70 mb-12 max-w-3xl mx-auto font-light tracking-wide italic"
+          >
+            We provide legal, business, economic, and tax advisory services for multinational clients across EMEA.
           </motion.p>
           
           <motion.div
@@ -570,6 +576,42 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 6.5. OUR GLOBAL PRESENCE - Premium Visual Section with World Map */}
+      <section className="relative w-full bg-optional-navy py-40 overflow-hidden">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2 }}
+          className="absolute inset-0 z-0"
+        >
+          <Image
+            src="https://static.wixstatic.com/media/5e1235_6a230f41c5a04d08a61d54283dfcb146~mv2.png?originWidth=1920&originHeight=1024"
+            alt="Global world map with EMEA regions highlighted"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-optional-navy/40 via-optional-navy/60 to-optional-navy/80"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,optional-navy_100%)] opacity-50"></div>
+        </motion.div>
+        
+        <div className="relative z-10 max-w-[120rem] mx-auto px-6 md:px-12 h-[500px] flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="text-center"
+          >
+            <h2 className="font-heading text-5xl md:text-7xl lg:text-8xl text-background mb-6 leading-[1.1]">
+              Our Global Offices
+            </h2>
+            <p className="font-paragraph text-lg md:text-xl text-background/80 font-light">
+              Strategic presence across EMEA and beyond
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 7. GLOBAL PRESENCE - Minimalist Typographic Map */}
       <section className="relative w-full bg-optional-navy py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12 text-center">
@@ -581,30 +623,87 @@ export default function HomePage() {
             className="mb-20"
           >
             <Globe className="w-12 h-12 text-accent-gold mx-auto mb-6 opacity-50" />
-            <h2 className="font-heading text-4xl md:text-5xl text-background">Global Presence</h2>
+            <h2 className="font-heading text-4xl md:text-5xl text-background">Office Locations</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto">
-            {GLOBAL_LOCATIONS.map((region, idx) => (
-              <motion.div
-                key={region.region}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: idx * 0.2 }}
-              >
-                <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-8">
-                  {region.region}
-                </h3>
-                <ul className="space-y-4">
-                  {region.cities.map(city => (
-                    <li key={city} className="font-heading text-3xl md:text-4xl text-background/80 hover:text-background transition-colors cursor-default">
-                      {city}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-6xl mx-auto">
+            {/* Lebanon */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0 }}
+            >
+              <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-6">Lebanon</h3>
+              <p className="font-heading text-2xl md:text-3xl text-background/80 hover:text-background transition-colors cursor-default">
+                Beirut
+              </p>
+            </motion.div>
+
+            {/* France */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-6">France</h3>
+              <p className="font-heading text-2xl md:text-3xl text-background/80 hover:text-background transition-colors cursor-default">
+                Strasbourg
+              </p>
+            </motion.div>
+
+            {/* Switzerland */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-6">Switzerland</h3>
+              <p className="font-heading text-2xl md:text-3xl text-background/80 hover:text-background transition-colors cursor-default">
+                —
+              </p>
+            </motion.div>
+
+            {/* UAE */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-6">United Arab Emirates</h3>
+              <p className="font-heading text-2xl md:text-3xl text-background/80 hover:text-background transition-colors cursor-default">
+                Dubai
+              </p>
+            </motion.div>
+
+            {/* Saudi Arabia */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-6">Saudi Arabia</h3>
+              <p className="font-heading text-2xl md:text-3xl text-background/80 hover:text-background transition-colors cursor-default">
+                Riyadh
+              </p>
+            </motion.div>
+
+            {/* Kuwait */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <h3 className="font-paragraph text-sm uppercase tracking-[0.3em] text-accent-gold mb-6">Kuwait</h3>
+              <p className="font-heading text-2xl md:text-3xl text-background/80 hover:text-background transition-colors cursor-default">
+                —
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
