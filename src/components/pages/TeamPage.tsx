@@ -20,9 +20,9 @@ export default function TeamPage() {
       _id: 'founder-claude',
       name: 'Claude Mcheik',
       role: 'Founder',
-      title: 'International Legal Strategist',
-      bio: 'Founder. International lawyer with over 35 years of experience. Renowned for strategic legal structuring, cross-border transactions, and high-level advisory. Trusted by corporations and sophisticated clients for precision, discretion, and legal excellence.',
-      additionalBio: 'Fluent in French, English, and Arabic. Extensive international experience across Europe and the Middle East.',
+      title: 'Founder — International Legal Strategist',
+      bio: 'Claude Mcheik is an attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience and more than 13 years as an attorney at law and senior legal advisor. He has built a cross-border legal career between France and Lebanon, advising companies, entrepreneurs, investors and decision-makers on complex legal, tax, corporate and multi-jurisdictional matters. His work covers international business structuring, M&A, commercial transactions, tax-driven legal analysis, governance, compliance, dispute strategy and high-level advisory across EMEA. Alongside his legal practice, he has taught law in leading universities and business schools and developed a strong research profile, combining academic rigor, strategic thinking and practical legal execution. Fluent in French, English and Arabic, he advises Lebanese diaspora clients, international investors and business leaders seeking to structure, secure and expand their projects across Europe, France, Switzerland, Lebanon and the wider Middle East.',
+      additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_8ccced5019da4821b2c124bf7919b832~mv2.jpg',
       contactEmail: 'contact@jmclegal.com'
     },
@@ -30,9 +30,9 @@ export default function TeamPage() {
       _id: 'cofounder-antoine',
       name: 'Me Antoine Y. S.',
       role: 'Co-Founder',
-      title: 'Senior Legal Counsel',
-      bio: 'Co-Founder & Senior Legal Counsel. International legal expert with decades of experience in cross-border advisory and strategic transactions. Known for delivering high-level legal insight and supporting complex international matters with rigor and expertise.',
-      additionalBio: '',
+      title: 'Co-Founder — Senior Legal Counsel',
+      bio: "Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region. His work reflects decades of litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and a highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEGAL, he contributes senior legal wisdom, regional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.",
+      additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png',
       contactEmail: 'contact@jmclegal.com'
     }

@@ -416,15 +416,11 @@ export default function HomePage() {
                 Claude Mcheik
               </h3>
               <p className="font-paragraph text-lg text-accent-gold mb-6 font-medium">
-                International Legal Strategist
+                Founder — International Legal Strategist
               </p>
 
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-6 font-light leading-relaxed">
-                Founder. International lawyer with over 35 years of experience. Renowned for strategic legal structuring, cross-border transactions, and high-level advisory. Trusted by corporations and sophisticated clients for precision, discretion, and legal excellence.
-              </p>
-
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed italic">
-                Fluent in French, English, and Arabic. Extensive international experience across Europe and the Middle East.
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
+                Claude Mcheik is an attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience and more than 13 years as an attorney at law and senior legal advisor. He has built a cross-border legal career between France and Lebanon, advising companies, entrepreneurs, investors and decision-makers on complex legal, tax, corporate and multi-jurisdictional matters. His work covers international business structuring, M&A, commercial transactions, tax-driven legal analysis, governance, compliance, dispute strategy and high-level advisory across EMEA. Alongside his legal practice, he has taught law in leading universities and business schools and developed a strong research profile, combining academic rigor, strategic thinking and practical legal execution. Fluent in French, English and Arabic, he advises Lebanese diaspora clients, international investors and business leaders seeking to structure, secure and expand their projects across Europe, France, Switzerland, Lebanon and the wider Middle East.
               </p>
 
               <Link
@@ -463,11 +459,11 @@ export default function HomePage() {
                 Me Antoine Y. S.
               </h3>
               <p className="font-paragraph text-lg text-accent-gold mb-6 font-medium">
-                Senior Legal Counsel
+                Co-Founder — Senior Legal Counsel
               </p>
 
               <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
-                Co-Founder & Senior Legal Counsel. International legal expert with decades of experience in cross-border advisory and strategic transactions. Known for delivering high-level legal insight and supporting complex international matters with rigor and expertise.
+                Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region. His work reflects decades of litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and a highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEGAL, he contributes senior legal wisdom, regional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.
               </p>
 
               <Link
