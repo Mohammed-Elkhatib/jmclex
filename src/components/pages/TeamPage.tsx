@@ -2,32 +2,18 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Mail, ChevronDown } from 'lucide-react';
-import { BaseCrudService } from '@/integrations';
-import { TeamMembers } from '@/entities';
+import { ArrowRight, Mail } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function TeamPage() {
-  const [team, setTeam] = useState<TeamMembers[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [filter, setFilter] = useState<string>('all');
-  const [expandedMemberId, setExpandedMemberId] = useState<string | null>(null);
 
   useEffect(() => {
-    loadTeam();
+    // Simulate loading for consistency
+    const timer = setTimeout(() => setIsLoading(false), 300);
+    return () => clearTimeout(timer);
   }, []);
-
-  const loadTeam = async () => {
-    try {
-      const result = await BaseCrudService.getAll<TeamMembers>('teammembers');
-      setTeam(result.items);
-    } catch (error) {
-      console.error('Error loading team:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const founderData = {
     _id: 'founder-claude',
@@ -35,12 +21,9 @@ export default function TeamPage() {
     role: 'Founder – International Legal Strategist',
     expertise: 'International legal strategy and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
     background: 'Claude Mcheik is an international legal strategist, attorney at law, and PhD researcher specializing in cross-border business law, corporate structuring, and high-stakes legal environments. With over a decade of experience across Europe and the Middle East, he advises companies, institutions, and decision-makers on complex legal frameworks, international transactions, and strategic governance. His profile combines academic excellence, legal precision, and business vision, offering clients a unique approach to navigating global legal challenges.',
-    photo: 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png'
+    photo: 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png',
+    contactEmail: 'contact@jmclegal.com'
   };
-
-  const filteredTeam = filter === 'all' 
-    ? [founderData as TeamMembers, ...team]
-    : [founderData as TeamMembers, ...team].filter(member => member.role?.toLowerCase().includes(filter.toLowerCase()));
 
   return (
     <div className="min-h-screen bg-background">
@@ -78,98 +61,69 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="w-full bg-optional-navy py-12">
-        <div className="max-w-[100rem] mx-auto px-8">
-          <div className="flex flex-wrap gap-4 justify-center">
-            {['all', 'founder', 'partner', 'associate', 'counsel'].map((filterOption) => (
-              <button
-                key={filterOption}
-                onClick={() => setFilter(filterOption)}
-                className={`font-paragraph px-6 py-3 rounded transition-all ${
-                  filter === filterOption
-                    ? 'bg-accent-gold text-secondary-foreground'
-                    : 'bg-background text-foreground hover:bg-accent-gold hover:text-secondary-foreground'
-                }`}
-              >
-                {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Team Grid */}
+
+      {/* Founder Section */}
       <section className="w-full bg-background py-32">
         <div className="max-w-[100rem] mx-auto px-8">
           <div className="min-h-[600px]">
-            {isLoading ? null : filteredTeam.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                {filteredTeam.map((member, index) => (
-                  <motion.div
-                    key={member._id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: index * 0.1 }}
-                    className="group"
-                  >
-                    <div className="block">
-                      <div className="relative h-[400px] mb-6 overflow-hidden rounded">
-                        <Image
-                          src={member.photo || 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png'}
-                          alt={member.name || 'Team member'}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      </div>
-                      <h3 className="font-heading text-3xl text-foreground mb-2 group-hover:text-accent-gold transition-colors">
-                        {member.name}
-                      </h3>
-                      <p className="font-paragraph text-base text-accent-gold mb-4">{member.role}</p>
-                      <p className="font-paragraph text-sm text-foreground/80 mb-6 leading-relaxed line-clamp-3">
-                        {member.expertise}
-                      </p>
-                      <button
-                        onClick={() => setExpandedMemberId(expandedMemberId === member._id ? null : member._id)}
-                        className="inline-flex items-center gap-2 font-paragraph text-accent-gold group-hover:gap-4 transition-all"
-                      >
-                        {expandedMemberId === member._id ? 'Hide' : 'View'} Profile
-                        <ChevronDown className={`w-4 h-4 transition-transform ${expandedMemberId === member._id ? 'rotate-180' : ''}`} />
-                      </button>
-
-                      {/* Expandable Biography */}
-                      {expandedMemberId === member._id && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="mt-6 pt-6 border-t border-accent-gold/30"
-                        >
-                          <p className="font-paragraph text-base text-foreground/90 leading-relaxed">
-                            {member.background}
-                          </p>
-                          {member.contactEmail && (
-                            <a
-                              href={`mailto:${member.contactEmail}`}
-                              className="inline-flex items-center gap-2 mt-4 text-accent-gold hover:text-accent-gold/80 transition-colors"
-                            >
-                              <Mail className="w-4 h-4" />
-                              {member.contactEmail}
-                            </a>
-                          )}
-                        </motion.div>
-                      )}
+            {isLoading ? null : (
+              <div className="flex flex-col items-center">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className="w-full max-w-2xl group"
+                >
+                  <div className="block">
+                    <div className="relative h-[500px] mb-8 overflow-hidden rounded">
+                      <Image
+                        src={founderData.photo}
+                        alt={founderData.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-20">
-                <p className="font-paragraph text-lg text-foreground/60">
-                  No team members found for this filter
-                </p>
+                    <div className="text-center">
+                      <h2 className="font-heading text-5xl md:text-6xl text-foreground mb-2 group-hover:text-accent-gold transition-colors">
+                        {founderData.name}
+                      </h2>
+                      <p className="font-paragraph text-2xl text-accent-gold mb-8">{founderData.role}</p>
+                      <p className="font-paragraph text-lg text-foreground/80 mb-8 leading-relaxed">
+                        {founderData.expertise}
+                      </p>
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        whileInView={{ opacity: 1, height: 'auto' }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="mt-8 pt-8 border-t border-accent-gold/30"
+                      >
+                        <p className="font-paragraph text-base text-foreground/90 leading-relaxed mb-8">
+                          {founderData.background}
+                        </p>
+                        {founderData.contactEmail && (
+                          <a
+                            href={`mailto:${founderData.contactEmail}`}
+                            className="inline-flex items-center gap-2 text-accent-gold hover:text-accent-gold/80 transition-colors"
+                          >
+                            <Mail className="w-4 h-4" />
+                            {founderData.contactEmail}
+                          </a>
+                        )}
+                      </motion.div>
+                      <div className="mt-12">
+                        <Link
+                          to="/consultation"
+                          className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-10 py-5 rounded text-lg transition-all hover:scale-105"
+                        >
+                          Schedule Consultation <ArrowRight className="w-6 h-6" />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             )}
           </div>
@@ -185,11 +139,11 @@ export default function TeamPage() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="font-heading text-5xl md:text-6xl text-foreground mb-8">
-              Work With Our Expert Team
+            <h2 className="font-heading text-5xl md:text-6xl text-background mb-8">
+              Work With Our Founder
             </h2>
-            <p className="font-paragraph text-xl text-foreground/80 mb-12 max-w-3xl mx-auto">
-              Schedule a consultation to discuss your legal needs with our experienced professionals
+            <p className="font-paragraph text-xl text-background/80 mb-12 max-w-3xl mx-auto">
+              Schedule a consultation to discuss your legal needs with Claude Mcheik
             </p>
             <Link
               to="/consultation"

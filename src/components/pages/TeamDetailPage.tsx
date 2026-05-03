@@ -1,45 +1,31 @@
-import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowLeft, Mail } from 'lucide-react';
-import { BaseCrudService } from '@/integrations';
-import { TeamMembers } from '@/entities';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function TeamDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const [member, setMember] = useState<TeamMembers | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    loadMember();
-  }, [id]);
-
-  const loadMember = async () => {
-    if (!id) return;
-    try {
-      const data = await BaseCrudService.getById<TeamMembers>('teammembers', id);
-      setMember(data);
-    } catch (error) {
-      console.error('Error loading team member:', error);
-    } finally {
-      setIsLoading(false);
-    }
+  const founderData = {
+    _id: 'founder-claude',
+    name: 'Claude Mcheik',
+    role: 'Founder – International Legal Strategist',
+    expertise: 'International legal strategy and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
+    background: 'Claude Mcheik is an international legal strategist, attorney at law, and PhD researcher specializing in cross-border business law, corporate structuring, and high-stakes legal environments. With over a decade of experience across Europe and the Middle East, he advises companies, institutions, and decision-makers on complex legal frameworks, international transactions, and strategic governance. His profile combines academic excellence, legal precision, and business vision, offering clients a unique approach to navigating global legal challenges.',
+    photo: 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png',
+    contactEmail: 'contact@jmclegal.com'
   };
+
+  const member = id === 'founder-claude' ? founderData : null;
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
       <div className="min-h-screen pt-32">
-        {isLoading ? (
-          <div className="flex items-center justify-center py-32">
-            <LoadingSpinner />
-          </div>
-        ) : !member ? (
+        {!member ? (
           <div className="max-w-[100rem] mx-auto px-8 py-32 text-center">
             <h2 className="font-heading text-4xl text-foreground mb-6">Team Member Not Found</h2>
             <Link to="/team" className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all">
