@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
-import { BaseCrudService } from '@/integrations';
+import { ArrowLeft, Calendar, User, ShoppingCart, Lock } from 'lucide-react';
+import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { Publications } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import Header from '@/components/Header';
@@ -14,6 +14,8 @@ export default function PublicationDetailPage() {
   const [publication, setPublication] = useState<Publications | null>(null);
   const [relatedPublications, setRelatedPublications] = useState<Publications[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { addingItemId, actions: cartActions } = useCart();
+  const { currency } = useCurrency();
 
   useEffect(() => {
     loadPublication();
@@ -132,31 +134,95 @@ export default function PublicationDetailPage() {
                       transition={{ duration: 0.8 }}
                       className="prose prose-invert max-w-none"
                     >
-                      <div className="font-paragraph text-lg text-foreground/90 leading-relaxed whitespace-pre-line">
-                        {publication.content}
+                      {/* Content Preview - Limited to first 500 characters */}
+                      <div className="font-paragraph text-lg text-foreground/90 leading-relaxed whitespace-pre-line select-none">
+                        {publication.content && publication.content.length > 500 ? (
+                          <>
+                            <div className="relative">
+                              <p>{publication.content.substring(0, 500)}...</p>
+                              <div className="absolute inset-0 top-1/2 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none"></div>
+                            </div>
+                            <div className="mt-8 p-6 bg-optional-navy/30 rounded border border-accent-gold/30 text-center">
+                              <Lock className="w-8 h-8 text-accent-gold mx-auto mb-3" />
+                              <p className="font-paragraph text-foreground/80 mb-2">
+                                Full content is available after purchase
+                              </p>
+                              <p className="font-paragraph text-sm text-foreground/60">
+                                Add this publication to your cart to access the complete document
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          <p>{publication.content}</p>
+                        )}
                       </div>
                     </motion.div>
                   </div>
 
                   <div className="lg:col-span-1">
-                    <motion.div
-                      initial={{ opacity: 0, x: 30 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8 }}
-                      className="bg-optional-navy p-8 rounded sticky top-32"
-                    >
-                      <h3 className="font-heading text-2xl text-foreground mb-6">Need Legal Advice?</h3>
-                      <p className="font-paragraph text-base text-foreground/80 mb-8 leading-relaxed">
-                        Discuss how these legal developments may impact your business or personal matters.
-                      </p>
-                      <Link
-                        to="/consultation"
-                        className="w-full inline-flex items-center justify-center bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
+                    <div className="space-y-6 sticky top-32">
+                      {/* Purchase Section */}
+                      <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                        className="bg-accent-gold p-8 rounded"
                       >
-                        Schedule Consultation
-                      </Link>
-                    </motion.div>
+                        <div className="flex items-center justify-between mb-6">
+                          <h3 className="font-heading text-2xl text-secondary-foreground">Download PDF</h3>
+                          <Lock className="w-5 h-5 text-secondary-foreground" />
+                        </div>
+                        {publication.price && (
+                          <div className="mb-6">
+                            <p className="font-paragraph text-sm text-secondary-foreground/80 mb-2">Price</p>
+                            <p className="font-heading text-3xl text-secondary-foreground">
+                              {formatPrice(publication.price, currency ?? DEFAULT_CURRENCY)}
+                            </p>
+                          </div>
+                        )}
+                        {publication.language && (
+                          <p className="font-paragraph text-sm text-secondary-foreground/80 mb-6">
+                            Language: <span className="font-semibold">{publication.language}</span>
+                          </p>
+                        )}
+                        <button
+                          onClick={() => cartActions.addToCart({ 
+                            collectionId: 'publications', 
+                            itemId: publication._id,
+                            quantity: 1
+                          })}
+                          disabled={addingItemId === publication._id}
+                          className="w-full inline-flex items-center justify-center gap-2 bg-secondary-foreground text-accent-gold font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed"
+                        >
+                          <ShoppingCart className="w-5 h-5" />
+                          {addingItemId === publication._id ? 'Adding to Cart...' : 'Add to Cart'}
+                        </button>
+                        <p className="font-paragraph text-xs text-secondary-foreground/70 mt-4 text-center">
+                          Payment required before download
+                        </p>
+                      </motion.div>
+
+                      {/* Consultation Section */}
+                      <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.1 }}
+                        className="bg-optional-navy p-8 rounded"
+                      >
+                        <h3 className="font-heading text-2xl text-foreground mb-6">Need Legal Advice?</h3>
+                        <p className="font-paragraph text-base text-foreground/80 mb-8 leading-relaxed">
+                          Discuss how these legal developments may impact your business or personal matters.
+                        </p>
+                        <Link
+                          to="/consultation"
+                          className="w-full inline-flex items-center justify-center bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
+                        >
+                          Schedule Consultation
+                        </Link>
+                      </motion.div>
+                    </div>
                   </div>
                 </div>
               </div>

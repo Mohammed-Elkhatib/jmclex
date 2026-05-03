@@ -155,14 +155,21 @@ export interface OfficeLocations {
 
 /**
  * Collection ID: publications
+ * @catalog This collection is an eCommerce catalog
  * Interface for Publications
  */
 export interface Publications {
   _id: string;
   _createdDate?: Date;
   _updatedDate?: Date;
+  /** @wixFieldType number */
+  price?: number;
+  /** @wixFieldType text */
+  language?: string;
   /** @wixFieldType text */
   title?: string;
+  /** @wixFieldType url */
+  pdfFile?: string;
   /** @wixFieldType text */
   author?: string;
   /** @wixFieldType date */
