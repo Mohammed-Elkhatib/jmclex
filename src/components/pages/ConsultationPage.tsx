@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { Calendar, Clock, Globe, Shield, Video, AlertCircle } from 'lucide-react';
@@ -12,6 +12,13 @@ import Cart from '@/components/Cart';
 
 export default function ConsultationPage() {
   const [consultationType, setConsultationType] = useState<'standard' | 'emergency'>('standard');
+  
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('type') === 'emergency') {
+      setConsultationType('emergency');
+    }
+  }, []);
   const [formData, setFormData] = useState({
     clientName: '',
     clientEmail: '',
@@ -237,7 +244,14 @@ export default function ConsultationPage() {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded border border-foreground/10">
+                  {consultationType === 'emergency' && (
+                    <div className="bg-accent-gold/10 border border-accent-gold/30 p-4 rounded">
+                      <p className="font-paragraph text-sm text-foreground font-medium">
+                        <span className="text-accent-gold font-semibold">Priority Request:</span> Your consultation has been marked as urgent and will receive expedited handling.
+                      </p>
+                    </div>
+                  )}
                   <div>
                     <label className="font-paragraph text-sm text-foreground mb-2 block">
                       Full Name *

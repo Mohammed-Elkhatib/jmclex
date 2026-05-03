@@ -21,8 +21,8 @@ const EXPERTISE_AREAS = [
 ];
 
 const GLOBAL_LOCATIONS = [
-  { region: 'Europe', cities: ['Paris', 'Strasbourg', 'Toulouse'] },
-  { region: 'Middle East', cities: ['Beirut', 'Bekaa', 'Mount Lebanon', 'Dubai', 'Riyadh'] }
+  { region: 'Europe', cities: ['Strasbourg'] },
+  { region: 'Middle East', cities: ['Beirut', 'Bekaa'] }
 ];
 
 const PUBLICATIONS = [
@@ -105,15 +105,17 @@ export default function HomePage() {
               to="/consultation"
               className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             >
-              <span className="relative z-10">Book Consultation</span>
+              <span className="relative z-10">Book a Consultation</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </Link>
             <Link
-              to="/expertise"
-              className="w-full sm:w-auto flex items-center justify-center px-10 py-5 rounded-lg border border-background/30 font-paragraph font-medium text-background transition-all duration-300 hover:border-accent-gold hover:text-accent-gold hover:bg-background/10"
+              to="/consultation?type=emergency"
+              className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border-2 border-accent-gold/50"
             >
-              Explore Expertise
+              <span className="relative z-10">Request Emergency Legal Assistance</span>
+              <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </Link>
           </motion.div>
         </div>
