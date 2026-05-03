@@ -248,11 +248,15 @@ export default function HomePage() {
                 </h2>
                 
                 <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
-                  We provide comprehensive legal services to Lebanese clients worldwide, as well as to international individuals and businesses of all nationalities who have legal matters, disputes, or interests to manage in Lebanon.
+                  We provide high-level legal services to Lebanese clients worldwide, as well as to international individuals and businesses of all nationalities with legal matters, disputes, or strategic interests in Lebanon.
                   <br/><br/>
-                  Whether you require legal representation, litigation support, corporate structuring, or strategic advisory, our international approach ensures that your rights and interests are protected and efficiently handled across jurisdictions.
+                  Our services extend beyond Lebanon to France, across Europe, and throughout the GCC region, supported by a trusted network of partners in key jurisdictions worldwide.
                   <br/><br/>
-                  With a deep understanding of cross-border legal environments, we assist our clients in navigating complex procedures in Lebanon with precision, professionalism, and absolute confidentiality.
+                  We operate a selective client approach, allowing us to deliver tailored, high-quality legal advice and ensure the highest level of attention, precision, and strategic value in every engagement.
+                  <br/><br/>
+                  Whether you require legal representation, litigation support, corporate structuring, or strategic advisory, our cross-border expertise ensures that your rights and interests are effectively protected and managed across jurisdictions.
+                  <br/><br/>
+                  With a deep understanding of complex legal environments, we guide our clients through legal procedures with discretion, efficiency, and the highest standards of professionalism.
                 </p>
                 
                 {/* Arabic Text Block - Exact Match Required */}
@@ -298,6 +302,64 @@ export default function HomePage() {
               </motion.div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* 3.5. ELITE BRAND BLOCK - Premium Three Column Section */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+            {/* Column 1: Our Message */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-start"
+            >
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
+                Our Message
+              </h3>
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed">
+                Precision — Discretion — Excellence
+              </p>
+            </motion.div>
+
+            {/* Column 2: Our Objectives */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="flex flex-col items-start"
+            >
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
+                Our Objectives
+              </h3>
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed">
+                Delivering high-quality execution with efficiency, responsiveness, and uncompromising professional standards
+              </p>
+            </motion.div>
+
+            {/* Column 3: Our Motivation */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex flex-col items-start"
+            >
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
+                Our Motivation
+              </h3>
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed">
+                Integrity — Commitment — Performance
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
