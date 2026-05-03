@@ -15,15 +15,28 @@ export default function TeamPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const founderData = {
-    _id: 'founder-claude',
-    name: 'Claude Mcheik',
-    role: 'Founder – International Legal Strategist',
-    expertise: 'International legal strategy and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
-    background: 'Claude Mcheik is an international legal strategist, attorney at law, and PhD researcher specializing in cross-border business law, corporate structuring, and high-stakes legal environments. With over a decade of experience across Europe and the Middle East, he advises companies, institutions, and decision-makers on complex legal frameworks, international transactions, and strategic governance. His profile combines academic excellence, legal precision, and business vision, offering clients a unique approach to navigating global legal challenges.',
-    photo: 'https://static.wixstatic.com/media/5e1235_381006431e154787849646de845a3470~mv2.png',
-    contactEmail: 'contact@jmclegal.com'
-  };
+  const foundersData = [
+    {
+      _id: 'founder-claude',
+      name: 'Claude Mcheik',
+      role: 'Founder',
+      title: 'International Legal Strategist',
+      bio: 'Founder. International lawyer with over 35 years of experience. Renowned for strategic legal structuring, cross-border transactions, and high-level advisory. Trusted by corporations and sophisticated clients for precision, discretion, and legal excellence.',
+      additionalBio: 'Fluent in French, English, and Arabic. Extensive international experience across Europe and the Middle East.',
+      photo: 'https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png',
+      contactEmail: 'contact@jmclegal.com'
+    },
+    {
+      _id: 'cofounder-antoine',
+      name: 'Me Antoine Y. S.',
+      role: 'Co-Founder',
+      title: 'Senior Legal Counsel',
+      bio: 'Co-Founder & Senior Legal Counsel. International legal expert with decades of experience in cross-border advisory and strategic transactions. Known for delivering high-level legal insight and supporting complex international matters with rigor and expertise.',
+      additionalBio: '',
+      photo: 'https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png',
+      contactEmail: 'contact@jmclegal.com'
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -63,72 +76,75 @@ export default function TeamPage() {
 
 
 
-      {/* Founder Section */}
+      {/* Founders Section */}
       <section className="w-full bg-background py-32">
-        <div className="max-w-[100rem] mx-auto px-8">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="min-h-[600px]">
             {isLoading ? null : (
-              <div className="flex flex-col items-center">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="w-full max-w-2xl group"
-                >
-                  <div className="block">
-                    <div className="relative h-[500px] mb-8 overflow-hidden rounded">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                {foundersData.map((founder, index) => (
+                  <motion.div
+                    key={founder._id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: index * 0.2 }}
+                    className="flex flex-col"
+                  >
+                    <div className="relative h-[500px] mb-8 overflow-hidden rounded-lg group">
                       <Image
-                        src={founderData.photo}
-                        alt={founderData.name}
+                        src={founder.photo}
+                        alt={founder.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </div>
-                    <div className="text-center">
-                      <h2 className="font-heading text-5xl md:text-6xl text-foreground mb-2 group-hover:text-accent-gold transition-colors">
-                        {founderData.name}
-                      </h2>
-                      <p className="font-paragraph text-2xl text-accent-gold mb-8">{founderData.role}</p>
-                      <p className="font-paragraph text-lg text-foreground/80 mb-8 leading-relaxed">
-                        {founderData.expertise}
-                      </p>
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        whileInView={{ opacity: 1, height: 'auto' }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                        className="mt-8 pt-8 border-t border-accent-gold/30"
-                      >
-                        <p className="font-paragraph text-base text-foreground/90 leading-relaxed mb-8">
-                          {founderData.background}
-                        </p>
-                        {founderData.contactEmail && (
-                          <a
-                            href={`mailto:${founderData.contactEmail}`}
-                            className="inline-flex items-center gap-2 text-accent-gold hover:text-accent-gold/80 transition-colors"
-                          >
-                            <Mail className="w-4 h-4" />
-                            {founderData.contactEmail}
-                          </a>
-                        )}
-                      </motion.div>
-                      <div className="mt-12 flex flex-col items-center gap-3">
-                         <Link
-                           to="/consultation"
-                           className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
-                         >
-                           <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                           <span>Book a Consultation</span>
-                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                         </Link>
-                         <p className="font-paragraph text-xs text-optional-navy/60 italic">
-                           Schedule a confidential consultation
-                         </p>
-                       </div>
+
+                    <div className="inline-flex items-center gap-3 mb-4">
+                      <span className="w-8 h-[1px] bg-accent-gold"></span>
+                      <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">{founder.role}</span>
                     </div>
-                  </div>
-                </motion.div>
+
+                    <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-2 group-hover:text-accent-gold transition-colors">
+                      {founder.name}
+                    </h2>
+                    <p className="font-paragraph text-xl text-accent-gold mb-6 font-medium">{founder.title}</p>
+                    
+                    <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-6 font-light leading-relaxed">
+                      {founder.bio}
+                    </p>
+
+                    {founder.additionalBio && (
+                      <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-8 font-light leading-relaxed italic">
+                        {founder.additionalBio}
+                      </p>
+                    )}
+
+                    {founder.contactEmail && (
+                      <a
+                        href={`mailto:${founder.contactEmail}`}
+                        className="inline-flex items-center gap-2 text-accent-gold hover:text-accent-gold/80 transition-colors mb-8"
+                      >
+                        <Mail className="w-4 h-4" />
+                        {founder.contactEmail}
+                      </a>
+                    )}
+
+                    <div className="flex flex-col items-start gap-3">
+                      <Link
+                        to="/consultation"
+                        className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+                      >
+                        <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                        <span>Book a Consultation</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                      <p className="font-paragraph text-xs text-optional-navy/60 italic">
+                        Schedule a confidential consultation
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             )}
           </div>

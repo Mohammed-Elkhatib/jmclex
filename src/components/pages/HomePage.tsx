@@ -370,7 +370,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3.7. CO-FOUNDER SECTION - Premium Profile */}
+      {/* 3.7. FOUNDERS SECTION - Side by Side Premium Profiles */}
       <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <motion.div
@@ -378,89 +378,106 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
             <h2 className="font-heading text-4xl md:text-5xl text-optional-navy mb-4">
-              {t('cofounder.title')}
+              Leadership
             </h2>
+            <p className="font-paragraph text-lg text-optional-navy/70">
+              Meet the founders of JMC LEGAL
+            </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Image */}
+          {/* Side by Side Profiles */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* LEFT: Claude Mcheik - Founder */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8 }}
-              className="relative h-[600px] overflow-hidden rounded-lg"
+              className="flex flex-col"
             >
-              <Image
-                src="https://static.wixstatic.com/media/5e1235_a82d059b574f4d67bdf7622e53d1c6d7~mv2.png?originWidth=576&originHeight=768"
-                alt="Me Antoine Y. S., Co-Founder"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
+              <div className="relative h-[500px] overflow-hidden rounded-lg mb-8 group">
+                <Image
+                  src="https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png"
+                  alt="Claude Mcheik, Founder"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
+              </div>
+
+              <div className="inline-flex items-center gap-3 mb-4">
+                <span className="w-8 h-[1px] bg-accent-gold"></span>
+                <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Founder</span>
+              </div>
+
+              <h3 className="font-heading text-3xl md:text-4xl text-optional-navy mb-2">
+                Claude Mcheik
+              </h3>
+              <p className="font-paragraph text-lg text-accent-gold mb-6 font-medium">
+                International Legal Strategist
+              </p>
+
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-6 font-light leading-relaxed">
+                Founder. International lawyer with over 35 years of experience. Renowned for strategic legal structuring, cross-border transactions, and high-level advisory. Trusted by corporations and sophisticated clients for precision, discretion, and legal excellence.
+              </p>
+
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed italic">
+                Fluent in French, English, and Arabic. Extensive international experience across Europe and the Middle East.
+              </p>
+
+              <Link
+                to="/consultation"
+                className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] w-fit"
+              >
+                <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span>Book a Consultation</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
 
-            {/* Content */}
+            {/* RIGHT: Me Antoine Y. S. - Co-Founder */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-col justify-center"
+              className="flex flex-col"
             >
-              <div className="inline-flex items-center gap-3 mb-6">
+              <div className="relative h-[500px] overflow-hidden rounded-lg mb-8 group">
+                <Image
+                  src="https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png"
+                  alt="Me Antoine Y. S., Co-Founder"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
+              </div>
+
+              <div className="inline-flex items-center gap-3 mb-4">
                 <span className="w-8 h-[1px] bg-accent-gold"></span>
-                <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Leadership</span>
+                <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Co-Founder</span>
               </div>
 
               <h3 className="font-heading text-3xl md:text-4xl text-optional-navy mb-2">
-                {t('cofounder.name')}
+                Me Antoine Y. S.
               </h3>
-              <p className="font-paragraph text-lg text-accent-gold mb-8 font-medium">
-                {t('cofounder.role')}
+              <p className="font-paragraph text-lg text-accent-gold mb-6 font-medium">
+                Senior Legal Counsel
               </p>
 
               <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
-                {t('cofounder.bio')}
+                Co-Founder & Senior Legal Counsel. International legal expert with decades of experience in cross-border advisory and strategic transactions. Known for delivering high-level legal insight and supporting complex international matters with rigor and expertise.
               </p>
 
-              <div className="flex flex-col gap-4 mb-10">
-                <div className="flex items-start gap-4">
-                  <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
-                  <p className="font-paragraph text-sm text-optional-navy/70">
-                    Decades of expertise in international law and cross-border transactions
-                  </p>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
-                  <p className="font-paragraph text-sm text-optional-navy/70">
-                    Strategic advisor to multinational corporations and high-net-worth individuals
-                  </p>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-1 h-1 rounded-full bg-accent-gold mt-2 flex-shrink-0"></div>
-                  <p className="font-paragraph text-sm text-optional-navy/70">
-                    Committed to delivering excellence and precision in every engagement
-                  </p>
-                </div>
-              </div>
-
-              {/* CTA Button with Icon */}
-              <div className="flex flex-col items-start gap-3">
-                <Link
-                  to="/consultation"
-                  className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
-                >
-                  <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                  <span>Book a Consultation</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-                <p className="font-paragraph text-xs text-optional-navy/60 italic">
-                  Schedule a confidential consultation
-                </p>
-              </div>
+              <Link
+                to="/consultation"
+                className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] w-fit"
+              >
+                <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span>Book a Consultation</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
           </div>
         </div>
