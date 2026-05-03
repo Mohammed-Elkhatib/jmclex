@@ -37,7 +37,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Excellence in international legal strategy since 1990
+            Excellence in international legal strategy — Lawyers' expertise since the 1990s
           </motion.p>
         </div>
       </section>
@@ -57,7 +57,7 @@ export default function AboutPage() {
                 Our History
               </h2>
               <p className="font-paragraph text-lg text-foreground/90 mb-6 leading-relaxed">
-                Founded in 1990, JMC LEGAL has grown from a boutique law practice in Lebanon to a leading international law firm with offices across the Middle East and Europe. Our journey reflects our commitment to excellence, strategic thinking, and unwavering dedication to our clients' success.
+                With lawyers' expertise since the 1990s, JMC LEGAL has grown from a boutique law practice in Lebanon to a leading international law firm with offices across the Middle East and Europe. Our journey reflects our commitment to excellence, strategic thinking, and unwavering dedication to our clients' success.
               </p>
               <p className="font-paragraph text-lg text-foreground/90 leading-relaxed">
                 Over three decades, we have navigated complex geopolitical shifts, regulatory changes, and evolving business landscapes, always maintaining our focus on delivering exceptional legal services and strategic advisory to our clients worldwide.

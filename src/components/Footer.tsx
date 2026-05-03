@@ -12,7 +12,7 @@ export default function Footer() {
               JMC <span className="text-accent-gold">LEGAL</span>
             </div>
             <p className="font-paragraph text-sm text-background/70 leading-relaxed mb-6">
-              Strategic & International Law since 1990. Serving clients across Lebanon, France, UAE, and Saudi Arabia.
+              Strategic & International Law — Lawyers' expertise since the 1990s. Serving clients across Lebanon, France, UAE, and Saudi Arabia.
             </p>
             <div className="flex flex-col gap-4">
               {/* Email */}
@@ -162,7 +162,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-optional-navy/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="font-paragraph text-xs text-background/60">
-              © {new Date().getFullYear()} JMC LEGAL. All rights reserved. Established 1990.
+              © {new Date().getFullYear()} JMC LEGAL. All rights reserved. Lawyers' expertise since the 1990s.
             </p>
             <div className="flex gap-6">
               <Link to="/privacy" className="font-paragraph text-xs text-background/60 hover:text-accent-gold transition-colors duration-300">

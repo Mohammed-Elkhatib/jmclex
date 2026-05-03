@@ -83,7 +83,7 @@ export default function GlobalPresencePage() {
               Strategically Positioned Worldwide
             </h2>
             <p className="font-paragraph text-xl text-foreground/90 max-w-4xl mx-auto leading-relaxed">
-              Since 1990, JMC LEGAL has established a strategic presence across key jurisdictions in the Middle East and Europe. Our international network enables us to provide seamless legal services across borders, combining local expertise with global reach.
+              With lawyers' expertise spanning since the 1990s, JMC LEGAL has established a strategic presence across key jurisdictions in the Middle East and Europe. Our international network enables us to provide seamless legal services across borders, combining local expertise with global reach.
             </p>
           </motion.div>
 

@@ -192,7 +192,7 @@ export default function StrategicAdvisoryPage() {
                   'Strategic focus beyond pure legal compliance',
                   'Multilingual capabilities (English, French, Arabic, and more)',
                   'Established network of international legal partners',
-                  'Proven track record since 1990'
+                  'Lawyers\' expertise spanning since the 1990s'
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-4">
                     <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>

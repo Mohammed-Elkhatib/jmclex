@@ -69,7 +69,7 @@ export default function HomePage() {
             className="inline-flex items-center gap-3 px-4 py-2 border border-accent-gold/40 rounded-full mb-8 backdrop-blur-md bg-background/20"
           >
             <span className="w-2 h-2 rounded-full bg-accent-gold animate-pulse"></span>
-            <span className="font-paragraph text-xs tracking-[0.2em] uppercase text-accent-gold">Est. 1990 • Global Presence</span>
+            <span className="font-paragraph text-xs tracking-[0.2em] uppercase text-accent-gold">Expertise Since 1990 • Global Presence</span>
           </motion.div>
 
           <motion.h1
@@ -154,7 +154,7 @@ export default function HomePage() {
                 
                 <div className="space-y-8 font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-3xl">
                   <p>
-                    Established in 1990, JMC LEGAL is a premier international law firm specializing in strategic legal advisory and cross-border operations. We serve as the trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
+                    With lawyers' expertise spanning since the 1990s, JMC LEGAL is a premier international law firm specializing in strategic legal advisory and cross-border operations. We serve as the trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
                   </p>
                   <p>
                     Our practice is built on the ability to navigate complex, multi-jurisdictional environments, providing clarity and decisive action in high-stakes scenarios.
