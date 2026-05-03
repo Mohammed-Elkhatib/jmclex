@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, MapPin, MessageCircle } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -14,7 +14,7 @@ export default function ContactPage() {
     name: '',
     email: '',
     phone: '',
-    subject: '',
+    country: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,7 +27,11 @@ export default function ContactPage() {
     try {
       await BaseCrudService.create('contactinquiries', {
         _id: crypto.randomUUID(),
-        ...formData
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.country,
+        message: formData.message
       });
 
       setSubmitSuccess(true);
@@ -35,7 +39,7 @@ export default function ContactPage() {
         name: '',
         email: '',
         phone: '',
-        subject: '',
+        country: '',
         message: ''
       });
     } catch (error) {
@@ -82,10 +86,51 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Information */}
+      {/* Consultation Types */}
       <section className="w-full bg-optional-navy py-20">
         <div className="max-w-[100rem] mx-auto px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Urgent Consultation */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="bg-background/10 p-8 rounded-lg border border-accent-gold/20"
+            >
+              <h3 className="font-heading text-2xl text-accent-gold mb-4">Urgent Consultation</h3>
+              <div className="space-y-3">
+                <p className="font-paragraph text-base text-background/90">
+                  <span className="font-semibold">Response within 24 hours</span>
+                </p>
+                <p className="font-paragraph text-base text-background/80">
+                  Priority legal and strategic review
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Standard Consultation */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="bg-background/10 p-8 rounded-lg border border-accent-gold/20"
+            >
+              <h3 className="font-heading text-2xl text-accent-gold mb-4">Standard Consultation</h3>
+              <div className="space-y-3">
+                <p className="font-paragraph text-base text-background/90">
+                  <span className="font-semibold">Response within 72 hours</span>
+                </p>
+                <p className="font-paragraph text-base text-background/80">
+                  Standard legal or advisory request
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Quick Contact */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -93,12 +138,12 @@ export default function ContactPage() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
-                <Phone className="w-8 h-8 text-optional-navy" />
+              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                <Mail className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-optional-navy mb-4">Phone</h3>
-              <a href="tel:+9611234567" className="font-paragraph text-base text-optional-navy/80 hover:text-accent-gold transition-colors duration-300">
-                +961 1 234 567
+              <h4 className="font-heading text-lg text-background mb-2">Email</h4>
+              <a href="mailto:contact@jmclex.com" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
+                contact@jmclex.com
               </a>
             </motion.div>
 
@@ -109,12 +154,12 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
-                <Mail className="w-8 h-8 text-optional-navy" />
+              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-optional-navy mb-4">Email</h3>
-              <a href="mailto:contact@jmclegal.com" className="font-paragraph text-base text-optional-navy/80 hover:text-accent-gold transition-colors duration-300">
-                contact@jmclegal.com
+              <h4 className="font-heading text-lg text-background mb-2">Lebanon</h4>
+              <a href="https://wa.me/96178873196" target="_blank" rel="noopener noreferrer" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
+                +961 78 873 196
               </a>
             </motion.div>
 
@@ -125,13 +170,13 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-center"
             >
-              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-8 h-8 text-optional-navy" />
+              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="w-8 h-8 text-optional-navy" />
               </div>
-              <h3 className="font-heading text-2xl text-optional-navy mb-4">Offices</h3>
-              <p className="font-paragraph text-base text-optional-navy/80">
-                Lebanon • France • UAE • Saudi Arabia
-              </p>
+              <h4 className="font-heading text-lg text-background mb-2">France</h4>
+              <a href="https://wa.me/33769596922" target="_blank" rel="noopener noreferrer" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
+                +33 7 69 59 69 22
+              </a>
             </motion.div>
           </div>
         </div>
@@ -156,7 +201,7 @@ export default function ContactPage() {
                 <div className="bg-optional-navy p-8 rounded-lg">
                   <h3 className="font-heading text-2xl text-accent-gold mb-4">Message Sent!</h3>
                   <p className="font-paragraph text-base text-background/90 mb-6">
-                    Thank you for contacting JMC LEGAL. We will respond to your inquiry within 24 hours.
+                    Thank you for contacting JMC LEGAL. We will respond to your inquiry within the specified timeframe.
                   </p>
                   <Button
                     onClick={() => setSubmitSuccess(false)}
@@ -210,15 +255,15 @@ export default function ContactPage() {
 
                   <div>
                     <label className="font-paragraph text-sm text-optional-navy mb-2 block">
-                      Subject *
+                      Country *
                     </label>
                     <Input
                       type="text"
                       required
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      value={formData.country}
+                      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                       className="bg-secondary text-optional-navy border-optional-navy/20 rounded-lg transition-all duration-300"
-                      placeholder="How can we help you?"
+                      placeholder="Your country"
                     />
                   </div>
 

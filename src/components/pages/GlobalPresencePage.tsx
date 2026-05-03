@@ -204,7 +204,7 @@ export default function GlobalPresencePage() {
             />
             <div className="absolute inset-0 flex items-center justify-center bg-background/40">
               <div className="text-center">
-                <p className="font-heading text-3xl text-foreground mb-4">Interactive Map</p>
+                <p className="font-heading text-3xl text-foreground mb-4">Our Global Presence</p>
                 <p className="font-paragraph text-lg text-foreground/80">
                   Lebanon • France • UAE • Saudi Arabia
                 </p>
@@ -219,9 +219,9 @@ export default function GlobalPresencePage() {
         <div className="max-w-[100rem] mx-auto px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
-              { country: 'Lebanon', cities: 'Beirut, Bekaa, Mount Lebanon' },
-              { country: 'France', cities: 'Paris, Strasbourg, Toulouse' },
-              { country: 'UAE', cities: 'Dubai' },
+              { country: 'Lebanon', cities: 'Beirut' },
+              { country: 'France', cities: 'Paris, Toulouse' },
+              { country: 'United Arab Emirates', cities: 'Dubai' },
               { country: 'Saudi Arabia', cities: 'Riyadh' }
             ].map((location, index) => (
               <motion.div

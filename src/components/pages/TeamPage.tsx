@@ -28,9 +28,18 @@ export default function TeamPage() {
     }
   };
 
+  const founderData = {
+    _id: 'founder-claude',
+    name: 'Claude Mcheik',
+    role: 'Founder – International Legal Strategist',
+    expertise: 'International legal strategy and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
+    background: 'International legal strategist and academic with experience across Europe and the Middle East, combining legal advisory, business structuring, and cross-border expertise.',
+    photo: 'https://static.wixstatic.com/media/5e1235_2c1be2de293641faa0aedd10d2af8175~mv2.png?originWidth=320&originHeight=384'
+  };
+
   const filteredTeam = filter === 'all' 
-    ? team 
-    : team.filter(member => member.role?.toLowerCase().includes(filter.toLowerCase()));
+    ? [founderData as TeamMembers, ...team]
+    : [founderData as TeamMembers, ...team].filter(member => member.role?.toLowerCase().includes(filter.toLowerCase()));
 
   return (
     <div className="min-h-screen bg-background">

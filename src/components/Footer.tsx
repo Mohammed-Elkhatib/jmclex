@@ -16,14 +16,14 @@ export default function Footer() {
             </p>
             <div className="flex flex-col gap-4">
               {/* Email */}
-              <a href="mailto:contactjmc@gmail.com" className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300">
+              <a href="mailto:contact@jmclex.com" className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300">
                 <Mail className="w-4 h-4" />
-                <span className="font-paragraph text-sm">contactjmc@gmail.com</span>
+                <span className="font-paragraph text-sm">contact@jmclex.com</span>
               </a>
               
               {/* Lebanon WhatsApp */}
               <a 
-                href="https://api.whatsapp.com/send?phone=96178873196&text=Hello%20I%20would%20like%20a%20consultation" 
+                href="https://wa.me/96178873196" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300"
@@ -34,7 +34,7 @@ export default function Footer() {
               
               {/* France WhatsApp */}
               <a 
-                href="https://api.whatsapp.com/send?phone=33769596922&text=Hello%20I%20would%20like%20a%20consultation" 
+                href="https://wa.me/33769596922" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-background/70 hover:text-accent-gold transition-colors duration-300"

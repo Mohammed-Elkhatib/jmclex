@@ -30,6 +30,17 @@ export default function PublicationsPage() {
     }
   };
 
+  const featuredArticle = {
+    _id: 'featured-1',
+    title: 'International Legal Strategy in Cross-Border Business',
+    summary: 'An introductory analysis on legal strategy and cross-border risk management.',
+    content: 'An introductory analysis on legal strategy and cross-border risk management.',
+    category: 'Strategic Insight',
+    author: 'JMC LEGAL',
+    publicationDate: new Date().toISOString(),
+    thumbnailImage: 'https://static.wixstatic.com/media/5e1235_079a8f3ba0044f73ac8409d57433f23d~mv2.png?originWidth=384&originHeight=192'
+  };
+
   const filteredPublications = publications.filter(pub => {
     const matchesSearch = pub.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          pub.summary?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -75,8 +86,43 @@ export default function PublicationsPage() {
         </div>
       </section>
 
+      {/* Featured Article */}
+      <section className="w-full bg-optional-navy py-32">
+        <div className="max-w-[100rem] mx-auto px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <div className="relative h-[400px] rounded overflow-hidden">
+              <Image
+                src={featuredArticle.thumbnailImage}
+                alt={featuredArticle.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <div className="inline-block bg-accent-gold text-secondary-foreground px-4 py-2 rounded text-sm font-paragraph font-medium mb-6">
+                {featuredArticle.category}
+              </div>
+              <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-6">
+                {featuredArticle.title}
+              </h2>
+              <p className="font-paragraph text-lg text-foreground/80 mb-8 leading-relaxed">
+                {featuredArticle.summary}
+              </p>
+              <a href="#publications" className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:scale-105">
+                Read Article <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Search and Filter */}
-      <section className="w-full bg-optional-navy py-12">
+      <section className="w-full bg-optional-navy py-12" id="publications">
         <div className="max-w-[100rem] mx-auto px-8">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
             <div className="relative w-full md:w-96">
@@ -181,7 +227,7 @@ export default function PublicationsPage() {
               Stay Informed on Legal Developments
             </h2>
             <p className="font-paragraph text-xl text-foreground/80 mb-12 max-w-3xl mx-auto">
-              Subscribe to receive our latest legal insights and analysis
+              For inquiries about our publications and legal insights, contact our team
             </p>
             <Link
               to="/contact"
