@@ -255,10 +255,18 @@ export default function HomePage() {
                 <div className="relative bg-optional-navy/10 border-l-2 border-accent-gold p-8 md:p-12 rounded-r-lg mb-12">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent-gold/5 blur-3xl rounded-full"></div>
                   <p dir="rtl" className="relative z-10 font-paragraph text-lg md:text-xl text-optional-navy leading-relaxed text-right font-medium mb-6">
-                    "يمكنكم تنظيم وكالة عامة مدافعة ومرافعة لدى السفارة اللبنانية في بلد إقامتكم، وتصديقها وفق الأصول القانونية، ومن ثم إرسالها إلينا لنتولى متابعة كافة الإجراءات القانونية في لبنان بكفاءة عالية، واحترافية تامة، وسرية مطلقة."
+                    الزبائن الكرام،
+                    نحيطكم علماً أنه في كافة القضايا أمام المحاكم والإدارات الرسمية اللبنانية، سواء داخل لبنان أو خارجه، يمكنكم تنظيم وكالة عامة أو خاصة للمدافعة والمرافعة لدى القنصليات أو السفارات اللبنانية في مكان إقامتكم، وتصديقها وفق الأصول القانونية المعتمدة، ومن ثم إرسالها إلينا.
+                    على أن يتم تحديد نوع الوكالة وتفاصيلها في وقت لاحق، بعد أول تواصل معنا، وذلك بما يتناسب مع طبيعة القضية ومتطلباتها القانونية.
+                    نتولى، بموجب هذه الوكالة، متابعة جميع الإجراءات القانونية في لبنان بكفاءة عالية واحترافية تامة، مع ضمان أقصى درجات الدقة، والسرية، والالتزام المهني في جميع مراحل العمل.
+                    وتفضلوا بقبول فائق الاحترام.
                   </p>
                   <p className="relative z-10 font-paragraph text-lg md:text-xl text-optional-navy leading-relaxed font-medium">
-                    "You may issue a general power of attorney for legal representation at the Lebanese embassy in your country of residence, have it duly legalized, and send it to us. We will handle all legal procedures in Lebanon with the highest level of professionalism, efficiency, and strict confidentiality."
+                    Dear clients,
+                    We would like to inform you that for all legal matters before Lebanese courts and official authorities, whether within Lebanon or abroad, you may issue a general or specific power of attorney for legal representation through the Lebanese consulate or embassy in your country of residence. This document should be duly legalized in accordance with applicable legal procedures and then transmitted to our office.
+                    The type and scope of the power of attorney will be determined at a later stage, following an initial consultation with us, in accordance with the specific nature and legal requirements of your case.
+                    Upon receipt, we will handle and manage all legal procedures in Lebanon with the highest standards of professionalism, efficiency, precision, and strict confidentiality throughout every stage of the process.
+                    Yours sincerely.
                   </p>
                 </div>
                 
