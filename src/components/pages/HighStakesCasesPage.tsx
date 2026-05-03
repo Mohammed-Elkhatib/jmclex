@@ -19,10 +19,20 @@ export default function HighStakesCasesPage() {
 
   const loadCases = async () => {
     try {
-      const result = await BaseCrudService.getAll<HighStakesCases>('highstakescases');
-      setCases(result.items);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const result = await Promise.race([
+        BaseCrudService.getAll<HighStakesCases>('highstakescases'),
+        timeoutPromise
+      ]) as any;
+      
+      setCases(result?.items || []);
     } catch (error) {
       console.error('Error loading cases:', error);
+      setCases([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }

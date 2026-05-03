@@ -24,18 +24,33 @@ export default function PublicationDetailPage() {
   const loadPublication = async () => {
     if (!id) return;
     try {
-      const data = await BaseCrudService.getById<Publications>('publications', id);
-      setPublication(data);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const data = await Promise.race([
+        BaseCrudService.getById<Publications>('publications', id),
+        timeoutPromise
+      ]) as any;
+      
+      setPublication(data || null);
       
       if (data?.category) {
-        const allPubs = await BaseCrudService.getAll<Publications>('publications');
-        const related = allPubs.items
-          .filter(p => p.category === data.category && p._id !== id)
+        const allPubsResult = await Promise.race([
+          BaseCrudService.getAll<Publications>('publications'),
+          timeoutPromise
+        ]) as any;
+        
+        const related = (allPubsResult?.items || [])
+          .filter((p: Publications) => p.category === data.category && p._id !== id)
           .slice(0, 3);
         setRelatedPublications(related);
       }
     } catch (error) {
       console.error('Error loading publication:', error);
+      setPublication(null);
+      setRelatedPublications([]);
     } finally {
       setIsLoading(false);
     }

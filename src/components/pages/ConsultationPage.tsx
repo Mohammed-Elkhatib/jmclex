@@ -31,18 +31,26 @@ export default function ConsultationPage() {
     setIsSubmitting(true);
 
     try {
-      await BaseCrudService.create('consultationrequests', {
-        _id: crypto.randomUUID(),
-        clientName: formData.clientName,
-        clientEmail: formData.clientEmail,
-        clientPhone: formData.clientPhone,
-        caseDetails: formData.caseDetails,
-        preferredDate: formData.preferredDate,
-        preferredTime: formData.preferredTime,
-        isPaid: false,
-        itemName: 'Legal Consultation - 250 USD',
-        itemPrice: 250
-      });
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 5000)
+      );
+      
+      await Promise.race([
+        BaseCrudService.create('consultationrequests', {
+          _id: crypto.randomUUID(),
+          clientName: formData.clientName,
+          clientEmail: formData.clientEmail,
+          clientPhone: formData.clientPhone,
+          caseDetails: formData.caseDetails,
+          preferredDate: formData.preferredDate,
+          preferredTime: formData.preferredTime,
+          isPaid: false,
+          itemName: 'Legal Consultation - 250 USD',
+          itemPrice: 250
+        }),
+        timeoutPromise
+      ]);
 
       setSubmitSuccess(true);
       setFormData({
@@ -63,19 +71,31 @@ export default function ConsultationPage() {
   };
 
   const handleAddToCart = async () => {
-    const consultationId = crypto.randomUUID();
-    
-    await BaseCrudService.create('consultationrequests', {
-      _id: consultationId,
-      itemName: 'Legal Consultation',
-      itemPrice: 250,
-      isPaid: false
-    });
+    try {
+      const consultationId = crypto.randomUUID();
+      
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Request timeout')), 5000)
+      );
+      
+      await Promise.race([
+        BaseCrudService.create('consultationrequests', {
+          _id: consultationId,
+          itemName: 'Legal Consultation',
+          itemPrice: 250,
+          isPaid: false
+        }),
+        timeoutPromise
+      ]);
 
-    cartActions.addToCart({
-      collectionId: 'consultationrequests',
-      itemId: consultationId
-    });
+      cartActions.addToCart({
+        collectionId: 'consultationrequests',
+        itemId: consultationId
+      });
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+    }
   };
 
   return (

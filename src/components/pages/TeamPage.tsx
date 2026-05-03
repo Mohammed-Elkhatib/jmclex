@@ -23,10 +23,20 @@ export default function TeamPage() {
 
   const loadTeam = async () => {
     try {
-      const result = await BaseCrudService.getAll<TeamMembersWithRegion>('teammembers');
-      setTeam(result.items);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const result = await Promise.race([
+        BaseCrudService.getAll<TeamMembersWithRegion>('teammembers'),
+        timeoutPromise
+      ]) as any;
+      
+      setTeam(result?.items || []);
     } catch (error) {
       console.error('Error loading team:', error);
+      setTeam([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }

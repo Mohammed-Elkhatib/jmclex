@@ -21,10 +21,20 @@ export default function TeamDetailPage() {
   const loadMember = async () => {
     if (!id) return;
     try {
-      const data = await BaseCrudService.getById<TeamMembers>('teammembers', id);
-      setMember(data);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const data = await Promise.race([
+        BaseCrudService.getById<TeamMembers>('teammembers', id),
+        timeoutPromise
+      ]) as any;
+      
+      setMember(data || null);
     } catch (error) {
       console.error('Error loading team member:', error);
+      setMember(null);
     } finally {
       setIsLoading(false);
     }

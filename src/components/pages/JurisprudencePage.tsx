@@ -21,10 +21,20 @@ export default function JurisprudencePage() {
 
   const loadItems = async () => {
     try {
-      const result = await BaseCrudService.getAll<JurisprudenceDatabase>('jurisprudencedatabase');
-      setItems(result.items);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const result = await Promise.race([
+        BaseCrudService.getAll<JurisprudenceDatabase>('jurisprudencedatabase'),
+        timeoutPromise
+      ]) as any;
+      
+      setItems(result?.items || []);
     } catch (error) {
       console.error('Error loading jurisprudence:', error);
+      setItems([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }

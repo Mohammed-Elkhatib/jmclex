@@ -17,10 +17,20 @@ export default function GlobalPresencePage() {
 
   const loadOffices = async () => {
     try {
-      const result = await BaseCrudService.getAll<OfficeLocations>('officelocations');
-      setOffices(result.items);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const result = await Promise.race([
+        BaseCrudService.getAll<OfficeLocations>('officelocations'),
+        timeoutPromise
+      ]) as any;
+      
+      setOffices(result?.items || []);
     } catch (error) {
       console.error('Error loading offices:', error);
+      setOffices([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }

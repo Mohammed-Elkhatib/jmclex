@@ -21,10 +21,20 @@ export default function ExpertiseDetailPage() {
   const loadExpertise = async () => {
     if (!id) return;
     try {
-      const data = await BaseCrudService.getById<LegalExpertise>('legalexpertise', id);
-      setExpertise(data);
+      // Add timeout protection - max 5 seconds
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Data fetch timeout')), 5000)
+      );
+      
+      const data = await Promise.race([
+        BaseCrudService.getById<LegalExpertise>('legalexpertise', id),
+        timeoutPromise
+      ]) as any;
+      
+      setExpertise(data || null);
     } catch (error) {
       console.error('Error loading expertise:', error);
+      setExpertise(null);
     } finally {
       setIsLoading(false);
     }
