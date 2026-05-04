@@ -8,6 +8,7 @@ import { useTranslation } from '@/lib/use-translation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import InternationalIconsRow from '@/components/InternationalIconsRow';
+import AudioSystem from '@/components/AudioSystem';
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
@@ -42,6 +43,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
+      <AudioSystem />
       <Header />
       
       {/* 1. HERO SECTION - Full Bleed, Cinematic */}
