@@ -431,6 +431,77 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 3.3. HUMAN RIGHTS & INTERNATIONAL SUPPORT - Discreet Premium Narrative */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            
+            {/* Left Column: Content */}
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Human Rights • International Support • Humanitarian Values</span>
+                </div>
+                
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Supporting Human Dignity Through International Legal Guidance
+                </h2>
+                
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  Beyond strategic advisory and international legal operations, JMC LEX also believes in maintaining a human-centered approach consistent with the principles of international law, dignity, and legal protection for vulnerable individuals.
+                  <br/><br/>
+                  Through our international network and multilingual environment, we assist certain individuals and families facing administrative, residency-related, documentation, or cross-border legal difficulties across parts of Europe and the EMEA region.
+                  <br/><br/>
+                  Our role is to help facilitate legal understanding, procedural orientation, and access to trusted professional support within complex international environments while respecting the legal frameworks and institutional requirements applicable in each jurisdiction.
+                  <br/><br/>
+                  We believe that long-term international stability also depends on the protection of human dignity, legal clarity, and responsible assistance for vulnerable individuals navigating difficult cross-border situations.
+                  <br/><br/>
+                  At JMC LEX, strategic advisory and international legal sophistication remain compatible with a broader human commitment guided by professionalism, responsibility, and respect for international legal principles.
+                </p>
+                
+                <div className="mb-8 pt-4 border-t border-optional-navy/10">
+                  <p className="font-paragraph text-lg md:text-xl text-accent-gold font-light italic mt-8">
+                    Every responsible action can make a meaningful difference for the most vulnerable.
+                  </p>
+                </div>
+                
+                <Link
+                  to="/consultation"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
+                >
+                  <span>Request Support Consultation</span>
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </motion.div>
+            </div>
+            
+            {/* Right Column: Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
+                <Image
+                  src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
+                  alt="International legal support for vulnerable individuals"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Shield className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">Legal Protection,<br/>Human Values.</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 3.5. ELITE BRAND BLOCK - Premium Three Column Section */}
       <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
