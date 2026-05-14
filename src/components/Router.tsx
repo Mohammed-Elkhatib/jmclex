@@ -17,6 +17,7 @@ import GlobalPresencePage from '@/components/pages/GlobalPresencePage';
 import AboutPage from '@/components/pages/AboutPage';
 import ConsultationPage from '@/components/pages/ConsultationPage';
 import ContactPage from '@/components/pages/ContactPage';
+import AILegalInfrastructurePage from '@/components/pages/AILegalInfrastructurePage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <ContactPage />,
+      },
+      {
+        path: "ai-legal-infrastructure",
+        element: <AILegalInfrastructurePage />,
       },
       {
         path: "*",
