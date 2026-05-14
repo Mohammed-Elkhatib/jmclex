@@ -235,6 +235,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 3. GCC INVESTORS & EUROPEAN STRATEGIC INTERESTS - Premium Narrative Section */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            
+            {/* Left Column: Content */}
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">GCC Investors • European Strategic Interests</span>
+                </div>
+                
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Protecting Strategic Investments, Mobility & International Interests Across Europe
+                </h2>
+                
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  JMC LEX assists GCC investors, entrepreneurs, families, and international business operators seeking secure and strategically structured access to France, Switzerland, and key European jurisdictions.
+                  <br/><br/>
+                  Through a trusted network of lawyers and partner firms across Europe and the Middle East, we support clients involved in high-value investments, cross-border business operations, residency-related matters, real estate acquisitions, institutional disputes, and sensitive international legal situations.
+                  <br/><br/>
+                  Our role extends beyond traditional legal support. We assist international clients in anticipating risks, reducing operational complexity, protecting strategic assets, and structuring their European interests through a discreet, multilingual, and internationally coordinated approach adapted to complex cross-border environments.
+                  <br/><br/>
+                  Whether involving investment protection, banking-related disputes, international mobility, commercial structuring, regulatory exposure, or strategic representation before institutions and counterparties, our teams coordinate each stage with precision, confidentiality, and long-term strategic vision.
+                  <br/><br/>
+                  JMC LEX provides international clients with a centralized legal and strategic infrastructure designed to simplify European operations while protecting business, personal, and investment interests across France, Europe, Lebanon, and selected international jurisdictions.
+                </p>
+                
+                <Link
+                  to="/consultation"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
+                >
+                  <span>Request Strategic Consultation</span>
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </motion.div>
+            </div>
+            
+            {/* Right Column: Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
+                <Image
+                  src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
+                  alt="European strategic investments and international business operations"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Shield className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">Strategic Protection,<br/>European Excellence.</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 3. DIASPORA - Sticky Narrative Section */}
       <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
