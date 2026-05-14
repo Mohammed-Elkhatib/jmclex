@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -9,6 +9,33 @@ import { ChevronRight, Shield, Globe, FileText, Zap, BarChart3, Lock } from 'luc
 
 export default function AILegalInfrastructurePage() {
   const [activeTab, setActiveTab] = useState('intelligence');
+
+  // SEO: Structured data for schema.org - AI Legal Infrastructure
+  useEffect(() => {
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "JMC LEX AI Legal Infrastructure",
+      "description": "Advanced AI-powered legal intelligence platform for institutional-grade legal analysis, compliance monitoring, and strategic advisory",
+      "url": "https://jmclex.com/ai-legal-infrastructure",
+      "applicationCategory": "LegalApplication",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "Contact for pricing"
+      },
+      "featureList": ["Legal Intelligence", "Compliance Monitoring", "Regulatory Analysis", "Geopolitical Tracking", "Risk Assessment"]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },

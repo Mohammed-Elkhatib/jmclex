@@ -13,6 +13,55 @@ export default function GlobalPresencePage() {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
+  // SEO: Structured data for schema.org - Locations
+  useEffect(() => {
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "JMC LEX",
+      "url": "https://jmclex.com",
+      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"],
+      "location": [
+        {
+          "@type": "Place",
+          "name": "JMC LEX - Lebanon",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "LB",
+            "addressLocality": "Beirut"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "JMC LEX - France",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "FR",
+            "addressLocality": "Strasbourg"
+          }
+        },
+        {
+          "@type": "Place",
+          "name": "JMC LEX - UAE",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "AE",
+            "addressLocality": "Dubai"
+          }
+        }
+      ]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   useEffect(() => {
     loadOffices();
   }, []);

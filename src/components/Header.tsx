@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ShoppingCart, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -16,6 +16,32 @@ export default function Header() {
   const { language } = useLanguageStore();
   const { t } = useTranslation();
   const setLanguage = useLanguageStore((state) => state.setLanguage);
+
+  // SEO: Add structured data for navigation
+  useEffect(() => {
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "JMC LEX",
+      "url": "https://jmclex.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://jmclex.com/search?q={search_term_string}"
+        }
+      }
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const languages = ['EN', 'FR', 'AR', 'ZH'] as const;
   

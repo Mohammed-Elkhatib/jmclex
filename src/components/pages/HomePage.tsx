@@ -1,5 +1,5 @@
-// HPI 1.7-G
-import React, { useRef } from 'react';
+// HPI 1.8-SEO
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Image } from '@/components/ui/image';
@@ -21,8 +21,6 @@ const EXPERTISE_AREAS = [
   { title: 'Real Estate', icon: MapPin, desc: 'International property transactions and development.' }
 ];
 
-// ... keep existing code (GLOBAL_LOCATIONS removed as it's now hardcoded in the section) ...
-
 const PUBLICATIONS = [
   { title: 'Geopolitical Law Analysis', category: 'Strategic Insight', date: 'October 2023' },
   { title: 'Navigating Global Sanctions', category: 'Compliance', date: 'September 2023' },
@@ -39,6 +37,30 @@ export default function HomePage() {
   const yBg = useTransform(heroScroll, [0, 1], ["0%", "20%"]);
   const opacityBg = useTransform(heroScroll, [0, 1], [0.4, 0]);
   const { t } = useTranslation();
+
+  // SEO: Structured data for schema.org
+  useEffect(() => {
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "JMC LEX - International Legal Authority & Strategic Advisory",
+      "description": "Institutional-grade legal strategy for complex multi-jurisdictional environments. Executive-level advisory on international governance, cross-border compliance, and strategic business architecture.",
+      "url": "https://jmclex.com",
+      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"],
+      "serviceType": ["Corporate Law", "International Litigation", "Compliance & Sanctions", "Cross-Border M&A", "Criminal Law", "Family Law", "Intellectual Property", "Real Estate"],
+      "priceRange": "$$",
+      "knowsAbout": ["International Law", "Cross-Border Transactions", "Regulatory Compliance", "Geopolitical Law", "EMEA Markets", "Lebanese Diaspora Services"]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
@@ -78,7 +100,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
           >
-            International Legal Authority & Executive-Level Strategic Advisory for Complex Cross-Border Matters
+            International Legal Authority & Executive-Level Strategic Advisory for Sophisticated Cross-Border Legal Matters
           </motion.h1>
           
           <motion.p
@@ -157,7 +179,7 @@ export default function HomePage() {
               >
                 <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-10 leading-[1.1] text-balance">
                   JMC LEX <br/>
-                  <span className="text-optional-navy/50">Strategic & International Law</span>
+                  <span className="text-optional-navy/50">International Legal Authority & Strategic Advisory</span>
                 </h2>
                 
                 <div className="space-y-8 font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-3xl">

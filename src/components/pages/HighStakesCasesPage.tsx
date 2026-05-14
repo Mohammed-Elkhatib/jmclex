@@ -13,6 +13,28 @@ export default function HighStakesCasesPage() {
   const [cases, setCases] = useState<HighStakesCases[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // SEO: Structured data for schema.org - High-Stakes Cases
+  useEffect(() => {
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "JMC LEX - High-Stakes Legal Cases",
+      "description": "Institutional expertise in complex multi-jurisdictional disputes, international litigation, and high-stakes legal matters",
+      "url": "https://jmclex.com/high-stakes-cases",
+      "serviceType": ["International Litigation", "Complex Disputes", "Multi-Jurisdictional Matters", "Strategic Legal Advisory"],
+      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   useEffect(() => {
     loadCases();
   }, []);

@@ -15,6 +15,43 @@ export default function TeamPage() {
     return () => clearTimeout(timer);
   }, []);
 
+  // SEO: Structured data for schema.org - Team/People
+  useEffect(() => {
+    const schemaData = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "JMC LEX",
+      "url": "https://jmclex.com",
+      "member": [
+        {
+          "@type": "Person",
+          "name": "Claude Mcheik",
+          "jobTitle": "Founder — International Legal Strategist",
+          "description": "Attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience",
+          "knowsAbout": ["International Law", "Cross-Border M&A", "Tax Law", "Compliance", "EMEA Markets"],
+          "speaksLanguages": ["French", "English", "Arabic"]
+        },
+        {
+          "@type": "Person",
+          "name": "Me Antoine Y. S.",
+          "jobTitle": "Co-Founder — Senior Legal Counsel",
+          "description": "Attorney at law and senior legal counsel with over 36 years of institutional legal experience",
+          "knowsAbout": ["International Law", "Litigation", "Commercial Law", "Regional Authority", "MEA Markets"],
+          "speaksLanguages": ["French", "English", "Arabic"]
+        }
+      ]
+    };
+    
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schemaData);
+    document.head.appendChild(script);
+    
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
   const foundersData = [
     {
       _id: 'founder-claude',
