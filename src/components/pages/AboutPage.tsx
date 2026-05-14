@@ -28,7 +28,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            About JMC LEX — International Legal Authority & Academic Excellence
+            About JMC LEX — International Legal Authority, Institutional Excellence & Strategic Advisory
           </motion.h1>
           
           <motion.p
@@ -37,7 +37,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Institutional-grade international legal practice combining academic rigor, multilingual expertise, and sophisticated cross-border advisory — Established authority since the 1990s
+            Institutional-grade international legal practice combining academic rigor, multilingual expertise, sophisticated cross-border advisory, and 30+ years of institutional authority — serving multinational corporations, institutional investors, and executive leadership across EMEA and international markets
           </motion.p>
         </div>
       </section>

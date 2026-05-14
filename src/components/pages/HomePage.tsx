@@ -78,7 +78,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
           >
-            International Legal Authority & Multilingual Strategic Advisory
+            International Legal Authority & Executive-Level Strategic Advisory for Complex Cross-Border Matters
           </motion.h1>
           
           <motion.p
@@ -87,7 +87,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="font-paragraph text-lg md:text-2xl text-background/80 mb-6 max-w-3xl mx-auto font-light tracking-wide"
           >
-            Institutional-grade legal strategy for complex multi-jurisdictional environments. Executive-level advisory on international governance, cross-border compliance, and strategic business architecture across EMEA and beyond.
+            Institutional-grade legal strategy for complex multi-jurisdictional environments. Executive-level advisory on international governance, cross-border compliance, regulatory sophistication, and strategic business architecture across EMEA, Europe, and international markets.
           </motion.p>
           
           <motion.p
