@@ -93,10 +93,10 @@ export default function AILegalInfrastructurePage() {
           >
             <div className="space-y-4">
               <h2 className="font-heading text-5xl lg:text-6xl font-bold">
-                AI Legal Intelligence
+                AI-Enhanced Legal Intelligence & Strategic Analysis
               </h2>
               <p className="font-paragraph text-lg text-secondary-foreground max-w-2xl">
-                Advanced document analysis and strategic contract intelligence for international legal operations.
+                Sophisticated document analysis, contract intelligence, and strategic risk assessment for international legal operations and cross-border business environments.
               </p>
             </div>
 
@@ -104,33 +104,33 @@ export default function AILegalInfrastructurePage() {
               {[
                 {
                   icon: FileText,
-                  title: 'Legal Document Intelligence',
-                  description: 'AI-assisted analysis of complex legal documents with strategic insights for international transactions and regulatory compliance.',
+                  title: 'Contract Intelligence & Analysis',
+                  description: 'AI-enhanced contract review identifying strategic implications, risk factors, and compliance requirements across multiple jurisdictions with institutional-grade analysis.',
                 },
                 {
                   icon: Shield,
-                  title: 'Strategic Contract Analysis',
-                  description: 'Intelligent contract review identifying key terms, risk factors, and strategic implications across jurisdictions.',
+                  title: 'Legal Risk Assessment & Mitigation',
+                  description: 'Systematic identification and strategic assessment of contractual, operational, and regulatory risks with executive-level mitigation recommendations.',
                 },
                 {
                   icon: Globe,
-                  title: 'Multilingual Legal Review',
-                  description: 'Cross-border contractual awareness and multilingual legal support for international business operations.',
+                  title: 'Multilingual Legal Document Review',
+                  description: 'Cross-border document analysis with multilingual support for international transactions, ensuring compliance awareness across jurisdictions.',
                 },
                 {
                   icon: BarChart3,
-                  title: 'Legal Risk Identification',
-                  description: 'Systematic identification of contractual and operational legal risks with strategic mitigation recommendations.',
+                  title: 'Strategic Legal Intelligence',
+                  description: 'Advanced analysis of legal implications for international business operations, M&A transactions, and cross-border strategic initiatives.',
                 },
                 {
                   icon: Zap,
-                  title: 'AI-Assisted Legal Review',
-                  description: 'Enhanced legal review support leveraging artificial intelligence for comprehensive document analysis.',
+                  title: 'AI-Assisted Legal Analysis',
+                  description: 'Sophisticated artificial intelligence support for comprehensive legal document analysis, pattern recognition, and strategic advisory insights.',
                 },
                 {
                   icon: Lock,
-                  title: 'Cross-Border Contractual Awareness',
-                  description: 'Strategic awareness of international contractual implications and multi-jurisdictional legal considerations.',
+                  title: 'Sanctions & Compliance Awareness',
+                  description: 'Strategic awareness of international regulatory requirements, sanctions frameworks, and compliance obligations across operating jurisdictions.',
                 },
               ].map((item, index) => (
                 <motion.div
@@ -160,12 +160,11 @@ export default function AILegalInfrastructurePage() {
           >
             <div className="space-y-4">
               <h2 className="font-heading text-5xl lg:text-6xl font-bold">
-                Compliance & Governance Strategy
+                Compliance Infrastructure & Governance Intelligence
               </h2>
               <p className="font-paragraph text-lg text-secondary-foreground max-w-2xl">
-                Strategic advisory for international compliance, governance intelligence, and regulatory awareness.
-              </p>
-            </div>
+                Enterprise-grade compliance advisory, governance strategy, and regulatory intelligence for sophisticated international organizations and cross-border operations.
+              </p>\n            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               <motion.div
@@ -173,20 +172,19 @@ export default function AILegalInfrastructurePage() {
                 className="space-y-8"
               >
                 <div className="space-y-4">
-                  <h3 className="font-heading text-2xl font-bold text-accent-gold">Strategic Compliance Advisory</h3>
+                  <h3 className="font-heading text-2xl font-bold text-accent-gold">Enterprise Compliance & Governance Framework</h3>
                   <p className="font-paragraph text-secondary-foreground leading-relaxed">
-                    Comprehensive governance strategy and compliance-oriented advisory tailored to international business operations. Our platform provides strategic awareness of regulatory requirements across multiple jurisdictions.
-                  </p>
-                </div>
+                    Institutional-grade governance strategy and compliance-oriented advisory infrastructure tailored to multinational organizations. Our platform delivers strategic awareness of regulatory requirements, compliance obligations, and governance frameworks across multiple jurisdictions with executive-level sophistication.
+                  </p>\n                </div>
 
                 <div className="space-y-6">
                   {[
-                    'Governance Strategy & Intelligence',
-                    'Compliance-Oriented Advisory Framework',
-                    'International Business Risk Support',
-                    'Regulatory Intelligence & Awareness',
-                    'Cross-Border Operational Awareness',
-                    'Strategic Risk Assessment',
+                    'Board-Level Governance Strategy & Intelligence',
+                    'Enterprise Compliance Infrastructure & Framework',
+                    'International Business Risk Assessment & Mitigation',
+                    'Regulatory Intelligence & Compliance Awareness',
+                    'Cross-Border Operational Risk Management',
+                    'Executive-Level Strategic Risk Assessment',
                   ].map((item, index) => (
                     <motion.div
                       key={index}
@@ -236,45 +234,44 @@ export default function AILegalInfrastructurePage() {
           >
             <div className="space-y-4">
               <h2 className="font-heading text-5xl lg:text-6xl font-bold">
-                International Business Intelligence
+                International Business Intelligence & Strategic Advisory
               </h2>
               <p className="font-paragraph text-lg text-secondary-foreground max-w-2xl">
-                Strategic support for complex international operations and cross-border transactions.
-              </p>
-            </div>
+                Executive-level strategic support for complex international operations, cross-border transactions, and multinational business architecture.
+              </p>\n            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 {
-                  title: 'Corporate Structuring Intelligence',
+                  title: 'International Corporate Architecture',
                   items: [
-                    'International entity structuring strategy',
+                    'Multinational entity structuring strategy',
                     'Multi-jurisdictional governance frameworks',
-                    'Strategic business organization support',
+                    'Strategic business organization & optimization',
                   ],
                 },
                 {
-                  title: 'International Operations Support',
+                  title: 'Cross-Border Operations & Transactions',
                   items: [
-                    'Cross-border transaction analysis',
-                    'International commercial relationship support',
-                    'Business-sensitive legal intelligence',
+                    'International transaction analysis & strategy',
+                    'Cross-border commercial relationship advisory',
+                    'Business-sensitive legal intelligence & support',
                   ],
                 },
                 {
-                  title: 'Strategic Transaction Advisory',
+                  title: 'Strategic M&A & Deal Advisory',
                   items: [
-                    'International M&A strategic support',
-                    'Cross-border deal structure intelligence',
-                    'Transaction risk awareness',
+                    'International M&A strategic positioning',
+                    'Cross-border deal structure & intelligence',
+                    'Transaction risk assessment & mitigation',
                   ],
                 },
                 {
-                  title: 'Governance Intelligence',
+                  title: 'Executive Governance & Risk Management',
                   items: [
-                    'Board-level strategic advisory',
-                    'International compliance frameworks',
-                    'Executive-level risk assessment',
+                    'Board-level strategic advisory & positioning',
+                    'International compliance & governance frameworks',
+                    'Executive-level risk assessment & strategy',
                   ],
                 },
               ].map((section, index) => (

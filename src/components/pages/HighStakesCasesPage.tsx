@@ -50,7 +50,7 @@ export default function HighStakesCasesPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            High-Stakes Cases
+            High-Stakes Legal Matters & Strategic Complexity
           </motion.h1>
           
           <motion.p
@@ -59,7 +59,7 @@ export default function HighStakesCasesPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Complex legal matters requiring exceptional expertise and strategic execution
+            Sophisticated legal representation for sensitive international matters, complex multi-jurisdictional disputes, and executive-level strategic challenges requiring institutional expertise and discretion
           </motion.p>
         </div>
       </section>
@@ -75,13 +75,13 @@ export default function HighStakesCasesPage() {
               transition={{ duration: 0.8 }}
             >
               <h2 className="font-heading text-5xl text-foreground mb-8">
-                When the Stakes Are Highest
+                Strategic Complexity Demands Institutional Excellence
               </h2>
               <p className="font-paragraph text-lg text-foreground/90 mb-6 leading-relaxed">
-                High-stakes cases demand more than legal knowledge—they require strategic thinking, meticulous preparation, and the ability to navigate complex, multi-jurisdictional challenges under pressure.
+                High-stakes legal matters transcend conventional legal practice. They demand sophisticated strategic thinking, meticulous preparation, institutional-grade execution, and the ability to navigate complex multi-jurisdictional environments with precision, discretion, and executive-level judgment under pressure.
               </p>
               <p className="font-paragraph text-lg text-foreground/90 leading-relaxed">
-                JMC LEGAL has built its reputation on successfully handling the most challenging legal matters, from international disputes to complex corporate litigation, criminal defense, and regulatory investigations.
+                JMC LEGAL has established its authority through successful representation in the most challenging and sensitive legal matters—from international disputes and complex cross-border litigation to sophisticated corporate defense, white-collar criminal matters, and regulatory investigations requiring strategic positioning and institutional credibility.
               </p>
             </motion.div>
             
@@ -105,18 +105,18 @@ export default function HighStakesCasesPage() {
             {[
               {
                 icon: Scale,
-                title: 'International Disputes',
-                description: 'Cross-border litigation, arbitration, and dispute resolution involving multiple jurisdictions and complex legal frameworks.'
+                title: 'International Dispute Resolution & Arbitration',
+                description: 'Sophisticated cross-border litigation, international arbitration, and multi-jurisdictional dispute resolution involving complex legal frameworks, sensitive commercial relationships, and strategic positioning.'
               },
               {
                 icon: Shield,
-                title: 'Corporate Defense',
-                description: 'Strategic defense in high-value corporate disputes, shareholder conflicts, and regulatory investigations.'
+                title: 'Corporate Defense & Strategic Positioning',
+                description: 'Executive-level defense in high-value corporate disputes, shareholder conflicts, sensitive regulatory investigations, and business-critical legal challenges requiring institutional strategy.'
               },
               {
                 icon: Globe,
-                title: 'Criminal Defense',
-                description: 'Representation in complex criminal matters, including white-collar crime, fraud, and international criminal law.'
+                title: 'White-Collar & International Criminal Defense',
+                description: 'Sophisticated representation in complex criminal matters, including white-collar crime, international fraud investigations, sanctions matters, and cross-border criminal proceedings.'
               }
             ].map((area, index) => (
               <motion.div
@@ -145,7 +145,7 @@ export default function HighStakesCasesPage() {
             className="mb-32"
           >
             <h2 className="font-heading text-5xl text-foreground mb-12 text-center">
-              Notable Cases
+              Notable Cases & Strategic Matters
             </h2>
             
             <div className="min-h-[400px]">
@@ -175,7 +175,7 @@ export default function HighStakesCasesPage() {
                       </p>
                       <div className="pt-4 border-t border-foreground/10">
                         <p className="font-paragraph text-sm text-foreground/70">
-                          <span className="text-accent-gold font-medium">Outcome:</span> {caseItem.caseOutcome}
+                          <span className="text-accent-gold font-medium">Strategic Outcome:</span> {caseItem.caseOutcome}
                         </p>
                       </div>
                     </motion.div>
@@ -184,7 +184,7 @@ export default function HighStakesCasesPage() {
               ) : (
                 <div className="text-center py-20">
                   <p className="font-paragraph text-lg text-foreground/60">
-                    Case information available upon consultation
+                    Detailed case information available upon confidential consultation
                   </p>
                 </div>
               )}
@@ -200,25 +200,25 @@ export default function HighStakesCasesPage() {
             className="bg-optional-navy p-16 rounded"
           >
             <h2 className="font-heading text-5xl text-foreground mb-12 text-center">
-              Our Approach to High-Stakes Matters
+              Institutional Approach to High-Stakes Legal Matters
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {[
                 {
-                  title: 'Strategic Assessment',
-                  description: 'Comprehensive analysis of legal position, risks, and strategic options from multiple angles.'
+                  title: 'Strategic Assessment & Positioning',
+                  description: 'Comprehensive institutional analysis of legal position, strategic risks, competitive positioning, and multi-dimensional strategic options from executive-level perspective.'
                 },
                 {
-                  title: 'Team Assembly',
-                  description: 'Mobilization of specialized expertise across jurisdictions and practice areas as needed.'
+                  title: 'Specialized Team Mobilization',
+                  description: 'Strategic assembly of institutional expertise across multiple jurisdictions, practice areas, and specialized domains as required for optimal case positioning.'
                 },
                 {
-                  title: 'Meticulous Preparation',
-                  description: 'Thorough preparation of all legal arguments, evidence, and strategic positioning.'
+                  title: 'Meticulous Preparation & Strategy',
+                  description: 'Institutional-grade preparation of all legal arguments, evidence analysis, strategic positioning, and executive-level case strategy.'
                 },
                 {
-                  title: 'Aggressive Execution',
-                  description: 'Decisive action and strategic maneuvering to achieve optimal outcomes for our clients.'
+                  title: 'Strategic Execution & Advocacy',
+                  description: 'Decisive institutional action, sophisticated strategic maneuvering, and executive-level advocacy to achieve optimal outcomes and strategic positioning.'
                 }
               ].map((step, index) => (
                 <div key={index}>
@@ -243,16 +243,16 @@ export default function HighStakesCasesPage() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="font-heading text-5xl md:text-6xl text-foreground mb-8">
-              Facing a High-Stakes Legal Matter?
+              Navigating Sensitive Legal Complexity?
             </h2>
             <p className="font-paragraph text-xl text-foreground/80 mb-12 max-w-3xl mx-auto">
-              Time is critical. Schedule a confidential consultation to discuss your case with our experienced legal team.
+              Strategic timing and institutional expertise are critical. Schedule a confidential consultation with our senior legal team to discuss your matter with complete discretion and executive-level strategic positioning.
             </p>
             <Link
               to="/consultation"
               className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-10 py-5 rounded text-lg transition-all hover:scale-105"
             >
-              Request Urgent Consultation <ArrowRight className="w-6 h-6" />
+              Request Confidential Consultation <ArrowRight className="w-6 h-6" />
             </Link>
           </motion.div>
         </div>
