@@ -300,6 +300,71 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 3.2. EUROPE & EMEA - International Operations Section */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            
+            {/* Left Column: Content */}
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+              >
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Europe • EMEA • Cross-Border Private Interests</span>
+                </div>
+                
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Strategic Legal Support for International Operations Across Europe, Lebanon & the GCC
+                </h2>
+                
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  JMC LEX assists European, international, and English-speaking clients seeking reliable legal and strategic support across the EMEA region, Lebanon, France, and GCC jurisdictions.
+                  <br/><br/>
+                  Through our international network of lawyers, advisors, and partner firms, we support individuals, entrepreneurs, investors, families, and business operators involved in cross-border projects, investments, international mobility, commercial operations, and sensitive legal matters.
+                  <br/><br/>
+                  Our teams assist clients in navigating complex regional environments while reducing operational uncertainty, protecting strategic interests, and simplifying multi-jurisdictional procedures through a discreet and coordinated approach.
+                  <br/><br/>
+                  Whether involving investment structuring, business expansion, contractual matters, asset protection, residency-related procedures, family interests, institutional disputes, or cross-border legal coordination, JMC LEX provides multilingual and internationally oriented support adapted to complex international situations.
+                  <br/><br/>
+                  We combine strategic legal experience, international business understanding, and trusted regional partnerships to help clients operate more securely and efficiently across Europe, Lebanon, and the GCC region.
+                </p>
+                
+                <Link
+                  to="/consultation"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
+                >
+                  <span>Discuss International Operations</span>
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                </Link>
+              </motion.div>
+            </div>
+            
+            {/* Right Column: Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
+                <Image
+                  src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
+                  alt="International operations across Europe, Lebanon and GCC"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Globe className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">International<br/>Strategic Support.</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* 3. DIASPORA - Sticky Narrative Section */}
       <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
