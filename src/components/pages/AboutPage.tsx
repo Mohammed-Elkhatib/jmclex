@@ -28,7 +28,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            About JMC LEX — International Legal Authority
+            About JMC LEX — International Legal Authority & Academic Excellence
           </motion.h1>
           
           <motion.p
@@ -37,7 +37,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Excellence in international legal strategy, cross-border compliance, and strategic advisory — Established expertise since the 1990s
+            Institutional-grade international legal practice combining academic rigor, multilingual expertise, and sophisticated cross-border advisory — Established authority since the 1990s
           </motion.p>
         </div>
       </section>
@@ -57,10 +57,10 @@ export default function AboutPage() {
                 Our History
               </h2>
               <p className="font-paragraph text-lg text-foreground/90 mb-6 leading-relaxed">
-                With lawyers' expertise since the 1990s, JMC LEGAL has grown from a boutique law practice in Lebanon to a leading international law firm with offices across the Middle East and Europe. Our journey reflects our commitment to excellence, strategic thinking, and unwavering dedication to our clients' success.
+                With lawyers' expertise since the 1990s, JMC LEX has evolved from a boutique law practice in Lebanon into a premier international law firm with strategic presence across the Middle East and Europe. Our institutional development reflects decades of commitment to academic rigor, multilingual expertise, and sophisticated cross-border advisory excellence.
               </p>
               <p className="font-paragraph text-lg text-foreground/90 leading-relaxed">
-                Over three decades, we have navigated complex geopolitical shifts, regulatory changes, and evolving business landscapes, always maintaining our focus on delivering exceptional legal services and strategic advisory to our clients worldwide.
+                Over three decades, we have navigated complex geopolitical environments, evolving regulatory frameworks, and sophisticated international business landscapes. Our institutional authority is built on deep expertise in cross-border governance, compliance sophistication, and strategic positioning across multiple jurisdictions and legal systems.
               </p>
             </motion.div>
             
@@ -103,17 +103,17 @@ export default function AboutPage() {
               className="order-1 lg:order-2"
             >
               <h2 className="font-heading text-5xl text-foreground mb-8">
-                Mission & Values
+                Mission & Institutional Values
               </h2>
               <p className="font-paragraph text-lg text-foreground/90 mb-8 leading-relaxed">
-                Our mission is to provide world-class legal services that combine deep expertise, strategic insight, and unwavering commitment to our clients' objectives. We believe in building long-term relationships based on trust, excellence, and results.
+                Our mission is to deliver institutional-grade legal services that integrate deep academic expertise, sophisticated strategic analysis, and unwavering commitment to our clients' strategic objectives. We build long-term advisory relationships based on intellectual rigor, professional excellence, and measurable results.
               </p>
               <div className="space-y-6">
                 {[
-                  { title: 'Excellence', description: 'Uncompromising standards in everything we do' },
-                  { title: 'Integrity', description: 'Ethical practice and transparent communication' },
-                  { title: 'Strategic Thinking', description: 'Beyond legal advice to business solutions' },
-                  { title: 'Client Focus', description: 'Your success is our priority' }
+                  { title: 'Institutional Excellence', description: 'Uncompromising standards in legal analysis, strategic positioning, and professional execution' },
+                  { title: 'Intellectual Integrity', description: 'Academic rigor combined with practical legal judgment and transparent strategic counsel' },
+                  { title: 'Cross-Border Sophistication', description: 'Deep expertise in multilingual advisory and complex international legal environments' },
+                  { title: 'Strategic Partnership', description: 'Alignment of legal strategy with your institutional and commercial objectives' }
                 ].map((value, index) => (
                   <div key={index} className="flex items-start gap-4">
                     <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
@@ -143,7 +143,7 @@ export default function AboutPage() {
               What Sets Us Apart
             </h2>
             <p className="font-paragraph text-xl text-foreground/80 max-w-3xl mx-auto">
-              Distinctive capabilities that make JMC LEGAL the preferred choice for complex legal matters
+              Institutional capabilities that position JMC LEX as a premier choice for sophisticated international legal matters and executive-level advisory
             </p>
           </motion.div>
 
@@ -151,23 +151,23 @@ export default function AboutPage() {
             {[
               {
                 icon: Globe,
-                title: 'Global Reach',
-                description: 'International presence across Lebanon, France, UAE, and Saudi Arabia with deep local expertise'
+                title: 'International Institutional Presence',
+                description: 'Strategic offices across Lebanon, France, UAE, and Saudi Arabia with deep multilingual expertise and cross-border advisory capability'
               },
               {
                 icon: Users,
-                title: 'Expert Team',
-                description: 'Seasoned legal professionals with decades of experience in complex international matters'
+                title: 'Accomplished Legal Leadership',
+                description: 'Senior legal professionals with 60+ years of combined international experience in complex cross-border matters and institutional advisory'
               },
               {
                 icon: Target,
-                title: 'Strategic Focus',
-                description: 'Business-oriented approach that aligns legal strategy with commercial objectives'
+                title: 'Strategic Legal Architecture',
+                description: 'Sophisticated approach that integrates legal strategy with governance frameworks and commercial objectives'
               },
               {
                 icon: Award,
-                title: 'Proven Track Record',
-                description: 'Over 30 years of successful outcomes in high-stakes cases and transactions'
+                title: 'Institutional Track Record',
+                description: 'Decades of successful outcomes in high-stakes international matters, complex transactions, and strategic advisory'
               }
             ].map((item, index) => (
               <motion.div
@@ -200,26 +200,26 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <h2 className="font-heading text-5xl text-foreground mb-8">
-              International Positioning
+              International Institutional Positioning
             </h2>
             <p className="font-paragraph text-xl text-foreground/90 max-w-4xl mx-auto leading-relaxed mb-12">
-              JMC LEGAL occupies a unique position in the international legal landscape, bridging Middle Eastern and European legal systems while maintaining deep expertise in both regions. Our multilingual capabilities and cultural fluency enable us to navigate complex cross-border matters with exceptional effectiveness.
+              JMC LEX occupies a distinctive position in the international legal landscape as a bridge between Middle Eastern and European legal systems, combining institutional authority in both regions. Our multilingual capabilities, academic expertise, and cultural sophistication enable us to navigate complex cross-border governance, compliance, and strategic matters with institutional credibility and executive-level judgment.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                region: 'Middle East',
-                description: 'Deep roots and extensive network across Lebanon, UAE, and Saudi Arabia'
+                region: 'Middle East & Levantine Authority',
+                description: 'Institutional roots and extensive network across Lebanon, UAE, and Saudi Arabia with deep regional legal expertise and governance understanding'
               },
               {
-                region: 'Europe',
-                description: 'Established presence in France with expertise in EU legal frameworks'
+                region: 'European & EMEA Sophistication',
+                description: 'Established institutional presence in France with advanced expertise in EU legal frameworks and cross-border compliance'
               },
               {
-                region: 'Cross-Border',
-                description: 'Seamless coordination across jurisdictions for complex international matters'
+                region: 'Multilingual Cross-Border Advisory',
+                description: 'Seamless institutional coordination across jurisdictions for complex international matters, governance issues, and strategic positioning'
               }
             ].map((item, index) => (
               <motion.div

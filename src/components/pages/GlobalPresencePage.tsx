@@ -66,7 +66,7 @@ export default function GlobalPresencePage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            {t('global.title')}
+            Global Institutional Presence & International Advisory Network
           </motion.h1>
           
           <motion.p
@@ -75,7 +75,7 @@ export default function GlobalPresencePage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            {t('global.subtitle')}
+            Strategic offices across EMEA with multilingual advisory, cross-border expertise, and institutional-grade legal infrastructure serving international clients
           </motion.p>
         </div>
       </section>
@@ -91,10 +91,10 @@ export default function GlobalPresencePage() {
             className="text-center mb-20"
           >
             <h2 className="font-heading text-5xl text-foreground mb-8">
-              {t('global.section-title')}
+              International Institutional Presence
             </h2>
             <p className="font-paragraph text-xl text-foreground/90 max-w-4xl mx-auto leading-relaxed">
-              {t('global.section-desc')}
+              JMC LEX maintains strategic institutional presence across key EMEA jurisdictions, providing multilingual advisory, cross-border legal expertise, and sophisticated institutional infrastructure for international clients navigating complex multi-jurisdictional environments.
             </p>
           </motion.div>
 

@@ -50,7 +50,7 @@ export default function HighStakesCasesPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            High-Stakes Legal Matters & Strategic Complexity
+            Sophisticated Legal Strategy & Complex International Matters
           </motion.h1>
           
           <motion.p
@@ -59,7 +59,7 @@ export default function HighStakesCasesPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Sophisticated legal representation for sensitive international matters, complex multi-jurisdictional disputes, and executive-level strategic challenges requiring institutional expertise and discretion
+            Institutional-grade representation for sensitive international matters, complex multi-jurisdictional disputes, and executive-level strategic challenges requiring sophisticated legal strategy and institutional credibility
           </motion.p>
         </div>
       </section>
@@ -81,7 +81,7 @@ export default function HighStakesCasesPage() {
                 High-stakes legal matters transcend conventional legal practice. They demand sophisticated strategic thinking, meticulous preparation, institutional-grade execution, and the ability to navigate complex multi-jurisdictional environments with precision, discretion, and executive-level judgment under pressure.
               </p>
               <p className="font-paragraph text-lg text-foreground/90 leading-relaxed">
-                JMC LEGAL has established its authority through successful representation in the most challenging and sensitive legal matters—from international disputes and complex cross-border litigation to sophisticated corporate defense, white-collar criminal matters, and regulatory investigations requiring strategic positioning and institutional credibility.
+                JMC LEX has established its institutional authority through successful representation in the most challenging and sensitive legal matters—from international disputes and complex cross-border litigation to sophisticated corporate defense, white-collar criminal matters, and regulatory investigations requiring strategic positioning and institutional credibility.
               </p>
             </motion.div>
             
