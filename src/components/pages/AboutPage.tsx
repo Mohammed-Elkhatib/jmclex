@@ -28,7 +28,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            About JMC LEGAL
+            About JMC LEX — International Legal Authority
           </motion.h1>
           
           <motion.p
@@ -37,7 +37,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Excellence in international legal strategy — Lawyers' expertise since the 1990s
+            Excellence in international legal strategy, cross-border compliance, and strategic advisory — Established expertise since the 1990s
           </motion.p>
         </div>
       </section>

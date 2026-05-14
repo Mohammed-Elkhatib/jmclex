@@ -58,7 +58,7 @@ export default function ExpertisePage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-optional-navy mb-8"
           >
-            International Legal Expertise & Strategic Practice Areas
+            International Legal Practice Areas & Cross-Border Expertise
           </motion.h1>
           
           <motion.p
@@ -67,7 +67,7 @@ export default function ExpertisePage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-optional-navy/90 max-w-4xl mx-auto"
           >
-            Sophisticated legal services across multiple international practice areas, jurisdictions, and complex cross-border matters
+            Comprehensive legal expertise across corporate law, compliance, litigation, and strategic advisory for complex multi-jurisdictional matters and international business operations
           </motion.p>
         </div>
       </section>

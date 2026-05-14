@@ -70,7 +70,7 @@ export default function TeamPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            International Legal Leadership & Expert Team
+            International Legal Leadership & Expert Advisory Team
           </motion.h1>
           
           <motion.p
@@ -79,7 +79,7 @@ export default function TeamPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Accomplished legal professionals with decades of international experience and strategic expertise across EMEA
+            Accomplished legal professionals with 60+ years of combined international experience, strategic expertise, and authority across EMEA and multilingual advisory
           </motion.p>
         </div>
       </section>

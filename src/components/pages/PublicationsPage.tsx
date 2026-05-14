@@ -72,7 +72,7 @@ export default function PublicationsPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            Legal Authority & Strategic Thought Leadership
+            Legal Authority, Strategic Insights & International Compliance Analysis
           </motion.h1>
           
           <motion.p
@@ -81,7 +81,7 @@ export default function PublicationsPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
           >
-            Expert analysis on geopolitical law, international sanctions, cross-border strategy, and emerging legal developments
+            Expert thought leadership on geopolitical law, international sanctions compliance, cross-border business strategy, and emerging regulatory developments
           </motion.p>
         </div>
       </section>
