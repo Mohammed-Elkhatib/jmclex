@@ -226,12 +226,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.emergency-consultation': 'طوارئ: اطلب مساعدة قانونية طارئة',
 
     // Global Presence
-    'global.title': 'الحضور العالمي',
-    'global.subtitle': 'مكاتب دولية في لبنان وفرنسا',
-    'global.section-title': 'موضع استراتيجي في جميع أنحاء العالم',
-    'global.section-desc': 'مع خبرة قانونية منذ التسعينيات، أنشأت JMC LEX حضوراً استراتيجياً في الولايات القضائية الرئيسية في الشرق الأوسط وأوروبا. تمكننا شبكتنا الدولية من تقديم خدمات قانونية سلسة عبر الحدود، مما يجمع بين الخبرة المحلية والنطاق العالمي.',
-    'global.network-title': 'شبكتنا الدولية',
-    'global.network-desc': 'مكاتب موضوعة بشكل استراتيجي في مراكز قانونية وتجارية رئيسية',
+    'global.title': 'الحضور العالمي والشبكة الدولية',
+    'global.subtitle': 'مكاتب استراتيجية في منطقة EMEA — لبنان وفرنسا والولايات القضائية الدولية الرئيسية',
+    'global.section-title': 'حضور قانوني دولي متميز',
+    'global.section-desc': 'مع خبرة قانونية منذ التسعينيات، أنشأت JMC LEX حضوراً دولياً متطوراً في الولايات القضائية الرئيسية في الشرق الأوسط وأوروبا. تمكننا شبكتنا الاستراتيجية من تقديم خدمات قانونية سلسة عبر الحدود، مما يجمع بين الخبرة المحلية العميقة والنطاق العالمي والموضع الاستراتيجي الدولي.',
+    'global.network-title': 'شبكتنا الاستراتيجية الدولية',
+    'global.network-desc': 'مكاتب متميزة موضوعة بشكل استراتيجي في مراكز قانونية وتجارية ومالية رئيسية',
     'global.contact-button': 'اتصل',
     'global.support-text': 'الدعم القانوني والتجاري الدولي',
 
@@ -324,12 +324,12 @@ export const translations: Record<Language, Record<string, string>> = {
     'hero.emergency-consultation': '紧急：请求紧急法律援助',
 
     // Global Presence
-    'global.title': '全球业务',
-    'global.subtitle': '黎巴嫩和法国的国际办事处',
-    'global.section-title': '全球战略布局',
-    'global.section-desc': '自1990年代以来，JMC LEX在中东和欧洲的主要司法管辖区建立了战略地位。我们的国际网络使我们能够跨越边界提供无缝的法律服务，结合本地专业知识和全球影响力。',
-    'global.network-title': '我们的国际网络',
-    'global.network-desc': '在主要法律和商业中心战略性地设置的办事处',
+    'global.title': '全球业务与国际网络',
+    'global.subtitle': '战略性办事处遍布EMEA地区 — 黎巴嫩、法国和主要国际司法管辖区',
+    'global.section-title': '高端国际法律服务',
+    'global.section-desc': '自1990年代以来，JMC LEX在中东和欧洲的主要司法管辖区建立了精良的国际地位。我们的战略网络提供无缝的跨境法律服务，融合深厚的本地专业知识、全球影响力和国际战略定位。',
+    'global.network-title': '我们的国际战略网络',
+    'global.network-desc': '在主要法律、商业和金融中心战略性地设置的高端办事处',
     'global.contact-button': '联系我们',
     'global.support-text': '国际法律和商业支持',
 

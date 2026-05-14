@@ -78,8 +78,8 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
           >
-            International Legal Strategy, <br className="hidden md:block" />
-            Architecture & Business Advisory
+            Premium International Legal Strategy, <br className="hidden md:block" />
+            Cross-Border Architecture & Strategic Business Advisory
           </motion.h1>
           
           <motion.p
@@ -88,7 +88,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="font-paragraph text-lg md:text-2xl text-background/80 mb-6 max-w-3xl mx-auto font-light tracking-wide"
           >
-            Navigating complex legal environments. Delivering strategic solutions across jurisdictions for the world's most demanding clients.
+            Mastering complex multi-jurisdictional legal environments. Delivering sophisticated strategic solutions across EMEA for the world's most demanding international clients and investors.
           </motion.p>
           
           <motion.p
@@ -97,7 +97,7 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="font-paragraph text-base md:text-lg text-background/70 mb-12 max-w-3xl mx-auto font-light tracking-wide italic"
           >
-            We provide legal, business, economic, and tax advisory services for multinational clients across EMEA.
+            Comprehensive international legal, strategic business, economic, and tax advisory services for multinational corporations, investors, and high-net-worth individuals across EMEA and beyond.
           </motion.p>
           
           <motion.div
