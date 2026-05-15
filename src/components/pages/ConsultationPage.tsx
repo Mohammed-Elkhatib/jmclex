@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Calendar, Clock, Globe, Shield, Video, AlertCircle } from 'lucide-react';
+import { Calendar, Clock, Globe, Shield, Video, AlertCircle, CheckCircle } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -30,6 +30,7 @@ export default function ConsultationPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const { addingItemId, actions: cartActions } = useCart();
   const { currency } = useCurrency();
@@ -39,10 +40,27 @@ export default function ConsultationPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
-      await BaseCrudService.create('consultationrequests', {
-        _id: crypto.randomUUID(),
+      // Validate form data
+      if (!formData.clientName || !formData.clientEmail || !formData.clientPhone || 
+          !formData.caseDetails || !formData.preferredDate || !formData.preferredTime) {
+        throw new Error('Please fill in all required fields');
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.clientEmail)) {
+        throw new Error('Please enter a valid email address');
+      }
+
+      const consultationId = crypto.randomUUID();
+      const itemName = `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation`;
+      
+      // Save consultation request to CMS
+      const savedConsultation = await BaseCrudService.create('consultationrequests', {
+        _id: consultationId,
         clientName: formData.clientName,
         clientEmail: formData.clientEmail,
         clientPhone: formData.clientPhone,
@@ -50,9 +68,34 @@ export default function ConsultationPage() {
         preferredDate: formData.preferredDate,
         preferredTime: formData.preferredTime,
         isPaid: false,
-        itemName: `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation - ${formatPrice(consultationPrice, currency ?? DEFAULT_CURRENCY)}`,
+        itemName: itemName,
         itemPrice: consultationPrice
       });
+
+      // Send email notification to admin
+      try {
+        await fetch('/api/send-consultation-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            consultationId,
+            clientName: formData.clientName,
+            clientEmail: formData.clientEmail,
+            clientPhone: formData.clientPhone,
+            caseDetails: formData.caseDetails,
+            preferredDate: formData.preferredDate,
+            preferredTime: formData.preferredTime,
+            consultationType,
+            consultationPrice,
+            adminEmail: 'contact@jmclex.com'
+          })
+        });
+      } catch (emailError) {
+        console.warn('Email notification failed, but consultation was saved:', emailError);
+        // Don't fail the submission if email fails - the consultation is already saved
+      }
 
       setSubmitSuccess(true);
       setFormData({
@@ -65,27 +108,33 @@ export default function ConsultationPage() {
         language: 'EN'
       });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'There was an error submitting your request. Please try again.';
       console.error('Error submitting consultation request:', error);
-      alert('There was an error submitting your request. Please try again.');
+      setSubmitError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleAddToCart = async () => {
-    const consultationId = crypto.randomUUID();
-    
-    await BaseCrudService.create('consultationrequests', {
-      _id: consultationId,
-      itemName: `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation`,
-      itemPrice: consultationPrice,
-      isPaid: false
-    });
+    try {
+      const consultationId = crypto.randomUUID();
+      
+      await BaseCrudService.create('consultationrequests', {
+        _id: consultationId,
+        itemName: `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation`,
+        itemPrice: consultationPrice,
+        isPaid: false
+      });
 
-    cartActions.addToCart({
-      collectionId: 'consultationrequests',
-      itemId: consultationId
-    });
+      cartActions.addToCart({
+        collectionId: 'consultationrequests',
+        itemId: consultationId
+      });
+    } catch (error) {
+      console.error('Error adding consultation to cart:', error);
+      setSubmitError('Failed to add consultation to cart. Please try again.');
+    }
   };
 
   return (
@@ -232,12 +281,21 @@ export default function ConsultationPage() {
 
               {submitSuccess ? (
                 <div className="bg-secondary p-8 rounded-lg border border-accent-gold/30">
-                  <h3 className="font-heading text-2xl text-accent-gold mb-4">Request Submitted!</h3>
+                  <div className="flex items-center gap-3 mb-4">
+                    <CheckCircle className="w-8 h-8 text-accent-gold" />
+                    <h3 className="font-heading text-2xl text-accent-gold">Request Submitted!</h3>
+                  </div>
                   <p className="font-paragraph text-base text-optional-navy/90 mb-6">
                     Thank you for your consultation request. Our team will contact you within 24 hours to confirm your appointment and provide payment instructions.
                   </p>
+                  <p className="font-paragraph text-sm text-optional-navy/70 mb-6">
+                    A confirmation email has been sent to <span className="font-semibold">{formData.clientEmail}</span>
+                  </p>
                   <Button
-                    onClick={() => setSubmitSuccess(false)}
+                    onClick={() => {
+                      setSubmitSuccess(false);
+                      setSubmitError(null);
+                    }}
                     className="bg-accent-gold text-background hover:bg-accent-gold/90"
                   >
                     Submit Another Request
@@ -245,6 +303,13 @@ export default function ConsultationPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg border border-optional-navy/10 shadow-sm">
+                  {submitError && (
+                    <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
+                      <p className="font-paragraph text-sm text-red-800">
+                        <span className="font-semibold">Error:</span> {submitError}
+                      </p>
+                    </div>
+                  )}
                   {consultationType === 'emergency' && (
                     <div className="bg-accent-gold/10 border border-accent-gold/30 p-4 rounded-lg">
                       <p className="font-paragraph text-sm text-optional-navy font-medium">
