@@ -186,6 +186,47 @@ export interface Publications {
 
 
 /**
+ * Collection ID: talentnetworkapplications
+ * Interface for TalentNetworkApplications
+ */
+export interface TalentNetworkApplications {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  fullName?: string;
+  /** @wixFieldType text */
+  email?: string;
+  /** @wixFieldType text */
+  phone?: string;
+  /** @wixFieldType text */
+  country?: string;
+  /** @wixFieldType text */
+  languages?: string;
+  /** @wixFieldType text */
+  areaOfExpertise?: string;
+  /** @wixFieldType url */
+  linkedIn?: string;
+  /** @wixFieldType url */
+  website?: string;
+  /** @wixFieldType url */
+  cvUpload?: string;
+  /** @wixFieldType url */
+  supportingDocuments?: string;
+  /** @wixFieldType text */
+  professionalSummary?: string;
+  /** @wixFieldType datetime */
+  submissionDate?: Date | string;
+  /** @wixFieldType text */
+  sourcePage?: string;
+  /** @wixFieldType text */
+  status?: string;
+  /** @wixFieldType text */
+  submissionType?: string;
+}
+
+
+/**
  * Collection ID: teammembers
  * Interface for TeamMembers
  */

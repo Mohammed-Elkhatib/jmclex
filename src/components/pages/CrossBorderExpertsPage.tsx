@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import TalentNetworkApplicationForm from '@/components/TalentNetworkApplicationForm';
 
 export default function CrossBorderExpertsPage() {
   return (
@@ -123,25 +124,15 @@ export default function CrossBorderExpertsPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center"
+            className="max-w-4xl mx-auto"
           >
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-foreground mb-4 md:mb-6 leading-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-foreground mb-4 md:mb-6 leading-tight text-center">
               Submit Your Profile
             </h2>
-            <p className="font-paragraph text-base sm:text-lg text-foreground mb-6 md:mb-8 leading-relaxed px-2">
+            <p className="font-paragraph text-base sm:text-lg text-foreground mb-10 md:mb-12 leading-relaxed px-2 text-center">
               Are you a multilingual professional or international consultant interested in collaborating with JMC LEX? We welcome experienced experts to submit their profiles.
             </p>
-            <div className="bg-secondary p-6 md:p-10 lg:p-12 rounded-lg">
-              <p className="font-paragraph text-sm md:text-base text-foreground mb-5 md:mb-6 leading-relaxed">
-                Profile submission form coming soon. Please check back for updates or contact us directly to express your interest.
-              </p>
-              <Link
-                to="/contact"
-                className="inline-block bg-accent-gold text-optional-navy px-6 md:px-8 py-3 md:py-4 rounded-lg font-paragraph font-semibold text-sm md:text-base hover:bg-opacity-90 transition-all duration-300"
-              >
-                Contact Us
-              </Link>
-            </div>
+            <TalentNetworkApplicationForm sourcePage="Cross-Border Experts" />
           </motion.div>
         </div>
       </section>
