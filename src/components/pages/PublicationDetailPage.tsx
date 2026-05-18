@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowLeft, Calendar, User, Share2, Download } from 'lucide-react';
+import { ArrowLeft, Share2, Download } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Publications } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -10,6 +10,11 @@ import { Head } from '@/components/Head';
 import { getPublicationMetadata, getBreadcrumbSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PublicationAuthorByline from '@/components/PublicationAuthorByline';
+import ExecutiveSummary from '@/components/ExecutiveSummary';
+import TableOfContents from '@/components/TableOfContents';
+import KeyInsightBlock from '@/components/KeyInsightBlock';
+import FeaturedCategoryBadge from '@/components/FeaturedCategoryBadge';
 
 export default function PublicationDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -46,7 +51,7 @@ export default function PublicationDetailPage() {
         const allPubs = await BaseCrudService.getAll<Publications>('publications');
         const related = allPubs.items
           .filter(p => p.category === data.category && p._id !== id)
-          .slice(0, 3);
+          .slice(0, 5);
         setRelatedPublications(related);
       }
     } catch (error) {
@@ -109,8 +114,8 @@ export default function PublicationDetailPage() {
                 </Link>
                 
                 {publication.category && (
-                  <div className="inline-block bg-accent-gold text-secondary-foreground px-4 py-2 rounded text-sm font-paragraph font-medium mb-6">
-                    {publication.category}
+                  <div className="mb-6">
+                    <FeaturedCategoryBadge category={publication.category} />
                   </div>
                 )}
                 
@@ -123,29 +128,10 @@ export default function PublicationDetailPage() {
                   {publication.title}
                 </motion.h1>
                 
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
-                  className="flex flex-wrap items-center gap-6 text-foreground/60 font-paragraph mb-12"
-                >
-                  {publication.author && (
-                    <div className="flex items-center gap-2">
-                      <User className="w-5 h-5" />
-                      <span>{publication.author}</span>
-                    </div>
-                  )}
-                  {publication.publicationDate && (
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-5 h-5" />
-                      <span>{new Date(publication.publicationDate).toLocaleDateString('en-US', { 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}</span>
-                    </div>
-                  )}
-                </motion.div>
+                <PublicationAuthorByline 
+                  author={publication.author}
+                  publicationDate={publication.publicationDate}
+                />
 
                 {publication.thumbnailImage && (
                   <motion.div
@@ -167,17 +153,51 @@ export default function PublicationDetailPage() {
             {/* Article Content */}
             <section className="w-full bg-background pb-32">
               <div className="max-w-[100rem] mx-auto px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-                  <div className="lg:col-span-2">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+                  {/* Table of Contents - Sticky Sidebar */}
+                  {publication.content && publication.content.length > 1000 && (
+                    <div className="lg:col-span-1">
+                      <TableOfContents content={publication.content} />
+                    </div>
+                  )}
+                  
+                  <div className={publication.content && publication.content.length > 1000 ? "lg:col-span-2" : "lg:col-span-2"}>
+                    {/* Executive Summary */}
+                    {publication.summary && (
+                      <ExecutiveSummary 
+                        keyTakeaways={[
+                          publication.summary.substring(0, 100) + (publication.summary.length > 100 ? '...' : ''),
+                          'Strategic implications for international business operations',
+                          'Recommended compliance and governance measures'
+                        ]}
+                      />
+                    )}
+                    
                     <motion.div
                       initial={{ opacity: 0, y: 30 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8 }}
-                      className="prose prose-invert max-w-none"
+                      className="max-w-[75ch]"
                     >
-                      <div className="font-paragraph text-lg text-foreground/90 leading-relaxed whitespace-pre-line">
-                        {publication.content}
+                      <div className="font-paragraph text-lg text-foreground/90 leading-relaxed whitespace-pre-line space-y-6">
+                        {publication.content?.split('\n\n').map((paragraph, index) => {
+                          // Check if this paragraph looks like a key insight (starts with quotes or specific patterns)
+                          if (paragraph.includes('"') && paragraph.length < 200) {
+                            return (
+                              <KeyInsightBlock 
+                                key={index}
+                                text={paragraph.replace(/"/g, '').trim()}
+                                attribution="JMC LEX Analysis"
+                              />
+                            );
+                          }
+                          return (
+                            <p key={index} className="text-foreground/90">
+                              {paragraph}
+                            </p>
+                          );
+                        })}
                       </div>
                     </motion.div>
                   </div>
@@ -254,7 +274,7 @@ export default function PublicationDetailPage() {
               <section className="w-full bg-optional-navy py-32">
                 <div className="max-w-[100rem] mx-auto px-8">
                   <h2 className="font-heading text-4xl text-foreground mb-12">Related Publications</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {relatedPublications.map((related) => (
                       <Link key={related._id} to={`/publications/${related._id}`} className="group">
                         <div className="relative h-[200px] mb-4 overflow-hidden rounded">
@@ -263,6 +283,9 @@ export default function PublicationDetailPage() {
                             alt={related.title || 'Publication'}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
+                        </div>
+                        <div className="mb-3">
+                          <FeaturedCategoryBadge category={related.category || 'Publication'} />
                         </div>
                         <h3 className="font-heading text-xl text-foreground mb-2 group-hover:text-accent-gold transition-colors">
                           {related.title}

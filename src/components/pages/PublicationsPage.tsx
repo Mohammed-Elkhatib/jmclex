@@ -10,12 +10,20 @@ import { Head } from '@/components/Head';
 import { PAGE_METADATA_PRESETS, buildPageMetadata, getBreadcrumbSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FeaturedCategoryBadge from '@/components/FeaturedCategoryBadge';
 
 export default function PublicationsPage() {
   const [publications, setPublications] = useState<Publications[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
+
+  const FEATURED_CATEGORIES = [
+    'Strategic Insight',
+    'Compliance Alert',
+    'Market Analysis',
+    'Regulatory Update',
+  ];
 
   useEffect(() => {
     loadPublications();
@@ -51,6 +59,14 @@ export default function PublicationsPage() {
   });
 
   const categories = ['all', ...Array.from(new Set(publications.map(p => p.category).filter(Boolean)))];
+  
+  const featuredCategories = categories.filter(cat => 
+    cat !== 'all' && FEATURED_CATEGORIES.includes(cat)
+  );
+  
+  const otherCategories = categories.filter(cat => 
+    cat !== 'all' && !FEATURED_CATEGORIES.includes(cat)
+  );
 
   const breadcrumbs = [
     { name: 'Home', url: '/' },
@@ -157,7 +173,7 @@ export default function PublicationsPage() {
       {/* Search and Filter */}
       <section className="w-full bg-optional-navy py-12" id="publications">
         <div className="max-w-[100rem] mx-auto px-8">
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-8">
             <div className="relative w-full">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-foreground/40" />
               <Input
@@ -169,20 +185,56 @@ export default function PublicationsPage() {
               />
             </div>
             
-            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
-              {categories.map((category) => (
+            {/* Featured Categories */}
+            {featuredCategories.length > 0 && (
+              <div>
+                <h3 className="font-heading text-sm text-accent-gold uppercase tracking-wider mb-4">Featured Categories</h3>
+                <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                  {featuredCategories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setCategoryFilter(category)}
+                      className={`font-paragraph px-6 py-3 rounded transition-all ${
+                        categoryFilter === category
+                          ? 'bg-accent-gold text-secondary-foreground shadow-lg'
+                          : 'bg-background text-foreground hover:bg-accent-gold hover:text-secondary-foreground'
+                      }`}
+                    >
+                      ★ {category}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* All Categories */}
+            <div>
+              <h3 className="font-heading text-sm text-foreground/60 uppercase tracking-wider mb-4">All Categories</h3>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
                 <button
-                  key={category}
-                  onClick={() => setCategoryFilter(category)}
+                  onClick={() => setCategoryFilter('all')}
                   className={`font-paragraph px-6 py-3 rounded transition-all ${
-                    categoryFilter === category
+                    categoryFilter === 'all'
                       ? 'bg-accent-gold text-secondary-foreground'
                       : 'bg-background text-foreground hover:bg-accent-gold hover:text-secondary-foreground'
                   }`}
                 >
-                  {category === 'all' ? 'All' : category}
+                  All
                 </button>
-              ))}
+                {otherCategories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setCategoryFilter(category)}
+                    className={`font-paragraph px-6 py-3 rounded transition-all ${
+                      categoryFilter === category
+                        ? 'bg-accent-gold text-secondary-foreground'
+                        : 'bg-background text-foreground hover:bg-accent-gold hover:text-secondary-foreground'
+                    }`}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -212,8 +264,8 @@ export default function PublicationsPage() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent"></div>
                         {publication.category && (
-                          <div className="absolute top-4 left-4 bg-accent-gold text-secondary-foreground px-4 py-2 rounded text-sm font-paragraph font-medium">
-                            {publication.category}
+                          <div className="absolute top-4 left-4">
+                            <FeaturedCategoryBadge category={publication.category} />
                           </div>
                         )}
                       </div>
