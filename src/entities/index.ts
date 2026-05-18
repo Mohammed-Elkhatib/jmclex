@@ -57,6 +57,47 @@ export interface ContactInquiries {
 
 
 /**
+ * Collection ID: executivetrainingapplications
+ * Interface for ExecutiveTrainingApplications
+ */
+export interface ExecutiveTrainingApplications {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  fullName?: string;
+  /** @wixFieldType text */
+  email?: string;
+  /** @wixFieldType text */
+  phone?: string;
+  /** @wixFieldType text */
+  country?: string;
+  /** @wixFieldType text */
+  currentPosition?: string;
+  /** @wixFieldType text */
+  company?: string;
+  /** @wixFieldType text */
+  industry?: string;
+  /** @wixFieldType number */
+  yearsOfExperience?: number;
+  /** @wixFieldType text */
+  selectedProgram?: string;
+  /** @wixFieldType text */
+  preferredLanguage?: string;
+  /** @wixFieldType text */
+  professionalObjectives?: string;
+  /** @wixFieldType text */
+  strategicMotivation?: string;
+  /** @wixFieldType url */
+  cvUpload?: string;
+  /** @wixFieldType url */
+  supportingDocuments?: string;
+  /** @wixFieldType text */
+  internalReviewStatus?: string;
+}
+
+
+/**
  * Collection ID: highstakescases
  * Interface for HighStakesCases
  */
@@ -261,7 +302,23 @@ export interface TrainingCourses {
   _createdDate?: Date;
   _updatedDate?: Date;
   /** @wixFieldType text */
+  duration?: string;
+  /** @wixFieldType text */
+  programType?: string;
+  /** @wixFieldType text */
+  strategicOutcomes?: string;
+  /** @wixFieldType text */
+  executiveCategory?: string;
+  /** @wixFieldType text */
+  certification?: string;
+  /** @wixFieldType text */
+  pricing?: string;
+  /** @wixFieldType text */
+  language?: string;
+  /** @wixFieldType text */
   itemName?: string;
+  /** @wixFieldType text */
+  level?: string;
   /** @wixFieldType number */
   itemPrice?: number;
   /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */

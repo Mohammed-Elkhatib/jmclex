@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Award, BookOpen, Users, Globe, Zap, Shield } from 'lucide-react';
+import { ArrowRight, Award, BookOpen, Users, Globe, Zap, Shield, ExternalLink } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
@@ -317,16 +317,12 @@ export default function TrainingPage() {
                           </button>
                         </div>
                         
-                        {course.courseUrl && (
-                          <a
-                            href={course.courseUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm"
-                          >
-                            View Details <ArrowRight className="w-4 h-4" />
-                          </a>
-                        )}
+                        <Link
+                          to={`/training/${course._id}`}
+                          className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm font-medium"
+                        >
+                          View Full Program <ExternalLink className="w-4 h-4" />
+                        </Link>
                       </div>
                     </motion.div>
                   );

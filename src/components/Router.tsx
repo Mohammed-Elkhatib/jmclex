@@ -10,6 +10,7 @@ import ExpertiseDetailPage from '@/components/pages/ExpertiseDetailPage';
 import PublicationsPage from '@/components/pages/PublicationsPage';
 import PublicationDetailPage from '@/components/pages/PublicationDetailPage';
 import TrainingPage from '@/components/pages/TrainingPage';
+import TrainingCourseDetailPage from '@/components/pages/TrainingCourseDetailPage';
 import JurisprudencePage from '@/components/pages/JurisprudencePage';
 import TeamPage from '@/components/pages/TeamPage';
 import TeamDetailPage from '@/components/pages/TeamDetailPage';
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       {
         path: "training",
         element: <TrainingPage />,
+      },
+      {
+        path: "training/:id",
+        element: <TrainingCourseDetailPage />,
       },
       {
         path: "jurisprudence",
