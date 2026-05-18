@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, Scale, Globe, Shield, BookOpen, Briefcase, Building2, FileText, GraduationCap, Database, MapPin, Lock, Calendar } from 'lucide-react';
 import { useTranslation } from '@/lib/use-translation';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import InternationalIconsRow from '@/components/InternationalIconsRow';
@@ -38,32 +40,18 @@ export default function HomePage() {
   const opacityBg = useTransform(heroScroll, [0, 1], [0.4, 0]);
   const { t } = useTranslation();
 
-  // SEO: Structured data for schema.org
-  useEffect(() => {
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "LegalService",
-      "name": "JMC LEX - International Legal Authority & Strategic Advisory",
-      "description": "Institutional-grade legal strategy for complex multi-jurisdictional environments. Executive-level advisory on international governance, cross-border compliance, and strategic business architecture.",
-      "url": "https://jmclex.com",
-      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"],
-      "serviceType": ["Corporate Law", "International Litigation", "Compliance & Sanctions", "Cross-Border M&A", "Criminal Law", "Family Law", "Intellectual Property", "Real Estate"],
-      "priceRange": "$$",
-      "knowsAbout": ["International Law", "Cross-Border Transactions", "Regulatory Compliance", "Geopolitical Law", "EMEA Markets", "Lebanese Diaspora Services"]
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schemaData);
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+  ];
+
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.home,
+    structuredData: getOrganizationSchema(),
+  });
 
   return (
     <div className="min-h-screen bg-background text-optional-navy selection:bg-accent-gold selection:text-background overflow-clip">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* 1. HERO SECTION - Full Bleed, Cinematic */}

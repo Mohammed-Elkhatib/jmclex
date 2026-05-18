@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Share2, Download } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Publications } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Head } from '@/components/Head';
+import { getPublicationMetadata, getBreadcrumbSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -14,6 +16,7 @@ export default function PublicationDetailPage() {
   const [publication, setPublication] = useState<Publications | null>(null);
   const [relatedPublications, setRelatedPublications] = useState<Publications[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [metadata, setMetadata] = useState<any>(null);
 
   useEffect(() => {
     loadPublication();
@@ -24,6 +27,20 @@ export default function PublicationDetailPage() {
     try {
       const data = await BaseCrudService.getById<Publications>('publications', id);
       setPublication(data);
+      
+      // Set metadata for SEO
+      if (data) {
+        setMetadata(getPublicationMetadata({
+          title: data.title || 'Publication',
+          summary: data.summary || '',
+          content: data.content || '',
+          author: data.author,
+          category: data.category,
+          publicationDate: data.publicationDate?.toString(),
+          thumbnailImage: data.thumbnailImage,
+          _id: id,
+        }));
+      }
       
       if (data?.category) {
         const allPubs = await BaseCrudService.getAll<Publications>('publications');
@@ -39,8 +56,15 @@ export default function PublicationDetailPage() {
     }
   };
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Publications', url: '/publications' },
+    { name: publication?.title || 'Publication', url: `/publications/${id}` },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
+      {metadata && <Head metadata={metadata} />}
       <Header />
       
       <div className="min-h-screen pt-32">
@@ -57,6 +81,26 @@ export default function PublicationDetailPage() {
           </div>
         ) : (
           <>
+            {/* Breadcrumb Navigation */}
+            <section className="w-full bg-background py-8 border-b border-foreground/10">
+              <div className="max-w-[100rem] mx-auto px-8">
+                <nav className="flex items-center gap-2 text-sm font-paragraph text-foreground/60">
+                  {breadcrumbs.map((crumb, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      {index > 0 && <span className="text-foreground/40">/</span>}
+                      {index === breadcrumbs.length - 1 ? (
+                        <span className="text-foreground">{crumb.name}</span>
+                      ) : (
+                        <Link to={crumb.url} className="hover:text-accent-gold transition-colors">
+                          {crumb.name}
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                </nav>
+              </div>
+            </section>
+
             {/* Article Header */}
             <section className="w-full bg-background py-16">
               <div className="max-w-[100rem] mx-auto px-8">
@@ -144,18 +188,61 @@ export default function PublicationDetailPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.8 }}
-                      className="bg-optional-navy p-8 rounded sticky top-32"
+                      className="bg-optional-navy p-8 rounded sticky top-32 space-y-6"
                     >
-                      <h3 className="font-heading text-2xl text-foreground mb-6">Need Legal Advice?</h3>
-                      <p className="font-paragraph text-base text-foreground/80 mb-8 leading-relaxed">
-                        Discuss how these legal developments may impact your business or personal matters.
-                      </p>
-                      <Link
-                        to="/consultation"
-                        className="w-full inline-flex items-center justify-center bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
-                      >
-                        Schedule Consultation
-                      </Link>
+                      {/* Trust Signals */}
+                      <div>
+                        <h3 className="font-heading text-lg text-accent-gold mb-3">Institutional Authority</h3>
+                        <p className="font-paragraph text-sm text-foreground/70">
+                          Expert analysis from JMC LEX's international legal team, specializing in cross-border compliance and strategic counsel.
+                        </p>
+                      </div>
+
+                      {/* Share & Download */}
+                      <div className="flex gap-3 pt-6 border-t border-foreground/10">
+                        <button
+                          onClick={() => {
+                            if (navigator.share) {
+                              navigator.share({
+                                title: publication.title,
+                                text: publication.summary,
+                                url: window.location.href,
+                              });
+                            }
+                          }}
+                          className="flex-1 flex items-center justify-center gap-2 bg-foreground/10 hover:bg-foreground/20 text-foreground px-4 py-3 rounded transition-colors"
+                          title="Share this publication"
+                        >
+                          <Share2 className="w-4 h-4" />
+                          <span className="text-sm font-paragraph">Share</span>
+                        </button>
+                        {publication.pdfFile && (
+                          <a
+                            href={publication.pdfFile}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 flex items-center justify-center gap-2 bg-accent-gold hover:bg-accent-gold/90 text-secondary-foreground px-4 py-3 rounded transition-colors"
+                            title="Download PDF"
+                          >
+                            <Download className="w-4 h-4" />
+                            <span className="text-sm font-paragraph">PDF</span>
+                          </a>
+                        )}
+                      </div>
+
+                      {/* CTA */}
+                      <div className="pt-6 border-t border-foreground/10">
+                        <h3 className="font-heading text-lg text-foreground mb-3">Need Legal Advice?</h3>
+                        <p className="font-paragraph text-sm text-foreground/70 mb-6">
+                          Discuss how these legal developments may impact your business or personal matters.
+                        </p>
+                        <Link
+                          to="/consultation"
+                          className="w-full inline-flex items-center justify-center bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
+                        >
+                          Schedule Consultation
+                        </Link>
+                      </div>
                     </motion.div>
                   </div>
                 </div>

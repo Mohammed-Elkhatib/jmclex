@@ -6,6 +6,8 @@ import { ArrowRight, Search } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Publications } from '@/entities';
 import { Input } from '@/components/ui/input';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getBreadcrumbSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -50,12 +52,43 @@ export default function PublicationsPage() {
 
   const categories = ['all', ...Array.from(new Set(publications.map(p => p.category).filter(Boolean)))];
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Publications', url: '/publications' },
+  ];
+
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.publications,
+    structuredData: getBreadcrumbSchema(breadcrumbs),
+  });
+
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
+      {/* Breadcrumb Navigation */}
+      <section className="w-full bg-background py-8 border-b border-foreground/10 mt-20">
+        <div className="max-w-[100rem] mx-auto px-8">
+          <nav className="flex items-center gap-2 text-sm font-paragraph text-foreground/60">
+            {breadcrumbs.map((crumb, index) => (
+              <div key={index} className="flex items-center gap-2">
+                {index > 0 && <span className="text-foreground/40">/</span>}
+                {index === breadcrumbs.length - 1 ? (
+                  <span className="text-foreground">{crumb.name}</span>
+                ) : (
+                  <Link to={crumb.url} className="hover:text-accent-gold transition-colors">
+                    {crumb.name}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+      </section>
+      
       {/* Hero Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden mt-20">
+      <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://static.wixstatic.com/media/5e1235_71982afc946a48a4ba145d5a053130cb~mv2.png?originWidth=1152&originHeight=576"
@@ -124,19 +157,19 @@ export default function PublicationsPage() {
       {/* Search and Filter */}
       <section className="w-full bg-optional-navy py-12" id="publications">
         <div className="max-w-[100rem] mx-auto px-8">
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-between">
-            <div className="relative w-full md:w-96">
+          <div className="flex flex-col gap-6">
+            <div className="relative w-full">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-foreground/40" />
               <Input
                 type="text"
                 placeholder="Search publications..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-12 bg-background text-foreground border-foreground/20"
+                className="w-full pl-12 bg-background text-foreground border-foreground/20"
               />
             </div>
             
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap gap-3">
               {categories.map((category) => (
                 <button
                   key={category}
