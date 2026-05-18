@@ -2,9 +2,16 @@ import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { BaseCrudService } from '@/integrations';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Upload, FileText, AlertCircle } from 'lucide-react';
 
 interface TalentNetworkApplicationFormProps {
   sourcePage: string;
+}
+
+interface FileUploadState {
+  file: File | null;
+  uploading: boolean;
+  error: string;
 }
 
 export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetworkApplicationFormProps) {
@@ -21,8 +28,8 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
   });
 
   const [files, setFiles] = useState({
-    cvUpload: null as File | null,
-    supportingDocuments: null as File | null,
+    cvUpload: { file: null as File | null, uploading: false, error: '' } as FileUploadState,
+    supportingDocuments: { file: null as File | null, uploading: false, error: '' } as FileUploadState,
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -42,27 +49,65 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileType: 'cvUpload' | 'supportingDocuments') => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file size (max 10MB)
+      const maxSize = 10 * 1024 * 1024;
+      if (file.size > maxSize) {
+        setFiles(prev => ({
+          ...prev,
+          [fileType]: {
+            file: null,
+            uploading: false,
+            error: 'File size must be less than 10MB',
+          },
+        }));
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!allowedTypes.includes(file.type)) {
+        setFiles(prev => ({
+          ...prev,
+          [fileType]: {
+            file: null,
+            uploading: false,
+            error: 'Only PDF and Word documents are allowed',
+          },
+        }));
+        return;
+      }
+
       setFiles(prev => ({
         ...prev,
-        [fileType]: file,
+        [fileType]: {
+          file,
+          uploading: false,
+          error: '',
+        },
       }));
     }
   };
 
-  const uploadFile = async (file: File): Promise<string> => {
-    // Create a data URL for the file (for demonstration)
-    // In production, this would integrate with Wix's file upload service
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        // Return file name with timestamp as reference
-        resolve(`${file.name}-${Date.now()}`);
-      };
-      reader.onerror = () => {
-        reject(new Error('File read failed'));
-      };
-      reader.readAsArrayBuffer(file);
-    });
+  const uploadFileToWix = async (file: File): Promise<string> => {
+    try {
+      // Use Wix's native file upload API
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('File upload failed');
+      }
+
+      const data = await response.json();
+      return data.fileUrl || data.url;
+    } catch (error) {
+      throw new Error(`Failed to upload ${file.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -75,13 +120,29 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
       let docsUrl = '';
 
       // Upload CV if provided
-      if (files.cvUpload) {
-        cvUrl = await uploadFile(files.cvUpload);
+      if (files.cvUpload.file) {
+        setFiles(prev => ({
+          ...prev,
+          cvUpload: { ...prev.cvUpload, uploading: true },
+        }));
+        try {
+          cvUrl = await uploadFileToWix(files.cvUpload.file);
+        } catch (error) {
+          throw new Error(`CV upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
       }
 
       // Upload supporting documents if provided
-      if (files.supportingDocuments) {
-        docsUrl = await uploadFile(files.supportingDocuments);
+      if (files.supportingDocuments.file) {
+        setFiles(prev => ({
+          ...prev,
+          supportingDocuments: { ...prev.supportingDocuments, uploading: true },
+        }));
+        try {
+          docsUrl = await uploadFileToWix(files.supportingDocuments.file);
+        } catch (error) {
+          throw new Error(`Supporting documents upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+        }
       }
 
       // Create submission in CMS
@@ -119,8 +180,8 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
         professionalSummary: '',
       });
       setFiles({
-        cvUpload: null,
-        supportingDocuments: null,
+        cvUpload: { file: null, uploading: false, error: '' },
+        supportingDocuments: { file: null, uploading: false, error: '' },
       });
 
       // Reset file inputs
@@ -134,6 +195,11 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
     } catch (error) {
       setSubmitStatus('error');
       setErrorMessage(error instanceof Error ? error.message : 'An error occurred while submitting your application.');
+      // Reset uploading states on error
+      setFiles(prev => ({
+        cvUpload: { ...prev.cvUpload, uploading: false },
+        supportingDocuments: { ...prev.supportingDocuments, uploading: false },
+      }));
     } finally {
       setIsSubmitting(false);
     }
@@ -310,7 +376,7 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
 
         {/* CV Upload */}
         <div>
-          <label htmlFor="cvUpload" className="block font-heading text-sm text-foreground mb-2">
+          <label htmlFor="cvUpload" className="block font-heading text-sm text-foreground mb-3">
             Curriculum Vitae (CV) <span className="text-accent-gold">*</span>
           </label>
           <div className="relative">
@@ -321,21 +387,55 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
               onChange={(e) => handleFileChange(e, 'cvUpload')}
               accept=".pdf,.doc,.docx"
               required
+              disabled={files.cvUpload.uploading || isSubmitting}
               className="hidden"
             />
-            <button
+            <motion.button
               type="button"
               onClick={() => cvInputRef.current?.click()}
-              className="w-full px-4 py-3 border-2 border-dashed border-accent-gold rounded-lg font-paragraph text-base text-foreground hover:bg-accent-gold/5 transition-colors"
+              disabled={files.cvUpload.uploading || isSubmitting}
+              whileHover={{ scale: files.cvUpload.uploading ? 1 : 1.01 }}
+              className={`w-full px-4 py-4 border-2 border-dashed rounded-lg font-paragraph text-base transition-all ${
+                files.cvUpload.file
+                  ? 'border-accent-gold bg-accent-gold/5 text-foreground'
+                  : 'border-accent-gold/30 text-foreground/60 hover:border-accent-gold hover:bg-accent-gold/5'
+              } ${files.cvUpload.uploading || isSubmitting ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             >
-              {files.cvUpload ? `✓ ${files.cvUpload.name}` : 'Click to upload CV (PDF, DOC, DOCX)'}
-            </button>
+              <div className="flex items-center justify-center gap-3">
+                {files.cvUpload.uploading ? (
+                  <>
+                    <LoadingSpinner />
+                    <span>Uploading CV...</span>
+                  </>
+                ) : files.cvUpload.file ? (
+                  <>
+                    <FileText className="w-5 h-5 text-accent-gold" />
+                    <span className="truncate">{files.cvUpload.file.name}</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-5 h-5" />
+                    <span>Click to upload CV (PDF, DOC, DOCX)</span>
+                  </>
+                )}
+              </div>
+            </motion.button>
+            {files.cvUpload.error && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 flex items-center gap-2 text-destructive text-sm"
+              >
+                <AlertCircle className="w-4 h-4" />
+                <span>{files.cvUpload.error}</span>
+              </motion.div>
+            )}
           </div>
         </div>
 
         {/* Supporting Documents */}
         <div>
-          <label htmlFor="supportingDocuments" className="block font-heading text-sm text-foreground mb-2">
+          <label htmlFor="supportingDocuments" className="block font-heading text-sm text-foreground mb-3">
             Supporting Documents
           </label>
           <div className="relative">
@@ -345,15 +445,49 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
               ref={docsInputRef}
               onChange={(e) => handleFileChange(e, 'supportingDocuments')}
               accept=".pdf,.doc,.docx"
+              disabled={files.supportingDocuments.uploading || isSubmitting}
               className="hidden"
             />
-            <button
+            <motion.button
               type="button"
               onClick={() => docsInputRef.current?.click()}
-              className="w-full px-4 py-3 border-2 border-dashed border-gray-300 rounded-lg font-paragraph text-base text-foreground hover:bg-gray-50 transition-colors"
+              disabled={files.supportingDocuments.uploading || isSubmitting}
+              whileHover={{ scale: files.supportingDocuments.uploading ? 1 : 1.01 }}
+              className={`w-full px-4 py-4 border-2 border-dashed rounded-lg font-paragraph text-base transition-all ${
+                files.supportingDocuments.file
+                  ? 'border-accent-gold bg-accent-gold/5 text-foreground'
+                  : 'border-gray-300 text-foreground/60 hover:border-accent-gold/30 hover:bg-gray-50'
+              } ${files.supportingDocuments.uploading || isSubmitting ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             >
-              {files.supportingDocuments ? `✓ ${files.supportingDocuments.name}` : 'Click to upload additional documents (optional)'}
-            </button>
+              <div className="flex items-center justify-center gap-3">
+                {files.supportingDocuments.uploading ? (
+                  <>
+                    <LoadingSpinner />
+                    <span>Uploading documents...</span>
+                  </>
+                ) : files.supportingDocuments.file ? (
+                  <>
+                    <FileText className="w-5 h-5 text-accent-gold" />
+                    <span className="truncate">{files.supportingDocuments.file.name}</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-5 h-5" />
+                    <span>Click to upload additional documents (optional)</span>
+                  </>
+                )}
+              </div>
+            </motion.button>
+            {files.supportingDocuments.error && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 flex items-center gap-2 text-destructive text-sm"
+              >
+                <AlertCircle className="w-4 h-4" />
+                <span>{files.supportingDocuments.error}</span>
+              </motion.div>
+            )}
           </div>
         </div>
 
