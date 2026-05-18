@@ -55,8 +55,58 @@ export default function TrainingPage() {
       <Header />
       <Cart />
       
+      {/* Premium Executive Positioning Hero */}
+      <section className="relative w-full bg-optional-navy overflow-hidden mt-20">
+        <div className="max-w-[100rem] mx-auto px-8 py-24 md:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-foreground leading-tight mb-8">
+              Elite Experts Transferring Years of Strategic Legal Knowledge in Six Executive Hours
+            </h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="font-paragraph text-lg md:text-xl text-foreground/90 max-w-4xl mx-auto mb-8 leading-relaxed"
+            >
+              Private one-to-one executive legal education and strategic advisory sessions for business leaders, professionals, investors, and international decision-makers.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 pt-8 border-t border-foreground/20"
+            >
+              {[
+                { label: 'Confidential', icon: '🔒' },
+                { label: 'One-to-One', icon: '👥' },
+                { label: 'Elite Expertise', icon: '⚖️' },
+                { label: 'Strategic Advisory', icon: '🌍' }
+              ].map((item, index) => (
+                <motion.div
+                  key={item.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+                  className="flex items-center gap-2"
+                >
+                  <span className="text-2xl">{item.icon}</span>
+                  <span className="font-paragraph text-sm md:text-base text-foreground/80">{item.label}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+      
       {/* Hero Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden mt-20">
+      <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://static.wixstatic.com/media/5e1235_e53d9cb7275945d38c3c5da6f2ade97f~mv2.png?originWidth=1152&originHeight=576"
