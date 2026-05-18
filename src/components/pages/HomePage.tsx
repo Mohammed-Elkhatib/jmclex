@@ -86,40 +86,31 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-[7rem] leading-[1.05] text-background mb-8 max-w-6xl text-balance"
+            className="font-heading text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] md:leading-[1.08] text-background mb-8 max-w-6xl text-balance"
           >
-            International Legal Authority & Executive-Level Strategic Advisory for Sophisticated Cross-Border Legal Matters
+            Sovereign Legal Authority. Global Strategic Intelligence.
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-paragraph text-lg md:text-2xl text-background/80 mb-6 max-w-3xl mx-auto font-light tracking-wide"
+            className="font-paragraph text-lg md:text-xl lg:text-2xl text-background/85 mb-12 max-w-3xl mx-auto font-light tracking-wide"
           >
-            Institutional-grade legal strategy for complex multi-jurisdictional environments. Executive-level advisory on international governance, cross-border compliance, regulatory sophistication, and strategic business architecture across EMEA, Europe, and international markets.
-          </motion.p>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="font-paragraph text-base md:text-lg text-background/70 mb-12 max-w-3xl mx-auto font-light tracking-wide italic"
-          >
-            Comprehensive international legal infrastructure, multilingual strategic counsel, and institutional-grade compliance advisory for multinational corporations, institutional investors, and high-net-worth individuals navigating complex cross-border operations.
+            Strategic counsel for complex cross-border challenges. Unlocking global opportunities through institutional-grade legal strategy and executive-level advisory across EMEA and international markets.
           </motion.p>
           
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full sm:w-auto"
+            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center w-full sm:w-auto mb-12"
           >
             <Link
               to="/consultation"
               className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
             >
-              <span className="relative z-10">{t('hero.standard-consultation')}</span>
+              <span className="relative z-10">Engage Our Expertise</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </Link>
@@ -127,10 +118,22 @@ export default function HomePage() {
               to="/consultation?type=emergency"
               className="group relative w-full sm:w-auto flex items-center justify-center gap-3 bg-accent-gold text-background font-paragraph font-medium px-10 py-5 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02] border-2 border-accent-gold/50"
             >
-              <span className="relative z-10">{t('hero.emergency-consultation')}</span>
+              <span className="relative z-10">Strategic Consultation</span>
               <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
               <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
             </Link>
+          </motion.div>
+
+          {/* Subtle Trust Signal */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="flex items-center justify-center gap-3 text-background/60 font-paragraph text-xs md:text-sm uppercase tracking-widest"
+          >
+            <span className="w-6 h-[1px] bg-background/40"></span>
+            <span>Trusted by Global Institutions • Operating Across 3 Continents</span>
+            <span className="w-6 h-[1px] bg-background/40"></span>
           </motion.div>
         </div>
 
