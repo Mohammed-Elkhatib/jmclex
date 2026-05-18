@@ -81,18 +81,18 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-sm border-b border-optional-navy/10">
-      <div className="max-w-[120rem] mx-auto px-8 py-6">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/98 backdrop-blur-md border-b border-optional-navy/8">
+      <div className="max-w-[120rem] mx-auto px-6 md:px-8 py-5">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="font-heading text-2xl md:text-3xl text-optional-navy">
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className="font-heading text-2xl md:text-3xl text-optional-navy transition-colors duration-300 group-hover:text-accent-gold">
               JMC <span className="text-accent-gold">LEX</span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden xl:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-10">
             {menuItems.map((item) => (
               <Link
                 key={item.path}
@@ -109,7 +109,7 @@ export default function Header() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden xl:flex items-center gap-6">
+          <div className="hidden xl:flex items-center gap-8">
             {/* Globe Language Selector */}
             <div className="relative">
               <button
@@ -200,7 +200,7 @@ export default function Header() {
             transition={{ duration: 0.3 }}
             className="xl:hidden bg-background border-t border-optional-navy/10 overflow-hidden"
           >
-            <nav className="max-w-[120rem] mx-auto px-8 py-6 flex flex-col gap-4">
+            <nav className="max-w-[120rem] mx-auto px-6 md:px-8 py-6 flex flex-col gap-4">
               {menuItems.map((item) => (
                 <Link
                   key={item.path}

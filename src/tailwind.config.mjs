@@ -34,6 +34,17 @@ export default {
                 'primary-foreground': '#0A1F2F',
                 primary: '#0A1F2F'
             },
+            spacing: {
+                'section-xs': '2rem',
+                'section-sm': '3rem',
+                'section-md': '4rem',
+                'section-lg': '6rem',
+                'section-xl': '8rem',
+            },
+            transitionDuration: {
+                '250': '250ms',
+                '350': '350ms',
+            },
         },
     },
     future: {

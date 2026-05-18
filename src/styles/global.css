@@ -4,6 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Premium Typography Refinement */
+@layer base {
+  body {
+    @apply antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight;
+  }
+}
+
+/* Smooth Transitions */
+@layer components {
+  .transition-smooth {
+    @apply transition-all duration-300 ease-out;
+  }
+  
+  .transition-smooth-lg {
+    @apply transition-all duration-500 ease-out;
+  }
+}
+
 /* RTL Support for Arabic */
 html.rtl {
   direction: rtl;
@@ -43,8 +67,20 @@ html.rtl .gap-8 {
   gap: 2rem;
 }
 
+html.rtl .gap-10 {
+  gap: 2.5rem;
+}
+
 html.rtl .gap-12 {
   gap: 3rem;
+}
+
+html.rtl .gap-16 {
+  gap: 4rem;
+}
+
+html.rtl .gap-20 {
+  gap: 5rem;
 }
 
 /* Preserve LTR for specific elements if needed */
@@ -53,3 +89,16 @@ html.rtl .ltr {
   text-align: left;
 }
 
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection Styling */
+::selection {
+  @apply bg-accent-gold text-background;
+}
+
+::-moz-selection {
+  @apply bg-accent-gold text-background;
+}

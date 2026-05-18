@@ -6,8 +6,8 @@ export default function Footer() {
   const { t } = useTranslation();
   return (
     <footer className="w-full bg-optional-navy border-t border-optional-navy/20">
-      <div className="max-w-[100rem] mx-auto px-8 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div className="max-w-[120rem] mx-auto px-6 md:px-8 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           {/* Firm Info */}
           <div>
             <div className="font-heading text-3xl text-background mb-6">
@@ -161,8 +161,8 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-optional-navy/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-12 border-t border-optional-navy/20">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <p className="font-paragraph text-xs text-background/60">
               © {new Date().getFullYear()} JMC LEX. All rights reserved. Lawyers' expertise since the 1990s.
             </p>
