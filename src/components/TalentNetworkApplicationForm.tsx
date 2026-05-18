@@ -26,6 +26,17 @@ interface FormDataType {
   professionalSummary: string;
 }
 
+interface ValidationErrors {
+  fullName?: string;
+  email?: string;
+  phone?: string;
+  country?: string;
+  languages?: string;
+  areaOfExpertise?: string;
+  cvUpload?: string;
+  professionalSummary?: string;
+}
+
 const INITIAL_FORM_DATA: FormDataType = {
   fullName: '',
   email: '',
@@ -53,6 +64,7 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
   const cvInputRef = useRef<HTMLInputElement>(null);
   const docsInputRef = useRef<HTMLInputElement>(null);
 
@@ -62,7 +74,14 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
       ...prev,
       [name]: value,
     }));
-  }, []);
+    // Clear validation error for this field when user starts typing
+    if (validationErrors[name as keyof ValidationErrors]) {
+      setValidationErrors(prev => ({
+        ...prev,
+        [name]: undefined,
+      }));
+    }
+  }, [validationErrors]);
 
   const validateFile = useCallback((file: File): string | null => {
     const maxSize = 10 * 1024 * 1024;
@@ -75,6 +94,50 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
     }
     return null;
   }, []);
+
+  const validateForm = useCallback((): boolean => {
+    const errors: ValidationErrors = {};
+
+    // Validate required text fields
+    if (!formData.fullName.trim()) {
+      errors.fullName = 'Full name is required';
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = 'Email address is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.phone.trim()) {
+      errors.phone = 'Phone number is required';
+    }
+
+    if (!formData.country.trim()) {
+      errors.country = 'Country is required';
+    }
+
+    if (!formData.languages.trim()) {
+      errors.languages = 'Languages are required';
+    }
+
+    if (!formData.areaOfExpertise.trim()) {
+      errors.areaOfExpertise = 'Area of expertise is required';
+    }
+
+    if (!files.cvUpload.file) {
+      errors.cvUpload = 'CV upload is required';
+    }
+
+    if (!formData.professionalSummary.trim()) {
+      errors.professionalSummary = 'Professional summary is required';
+    } else if (formData.professionalSummary.trim().length < 50) {
+      errors.professionalSummary = 'Professional summary must be at least 50 characters';
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  }, [formData, files.cvUpload.file]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, fileType: 'cvUpload' | 'supportingDocuments') => {
     const file = e.target.files?.[0];
@@ -113,6 +176,14 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
     setIsSubmitting(true);
     setErrorMessage('');
 
+    // Validate form before submission
+    if (!validateForm()) {
+      setIsSubmitting(false);
+      setSubmitStatus('error');
+      setErrorMessage('Please fix the errors above and try again.');
+      return;
+    }
+
     try {
       let cvUrl = '';
       let docsUrl = '';
@@ -143,23 +214,23 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
         }
       }
 
-      // Create submission in CMS
+      // Create submission in CMS with correct field mappings
       const submission = {
         _id: crypto.randomUUID(),
-        fullName: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        country: formData.country,
-        languages: formData.languages,
-        areaOfExpertise: formData.areaOfExpertise,
-        linkedIn: formData.linkedIn || undefined,
-        website: formData.website || undefined,
+        fullName: formData.fullName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        country: formData.country.trim(),
+        languages: formData.languages.trim(),
+        areaOfExpertise: formData.areaOfExpertise.trim(),
+        linkedIn: formData.linkedIn.trim() || undefined,
+        website: formData.website.trim() || undefined,
         cvUpload: cvUrl || undefined,
         supportingDocuments: docsUrl || undefined,
-        professionalSummary: formData.professionalSummary,
-        submissionDate: new Date(),
-        sourcePage: sourcePage,
-        status: 'New',
+        professionalSummary: formData.professionalSummary.trim(),
+        submissionDate: new Date().toISOString(),
+        sourcePage: sourcePage || 'talent-network',
+        status: 'Pending Review',
         submissionType: 'Talent Network',
       };
 
@@ -171,6 +242,7 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
         cvUpload: INITIAL_FILE_STATE,
         supportingDocuments: INITIAL_FILE_STATE,
       });
+      setValidationErrors({});
 
       // Reset file inputs
       if (cvInputRef.current) cvInputRef.current.value = '';
@@ -240,9 +312,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             value={formData.fullName}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent ${
+              validationErrors.fullName ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="Enter your full name"
           />
+          {validationErrors.fullName && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.fullName}
+            </p>
+          )}
         </div>
 
         {/* Email */}
@@ -257,9 +337,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             value={formData.email}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent ${
+              validationErrors.email ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="your.email@example.com"
           />
+          {validationErrors.email && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.email}
+            </p>
+          )}
         </div>
 
         {/* Phone */}
@@ -274,9 +362,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             value={formData.phone}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent ${
+              validationErrors.phone ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="+1 (555) 000-0000"
           />
+          {validationErrors.phone && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.phone}
+            </p>
+          )}
         </div>
 
         {/* Country */}
@@ -291,9 +387,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             value={formData.country}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent ${
+              validationErrors.country ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="Country of residence or operation"
           />
+          {validationErrors.country && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.country}
+            </p>
+          )}
         </div>
 
         {/* Languages */}
@@ -308,9 +412,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             value={formData.languages}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent ${
+              validationErrors.languages ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="e.g., English, French, Mandarin"
           />
+          {validationErrors.languages && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.languages}
+            </p>
+          )}
         </div>
 
         {/* Area of Expertise */}
@@ -325,9 +437,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             value={formData.areaOfExpertise}
             onChange={handleInputChange}
             required
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent ${
+              validationErrors.areaOfExpertise ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="Your primary area of professional expertise"
           />
+          {validationErrors.areaOfExpertise && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.areaOfExpertise}
+            </p>
+          )}
         </div>
 
         {/* LinkedIn */}
@@ -386,6 +506,8 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
               className={`w-full px-4 py-4 border-2 border-dashed rounded-lg font-paragraph text-base transition-all ${
                 files.cvUpload.file
                   ? 'border-accent-gold bg-accent-gold/5 text-foreground'
+                  : validationErrors.cvUpload
+                  ? 'border-destructive bg-destructive/5 text-foreground'
                   : 'border-accent-gold/30 text-foreground/60 hover:border-accent-gold hover:bg-accent-gold/5'
               } ${files.cvUpload.uploading || isSubmitting ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
             >
@@ -416,6 +538,16 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
               >
                 <AlertCircle className="w-4 h-4" />
                 <span>{files.cvUpload.error}</span>
+              </motion.div>
+            )}
+            {validationErrors.cvUpload && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 flex items-center gap-2 text-destructive text-sm"
+              >
+                <AlertCircle className="w-4 h-4" />
+                <span>{validationErrors.cvUpload}</span>
               </motion.div>
             )}
           </div>
@@ -491,9 +623,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
             onChange={handleInputChange}
             required
             rows={5}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent resize-none"
+            className={`w-full px-4 py-3 border rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent resize-none ${
+              validationErrors.professionalSummary ? 'border-destructive' : 'border-gray-300'
+            }`}
             placeholder="Tell us about your professional background, experience, and why you're interested in joining our talent network..."
           />
+          {validationErrors.professionalSummary && (
+            <p className="mt-1 text-destructive text-sm flex items-center gap-1">
+              <AlertCircle className="w-4 h-4" />
+              {validationErrors.professionalSummary}
+            </p>
+          )}
         </div>
 
         {/* Disclaimer */}
