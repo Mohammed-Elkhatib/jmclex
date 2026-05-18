@@ -505,7 +505,7 @@ export default function TrainingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-optional-navy rounded-lg p-8 md:p-10 lg:p-12 text-center border border-accent-gold/20"
+            className="bg-secondary rounded-lg p-8 md:p-10 lg:p-12 text-center border border-accent-gold/20"
           >
             <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-6">
               Executive Development Package
@@ -579,7 +579,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Subscription Section */}
-      <section className="w-full bg-optional-navy py-16 md:py-24">
+      <section className="w-full bg-secondary py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-14 items-center">
             <motion.div
