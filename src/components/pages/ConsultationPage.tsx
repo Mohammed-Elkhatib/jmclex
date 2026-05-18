@@ -1,12 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Calendar, Clock, Globe, Shield, Video, AlertCircle, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, Globe, Shield, Video, AlertCircle, CheckCircle, ChevronRight, Lock } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Cart from '@/components/Cart';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 interface ConsultationFormData {
   clientName: string;
@@ -30,6 +32,7 @@ const INITIAL_FORM_DATA: ConsultationFormData = {
 
 export default function ConsultationPage() {
   const [consultationType, setConsultationType] = useState<'standard' | 'emergency'>('standard');
+  const [formStep, setFormStep] = useState<'contact' | 'details'>('contact');
   
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -48,10 +51,9 @@ export default function ConsultationPage() {
 
   const consultationPrice = consultationType === 'emergency' ? 500 : 250;
 
-  const validateForm = useCallback((): boolean => {
-    if (!formData.clientName || !formData.clientEmail || !formData.clientPhone || 
-        !formData.caseDetails || !formData.preferredDate || !formData.preferredTime) {
-      setSubmitError('Please fill in all required fields');
+  const validateContactStep = useCallback((): boolean => {
+    if (!formData.clientName || !formData.clientEmail || !formData.clientPhone) {
+      setSubmitError('Please fill in all contact details');
       return false;
     }
 
@@ -64,12 +66,28 @@ export default function ConsultationPage() {
     return true;
   }, [formData]);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+  const validateDetailsStep = useCallback((): boolean => {
+    if (!formData.caseDetails || !formData.preferredDate || !formData.preferredTime) {
+      setSubmitError('Please fill in all required details');
+      return false;
+    }
+    return true;
+  }, [formData]);
+
+  const handleContactStepSubmit = useCallback((e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitError(null);
+    if (validateContactStep()) {
+      setFormStep('details');
+    }
+  }, [validateContactStep]);
+
+  const handleDetailsStepSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
 
-    if (!validateForm()) {
+    if (!validateDetailsStep()) {
       setIsSubmitting(false);
       return;
     }
@@ -118,6 +136,7 @@ export default function ConsultationPage() {
 
       setSubmitSuccess(true);
       setFormData(INITIAL_FORM_DATA);
+      setFormStep('contact');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'There was an error submitting your request. Please try again.';
       console.error('Error submitting consultation request:', error);
@@ -125,7 +144,7 @@ export default function ConsultationPage() {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, consultationType, consultationPrice, validateForm]);
+  }, [formData, consultationType, consultationPrice, validateDetailsStep]);
 
   const handleAddToCart = useCallback(async () => {
     try {
@@ -296,8 +315,11 @@ export default function ConsultationPage() {
                     <CheckCircle className="w-8 h-8 text-accent-gold" />
                     <h3 className="font-heading text-2xl text-accent-gold">Request Submitted!</h3>
                   </div>
+                  <p className="font-paragraph text-base text-optional-navy/90 mb-4 font-semibold">
+                    Your confidential consultation request has been successfully received.
+                  </p>
                   <p className="font-paragraph text-base text-optional-navy/90 mb-6">
-                    Thank you for your consultation request. Our team will contact you within 24 hours to confirm your appointment and provide payment instructions.
+                    A senior advisor will review your inquiry and respond discreetly within 24-48 hours. We appreciate your trust in JMC LEX.
                   </p>
                   <p className="font-paragraph text-sm text-optional-navy/70 mb-6">
                     A confirmation email has been sent to <span className="font-semibold">{formData.clientEmail}</span>
@@ -313,7 +335,15 @@ export default function ConsultationPage() {
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 rounded-lg border border-optional-navy/10 shadow-sm">
+                <form onSubmit={formStep === 'contact' ? handleContactStepSubmit : handleDetailsStepSubmit} className="space-y-6 bg-white p-8 rounded-lg border border-optional-navy/10 shadow-sm">
+                  {/* Confidentiality Statement */}
+                  <div className="flex items-start gap-3 bg-optional-navy/5 p-4 rounded-lg border border-optional-navy/10">
+                    <Lock className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                    <p className="font-paragraph text-xs text-optional-navy/80">
+                      All submissions are treated with the utmost confidentiality and discretion. Your privacy is our priority.
+                    </p>
+                  </div>
+
                   {submitError && (
                     <div className="bg-red-50 border border-red-200 p-4 rounded-lg">
                       <p className="font-paragraph text-sm text-red-800">
@@ -328,116 +358,186 @@ export default function ConsultationPage() {
                       </p>
                     </div>
                   )}
-                  <div>
-                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                      Full Name *
-                    </label>
-                    <Input
-                      type="text"
-                      required
-                      value={formData.clientName}
-                      onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
-                      placeholder="Your full name"
-                    />
+
+                  {/* Step Indicator */}
+                  <div className="flex items-center gap-2 mb-8">
+                    <div className={`flex items-center justify-center w-8 h-8 rounded-full font-paragraph text-sm font-semibold transition-colors ${
+                      formStep === 'contact' 
+                        ? 'bg-accent-gold text-background' 
+                        : 'bg-accent-gold/30 text-optional-navy'
+                    }`}>
+                      1
+                    </div>
+                    <div className={`h-1 flex-1 transition-colors ${
+                      formStep === 'details' ? 'bg-accent-gold' : 'bg-optional-navy/10'
+                    }`}></div>
+                    <div className={`flex items-center justify-center w-8 h-8 rounded-full font-paragraph text-sm font-semibold transition-colors ${
+                      formStep === 'details' 
+                        ? 'bg-accent-gold text-background' 
+                        : 'bg-optional-navy/10 text-optional-navy'
+                    }`}>
+                      2
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                      Email Address *
-                    </label>
-                    <Input
-                      type="email"
-                      required
-                      value={formData.clientEmail}
-                      onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
-                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                      Phone Number *
-                    </label>
-                    <Input
-                      type="tel"
-                      required
-                      value={formData.clientPhone}
-                      onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
-                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
-                      placeholder="+1 234 567 8900"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                      Preferred Language
-                    </label>
-                    <select
-                      value={formData.language}
-                      onChange={(e) => setFormData({ ...formData, language: e.target.value })}
-                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 font-paragraph focus:border-accent-gold focus:outline-none transition-colors"
+                  {/* Step 1: Contact Details */}
+                  {formStep === 'contact' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
                     >
-                      <option value="EN">English</option>
-                      <option value="FR">French</option>
-                      <option value="AR">Arabic</option>
-                      <option value="ZH">Mandarin Chinese</option>
-                    </select>
-                  </div>
+                      <div>
+                        <p className="font-heading text-lg text-optional-navy mb-6">Your Contact Details for a Confidential Discussion</p>
+                      </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                        Preferred Date *
-                      </label>
-                      <Input
-                        type="date"
-                        required
-                        value={formData.preferredDate}
-                        onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                        className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 focus:border-accent-gold focus:outline-none transition-colors"
-                      />
-                    </div>
+                      <div>
+                        <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                          Full Name *
+                        </label>
+                        <Input
+                          type="text"
+                          required
+                          value={formData.clientName}
+                          onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
+                          className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
+                          placeholder="Your full name"
+                        />
+                      </div>
 
-                    <div>
-                      <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                        Preferred Time *
-                      </label>
-                      <Input
-                        type="time"
-                        required
-                        value={formData.preferredTime}
-                        onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                        className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 focus:border-accent-gold focus:outline-none transition-colors"
-                      />
-                    </div>
-                  </div>
+                      <div>
+                        <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                          Email Address *
+                        </label>
+                        <Input
+                          type="email"
+                          required
+                          value={formData.clientEmail}
+                          onChange={(e) => setFormData({ ...formData, clientEmail: e.target.value })}
+                          className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
+                          placeholder="your.email@example.com"
+                        />
+                      </div>
 
-                  <div>
-                    <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
-                      Case Details *
-                    </label>
-                    <Textarea
-                      required
-                      value={formData.caseDetails}
-                      onChange={(e) => setFormData({ ...formData, caseDetails: e.target.value })}
-                      className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 min-h-[150px] placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
-                      placeholder="Please provide a brief description of your legal matter..."
-                    />
-                  </div>
+                      <div>
+                        <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                          Phone Number *
+                        </label>
+                        <Input
+                          type="tel"
+                          required
+                          value={formData.clientPhone}
+                          onChange={(e) => setFormData({ ...formData, clientPhone: e.target.value })}
+                          className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
+                          placeholder="+1 234 567 8900"
+                        />
+                      </div>
 
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-accent-gold text-background hover:bg-accent-gold/90 py-6 text-lg font-semibold rounded-lg"
-                  >
-                    {isSubmitting ? 'Submitting...' : 'Submit Consultation Request'}
-                  </Button>
+                      <div>
+                        <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                          Preferred Language
+                        </label>
+                        <select
+                          value={formData.language}
+                          onChange={(e) => setFormData({ ...formData, language: e.target.value })}
+                          className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 font-paragraph focus:border-accent-gold focus:outline-none transition-colors"
+                        >
+                          <option value="EN">English</option>
+                          <option value="FR">French</option>
+                          <option value="AR">Arabic</option>
+                          <option value="ZH">Mandarin Chinese</option>
+                        </select>
+                      </div>
 
-                  <p className="font-paragraph text-xs text-optional-navy/60 text-center">
-                    Payment instructions will be provided after confirmation. All consultations are subject to attorney-client privilege.
-                  </p>
+                      <Button
+                        type="submit"
+                        className="w-full bg-accent-gold text-background hover:bg-accent-gold/90 py-4 md:py-6 text-lg font-semibold rounded-lg flex items-center justify-center gap-2"
+                      >
+                        Continue to Details
+                        <ChevronRight className="w-5 h-5" />
+                      </Button>
+                    </motion.div>
+                  )}
+
+                  {/* Step 2: Inquiry Details */}
+                  {formStep === 'details' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="space-y-6"
+                    >
+                      <div>
+                        <p className="font-heading text-lg text-optional-navy mb-6">Briefly Outline Your Strategic Inquiry</p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                            Preferred Date *
+                          </label>
+                          <Input
+                            type="date"
+                            required
+                            value={formData.preferredDate}
+                            onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                            className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 focus:border-accent-gold focus:outline-none transition-colors"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                            Preferred Time *
+                          </label>
+                          <Input
+                            type="time"
+                            required
+                            value={formData.preferredTime}
+                            onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                            className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 focus:border-accent-gold focus:outline-none transition-colors"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="font-paragraph text-sm text-optional-navy font-medium mb-2 block">
+                          Strategic Inquiry Details *
+                        </label>
+                        <Textarea
+                          required
+                          value={formData.caseDetails}
+                          onChange={(e) => setFormData({ ...formData, caseDetails: e.target.value })}
+                          className="w-full bg-white text-optional-navy border border-optional-navy/20 rounded-lg px-4 py-3 md:py-4 min-h-[150px] placeholder:text-optional-navy/40 focus:border-accent-gold focus:outline-none transition-colors"
+                          placeholder="Please provide a brief description of your legal matter and strategic objectives..."
+                        />
+                      </div>
+
+                      <div className="flex gap-4">
+                        <Button
+                          type="button"
+                          onClick={() => {
+                            setFormStep('contact');
+                            setSubmitError(null);
+                          }}
+                          className="flex-1 bg-optional-navy/10 text-optional-navy hover:bg-optional-navy/20 py-4 md:py-6 text-lg font-semibold rounded-lg"
+                        >
+                          Back
+                        </Button>
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="flex-1 bg-accent-gold text-background hover:bg-accent-gold/90 py-4 md:py-6 text-lg font-semibold rounded-lg"
+                        >
+                          {isSubmitting ? 'Submitting...' : 'Request Confidential Consultation'}
+                        </Button>
+                      </div>
+
+                      <p className="font-paragraph text-xs text-optional-navy/60 text-center">
+                        Payment instructions will be provided after confirmation. All consultations are subject to attorney-client privilege.
+                      </p>
+                    </motion.div>
+                  )}
                 </form>
               )}
             </motion.div>
