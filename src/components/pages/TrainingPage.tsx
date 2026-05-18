@@ -54,7 +54,7 @@ export default function TrainingPage() {
       <Header />
       
       {/* Premium Hero Section with Slogan */}
-      <section className="relative w-full bg-optional-navy overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16">
+      <section className="relative w-full bg-secondary overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +148,7 @@ export default function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="bg-optional-navy rounded-lg p-6 md:p-7 border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
+                className="bg-secondary rounded-lg p-6 md:p-7 border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
               >
                 <feature.icon className="w-8 h-8 text-accent-gold mb-4" />
                 <h3 className="font-heading text-base md:text-lg text-foreground mb-3">{feature.title}</h3>
@@ -162,7 +162,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Enrollment Process */}
-      <section className="w-full bg-optional-navy py-16 md:py-24">
+      <section className="w-full bg-secondary py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -249,7 +249,7 @@ export default function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="bg-optional-navy p-7 md:p-8 rounded-lg border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
+                className="bg-secondary p-7 md:p-8 rounded-lg border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
               >
                 <h3 className="font-heading text-lg md:text-xl text-accent-gold mb-5">{section.title}</h3>
                 <ul className="space-y-3 md:space-y-4">
@@ -669,7 +669,7 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
         </p>
         
         {course.certificationDetails && (
-          <div className="mb-4 md:mb-5 p-3 md:p-4 bg-optional-navy rounded">
+          <div className="mb-4 md:mb-5 p-3 md:p-4 bg-secondary rounded">
             <p className="font-paragraph text-xs md:text-sm text-accent-gold font-medium mb-1.5">Details:</p>
             <p className="font-paragraph text-xs md:text-sm text-foreground/70">{course.certificationDetails}</p>
           </div>
