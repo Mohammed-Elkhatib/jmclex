@@ -2,12 +2,11 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Award, BookOpen, Users, Globe, Zap, Shield, Clock, CheckCircle } from 'lucide-react';
+import { ArrowRight, Award, BookOpen, Users, Globe, Zap, Shield, Clock, CheckCircle, Briefcase, TrendingUp, Lock } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Cart from '@/components/Cart';
 
 export default function TrainingPage() {
   const [courses, setCourses] = useState<TrainingCourses[]>([]);
@@ -30,21 +29,32 @@ export default function TrainingPage() {
     }
   };
 
-  // Organize courses by level
-  const coursesByLevel = useMemo(() => {
-    const level1 = courses.filter(c => c.level?.includes('1') || c.level?.includes('Foundations') || c.level?.includes('Level 1'));
-    const level2 = courses.filter(c => c.level?.includes('2') || c.level?.includes('Advanced') || c.level?.includes('Level 2'));
-    const other = courses.filter(c => !c.level || (!c.level.includes('1') && !c.level.includes('2') && !c.level.includes('Foundations') && !c.level.includes('Advanced')));
-    return { level1, level2, other };
+  // Organize courses by category and level
+  const coursesByCategory = useMemo(() => {
+    const legal = courses.filter(c => c.executiveCategory?.includes('Legal') || c.itemName?.includes('Law') || c.itemName?.includes('Contract') || c.itemName?.includes('Compliance') || c.itemName?.includes('GDPR') || c.itemName?.includes('Governance') || c.itemName?.includes('Sanctions') || c.itemName?.includes('Investigation') || c.itemName?.includes('Employment') || c.itemName?.includes('Arbitration'));
+    const investment = courses.filter(c => c.executiveCategory?.includes('Investment') || c.itemName?.includes('Invest'));
+    const other = courses.filter(c => !legal.includes(c) && !investment.includes(c));
+    
+    const organizeByLevel = (items: TrainingCourses[]) => {
+      const level1 = items.filter(c => c.level?.includes('1') || c.level?.includes('Foundations') || c.level?.includes('Level 1'));
+      const level2 = items.filter(c => c.level?.includes('2') || c.level?.includes('Advanced') || c.level?.includes('Level 2'));
+      const noLevel = items.filter(c => !c.level || (!c.level.includes('1') && !c.level.includes('2') && !c.level.includes('Foundations') && !c.level.includes('Advanced')));
+      return { level1, level2, noLevel };
+    };
+    
+    return {
+      legal: organizeByLevel(legal),
+      investment: organizeByLevel(investment),
+      other: organizeByLevel(other)
+    };
   }, [courses]);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <Cart />
       
       {/* Premium Hero Section with Slogan */}
-      <section className="relative w-full bg-optional-navy overflow-hidden pt-20 pb-16 md:pb-24">
+      <section className="relative w-full bg-optional-navy overflow-hidden pt-28 pb-24 md:pt-32 md:pb-32">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -52,7 +62,17 @@ export default function TrainingPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl text-foreground leading-tight mb-6 md:mb-8">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="inline-flex items-center gap-2 mb-6 md:mb-8 px-4 py-2 bg-accent-gold/10 border border-accent-gold/30 rounded-full"
+            >
+              <Lock className="w-4 h-4 text-accent-gold" />
+              <span className="font-paragraph text-xs md:text-sm text-accent-gold font-medium">Confidential Executive Training</span>
+            </motion.div>
+
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground leading-tight mb-6 md:mb-8">
               Elite Legal Experts Transferring Years of Strategic Knowledge in Six Executive Hours
             </h1>
             
@@ -60,16 +80,16 @@ export default function TrainingPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-paragraph text-base md:text-lg text-foreground/90 max-w-3xl mx-auto mb-8 leading-relaxed"
+              className="font-paragraph text-base md:text-lg text-foreground/90 max-w-3xl mx-auto mb-12 md:mb-16 leading-relaxed"
             >
-              Private one-to-one executive legal education and strategic advisory sessions for business leaders, professionals, investors, and international decision-makers.
+              Private one-to-one executive legal education and strategic advisory sessions for business leaders, legal professionals, compliance teams, and international decision-makers.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-6 md:pt-8 border-t border-foreground/20 flex-wrap"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 pt-10 md:pt-12 border-t border-foreground/20 flex-wrap"
             >
               {[
                 { label: 'Confidential', icon: Shield },
@@ -101,17 +121,17 @@ export default function TrainingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-14 md:mb-16"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">
-              Executive Education Excellence
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
+              Premium Executive Training Platform
             </h2>
             <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
-              Premium programs designed for selective enrollment and confidential executive learning
+              Selective, confidential programs designed for elite professionals and strategic decision-makers
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
             {[
               {
                 icon: BookOpen,
@@ -150,11 +170,11 @@ export default function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="bg-optional-navy rounded-lg p-6 md:p-8 border border-accent-gold/20"
+                className="bg-optional-navy rounded-lg p-6 md:p-7 border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
               >
-                <feature.icon className="w-10 h-10 text-accent-gold mb-4" />
-                <h3 className="font-heading text-lg md:text-xl text-foreground mb-3">{feature.title}</h3>
-                <p className="font-paragraph text-sm md:text-base text-foreground/80 leading-relaxed">
+                <feature.icon className="w-8 h-8 text-accent-gold mb-4" />
+                <h3 className="font-heading text-base md:text-lg text-foreground mb-3">{feature.title}</h3>
+                <p className="font-paragraph text-sm text-foreground/80 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -171,9 +191,9 @@ export default function TrainingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-14 md:mb-16"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
               Selective Enrollment Process
             </h2>
             <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
@@ -181,7 +201,7 @@ export default function TrainingPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
             {[
               { step: '1', title: 'Application', desc: 'Submit your profile' },
               { step: '2', title: 'Review', desc: '72-hour evaluation' },
@@ -197,11 +217,11 @@ export default function TrainingPage() {
                 transition={{ duration: 0.8, delay: index * 0.05 }}
                 className="text-center"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-gold text-secondary-foreground rounded-full flex items-center justify-center font-heading text-lg md:text-xl mx-auto mb-3 md:mb-4">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-gold text-secondary-foreground rounded-full flex items-center justify-center font-heading text-xl md:text-2xl mx-auto mb-3 md:mb-4 shadow-lg">
                   {item.step}
                 </div>
                 <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{item.title}</h3>
-                <p className="font-paragraph text-xs md:text-sm text-foreground/80">{item.desc}</p>
+                <p className="font-paragraph text-sm text-foreground/80">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -216,9 +236,9 @@ export default function TrainingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-14 md:mb-16"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
               Program Structure & Benefits
             </h2>
             <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
@@ -226,7 +246,7 @@ export default function TrainingPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
             {[
               {
                 title: 'Comprehensive Curriculum',
@@ -251,14 +271,14 @@ export default function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="bg-optional-navy p-6 md:p-8 rounded-lg border border-accent-gold/20"
+                className="bg-optional-navy p-7 md:p-8 rounded-lg border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
               >
-                <h3 className="font-heading text-lg md:text-xl text-accent-gold mb-4 md:mb-6">{section.title}</h3>
-                <ul className="space-y-3">
+                <h3 className="font-heading text-lg md:text-xl text-accent-gold mb-5">{section.title}</h3>
+                <ul className="space-y-3 md:space-y-4">
                   {section.items.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
-                      <p className="font-paragraph text-sm md:text-base text-foreground/90">{item}</p>
+                      <p className="font-paragraph text-sm text-foreground/90">{item}</p>
                     </li>
                   ))}
                 </ul>
@@ -276,9 +296,9 @@ export default function TrainingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-14 md:mb-16"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
               Executive Training Programs
             </h2>
             <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
@@ -286,75 +306,213 @@ export default function TrainingPage() {
             </p>
           </motion.div>
 
-          <div className="min-h-[400px]">
+          <div className="min-h-[300px]">
             {isLoading ? (
-              <div className="text-center py-12">
+              <div className="text-center py-16">
                 <p className="font-paragraph text-base text-foreground/60">Loading programs...</p>
               </div>
             ) : courses.length > 0 ? (
-              <>
-                {/* Level 1 Programs */}
-                {coursesByLevel.level1.length > 0 && (
-                  <div className="mb-16">
-                    <h3 className="font-heading text-2xl md:text-3xl text-accent-gold mb-8">Foundations & Level 1</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                      {coursesByLevel.level1.map((course, index) => (
-                        <CourseCard
-                          key={course._id}
-                          course={course}
-                          index={index}
-                          addingItemId={addingItemId}
-                          actions={actions}
-                          currency={currency}
-                        />
-                      ))}
+              <div className="space-y-16 md:space-y-20">
+                {/* Legal & Compliance Programs */}
+                {(coursesByCategory.legal.level1.length > 0 || coursesByCategory.legal.level2.length > 0 || coursesByCategory.legal.noLevel.length > 0) && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-10 md:mb-12">
+                      <Briefcase className="w-7 h-7 text-accent-gold" />
+                      <h3 className="font-heading text-2xl md:text-3xl text-accent-gold">Legal & Compliance Programs</h3>
                     </div>
+                    
+                    {coursesByCategory.legal.level1.length > 0 && (
+                      <div className="mb-12 md:mb-14">
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Foundations & Level 1</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.legal.level1.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {coursesByCategory.legal.level2.length > 0 && (
+                      <div className="mb-12 md:mb-14">
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Advanced & Level 2</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.legal.level2.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {coursesByCategory.legal.noLevel.length > 0 && (
+                      <div>
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Specialized Programs</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.legal.noLevel.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {/* Level 2 Programs */}
-                {coursesByLevel.level2.length > 0 && (
-                  <div className="mb-16">
-                    <h3 className="font-heading text-2xl md:text-3xl text-accent-gold mb-8">Advanced & Level 2</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                      {coursesByLevel.level2.map((course, index) => (
-                        <CourseCard
-                          key={course._id}
-                          course={course}
-                          index={index}
-                          addingItemId={addingItemId}
-                          actions={actions}
-                          currency={currency}
-                        />
-                      ))}
+                {/* Investment Programs */}
+                {(coursesByCategory.investment.level1.length > 0 || coursesByCategory.investment.level2.length > 0 || coursesByCategory.investment.noLevel.length > 0) && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-10 md:mb-12">
+                      <TrendingUp className="w-7 h-7 text-accent-gold" />
+                      <h3 className="font-heading text-2xl md:text-3xl text-accent-gold">Investment & Strategic Programs</h3>
                     </div>
+                    
+                    {coursesByCategory.investment.level1.length > 0 && (
+                      <div className="mb-12 md:mb-14">
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Foundations & Level 1</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.investment.level1.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {coursesByCategory.investment.level2.length > 0 && (
+                      <div className="mb-12 md:mb-14">
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Advanced & Level 2</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.investment.level2.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {coursesByCategory.investment.noLevel.length > 0 && (
+                      <div>
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Specialized Programs</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.investment.noLevel.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
                 {/* Other Programs */}
-                {coursesByLevel.other.length > 0 && (
+                {(coursesByCategory.other.level1.length > 0 || coursesByCategory.other.level2.length > 0 || coursesByCategory.other.noLevel.length > 0) && (
                   <div>
-                    <h3 className="font-heading text-2xl md:text-3xl text-accent-gold mb-8">Specialized Programs</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                      {coursesByLevel.other.map((course, index) => (
-                        <CourseCard
-                          key={course._id}
-                          course={course}
-                          index={index}
-                          addingItemId={addingItemId}
-                          actions={actions}
-                          currency={currency}
-                        />
-                      ))}
-                    </div>
+                    <h3 className="font-heading text-2xl md:text-3xl text-accent-gold mb-10 md:mb-12">Additional Programs</h3>
+                    
+                    {coursesByCategory.other.level1.length > 0 && (
+                      <div className="mb-12 md:mb-14">
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Foundations & Level 1</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.other.level1.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {coursesByCategory.other.level2.length > 0 && (
+                      <div className="mb-12 md:mb-14">
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Advanced & Level 2</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.other.level2.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {coursesByCategory.other.noLevel.length > 0 && (
+                      <div>
+                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Specialized Programs</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                          {coursesByCategory.other.noLevel.map((course, index) => (
+                            <CourseCard
+                              key={course._id}
+                              course={course}
+                              index={index}
+                              addingItemId={addingItemId}
+                              actions={actions}
+                              currency={currency}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
-              </>
+              </div>
             ) : (
-              <div className="text-center py-16">
-                <p className="font-paragraph text-base md:text-lg text-foreground/60">
+              <div className="text-center py-20">
+                <p className="font-paragraph text-base md:text-lg text-foreground/60 mb-6">
                   Training programs coming soon. Contact us for more information.
                 </p>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all hover:scale-105"
+                >
+                  Get in Touch <ArrowRight className="w-5 h-5" />
+                </Link>
               </div>
             )}
           </div>
@@ -369,16 +527,16 @@ export default function TrainingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-optional-navy rounded-lg p-8 md:p-12 text-center"
+            className="bg-optional-navy rounded-lg p-8 md:p-10 lg:p-12 text-center border border-accent-gold/20"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-6">
               Executive Development Package
             </h2>
-            <p className="font-paragraph text-base md:text-lg text-foreground/90 max-w-3xl mx-auto mb-8 md:mb-12">
+            <p className="font-paragraph text-base md:text-lg text-foreground/90 max-w-3xl mx-auto mb-10 md:mb-12">
               Enroll in 3 or more programs and receive a 30% discount on your entire package after application review and approval.
             </p>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-10 md:mb-12">
               {[
                 {
                   title: 'Advanced Professional Progression',
@@ -399,20 +557,20 @@ export default function TrainingPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: index * 0.05 }}
-                  className="bg-background p-6 rounded-lg"
+                  className="bg-background p-5 md:p-6 rounded-lg"
                 >
-                  <h3 className="font-heading text-lg md:text-xl text-foreground mb-3">{benefit.title}</h3>
-                  <p className="font-paragraph text-sm md:text-base text-foreground/80">{benefit.description}</p>
+                  <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{benefit.title}</h3>
+                  <p className="font-paragraph text-sm text-foreground/80">{benefit.description}</p>
                 </motion.div>
               ))}
             </div>
             
-            <div className="border-t border-foreground/20 pt-8 md:pt-12">
-              <h3 className="font-heading text-2xl md:text-3xl text-foreground mb-4 md:mb-6">Tailored Corporate Solutions</h3>
+            <div className="border-t border-foreground/20 pt-10 md:pt-12">
+              <h3 className="font-heading text-2xl md:text-3xl text-foreground mb-4 md:mb-5">Tailored Corporate Solutions</h3>
               <p className="font-paragraph text-base md:text-lg text-foreground/90 mb-6 md:mb-8">
                 Customized training packages available for:
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-8 md:mb-10">
                 {[
                   'Legal Departments',
                   'Compliance Teams',
@@ -425,7 +583,7 @@ export default function TrainingPage() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.05 }}
-                    className="bg-accent-gold/10 border border-accent-gold/30 rounded-lg p-4"
+                    className="bg-accent-gold/10 border border-accent-gold/30 rounded-lg p-4 md:p-5"
                   >
                     <p className="font-paragraph font-semibold text-foreground text-sm md:text-base">{group}</p>
                   </motion.div>
@@ -445,20 +603,20 @@ export default function TrainingPage() {
       {/* Subscription Section */}
       <section className="w-full bg-optional-navy py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-14 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-6 md:mb-8">
+              <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-5 md:mb-7">
                 Unlimited Access Subscription
               </h2>
-              <p className="font-paragraph text-base md:text-lg text-foreground/90 mb-6 leading-relaxed">
+              <p className="font-paragraph text-base md:text-lg text-foreground/90 mb-6 md:mb-8 leading-relaxed">
                 Get unlimited access to our entire library of executive training programs with a subscription. Perfect for law firms, corporate legal departments, compliance teams, and individual practitioners.
               </p>
-              <ul className="space-y-3 md:space-y-4 mb-8">
+              <ul className="space-y-3 md:space-y-4 mb-8 md:mb-10">
                 {[
                   'Access to all current and future programs',
                   'Professional certification upon completion',
@@ -467,8 +625,8 @@ export default function TrainingPage() {
                   'Flexible learning schedule with lifetime access',
                   'Multilingual content in English and French'
                 ].map((benefit, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                  <li key={index} className="flex items-start gap-3 md:gap-4">
+                    <CheckCircle className="w-5 h-5 md:w-6 md:h-6 text-accent-gold flex-shrink-0 mt-0.5" />
                     <p className="font-paragraph text-sm md:text-base text-foreground/90">{benefit}</p>
                   </li>
                 ))}
@@ -486,7 +644,7 @@ export default function TrainingPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="relative h-[300px] md:h-[400px] lg:h-[500px]"
+              className="relative h-[280px] md:h-[380px] lg:h-[420px]"
             >
               <Image
                 src="https://static.wixstatic.com/media/5e1235_c7fad726680c4e6293a1dfe62a96b484~mv2.png?originWidth=768&originHeight=448"
@@ -511,35 +669,35 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.05 }}
-      className="bg-background rounded-lg overflow-hidden flex flex-col h-full border border-foreground/10 hover:border-accent-gold/30 transition-all"
+      className="bg-background rounded-lg overflow-hidden flex flex-col h-full border border-foreground/10 hover:border-accent-gold/40 transition-all hover:shadow-lg"
     >
-      <div className="relative h-[200px] md:h-[250px]">
+      <div className="relative h-[200px] md:h-[220px]">
         <Image
           src={course.itemImage || 'https://static.wixstatic.com/media/5e1235_1921557ef1e84f528c4d105925f45779~mv2.png?originWidth=384&originHeight=192'}
           alt={course.itemName || 'Training course'}
           className="w-full h-full object-cover"
         />
         {course.level && (
-          <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-accent-gold text-secondary-foreground px-2 md:px-3 py-1 rounded text-xs font-paragraph font-medium">
+          <div className="absolute top-3 md:top-4 right-3 md:right-4 bg-accent-gold text-secondary-foreground px-3 md:px-4 py-1.5 md:py-2 rounded text-xs md:text-sm font-paragraph font-medium">
             {course.level}
           </div>
         )}
       </div>
       
-      <div className="p-6 md:p-8 flex flex-col flex-grow">
-        <h3 className="font-heading text-lg md:text-xl text-foreground mb-3">{course.itemName}</h3>
-        <p className="font-paragraph text-sm md:text-base text-foreground/80 mb-4 md:mb-6 leading-relaxed flex-grow">
+      <div className="p-5 md:p-6 flex flex-col flex-grow">
+        <h3 className="font-heading text-base md:text-lg text-foreground mb-2 md:mb-3">{course.itemName}</h3>
+        <p className="font-paragraph text-sm md:text-base text-foreground/80 mb-4 md:mb-5 leading-relaxed flex-grow">
           {course.itemDescription}
         </p>
         
         {course.certificationDetails && (
-          <div className="mb-4 md:mb-6 p-3 md:p-4 bg-optional-navy rounded">
-            <p className="font-paragraph text-xs md:text-sm text-accent-gold font-medium mb-1">Details:</p>
+          <div className="mb-4 md:mb-5 p-3 md:p-4 bg-optional-navy rounded">
+            <p className="font-paragraph text-xs md:text-sm text-accent-gold font-medium mb-1.5">Details:</p>
             <p className="font-paragraph text-xs md:text-sm text-foreground/70">{course.certificationDetails}</p>
           </div>
         )}
         
-        <div className="flex items-center justify-between mb-4 md:mb-6">
+        <div className="flex items-center justify-between mb-4 md:mb-5">
           <div className="font-heading text-2xl md:text-3xl text-accent-gold">
             {formatPrice(course.itemPrice || 0, currency ?? DEFAULT_CURRENCY)}
           </div>
@@ -548,7 +706,7 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
         <div className="space-y-2 md:space-y-3">
           <Link
             to={`/training/${course._id}`}
-            className="block w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-4 md:px-6 py-2 md:py-3 rounded text-center transition-all hover:scale-105 text-sm md:text-base"
+            className="block w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-4 md:px-5 py-2.5 md:py-3 rounded text-center transition-all hover:scale-105 text-sm md:text-base"
           >
             View Details
           </Link>
@@ -561,7 +719,7 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
               });
             }}
             disabled={addingItemId === course._id}
-            className="w-full bg-foreground text-background font-paragraph font-semibold px-4 md:px-6 py-2 md:py-3 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
+            className="w-full bg-foreground text-background font-paragraph font-semibold px-4 md:px-5 py-2.5 md:py-3 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
           >
             {addingItemId === course._id ? 'Adding...' : 'Apply / Enroll'}
           </button>

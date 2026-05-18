@@ -70,18 +70,18 @@ export default function TrainingCourseDetailPage() {
       <Header />
 
       {/* Breadcrumb */}
-      <div className="max-w-[100rem] mx-auto px-6 md:px-8 py-6 md:py-8 mt-16 md:mt-20">
+      <div className="max-w-[100rem] mx-auto px-6 md:px-8 py-5 md:py-7 mt-20 md:mt-24">
         <Link
           to="/training"
-          className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm"
+          className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm md:text-base"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
           Back to Training Center
         </Link>
       </div>
 
       {/* Hero Section */}
-      <section className="relative w-full min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[45vh] md:min-h-[55vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src={course.itemImage || 'https://static.wixstatic.com/media/5e1235_1921557ef1e84f528c4d105925f45779~mv2.png?originWidth=384&originHeight=192'}
@@ -91,12 +91,12 @@ export default function TrainingCourseDetailPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background"></div>
         </div>
 
-        <div className="relative z-10 max-w-[100rem] mx-auto px-6 md:px-8 py-16 md:py-24 text-center">
+        <div className="relative z-10 max-w-[100rem] mx-auto px-6 md:px-8 py-16 md:py-20 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-heading text-4xl md:text-6xl lg:text-7xl text-foreground mb-4 md:mb-6"
+            className="font-heading text-3xl md:text-5xl lg:text-6xl text-foreground mb-4 md:mb-6"
           >
             {course.itemName}
           </motion.h1>
@@ -106,7 +106,7 @@ export default function TrainingCourseDetailPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-paragraph text-base md:text-lg text-accent-gold mb-4 md:mb-6"
+              className="font-paragraph text-sm md:text-lg text-accent-gold mb-4 md:mb-5"
             >
               {course.executiveCategory}
             </motion.p>
@@ -126,9 +126,9 @@ export default function TrainingCourseDetailPage() {
       {/* Course Details */}
       <section className="w-full bg-optional-navy py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-14">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8 md:space-y-12">
+            <div className="lg:col-span-2 space-y-10 md:space-y-12">
               {/* Program Details */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -136,40 +136,40 @@ export default function TrainingCourseDetailPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-6 md:mb-8">Program Overview</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-6 md:mb-8">Program Overview</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
                   {course.duration && (
-                    <div className="flex gap-4">
-                      <Clock className="w-6 md:w-8 h-6 md:h-8 text-accent-gold flex-shrink-0" />
+                    <div className="flex gap-4 md:gap-5">
+                      <Clock className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
                       <div>
-                        <h3 className="font-heading text-base md:text-lg text-foreground mb-2">Duration</h3>
+                        <h3 className="font-heading text-base md:text-lg text-foreground mb-1.5">Duration</h3>
                         <p className="font-paragraph text-sm md:text-base text-foreground/80">{course.duration}</p>
                       </div>
                     </div>
                   )}
                   {course.language && (
-                    <div className="flex gap-4">
-                      <Globe className="w-6 md:w-8 h-6 md:h-8 text-accent-gold flex-shrink-0" />
+                    <div className="flex gap-4 md:gap-5">
+                      <Globe className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
                       <div>
-                        <h3 className="font-heading text-base md:text-lg text-foreground mb-2">Language</h3>
+                        <h3 className="font-heading text-base md:text-lg text-foreground mb-1.5">Language</h3>
                         <p className="font-paragraph text-sm md:text-base text-foreground/80">{course.language}</p>
                       </div>
                     </div>
                   )}
                   {course.level && (
-                    <div className="flex gap-4">
-                      <BookOpen className="w-6 md:w-8 h-6 md:h-8 text-accent-gold flex-shrink-0" />
+                    <div className="flex gap-4 md:gap-5">
+                      <BookOpen className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
                       <div>
-                        <h3 className="font-heading text-base md:text-lg text-foreground mb-2">Level</h3>
+                        <h3 className="font-heading text-base md:text-lg text-foreground mb-1.5">Level</h3>
                         <p className="font-paragraph text-sm md:text-base text-foreground/80">{course.level}</p>
                       </div>
                     </div>
                   )}
                   {course.certification && (
-                    <div className="flex gap-4">
-                      <Award className="w-6 md:w-8 h-6 md:h-8 text-accent-gold flex-shrink-0" />
+                    <div className="flex gap-4 md:gap-5">
+                      <Award className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
                       <div>
-                        <h3 className="font-heading text-base md:text-lg text-foreground mb-2">Certification</h3>
+                        <h3 className="font-heading text-base md:text-lg text-foreground mb-1.5">Certification</h3>
                         <p className="font-paragraph text-sm md:text-base text-foreground/80">{course.certification}</p>
                       </div>
                     </div>
@@ -185,9 +185,9 @@ export default function TrainingCourseDetailPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.1 }}
                 >
-                  <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-6 md:mb-8">Strategic Outcomes</h2>
+                  <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-6 md:mb-8">Strategic Outcomes</h2>
                   <div className="bg-background rounded-lg p-6 md:p-8">
-                    <p className="font-paragraph text-base md:text-lg text-foreground/90 leading-relaxed">
+                    <p className="font-paragraph text-sm md:text-base text-foreground/90 leading-relaxed">
                       {course.strategicOutcomes}
                     </p>
                   </div>
@@ -202,9 +202,9 @@ export default function TrainingCourseDetailPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                  <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-6 md:mb-8">Program Details</h2>
+                  <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-6 md:mb-8">Program Details</h2>
                   <div className="bg-background rounded-lg p-6 md:p-8">
-                    <p className="font-paragraph text-base md:text-lg text-foreground/90 leading-relaxed">
+                    <p className="font-paragraph text-sm md:text-base text-foreground/90 leading-relaxed">
                       {course.certificationDetails}
                     </p>
                   </div>
@@ -219,11 +219,11 @@ export default function TrainingCourseDetailPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-6 md:mb-8">Program Format</h2>
-                  <div className="bg-background rounded-lg p-6 md:p-8 flex gap-4">
-                    <Users className="w-6 md:w-8 h-6 md:h-8 text-accent-gold flex-shrink-0" />
+                  <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-6 md:mb-8">Program Format</h2>
+                  <div className="bg-background rounded-lg p-6 md:p-8 flex gap-4 md:gap-5">
+                    <Users className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
                     <div>
-                      <p className="font-paragraph text-base md:text-lg text-foreground/90">{course.programType}</p>
+                      <p className="font-paragraph text-sm md:text-base text-foreground/90">{course.programType}</p>
                     </div>
                   </div>
                 </motion.div>
@@ -236,20 +236,20 @@ export default function TrainingCourseDetailPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-6 md:space-y-8"
+              className="space-y-6 md:space-y-7"
             >
               {/* Pricing Card */}
-              <div className="bg-background rounded-lg p-6 md:p-8 sticky top-24 md:top-32">
+              <div className="bg-background rounded-lg p-6 md:p-8 sticky top-28 md:top-36">
                 <div className="mb-6 md:mb-8">
                   <p className="font-paragraph text-xs md:text-sm text-foreground/60 mb-2">Program Fee</p>
-                  <div className="font-heading text-4xl md:text-5xl text-accent-gold">
+                  <div className="font-heading text-3xl md:text-4xl lg:text-5xl text-accent-gold">
                     {formatPrice(course.itemPrice || 0, currency ?? DEFAULT_CURRENCY)}
                   </div>
                 </div>
 
                 {course.pricing && (
                   <div className="mb-6 md:mb-8 pb-6 md:pb-8 border-b border-foreground/10">
-                    <p className="font-paragraph text-xs md:text-sm text-foreground/80">{course.pricing}</p>
+                    <p className="font-paragraph text-sm md:text-base text-foreground/80">{course.pricing}</p>
                   </div>
                 )}
 
@@ -262,14 +262,14 @@ export default function TrainingCourseDetailPage() {
                       });
                     }}
                     disabled={addingItemId === course._id}
-                    className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-4 md:px-6 py-3 md:py-4 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
+                    className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-4 md:px-5 py-3 md:py-4 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
                   >
                     {addingItemId === course._id ? 'Adding to Cart...' : 'Add to Cart'}
                   </button>
 
                   <button
                     onClick={() => setShowApplicationForm(!showApplicationForm)}
-                    className="w-full bg-foreground text-background font-paragraph font-semibold px-4 md:px-6 py-3 md:py-4 rounded transition-all hover:scale-105 text-sm md:text-base"
+                    className="w-full bg-foreground text-background font-paragraph font-semibold px-4 md:px-5 py-3 md:py-4 rounded transition-all hover:scale-105 text-sm md:text-base"
                   >
                     Apply Now
                   </button>
@@ -277,10 +277,10 @@ export default function TrainingCourseDetailPage() {
 
                 {course.isSubscriptionAvailable && (
                   <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-foreground/10">
-                    <p className="font-paragraph text-xs md:text-sm text-accent-gold font-medium mb-2 md:mb-3">
+                    <p className="font-paragraph text-sm md:text-base text-accent-gold font-medium mb-2">
                       ✓ Subscription Available
                     </p>
-                    <p className="font-paragraph text-xs text-foreground/70">
+                    <p className="font-paragraph text-xs md:text-sm text-foreground/70">
                       Get unlimited access to this and all other programs with our subscription plan.
                     </p>
                   </div>
@@ -288,8 +288,8 @@ export default function TrainingCourseDetailPage() {
 
                 {/* Executive Development Package Info */}
                 <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-foreground/10">
-                  <p className="font-heading text-xs md:text-sm text-foreground mb-2 md:mb-3">Executive Development Package</p>
-                  <p className="font-paragraph text-xs text-foreground/70">
+                  <p className="font-heading text-sm md:text-base text-foreground mb-2">Executive Development Package</p>
+                  <p className="font-paragraph text-xs md:text-sm text-foreground/70">
                     Enroll in 3 or more programs and receive a 30% discount on your entire package after application review.
                   </p>
                 </div>
@@ -298,14 +298,14 @@ export default function TrainingCourseDetailPage() {
               {/* Contact Info */}
               <div className="bg-accent-gold/10 border border-accent-gold/30 rounded-lg p-6 md:p-8">
                 <h3 className="font-heading text-base md:text-lg text-foreground mb-3 md:mb-4">Questions?</h3>
-                <p className="font-paragraph text-xs md:text-sm text-foreground/80 mb-3 md:mb-4">
+                <p className="font-paragraph text-sm md:text-base text-foreground/80 mb-3 md:mb-4">
                   Contact our team for more information about this program.
                 </p>
                 <a
                   href="mailto:contact@jmclex.com"
-                  className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-xs md:text-sm font-medium"
+                  className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm md:text-base font-medium"
                 >
-                  contact@jmclex.com <ArrowRight className="w-4 h-4" />
+                  contact@jmclex.com <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                 </a>
               </div>
             </motion.div>
@@ -315,7 +315,7 @@ export default function TrainingCourseDetailPage() {
 
       {/* Application Form Section */}
       {showApplicationForm && (
-        <section className="w-full bg-background py-16 md:py-24">
+        <section className="w-full bg-background py-16 md:py-20">
           <div className="max-w-[100rem] mx-auto px-6 md:px-8">
             <ExecutiveTrainingApplicationForm
               programName={course.itemName || 'Executive Training Program'}
@@ -335,15 +335,15 @@ export default function TrainingCourseDetailPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-12 md:mb-16"
+            className="text-center mb-14 md:mb-16"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">Selective Enrollment Process</h2>
+            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">Selective Enrollment Process</h2>
             <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
               Our selective enrollment process ensures a premium learning experience and maintains executive-level confidentiality
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
             {[
               { step: '1', title: 'Application', desc: 'Submit your profile' },
               { step: '2', title: 'Review', desc: '72-hour evaluation' },
@@ -359,11 +359,11 @@ export default function TrainingCourseDetailPage() {
                 transition={{ duration: 0.8, delay: index * 0.05 }}
                 className="text-center"
               >
-                <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-gold text-secondary-foreground rounded-full flex items-center justify-center font-heading text-lg md:text-xl mx-auto mb-3 md:mb-4">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-gold text-secondary-foreground rounded-full flex items-center justify-center font-heading text-xl md:text-2xl mx-auto mb-3 md:mb-4 shadow-lg">
                   {item.step}
                 </div>
                 <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{item.title}</h3>
-                <p className="font-paragraph text-xs md:text-sm text-foreground/80">{item.desc}</p>
+                <p className="font-paragraph text-sm text-foreground/80">{item.desc}</p>
               </motion.div>
             ))}
           </div>
