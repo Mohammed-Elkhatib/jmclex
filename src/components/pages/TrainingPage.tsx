@@ -267,7 +267,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Training Programs */}
-      <section id="programs" className="w-full bg-optional-navy py-16 md:py-24">
+      <section id="programs" className="w-full bg-secondary py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -697,7 +697,7 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
               });
             }}
             disabled={addingItemId === course._id}
-            className="w-full bg-foreground text-background font-paragraph font-semibold px-4 md:px-5 py-2.5 md:py-3 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
+            className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-4 md:px-5 py-2.5 md:py-3 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
           >
             {addingItemId === course._id ? 'Adding...' : 'Apply / Enroll'}
           </button>
