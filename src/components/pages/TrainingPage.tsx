@@ -73,7 +73,7 @@ export default function TrainingPage() {
             transition={{ duration: 0.8 }}
             className="font-heading text-6xl md:text-7xl text-foreground mb-8"
           >
-            Training Center & Certification
+            Premium Executive Legal Education
           </motion.h1>
           
           <motion.p
@@ -82,7 +82,7 @@ export default function TrainingPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto mb-6"
           >
-            Premium executive legal education designed for international professionals
+            Confidential one-to-one executive programs for international legal professionals and strategic decision-makers
           </motion.p>
 
           <motion.p
@@ -91,7 +91,7 @@ export default function TrainingPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="font-paragraph text-lg text-foreground/80 max-w-3xl mx-auto"
           >
-            Strategic professional development programs combining theory, practical workshops, and advanced intellectual analysis
+            Elite legal and strategic advisory education combining rigorous curriculum, expert practitioners, and confidential executive interaction
           </motion.p>
         </div>
       </section>
@@ -107,7 +107,7 @@ export default function TrainingPage() {
             className="text-center mb-16"
           >
             <h2 className="font-heading text-5xl text-foreground mb-8">
-              International Executive Education Excellence
+              Executive Education Excellence
             </h2>
           </motion.div>
 
@@ -126,7 +126,7 @@ export default function TrainingPage() {
               {
                 icon: Globe,
                 title: 'Multilingual Delivery',
-                description: 'Programs available in English, French, and Arabic to serve our global professional community'
+                description: 'Programs available in English and French to serve our global professional community'
               },
               {
                 icon: Award,
@@ -135,8 +135,8 @@ export default function TrainingPage() {
               },
               {
                 icon: Zap,
-                title: 'Comprehensive Resources',
-                description: 'Participants receive supporting materials, templates, strategic resources, and practical frameworks'
+                title: 'Confidential One-to-One Format',
+                description: 'All programs are delivered as private, confidential sessions ensuring executive-level discretion'
               },
               {
                 icon: Shield,
@@ -233,7 +233,7 @@ export default function TrainingPage() {
           >
             <h2 className="font-heading text-5xl text-foreground mb-6">Executive Training Programs</h2>
             <p className="font-paragraph text-xl text-foreground/80 max-w-3xl mx-auto">
-              Specialized programs for legal professionals, compliance officers, executives, and organizations
+              Selective, confidential programs for executives, legal professionals, and strategic decision-makers
             </p>
             {discountInfo.hasDiscount && (
               <motion.div
@@ -353,7 +353,7 @@ export default function TrainingPage() {
               Executive Development Package
             </h2>
             <p className="font-paragraph text-xl text-foreground/90 max-w-3xl mx-auto mb-8">
-              Enroll in 3 or more programs and receive a 30% discount on your entire package
+              Enroll in 3 or more programs and receive a 30% discount on your entire package. Ideal for comprehensive executive development and strategic positioning.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               {[
@@ -442,7 +442,7 @@ export default function TrainingPage() {
                   'Comprehensive course materials and strategic resources',
                   'Priority support from expert instructors',
                   'Flexible learning schedule with lifetime access',
-                  'Multilingual content in English, French, and Arabic'
+                  'Multilingual content in English and French'
                 ].map((benefit, index) => (
                   <li key={index} className="flex items-start gap-4">
                     <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>

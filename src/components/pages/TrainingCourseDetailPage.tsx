@@ -337,19 +337,19 @@ export default function TrainingCourseDetailPage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <h2 className="font-heading text-5xl text-foreground mb-6">Enrollment Process</h2>
+            <h2 className="font-heading text-5xl text-foreground mb-6">Selective Enrollment Process</h2>
             <p className="font-paragraph text-xl text-foreground/80 max-w-3xl mx-auto">
-              Our selective enrollment process ensures a premium learning experience for all participants
+              Our selective enrollment process ensures a premium learning experience and maintains the confidential, executive-level positioning of our programs
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             {[
-              { step: '1', title: 'Course Selection', desc: 'Review program details' },
-              { step: '2', title: 'Application', desc: 'Submit your application' },
-              { step: '3', title: 'Review', desc: 'Internal evaluation' },
-              { step: '4', title: 'Meeting', desc: 'Zoom/Teams discussion' },
-              { step: '5', title: 'Enrollment', desc: 'Complete payment & enroll' }
+              { step: '1', title: 'Application', desc: 'Submit your executive profile' },
+              { step: '2', title: 'Review', desc: 'Internal evaluation by team' },
+              { step: '3', title: 'Consultation', desc: 'Confidential discussion call' },
+              { step: '4', title: 'Approval', desc: 'Enrollment confirmation' },
+              { step: '5', title: 'Payment', desc: 'Secure payment arrangement' }
             ].map((item, index) => (
               <motion.div
                 key={item.step}

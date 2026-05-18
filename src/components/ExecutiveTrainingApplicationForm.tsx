@@ -26,8 +26,11 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     yearsOfExperience: '',
     selectedProgram: programName,
     preferredLanguage: language === 'FR' ? 'French' : 'English',
+    preferredProgramLevel: 'Foundations',
     professionalObjectives: '',
     strategicMotivation: '',
+    preferredSessionFormat: 'One-to-One',
+    preferredAvailability: '',
     cvUpload: '',
     supportingDocuments: '',
     internalReviewStatus: 'Pending Review'
@@ -83,7 +86,21 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
 
       await BaseCrudService.create('executivetrainingapplications', applicationData);
 
-      // Send email notification
+      // Send email notification to applicant
+      await fetch('/api/send-consultation-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: formData.email,
+          subject: `Executive Training Application Received - ${programName}`,
+          applicantName: formData.fullName,
+          applicantEmail: formData.email,
+          program: programName,
+          message: `Dear ${formData.fullName},\n\nThank you for submitting your application to ${programName}. We have received your submission and our team will review it carefully.\n\nExpected response time: 3-5 business days.\n\nBest regards,\nJMC LEX Training Center`
+        })
+      });
+
+      // Send email notification to admin
       await fetch('/api/send-consultation-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -93,7 +110,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
           applicantName: formData.fullName,
           applicantEmail: formData.email,
           program: programName,
-          message: `New application received from ${formData.fullName} (${formData.email}) for ${programName}`
+          message: `New Executive Training Application received:\n\nApplicant: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProgram: ${programName}\nLevel: ${formData.preferredProgramLevel}\nSession Format: ${formData.preferredSessionFormat}\nPreferred Language: ${formData.preferredLanguage}\n\nPlease review and follow up accordingly.`
         })
       });
 
@@ -136,11 +153,23 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       >
         <CheckCircle className="w-16 h-16 text-accent-gold mx-auto mb-6" />
         <h3 className="font-heading text-3xl text-foreground mb-4">Application Submitted Successfully</h3>
-        <p className="font-paragraph text-lg text-foreground/80 mb-6">
-          Thank you for your application to {programName}. Our team will review your submission and contact you shortly at {formData.email}.
+        <p className="font-paragraph text-lg text-foreground/80 mb-4">
+          Thank you for your application to {programName}. Your submission has been received and will be reviewed by our executive team.
         </p>
-        <p className="font-paragraph text-base text-foreground/70">
-          Expected response time: 3-5 business days
+        <div className="bg-background rounded-lg p-6 mb-6 text-left space-y-3">
+          <p className="font-paragraph text-sm text-foreground/80">
+            <span className="font-semibold text-foreground">Confirmation emails have been sent to:</span>
+          </p>
+          <ul className="space-y-2 ml-4">
+            <li className="font-paragraph text-sm text-foreground/80">✓ Your email: {formData.email}</li>
+            <li className="font-paragraph text-sm text-foreground/80">✓ Our team: contact@jmclex.com</li>
+          </ul>
+        </div>
+        <p className="font-paragraph text-base text-foreground/70 mb-4">
+          <span className="font-semibold text-foreground">Expected response time:</span> 3-5 business days
+        </p>
+        <p className="font-paragraph text-sm text-foreground/60">
+          Our team will contact you to discuss your application, confirm your eligibility, and arrange a confidential consultation call to finalize enrollment details and payment arrangements.
         </p>
       </motion.div>
     );
@@ -296,12 +325,36 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
                 <option value="French">French</option>
               </select>
             </div>
+            <div>
+              <label className="block font-paragraph text-sm text-foreground/80 mb-2">Program Level *</label>
+              <select
+                name="preferredProgramLevel"
+                value={formData.preferredProgramLevel}
+                onChange={handleInputChange}
+                className="w-full bg-background text-foreground px-4 py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors"
+              >
+                <option value="Foundations">Foundations (Level 1)</option>
+                <option value="Advanced Executive">Advanced Executive (Level 2)</option>
+              </select>
+            </div>
+            <div>
+              <label className="block font-paragraph text-sm text-foreground/80 mb-2">Session Format *</label>
+              <select
+                name="preferredSessionFormat"
+                value={formData.preferredSessionFormat}
+                onChange={handleInputChange}
+                className="w-full bg-background text-foreground px-4 py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors"
+              >
+                <option value="One-to-One">One-to-One (Confidential)</option>
+                <option value="Small Group">Small Group (2-3 participants)</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {/* Objectives & Motivation Section */}
         <div>
-          <h3 className="font-heading text-2xl text-foreground mb-6">Professional Objectives</h3>
+          <h3 className="font-heading text-2xl text-foreground mb-6">Professional Objectives & Availability</h3>
           <div className="space-y-6">
             <div>
               <label className="block font-paragraph text-sm text-foreground/80 mb-2">Professional Objectives *</label>
@@ -316,7 +369,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
               />
             </div>
             <div>
-              <label className="block font-paragraph text-sm text-foreground/80 mb-2">Strategic Motivation *</label>
+              <label className="block font-paragraph text-sm text-foreground/80 mb-2">Strategic Motivation & Confidential Objectives *</label>
               <textarea
                 name="strategicMotivation"
                 value={formData.strategicMotivation}
@@ -324,7 +377,19 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
                 required
                 rows={4}
                 className="w-full bg-background text-foreground px-4 py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors resize-none"
-                placeholder="Explain your strategic motivation for enrolling in this executive program..."
+                placeholder="Explain your strategic motivation and any confidential objectives for enrolling in this executive program..."
+              />
+            </div>
+            <div>
+              <label className="block font-paragraph text-sm text-foreground/80 mb-2">Preferred Availability *</label>
+              <textarea
+                name="preferredAvailability"
+                value={formData.preferredAvailability}
+                onChange={handleInputChange}
+                required
+                rows={3}
+                className="w-full bg-background text-foreground px-4 py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors resize-none"
+                placeholder="Indicate your preferred dates, times, and timezone for sessions..."
               />
             </div>
           </div>
@@ -403,7 +468,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         </motion.button>
 
         <p className="font-paragraph text-xs text-foreground/60 text-center">
-          By submitting this application, you agree to our terms and conditions. Your information will be securely stored and used only for program enrollment purposes.
+          By submitting this application, you agree to our terms and conditions. Your information will be securely stored and treated with complete confidentiality. It will be used only for program enrollment and internal review purposes.
         </p>
       </form>
     </motion.div>
