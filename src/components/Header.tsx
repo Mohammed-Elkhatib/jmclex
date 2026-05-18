@@ -66,7 +66,7 @@ export default function Header() {
     { key: 'nav.expertise', path: '/expertise' },
     { key: 'nav.publications', path: '/publications' },
     { key: 'Talent Network', path: '/talent-network' },
-    { key: 'nav.training', path: '/training' },
+    { key: 'Training Center & Certification', path: '/training' },
     { key: 'nav.jurisprudence', path: '/jurisprudence' },
     { key: 'AI Legal Infrastructure', path: '/ai-legal-infrastructure' },
     { key: 'nav.global-presence', path: '/global-presence' },
