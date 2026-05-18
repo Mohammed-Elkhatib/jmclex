@@ -254,14 +254,14 @@ export default function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                className="bg-optional-navy p-8 rounded"
+                className="bg-optional-navy p-8 rounded border border-accent-gold/30"
               >
-                <h3 className="font-heading text-2xl text-foreground mb-6">{section.title}</h3>
+                <h3 className="font-heading text-2xl text-accent-gold mb-6">{section.title}</h3>
                 <ul className="space-y-4">
                   {section.items.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-4">
                       <div className="w-2 h-2 bg-accent-gold rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="font-paragraph text-base text-foreground/90">{item}</p>
+                      <p className="font-paragraph text-base text-secondary-foreground">{item}</p>
                     </li>
                   ))}
                 </ul>
