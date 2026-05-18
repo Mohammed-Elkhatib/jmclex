@@ -65,6 +65,7 @@ export default function Header() {
     { key: 'nav.high-stakes-cases', path: '/high-stakes-cases' },
     { key: 'nav.expertise', path: '/expertise' },
     { key: 'nav.publications', path: '/publications' },
+    { key: 'Talent Network', path: '/talent-network' },
     { key: 'nav.training', path: '/training' },
     { key: 'nav.jurisprudence', path: '/jurisprudence' },
     { key: 'AI Legal Infrastructure', path: '/ai-legal-infrastructure' },

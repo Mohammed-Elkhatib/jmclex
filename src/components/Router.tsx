@@ -18,6 +18,13 @@ import AboutPage from '@/components/pages/AboutPage';
 import ConsultationPage from '@/components/pages/ConsultationPage';
 import ContactPage from '@/components/pages/ContactPage';
 import AILegalInfrastructurePage from '@/components/pages/AILegalInfrastructurePage';
+import TalentNetworkPage from '@/components/pages/TalentNetworkPage';
+import ResearchPublicationsPage from '@/components/pages/ResearchPublicationsPage';
+import LegalAdvisoryPage from '@/components/pages/LegalAdvisoryPage';
+import BusinessDevelopmentPage from '@/components/pages/BusinessDevelopmentPage';
+import ComplianceGovernancePage from '@/components/pages/ComplianceGovernancePage';
+import TaxStructuringPage from '@/components/pages/TaxStructuringPage';
+import CrossBorderExpertsPage from '@/components/pages/CrossBorderExpertsPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -101,6 +108,34 @@ const router = createBrowserRouter([
       {
         path: "ai-legal-infrastructure",
         element: <AILegalInfrastructurePage />,
+      },
+      {
+        path: "talent-network",
+        element: <TalentNetworkPage />,
+      },
+      {
+        path: "talent-network/research-publications",
+        element: <ResearchPublicationsPage />,
+      },
+      {
+        path: "talent-network/legal-advisory",
+        element: <LegalAdvisoryPage />,
+      },
+      {
+        path: "talent-network/business-development",
+        element: <BusinessDevelopmentPage />,
+      },
+      {
+        path: "talent-network/compliance-governance",
+        element: <ComplianceGovernancePage />,
+      },
+      {
+        path: "talent-network/tax-structuring",
+        element: <TaxStructuringPage />,
+      },
+      {
+        path: "talent-network/cross-border-experts",
+        element: <CrossBorderExpertsPage />,
       },
       {
         path: "*",

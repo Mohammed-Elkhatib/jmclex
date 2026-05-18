@@ -735,6 +735,40 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 5.5. TALENT NETWORK - Premium Introduction Section */}
+      <section className="relative w-full bg-secondary py-32">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="w-8 h-[1px] bg-accent-gold"></span>
+              <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">International Network</span>
+            </div>
+            
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl text-optional-navy mb-8 leading-[1.15] tracking-tight">
+              JMC LEX Talent & Experts Network
+            </h2>
+            
+            <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 mb-12 font-light leading-relaxed max-w-3xl">
+              We are progressively building an international network of multilingual professionals, researchers, advisors, and independent experts. Our network connects exceptional talent across legal, business, and advisory sectors to facilitate strategic collaboration, cross-border cooperation, and innovative solutions.
+            </p>
+            
+            <Link
+              to="/talent-network"
+              className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
+            >
+              <span>Explore the Network</span>
+              <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+              <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 5. DIGITAL PLATFORMS - Business Model Focus */}
       <section className="relative w-full bg-background py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
