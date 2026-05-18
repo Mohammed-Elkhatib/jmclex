@@ -1,14 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { Calendar, Clock, Globe, Shield, Video, AlertCircle, CheckCircle } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Cart from '@/components/Cart';
+import { Button } from '@/components/ui/button';
+
+interface ConsultationFormData {
+  clientName: string;
+  clientEmail: string;
+  clientPhone: string;
+  caseDetails: string;
+  preferredDate: string;
+  preferredTime: string;
+  language: string;
+}
+
+const INITIAL_FORM_DATA: ConsultationFormData = {
+  clientName: '',
+  clientEmail: '',
+  clientPhone: '',
+  caseDetails: '',
+  preferredDate: '',
+  preferredTime: '',
+  language: 'EN'
+};
 
 export default function ConsultationPage() {
   const [consultationType, setConsultationType] = useState<'standard' | 'emergency'>('standard');
@@ -19,15 +37,8 @@ export default function ConsultationPage() {
       setConsultationType('emergency');
     }
   }, []);
-  const [formData, setFormData] = useState({
-    clientName: '',
-    clientEmail: '',
-    clientPhone: '',
-    caseDetails: '',
-    preferredDate: '',
-    preferredTime: '',
-    language: 'EN'
-  });
+  
+  const [formData, setFormData] = useState<ConsultationFormData>(INITIAL_FORM_DATA);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -37,29 +48,38 @@ export default function ConsultationPage() {
 
   const consultationPrice = consultationType === 'emergency' ? 500 : 250;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const validateForm = useCallback((): boolean => {
+    if (!formData.clientName || !formData.clientEmail || !formData.clientPhone || 
+        !formData.caseDetails || !formData.preferredDate || !formData.preferredTime) {
+      setSubmitError('Please fill in all required fields');
+      return false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.clientEmail)) {
+      setSubmitError('Please enter a valid email address');
+      return false;
+    }
+
+    return true;
+  }, [formData]);
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitError(null);
 
+    if (!validateForm()) {
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      // Validate form data
-      if (!formData.clientName || !formData.clientEmail || !formData.clientPhone || 
-          !formData.caseDetails || !formData.preferredDate || !formData.preferredTime) {
-        throw new Error('Please fill in all required fields');
-      }
-
-      // Validate email format
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.clientEmail)) {
-        throw new Error('Please enter a valid email address');
-      }
-
       const consultationId = crypto.randomUUID();
       const itemName = `${consultationType === 'emergency' ? 'Emergency ' : ''}Legal Consultation`;
       
       // Save consultation request to CMS
-      const savedConsultation = await BaseCrudService.create('consultationrequests', {
+      await BaseCrudService.create('consultationrequests', {
         _id: consultationId,
         clientName: formData.clientName,
         clientEmail: formData.clientEmail,
@@ -94,19 +114,10 @@ export default function ConsultationPage() {
         });
       } catch (emailError) {
         console.warn('Email notification failed, but consultation was saved:', emailError);
-        // Don't fail the submission if email fails - the consultation is already saved
       }
 
       setSubmitSuccess(true);
-      setFormData({
-        clientName: '',
-        clientEmail: '',
-        clientPhone: '',
-        caseDetails: '',
-        preferredDate: '',
-        preferredTime: '',
-        language: 'EN'
-      });
+      setFormData(INITIAL_FORM_DATA);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'There was an error submitting your request. Please try again.';
       console.error('Error submitting consultation request:', error);
@@ -114,9 +125,9 @@ export default function ConsultationPage() {
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [formData, consultationType, consultationPrice, validateForm]);
 
-  const handleAddToCart = async () => {
+  const handleAddToCart = useCallback(async () => {
     try {
       const consultationId = crypto.randomUUID();
       
@@ -135,7 +146,7 @@ export default function ConsultationPage() {
       console.error('Error adding consultation to cart:', error);
       setSubmitError('Failed to add consultation to cart. Please try again.');
     }
-  };
+  }, [consultationType, consultationPrice, cartActions]);
 
   return (
     <div className="min-h-screen bg-background">

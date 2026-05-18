@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { BaseCrudService } from '@/integrations';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
@@ -14,101 +14,99 @@ interface FileUploadState {
   error: string;
 }
 
+interface FormDataType {
+  fullName: string;
+  email: string;
+  phone: string;
+  country: string;
+  languages: string;
+  areaOfExpertise: string;
+  linkedIn: string;
+  website: string;
+  professionalSummary: string;
+}
+
+const INITIAL_FORM_DATA: FormDataType = {
+  fullName: '',
+  email: '',
+  phone: '',
+  country: '',
+  languages: '',
+  areaOfExpertise: '',
+  linkedIn: '',
+  website: '',
+  professionalSummary: '',
+};
+
+const INITIAL_FILE_STATE: FileUploadState = {
+  file: null,
+  uploading: false,
+  error: '',
+};
+
 export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetworkApplicationFormProps) {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    country: '',
-    languages: '',
-    areaOfExpertise: '',
-    linkedIn: '',
-    website: '',
-    professionalSummary: '',
-  });
-
+  const [formData, setFormData] = useState<FormDataType>(INITIAL_FORM_DATA);
   const [files, setFiles] = useState({
-    cvUpload: { file: null as File | null, uploading: false, error: '' } as FileUploadState,
-    supportingDocuments: { file: null as File | null, uploading: false, error: '' } as FileUploadState,
+    cvUpload: INITIAL_FILE_STATE,
+    supportingDocuments: INITIAL_FILE_STATE,
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const cvInputRef = useRef<HTMLInputElement>(null);
   const docsInputRef = useRef<HTMLInputElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
-  };
+  }, []);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileType: 'cvUpload' | 'supportingDocuments') => {
+  const validateFile = useCallback((file: File): string | null => {
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      return 'File size must be less than 10MB';
+    }
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (!allowedTypes.includes(file.type)) {
+      return 'Only PDF and Word documents are allowed';
+    }
+    return null;
+  }, []);
+
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, fileType: 'cvUpload' | 'supportingDocuments') => {
     const file = e.target.files?.[0];
     if (file) {
-      // Validate file size (max 10MB)
-      const maxSize = 10 * 1024 * 1024;
-      if (file.size > maxSize) {
-        setFiles(prev => ({
-          ...prev,
-          [fileType]: {
-            file: null,
-            uploading: false,
-            error: 'File size must be less than 10MB',
-          },
-        }));
-        return;
-      }
-
-      // Validate file type
-      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-      if (!allowedTypes.includes(file.type)) {
-        setFiles(prev => ({
-          ...prev,
-          [fileType]: {
-            file: null,
-            uploading: false,
-            error: 'Only PDF and Word documents are allowed',
-          },
-        }));
-        return;
-      }
-
+      const error = validateFile(file);
       setFiles(prev => ({
         ...prev,
         [fileType]: {
-          file,
+          file: error ? null : file,
           uploading: false,
-          error: '',
+          error: error || '',
         },
       }));
     }
-  };
+  }, [validateFile]);
 
-  const uploadFileToWix = async (file: File): Promise<string> => {
-    try {
-      // Use Wix's native file upload API
-      const formData = new FormData();
-      formData.append('file', file);
+  const uploadFileToWix = useCallback(async (file: File): Promise<string> => {
+    const formData = new FormData();
+    formData.append('file', file);
 
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
+    const response = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
 
-      if (!response.ok) {
-        throw new Error('File upload failed');
-      }
-
-      const data = await response.json();
-      return data.fileUrl || data.url;
-    } catch (error) {
-      throw new Error(`Failed to upload ${file.name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    if (!response.ok) {
+      throw new Error('File upload failed');
     }
-  };
+
+    const data = await response.json();
+    return data.fileUrl || data.url;
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -168,20 +166,10 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
       await BaseCrudService.create('talentnetworkapplications', submission);
 
       setSubmitStatus('success');
-      setFormData({
-        fullName: '',
-        email: '',
-        phone: '',
-        country: '',
-        languages: '',
-        areaOfExpertise: '',
-        linkedIn: '',
-        website: '',
-        professionalSummary: '',
-      });
+      setFormData(INITIAL_FORM_DATA);
       setFiles({
-        cvUpload: { file: null, uploading: false, error: '' },
-        supportingDocuments: { file: null, uploading: false, error: '' },
+        cvUpload: INITIAL_FILE_STATE,
+        supportingDocuments: INITIAL_FILE_STATE,
       });
 
       // Reset file inputs
