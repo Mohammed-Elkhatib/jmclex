@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { ArrowRight, ArrowLeft, Clock, Globe, Award, Users, BookOpen, CheckCircle } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Clock, Globe, Award, BookOpen, CheckCircle } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
@@ -54,7 +54,7 @@ export default function TrainingCourseDetailPage() {
           </p>
           <Link
             to="/training"
-            className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to Training Center
@@ -124,7 +124,7 @@ export default function TrainingCourseDetailPage() {
       </section>
 
       {/* Course Details */}
-      <section className="w-full bg-optional-navy py-16 md:py-24">
+      <section className="w-full bg-secondary py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-14">
             {/* Main Content */}
@@ -221,7 +221,7 @@ export default function TrainingCourseDetailPage() {
                 >
                   <h2 className="font-heading text-2xl md:text-3xl text-foreground mb-6 md:mb-8">Program Format</h2>
                   <div className="bg-background rounded-lg p-6 md:p-8 flex gap-4 md:gap-5">
-                    <Users className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
+                    <CheckCircle className="w-6 h-6 md:w-7 md:h-7 text-accent-gold flex-shrink-0" />
                     <div>
                       <p className="font-paragraph text-sm md:text-base text-foreground/90">{course.programType}</p>
                     </div>
@@ -326,49 +326,6 @@ export default function TrainingCourseDetailPage() {
           </div>
         </section>
       )}
-
-      {/* Enrollment Process */}
-      <section className="w-full bg-optional-navy py-16 md:py-24">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-14 md:mb-16"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">Selective Enrollment Process</h2>
-            <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
-              Our selective enrollment process ensures a premium learning experience and maintains executive-level confidentiality
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
-            {[
-              { step: '1', title: 'Application', desc: 'Submit your profile' },
-              { step: '2', title: 'Review', desc: '72-hour evaluation' },
-              { step: '3', title: 'Consultation', desc: 'Confidential call' },
-              { step: '4', title: 'Approval', desc: 'Enrollment confirmed' },
-              { step: '5', title: 'Payment', desc: 'Secure arrangement' }
-            ].map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="text-center"
-              >
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-gold text-secondary-foreground rounded-full flex items-center justify-center font-heading text-xl md:text-2xl mx-auto mb-3 md:mb-4 shadow-lg">
-                  {item.step}
-                </div>
-                <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{item.title}</h3>
-                <p className="font-paragraph text-sm text-foreground/80">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>

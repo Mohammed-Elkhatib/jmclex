@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { ArrowRight, Award, BookOpen, Users, Globe, Zap, Shield, Clock, CheckCircle, Briefcase, TrendingUp, Lock } from 'lucide-react';
+import { ArrowRight, Clock, Globe, Award, CheckCircle, BookOpen } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
@@ -29,32 +29,12 @@ export default function TrainingPage() {
     }
   };
 
-  // Organize courses by category and level
-  const coursesByCategory = useMemo(() => {
-    const legal = courses.filter(c => c.executiveCategory?.includes('Legal') || c.itemName?.includes('Law') || c.itemName?.includes('Contract') || c.itemName?.includes('Compliance') || c.itemName?.includes('GDPR') || c.itemName?.includes('Governance') || c.itemName?.includes('Sanctions') || c.itemName?.includes('Investigation') || c.itemName?.includes('Employment') || c.itemName?.includes('Arbitration'));
-    const investment = courses.filter(c => c.executiveCategory?.includes('Investment') || c.itemName?.includes('Invest'));
-    const other = courses.filter(c => !legal.includes(c) && !investment.includes(c));
-    
-    const organizeByLevel = (items: TrainingCourses[]) => {
-      const level1 = items.filter(c => c.level?.includes('1') || c.level?.includes('Foundations') || c.level?.includes('Level 1'));
-      const level2 = items.filter(c => c.level?.includes('2') || c.level?.includes('Advanced') || c.level?.includes('Level 2'));
-      const noLevel = items.filter(c => !c.level || (!c.level.includes('1') && !c.level.includes('2') && !c.level.includes('Foundations') && !c.level.includes('Advanced')));
-      return { level1, level2, noLevel };
-    };
-    
-    return {
-      legal: organizeByLevel(legal),
-      investment: organizeByLevel(investment),
-      other: organizeByLevel(other)
-    };
-  }, [courses]);
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Premium Hero Section with Slogan */}
-      <section className="relative w-full bg-secondary overflow-hidden pt-16 pb-12 md:pt-20 md:pb-16">
+      {/* Hero Section */}
+      <section className="relative w-full bg-secondary overflow-hidden pt-20 pb-16 md:pt-28 md:pb-20">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -62,17 +42,17 @@ export default function TrainingPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="font-heading text-3xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-4 md:mb-6">
-              Elite Legal Experts Transferring Years of Strategic Knowledge in Six Hours
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-6 md:mb-8">
+              Executive Legal Training & Certification
             </h1>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-paragraph text-sm md:text-base text-foreground/90 max-w-2xl mx-auto mb-8 md:mb-10 leading-relaxed"
+              className="font-paragraph text-base md:text-lg text-foreground/80 max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed"
             >
-              Private executive legal training and certification programs for professionals, executives, legal departments, and business leaders.
+              Premium, selective programs designed for legal professionals, executives, and strategic decision-makers seeking advanced expertise.
             </motion.p>
 
             <motion.div
@@ -82,64 +62,49 @@ export default function TrainingPage() {
             >
               <Link
                 to="#programs"
-                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
               >
-                Explore Executive Programs <ArrowRight className="w-5 h-5" />
+                Explore Programs <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Executive Education Excellence */}
+      {/* Key Features */}
       <section className="w-full bg-background py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-14 md:mb-16"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
-              Premium Executive Training Platform
-            </h2>
-            <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
-              Selective, confidential programs designed for elite professionals and strategic decision-makers
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               {
                 icon: BookOpen,
-                title: 'Rigorous Curriculum',
-                description: 'Internally designed by JMC LEX experts and grounded in deep legal research'
-              },
-              {
-                icon: Users,
-                title: 'Expert Practitioners',
-                description: 'Minimum 10+ years of professional experience in international legal practice'
+                title: 'Expert-Designed Curriculum',
+                description: 'Rigorous programs developed by JMC LEX legal experts'
               },
               {
                 icon: Globe,
-                title: 'English & French',
-                description: 'Programs available in both languages for our global professional community'
+                title: 'Bilingual Programs',
+                description: 'Available in English and French for global professionals'
               },
               {
                 icon: Award,
-                title: 'Professional Certificate',
-                description: 'Certificate of completion issued by JMC LEX upon successful completion'
-              },
-              {
-                icon: Zap,
-                title: 'One-to-One Format',
-                description: 'Private, confidential sessions ensuring executive-level discretion'
+                title: 'Professional Certification',
+                description: 'Recognized certificate upon successful completion'
               },
               {
                 icon: Clock,
-                title: '6-Hour Programs',
-                description: 'Theory, practical application, case analysis, and final assessment'
+                title: '6-Hour Intensive Format',
+                description: 'Comprehensive theory, practice, and assessment'
+              },
+              {
+                icon: CheckCircle,
+                title: 'Selective Enrollment',
+                description: 'Confidential, executive-level learning environment'
+              },
+              {
+                icon: ArrowRight,
+                title: 'Career Development',
+                description: 'Strategic advancement for legal professionals'
               }
             ].map((feature, index) => (
               <motion.div
@@ -148,118 +113,13 @@ export default function TrainingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="bg-secondary rounded-lg p-6 md:p-7 border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
+                className="bg-secondary rounded-lg p-6 md:p-7 border border-accent-gold/20 hover:border-accent-gold/40 transition-all"
               >
                 <feature.icon className="w-8 h-8 text-accent-gold mb-4" />
-                <h3 className="font-heading text-base md:text-lg text-foreground mb-3">{feature.title}</h3>
-                <p className="font-paragraph text-sm text-foreground/80 leading-relaxed">
+                <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{feature.title}</h3>
+                <p className="font-paragraph text-sm text-foreground/80">
                   {feature.description}
                 </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enrollment Process */}
-      <section className="w-full bg-secondary py-16 md:py-24">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-14 md:mb-16"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
-              Selective Enrollment Process
-            </h2>
-            <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
-              Our selective process ensures premium learning and maintains executive-level confidentiality
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-5">
-            {[
-              { step: '1', title: 'Application', desc: 'Submit your profile' },
-              { step: '2', title: 'Review', desc: '72-hour evaluation' },
-              { step: '3', title: 'Consultation', desc: 'Confidential call' },
-              { step: '4', title: 'Approval', desc: 'Enrollment confirmed' },
-              { step: '5', title: 'Payment', desc: 'Secure arrangement' }
-            ].map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="text-center"
-              >
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-gold text-secondary-foreground rounded-full flex items-center justify-center font-heading text-xl md:text-2xl mx-auto mb-3 md:mb-4 shadow-lg">
-                  {item.step}
-                </div>
-                <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{item.title}</h3>
-                <p className="font-paragraph text-sm text-foreground/80">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Program Structure */}
-      <section className="w-full bg-background py-16 md:py-24">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-14 md:mb-16"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
-              Program Structure & Benefits
-            </h2>
-            <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
-              Each 6-hour program is meticulously designed to deliver strategic value
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7">
-            {[
-              {
-                title: 'Comprehensive Curriculum',
-                items: ['Theoretical foundations', 'Practical workshops', 'Strategic application', 'Real-world case studies']
-              },
-              {
-                title: 'Professional Development',
-                items: ['Expert instructor guidance', 'Interactive learning modules', 'Peer networking opportunities', 'Ongoing resource access']
-              },
-              {
-                title: 'Certification & Recognition',
-                items: ['Professional certificate of completion', 'Recognized by international organizations', 'Career advancement value', 'Continuing education credits']
-              },
-              {
-                title: 'Corporate Solutions',
-                items: ['Tailored packages for legal departments', 'Compliance team training', 'Finance department programs', 'Executive leadership development']
-              }
-            ].map((section, index) => (
-              <motion.div
-                key={section.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.05 }}
-                className="bg-secondary p-7 md:p-8 rounded-lg border border-accent-gold/20 hover:border-accent-gold/40 transition-all hover:shadow-lg"
-              >
-                <h3 className="font-heading text-lg md:text-xl text-accent-gold mb-5">{section.title}</h3>
-                <ul className="space-y-3 md:space-y-4">
-                  {section.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
-                      <p className="font-paragraph text-sm text-foreground/90">{item}</p>
-                    </li>
-                  ))}
-                </ul>
               </motion.div>
             ))}
           </div>
@@ -277,10 +137,10 @@ export default function TrainingPage() {
             className="text-center mb-14 md:mb-16"
           >
             <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-5">
-              Executive Training Programs
+              Available Programs
             </h2>
             <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
-              Selective, confidential programs for executives, legal professionals, and strategic decision-makers
+              Selective training programs for legal professionals and executives
             </p>
           </motion.div>
 
@@ -290,195 +150,17 @@ export default function TrainingPage() {
                 <p className="font-paragraph text-base text-foreground/60">Loading programs...</p>
               </div>
             ) : courses.length > 0 ? (
-              <div className="space-y-16 md:space-y-20">
-                {/* Legal & Compliance Programs */}
-                {(coursesByCategory.legal.level1.length > 0 || coursesByCategory.legal.level2.length > 0 || coursesByCategory.legal.noLevel.length > 0) && (
-                  <div>
-                    <div className="flex items-center gap-3 mb-10 md:mb-12">
-                      <Briefcase className="w-7 h-7 text-accent-gold" />
-                      <h3 className="font-heading text-2xl md:text-3xl text-accent-gold">Legal & Compliance Programs</h3>
-                    </div>
-                    
-                    {coursesByCategory.legal.level1.length > 0 && (
-                      <div className="mb-12 md:mb-14">
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Foundations & Level 1</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.legal.level1.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {coursesByCategory.legal.level2.length > 0 && (
-                      <div className="mb-12 md:mb-14">
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Advanced & Level 2</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.legal.level2.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {coursesByCategory.legal.noLevel.length > 0 && (
-                      <div>
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Specialized Programs</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.legal.noLevel.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Investment Programs */}
-                {(coursesByCategory.investment.level1.length > 0 || coursesByCategory.investment.level2.length > 0 || coursesByCategory.investment.noLevel.length > 0) && (
-                  <div>
-                    <div className="flex items-center gap-3 mb-10 md:mb-12">
-                      <TrendingUp className="w-7 h-7 text-accent-gold" />
-                      <h3 className="font-heading text-2xl md:text-3xl text-accent-gold">Investment & Strategic Programs</h3>
-                    </div>
-                    
-                    {coursesByCategory.investment.level1.length > 0 && (
-                      <div className="mb-12 md:mb-14">
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Foundations & Level 1</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.investment.level1.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {coursesByCategory.investment.level2.length > 0 && (
-                      <div className="mb-12 md:mb-14">
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Advanced & Level 2</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.investment.level2.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {coursesByCategory.investment.noLevel.length > 0 && (
-                      <div>
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Specialized Programs</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.investment.noLevel.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {/* Other Programs */}
-                {(coursesByCategory.other.level1.length > 0 || coursesByCategory.other.level2.length > 0 || coursesByCategory.other.noLevel.length > 0) && (
-                  <div>
-                    <h3 className="font-heading text-2xl md:text-3xl text-accent-gold mb-10 md:mb-12">Additional Programs</h3>
-                    
-                    {coursesByCategory.other.level1.length > 0 && (
-                      <div className="mb-12 md:mb-14">
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Foundations & Level 1</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.other.level1.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {coursesByCategory.other.level2.length > 0 && (
-                      <div className="mb-12 md:mb-14">
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Advanced & Level 2</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.other.level2.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {coursesByCategory.other.noLevel.length > 0 && (
-                      <div>
-                        <h4 className="font-heading text-lg md:text-xl text-foreground/90 mb-8 pl-4 border-l-2 border-accent-gold">Specialized Programs</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
-                          {coursesByCategory.other.noLevel.map((course, index) => (
-                            <CourseCard
-                              key={course._id}
-                              course={course}
-                              index={index}
-                              addingItemId={addingItemId}
-                              actions={actions}
-                              currency={currency}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+                {courses.map((course, index) => (
+                  <CourseCard
+                    key={course._id}
+                    course={course}
+                    index={index}
+                    addingItemId={addingItemId}
+                    actions={actions}
+                    currency={currency}
+                  />
+                ))}
               </div>
             ) : (
               <div className="text-center py-20">
@@ -487,7 +169,7 @@ export default function TrainingPage() {
                 </p>
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all hover:scale-105"
+                  className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
                 >
                   Get in Touch <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -569,7 +251,7 @@ export default function TrainingPage() {
               </div>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
               >
                 Inquire About Corporate Packages <ArrowRight className="w-5 h-5" />
               </Link>
@@ -611,7 +293,7 @@ export default function TrainingPage() {
               </ul>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
               >
                 Inquire About Subscription <ArrowRight className="w-5 h-5" />
               </Link>
@@ -647,7 +329,7 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.05 }}
-      className="bg-background rounded-lg overflow-hidden flex flex-col h-full border border-foreground/10 hover:border-accent-gold/40 transition-all hover:shadow-lg"
+      className="bg-background rounded-lg overflow-hidden flex flex-col h-full border border-foreground/10 hover:border-accent-gold/40 transition-all"
     >
       <div className="relative h-[200px] md:h-[220px]">
         <Image
