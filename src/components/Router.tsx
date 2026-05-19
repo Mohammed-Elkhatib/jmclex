@@ -26,6 +26,7 @@ import BusinessDevelopmentPage from '@/components/pages/BusinessDevelopmentPage'
 import ComplianceGovernancePage from '@/components/pages/ComplianceGovernancePage';
 import TaxStructuringPage from '@/components/pages/TaxStructuringPage';
 import CrossBorderExpertsPage from '@/components/pages/CrossBorderExpertsPage';
+import ExecutiveTrainingCenterPage from '@/components/pages/ExecutiveTrainingCenterPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -141,6 +142,10 @@ const router = createBrowserRouter([
       {
         path: "talent-network/cross-border-experts",
         element: <CrossBorderExpertsPage />,
+      },
+      {
+        path: "executive-training-center",
+        element: <ExecutiveTrainingCenterPage />,
       },
       {
         path: "*",
