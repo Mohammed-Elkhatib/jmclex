@@ -125,10 +125,7 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
       errors.areaOfExpertise = 'Area of expertise is required';
     }
 
-    if (!files.cvUpload.file) {
-      errors.cvUpload = 'CV upload is required';
-    }
-
+    // CV upload is now OPTIONAL
     if (!formData.professionalSummary.trim()) {
       errors.professionalSummary = 'Professional summary is required';
     } else if (formData.professionalSummary.trim().length < 50) {
@@ -137,7 +134,7 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
-  }, [formData, files.cvUpload.file]);
+  }, [formData]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, fileType: 'cvUpload' | 'supportingDocuments') => {
     const file = e.target.files?.[0];

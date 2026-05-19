@@ -234,14 +234,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     setSubmissionError(null);
 
     try {
-      // Validate required CV upload
-      if (!formData.cvUpload) {
-        setSubmissionError('CV upload is required. Please upload your CV before submitting.');
-        setIsSubmitting(false);
-        return;
-      }
-
-      // Validate required fields
+      // Validate required fields (CV is now OPTIONAL)
       if (!formData.fullName || !formData.email || !formData.phone || !formData.country) {
         setSubmissionError('Please fill in all required personal information fields.');
         setIsSubmitting(false);

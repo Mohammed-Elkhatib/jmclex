@@ -121,7 +121,7 @@ export default function ExecutiveApplicationForm() {
     if (!formData.strategicMotivation.trim()) return 'Strategic motivation is required';
     if (!formData.professionalObjectives.trim()) return 'Professional objectives are required';
     if (!formData.background.trim()) return 'Professional background is required';
-    if (!formData.cvUpload) return 'CV upload is required';
+    // CV upload is now OPTIONAL
     return null;
   };
 
