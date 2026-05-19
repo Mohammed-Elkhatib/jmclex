@@ -24,15 +24,26 @@ export default {
             },
             colors: {
                 'accent-gold': '#C8A96A',
+                'accent-gold-dark': '#9D8452',
                 'optional-navy': '#0A1F2F',
+                'navy-light': '#1a3a52',
+                'navy-lighter': '#2d5a7b',
                 destructive: '#ff0000',
                 'destructive-foreground': '#FFFFFF',
                 background: '#F8F9FA',
+                'background-alt': '#FFFFFF',
                 secondary: '#F4F1EC',
+                'secondary-dark': '#E8E3DB',
                 foreground: '#0A1F2F',
+                'foreground-light': '#1a3a52',
                 'secondary-foreground': '#F8F9FA',
                 'primary-foreground': '#0A1F2F',
-                primary: '#0A1F2F'
+                primary: '#0A1F2F',
+                'text-muted': '#4a5568',
+                'text-muted-light': '#718096',
+                'text-secondary': '#2d3748',
+                'border-subtle': '#e2e8f0',
+                'border-light': '#cbd5e0'
             },
             spacing: {
                 'section-xs': '2rem',

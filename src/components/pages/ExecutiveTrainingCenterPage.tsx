@@ -108,7 +108,7 @@ export default function ExecutiveTrainingCenterPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.2 }}
-              className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-secondary leading-tight mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto"
+              className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-background leading-tight mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto"
             >
               Executive Training Center & Certification
             </motion.h1>
@@ -117,7 +117,7 @@ export default function ExecutiveTrainingCenterPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3 }}
-              className="font-paragraph text-sm sm:text-base md:text-lg lg:text-xl text-secondary/90 max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-14 lg:mb-16 leading-relaxed px-2"
+              className="font-paragraph text-sm sm:text-base md:text-lg lg:text-xl text-background/95 max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-14 lg:mb-16 leading-relaxed px-2"
             >
               Exclusive legal education for distinguished executives, legal professionals, and business leaders seeking elite strategic training and professional certification.
             </motion.p>
