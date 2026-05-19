@@ -71,18 +71,18 @@ export default function TrainingCourseDetailPage() {
       <Header />
 
       {/* Breadcrumb */}
-      <div className="max-w-[100rem] mx-auto px-6 md:px-8 py-5 md:py-7 mt-20 md:mt-24">
+      <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-7 mt-16 sm:mt-20 md:mt-24">
         <Link
           to="/training"
-          className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm md:text-base"
+          className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-xs sm:text-sm md:text-base"
         >
-          <ArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
+          <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
           Back to Training Center
         </Link>
       </div>
 
       {/* Premium Hero Section */}
-      <section className="relative w-full min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden bg-foreground">
+      <section className="relative w-full min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] flex items-center justify-center overflow-hidden bg-foreground">
         <div className="absolute inset-0 z-0">
           <Image
             src={course.itemImage || 'https://static.wixstatic.com/media/5e1235_1921557ef1e84f528c4d105925f45779~mv2.png?originWidth=384&originHeight=192'}
@@ -92,15 +92,15 @@ export default function TrainingCourseDetailPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-foreground/40 via-foreground/60 to-foreground"></div>
         </div>
 
-        <div className="relative z-10 max-w-[100rem] mx-auto px-6 md:px-8 py-16 md:py-24 text-center">
+        <div className="relative z-10 max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8 py-12 sm:py-16 md:py-24 text-center">
           {course.executiveCategory && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="mb-4 md:mb-6"
+              className="mb-3 sm:mb-4 md:mb-6"
             >
-              <span className="inline-block font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold font-semibold">
+              <span className="inline-block font-paragraph text-xs sm:text-sm tracking-widest uppercase text-accent-gold font-semibold">
                 {course.executiveCategory}
               </span>
             </motion.div>
@@ -110,7 +110,7 @@ export default function TrainingCourseDetailPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-heading text-4xl md:text-5xl lg:text-7xl text-secondary leading-tight md:leading-tight lg:leading-tight mb-6 md:mb-8"
+            className="font-heading text-2xl sm:text-3xl md:text-5xl lg:text-7xl text-secondary leading-tight mb-4 sm:mb-6 md:mb-8"
           >
             {course.itemName}
           </motion.h1>
@@ -119,7 +119,7 @@ export default function TrainingCourseDetailPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-paragraph text-base md:text-lg text-secondary/90 max-w-3xl mx-auto mb-8 md:mb-10 leading-relaxed"
+            className="font-paragraph text-xs sm:text-sm md:text-lg text-secondary/90 max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 leading-relaxed px-2"
           >
             {course.itemDescription}
           </motion.p>
@@ -129,29 +129,29 @@ export default function TrainingCourseDetailPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-10 md:mt-12 max-w-3xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-6 mt-8 sm:mt-10 md:mt-12 max-w-3xl mx-auto"
           >
             {course.duration && (
-              <div className="bg-accent-gold/10 rounded-lg p-4 md:p-5">
-                <Clock className="w-5 h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-2" />
+              <div className="bg-accent-gold/10 rounded-lg p-2 sm:p-3 md:p-5">
+                <Clock className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-1 md:mb-2" />
                 <p className="font-paragraph text-xs md:text-sm text-secondary/80">{course.duration}</p>
               </div>
             )}
             {course.language && (
-              <div className="bg-accent-gold/10 rounded-lg p-4 md:p-5">
-                <Globe className="w-5 h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-2" />
+              <div className="bg-accent-gold/10 rounded-lg p-2 sm:p-3 md:p-5">
+                <Globe className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-1 md:mb-2" />
                 <p className="font-paragraph text-xs md:text-sm text-secondary/80">{course.language}</p>
               </div>
             )}
             {course.level && (
-              <div className="bg-accent-gold/10 rounded-lg p-4 md:p-5">
-                <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-2" />
+              <div className="bg-accent-gold/10 rounded-lg p-2 sm:p-3 md:p-5">
+                <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-1 md:mb-2" />
                 <p className="font-paragraph text-xs md:text-sm text-secondary/80">{course.level}</p>
               </div>
             )}
             {course.certification && (
-              <div className="bg-accent-gold/10 rounded-lg p-4 md:p-5">
-                <Award className="w-5 h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-2" />
+              <div className="bg-accent-gold/10 rounded-lg p-2 sm:p-3 md:p-5">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-accent-gold mx-auto mb-1 md:mb-2" />
                 <p className="font-paragraph text-xs md:text-sm text-secondary/80">Certified</p>
               </div>
             )}
@@ -160,18 +160,18 @@ export default function TrainingCourseDetailPage() {
       </section>
 
       {/* Main Content Section */}
-      <section className="w-full bg-secondary py-16 md:py-24">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 md:gap-12 lg:gap-14">
+      <section className="w-full bg-secondary py-12 sm:py-16 md:py-24">
+        <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-14">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-10 md:space-y-14">
+            <div className="lg:col-span-2 space-y-8 sm:space-y-10 md:space-y-14">
               {/* Tab Navigation */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="flex flex-wrap gap-2 md:gap-3 border-b border-foreground/10 pb-6 md:pb-8"
+                className="flex flex-wrap gap-1 sm:gap-2 md:gap-3 border-b border-foreground/10 pb-4 sm:pb-6 md:pb-8 overflow-x-auto"
               >
                 {[
                   { id: 'overview', label: 'Executive Overview' },
@@ -182,7 +182,7 @@ export default function TrainingCourseDetailPage() {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id as any)}
-                    className={`font-paragraph text-sm md:text-base font-medium px-4 md:px-5 py-2 md:py-3 rounded transition-all ${
+                    className={`font-paragraph text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-2 md:py-3 rounded transition-all whitespace-nowrap ${
                       activeTab === tab.id
                         ? 'bg-accent-gold text-secondary-foreground'
                         : 'text-foreground/70 hover:text-foreground'
@@ -495,24 +495,24 @@ export default function TrainingCourseDetailPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="space-y-6 md:space-y-7"
+              className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-7"
             >
               {/* Pricing Card */}
-              <div className="bg-background rounded-lg p-6 md:p-8 sticky top-28 md:top-36 border border-accent-gold/20">
-                <div className="mb-6 md:mb-8">
-                  <p className="font-paragraph text-xs md:text-sm text-foreground/60 mb-2">Program Investment</p>
-                  <div className="font-heading text-3xl md:text-4xl lg:text-5xl text-accent-gold">
+              <div className="bg-background rounded-lg p-4 sm:p-5 md:p-6 lg:p-8 sticky top-20 sm:top-24 md:top-28 lg:top-36 border border-accent-gold/20">
+                <div className="mb-4 sm:mb-6 md:mb-8">
+                  <p className="font-paragraph text-xs md:text-sm text-foreground/60 mb-1 md:mb-2">Program Investment</p>
+                  <div className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-accent-gold">
                     {formatPrice(course.itemPrice || 0, currency ?? DEFAULT_CURRENCY)}
                   </div>
                 </div>
 
                 {course.pricing && (
-                  <div className="mb-6 md:mb-8 pb-6 md:pb-8 border-b border-foreground/10">
-                    <p className="font-paragraph text-sm md:text-base text-foreground/80">{course.pricing}</p>
+                  <div className="mb-4 sm:mb-6 md:mb-8 pb-4 sm:pb-6 md:pb-8 border-b border-foreground/10">
+                    <p className="font-paragraph text-xs sm:text-sm md:text-base text-foreground/80">{course.pricing}</p>
                   </div>
                 )}
 
-                <div className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                <div className="space-y-2 md:space-y-3 mb-4 sm:mb-6 md:mb-8">
                   <button
                     onClick={() => {
                       actions.addToCart({
@@ -521,22 +521,22 @@ export default function TrainingCourseDetailPage() {
                       });
                     }}
                     disabled={addingItemId === course._id}
-                    className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-4 md:px-5 py-3 md:py-4 rounded transition-all hover:scale-105 disabled:opacity-50 text-sm md:text-base"
+                    className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-3 sm:px-4 md:px-5 py-2 md:py-3 lg:py-4 rounded transition-all hover:scale-105 disabled:opacity-50 text-xs sm:text-sm md:text-base"
                   >
                     {addingItemId === course._id ? 'Adding to Cart...' : 'Add to Cart'}
                   </button>
 
                   <button
                     onClick={() => setShowApplicationForm(!showApplicationForm)}
-                    className="w-full bg-foreground text-background font-paragraph font-semibold px-4 md:px-5 py-3 md:py-4 rounded transition-all hover:scale-105 text-sm md:text-base"
+                    className="w-full bg-foreground text-background font-paragraph font-semibold px-3 sm:px-4 md:px-5 py-2 md:py-3 lg:py-4 rounded transition-all hover:scale-105 text-xs sm:text-sm md:text-base"
                   >
                     Executive Application
                   </button>
                 </div>
 
                 {course.isSubscriptionAvailable && (
-                  <div className="mb-6 md:mb-8 pb-6 md:pb-8 border-b border-foreground/10">
-                    <p className="font-paragraph text-sm md:text-base text-accent-gold font-medium mb-2">
+                  <div className="mb-4 sm:mb-6 md:mb-8 pb-4 sm:pb-6 md:pb-8 border-b border-foreground/10">
+                    <p className="font-paragraph text-xs sm:text-sm md:text-base text-accent-gold font-medium mb-1 md:mb-2">
                       ✓ Subscription Available
                     </p>
                     <p className="font-paragraph text-xs md:text-sm text-foreground/70">
@@ -546,8 +546,8 @@ export default function TrainingCourseDetailPage() {
                 )}
 
                 {/* Executive Development Package Info */}
-                <div className="pt-6 md:pt-8 border-t border-foreground/10">
-                  <p className="font-heading text-sm md:text-base text-foreground mb-2">Executive Development Package</p>
+                <div className="pt-4 sm:pt-6 md:pt-8 border-t border-foreground/10">
+                  <p className="font-heading text-xs sm:text-sm md:text-base text-foreground mb-1 md:mb-2">Executive Development Package</p>
                   <p className="font-paragraph text-xs md:text-sm text-foreground/70">
                     Enroll in 3+ programs and receive 30% discount after application review.
                   </p>
@@ -555,9 +555,9 @@ export default function TrainingCourseDetailPage() {
               </div>
 
               {/* Quick Info Card */}
-              <div className="bg-accent-gold/10 border border-accent-gold/30 rounded-lg p-6 md:p-8">
-                <h3 className="font-heading text-base md:text-lg text-foreground mb-4 md:mb-5">Program Highlights</h3>
-                <ul className="space-y-2 md:space-y-3">
+              <div className="bg-accent-gold/10 border border-accent-gold/30 rounded-lg p-4 sm:p-5 md:p-6 lg:p-8">
+                <h3 className="font-heading text-sm sm:text-base md:text-lg text-foreground mb-3 sm:mb-4 md:mb-5">Program Highlights</h3>
+                <ul className="space-y-1 sm:space-y-2 md:space-y-3">
                   {[
                     'Elite instructor expertise',
                     'Selective enrollment',
@@ -567,7 +567,7 @@ export default function TrainingCourseDetailPage() {
                     'Global network'
                   ].map((highlight, index) => (
                     <li key={highlight} className="flex items-center gap-2 md:gap-3">
-                      <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-gold flex-shrink-0" />
+                      <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 text-accent-gold flex-shrink-0" />
                       <span className="font-paragraph text-xs md:text-sm text-foreground/90">{highlight}</span>
                     </li>
                   ))}
@@ -575,16 +575,16 @@ export default function TrainingCourseDetailPage() {
               </div>
 
               {/* Contact Info */}
-              <div className="bg-background rounded-lg p-6 md:p-8 border border-accent-gold/20">
-                <h3 className="font-heading text-base md:text-lg text-foreground mb-3 md:mb-4">Questions?</h3>
-                <p className="font-paragraph text-sm md:text-base text-foreground/80 mb-4 md:mb-5">
+              <div className="bg-background rounded-lg p-4 sm:p-5 md:p-6 lg:p-8 border border-accent-gold/20">
+                <h3 className="font-heading text-sm sm:text-base md:text-lg text-foreground mb-2 md:mb-3 lg:mb-4">Questions?</h3>
+                <p className="font-paragraph text-xs sm:text-sm md:text-base text-foreground/80 mb-3 sm:mb-4 md:mb-5">
                   Contact our executive team for personalized guidance.
                 </p>
                 <a
                   href="mailto:contact@jmclex.com"
-                  className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-sm md:text-base font-medium"
+                  className="inline-flex items-center gap-2 text-accent-gold hover:gap-4 transition-all font-paragraph text-xs sm:text-sm md:text-base font-medium"
                 >
-                  contact@jmclex.com <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+                  contact@jmclex.com <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
                 </a>
               </div>
             </motion.div>
