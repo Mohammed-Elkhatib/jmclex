@@ -253,7 +253,7 @@ export default function TrainingCourseDetailPage() {
                       {[
                         'Master advanced legal concepts and their real-world applications',
                         'Develop strategic decision-making frameworks for complex scenarios',
-                        'Enhance professional credentials with recognized certification',
+                        'Enhance professional credentials with certification from our center',
                         'Build networks with elite legal professionals and executives',
                         'Gain competitive advantage in your practice area',
                         'Apply case-based learning to immediate business challenges'
@@ -371,7 +371,7 @@ export default function TrainingCourseDetailPage() {
                     ) : (
                       <div className="bg-background rounded-lg p-6 md:p-8 border border-accent-gold/20">
                         <p className="font-paragraph text-sm md:text-base text-foreground/90 leading-relaxed">
-                          Upon successful completion of this program, participants receive a prestigious Executive Certification recognized by leading legal institutions. This credential demonstrates mastery of advanced legal concepts and commitment to professional excellence.
+                          Upon successful completion of this program, participants receive a prestigious Executive Certification from our center. This credential demonstrates mastery of advanced legal concepts and commitment to professional excellence.
                         </p>
                       </div>
                     )}

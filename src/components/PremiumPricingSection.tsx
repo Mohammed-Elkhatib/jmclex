@@ -11,7 +11,7 @@ export default function PremiumPricingSection() {
       features: [
         '6-hour intensive program',
         'Elite instructor panel',
-        'Executive certification',
+        'Certification from our center',
         'Course materials included',
         'Confidential learning environment',
         'Lifetime access to recordings'
@@ -45,7 +45,7 @@ export default function PremiumPricingSection() {
         'Unlimited program access',
         'Customized curriculum',
         'On-site or virtual delivery',
-        'Team certification',
+        'Certification from our center',
         'Dedicated training coordinator',
         'Quarterly strategy sessions',
         'Compliance documentation'
@@ -62,7 +62,7 @@ export default function PremiumPricingSection() {
         'Strategic legal education',
         'Executive leadership programs',
         'Ongoing advisory support',
-        'Custom certification programs',
+        'Certification from our center',
         'Quarterly business reviews',
         'Dedicated account management'
       ],
