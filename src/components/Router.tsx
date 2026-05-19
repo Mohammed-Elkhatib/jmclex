@@ -27,6 +27,9 @@ import ComplianceGovernancePage from '@/components/pages/ComplianceGovernancePag
 import TaxStructuringPage from '@/components/pages/TaxStructuringPage';
 import CrossBorderExpertsPage from '@/components/pages/CrossBorderExpertsPage';
 import ExecutiveTrainingCenterPage from '@/components/pages/ExecutiveTrainingCenterPage';
+import PrivacyPage from '@/components/pages/PrivacyPage';
+import TermsPage from '@/components/pages/TermsPage';
+import DisclaimerPage from '@/components/pages/DisclaimerPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -146,6 +149,18 @@ const router = createBrowserRouter([
       {
         path: "executive-training-center",
         element: <ExecutiveTrainingCenterPage />,
+      },
+      {
+        path: "privacy",
+        element: <PrivacyPage />,
+      },
+      {
+        path: "terms",
+        element: <TermsPage />,
+      },
+      {
+        path: "disclaimer",
+        element: <DisclaimerPage />,
       },
       {
         path: "*",
