@@ -551,7 +551,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3.7. FOUNDERS SECTION - Side by Side Premium Profiles */}
+      {/* 3.7. GLOBAL STRATEGIC PRESENCE - Premium Institutional Section */}
       <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <motion.div
@@ -559,19 +559,25 @@ export default function HomePage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-20"
+            className="mb-20"
           >
-            <h2 className="font-heading text-4xl md:text-5xl text-optional-navy mb-4">
-              Leadership
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="w-8 h-[1px] bg-accent-gold"></span>
+              <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Institutional Excellence</span>
+            </div>
+            
+            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-8 leading-[1.1] text-balance">
+              Global Strategic Presence & International Legal Intelligence
             </h2>
-            <p className="font-paragraph text-lg text-optional-navy/70">
-              Meet the founders of JMC LEX
+            
+            <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-4xl">
+              JMC LEX operates as a premier international legal platform, combining institutional-grade advisory with cross-border strategic intelligence. Our multilingual teams coordinate seamlessly across EMEA, leveraging decades of collective expertise to deliver sophisticated legal solutions for complex international matters.
             </p>
           </motion.div>
 
-          {/* Side by Side Profiles */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* LEFT: Claude Mcheik - Founder */}
+          {/* Three Column Institutional Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+            {/* Column 1: Strategic Coordination */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -579,42 +585,47 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="flex flex-col"
             >
-              <div className="relative h-[500px] overflow-hidden rounded-lg mb-8 group">
-                <Image
-                  src="https://static.wixstatic.com/media/5e1235_8ccced5019da4821b2c124bf7919b832~mv2.jpg"
-                  alt="Claude Mcheik, Founder"
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
-              </div>
-
-              <div className="inline-flex items-center gap-3 mb-4">
-                <span className="w-8 h-[1px] bg-accent-gold"></span>
-                <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Founder</span>
-              </div>
-
-              <h3 className="font-heading text-3xl md:text-4xl text-optional-navy mb-2">
-                Claude Mcheik
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
+                Strategic Coordination
               </h3>
-              <p className="font-paragraph text-lg text-accent-gold mb-6 font-medium">
-                Founder — International Legal Strategist
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-8 flex-grow">
+                Seamless coordination across multiple jurisdictions with institutional-grade precision. Our teams manage complex cross-border operations with unified strategy and synchronized execution.
               </p>
-
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
-                Claude Mcheik is an attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience and more than 13 years as an attorney at law and senior legal advisor. He has built a cross-border legal career between France and Lebanon, advising companies, entrepreneurs, investors and decision-makers on complex legal, tax, corporate and multi-jurisdictional matters. His work covers international business structuring, M&A, commercial transactions, tax-driven legal analysis, governance, compliance, dispute strategy and high-level advisory across EMEA. Alongside his legal practice, he has taught law in leading universities and business schools and developed a strong research profile, combining academic rigor, strategic thinking and practical legal execution. Fluent in French, English and Arabic, he advises Lebanese diaspora clients, international investors and business leaders seeking to structure, secure and expand their projects across Europe, France, Switzerland, Lebanon and the wider Middle East.
-              </p>
-
               <Link
                 to="/consultation"
-                className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] w-fit"
+                className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-sm group w-fit"
               >
-                <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span>Book a Consultation</span>
+                <span>Explore Services</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
 
-            {/* RIGHT: Me Antoine Y. S. - Co-Founder */}
+            {/* Column 2: International Intelligence */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="flex flex-col"
+            >
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
+                Legal Intelligence
+              </h3>
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-8 flex-grow">
+                Real-time insights into international legal developments, regulatory shifts, and geopolitical implications. We anticipate risks and identify opportunities across EMEA markets.
+              </p>
+              <Link
+                to="/publications"
+                className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-sm group w-fit"
+              >
+                <span>View Insights</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+
+            {/* Column 3: Executive Advisory */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -622,39 +633,35 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col"
             >
-              <div className="relative h-[500px] overflow-hidden rounded-lg mb-8 group">
-                <Image
-                  src="https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png"
-                  alt="Me Antoine Y. S., Co-Founder"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-optional-navy/30 via-transparent to-transparent"></div>
-              </div>
-
-              <div className="inline-flex items-center gap-3 mb-4">
-                <span className="w-8 h-[1px] bg-accent-gold"></span>
-                <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Co-Founder</span>
-              </div>
-
-              <h3 className="font-heading text-3xl md:text-4xl text-optional-navy mb-2">
-                Me Antoine Y. S.
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
+                Executive Advisory
               </h3>
-              <p className="font-paragraph text-lg text-accent-gold mb-6 font-medium">
-                Co-Founder — Senior Legal Counsel
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-8 flex-grow">
+                Direct access to senior counsel for strategic decision-making. We provide C-level advisory on international expansion, risk mitigation, and institutional positioning.
               </p>
-
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 font-light leading-relaxed">
-                Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region. His work reflects decades of litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and a highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEX, he contributes senior legal wisdom, regional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.
-              </p>
-
               <Link
                 to="/consultation"
-                className="group inline-flex items-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:shadow-lg hover:scale-[1.02] w-fit"
+                className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-sm group w-fit"
               >
-                <Calendar className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                <span>Book a Consultation</span>
+                <span>Schedule Consultation</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
+            </motion.div>
+          </div>
+
+          {/* Divider */}
+          <div className="mt-20 pt-20 border-t border-optional-navy/10">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/70 font-light italic">
+                Institutional excellence meets international sophistication. JMC LEX delivers premium legal strategy for the most complex cross-border challenges.
+              </p>
             </motion.div>
           </div>
         </div>
