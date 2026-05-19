@@ -7,6 +7,7 @@ import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } 
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import PremiumPricingSection from '@/components/PremiumPricingSection';
 
 export default function TrainingPage() {
   const [courses, setCourses] = useState<TrainingCourses[]>([]);
@@ -290,8 +291,11 @@ export default function TrainingPage() {
         </div>
       </section>
 
-      {/* Executive Development Package */}
-      <section className="w-full bg-background py-16 md:py-24">
+      {/* Premium Pricing Section */}
+      <PremiumPricingSection />
+
+      {/* Executive Development Package - DEPRECATED - Replaced by PremiumPricingSection */}
+      <section className="w-full bg-background py-16 md:py-24 hidden">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

@@ -5,9 +5,10 @@ import { ArrowRight, CheckCircle, Clock, Phone, FileCheck, CreditCard } from 'lu
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ExecutiveApplicationForm from '@/components/ExecutiveApplicationForm';
+import PremiumPricingSection from '@/components/PremiumPricingSection';
 
 export default function ExecutiveTrainingCenterPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'application' | 'process'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'application' | 'process' | 'pricing'>('overview');
 
   const processSteps = [
     {
@@ -152,6 +153,7 @@ export default function ExecutiveTrainingCenterPage() {
           <div className="flex gap-2 md:gap-4">
             {[
               { id: 'overview', label: 'Overview' },
+              { id: 'pricing', label: 'Pricing & Offers' },
               { id: 'process', label: 'Application Process' },
               { id: 'application', label: 'Apply Now' }
             ].map((tab) => (
@@ -369,6 +371,17 @@ export default function ExecutiveTrainingCenterPage() {
                 </button>
               </motion.div>
             </div>
+          </motion.div>
+        )}
+
+        {/* Pricing Tab */}
+        {activeTab === 'pricing' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <PremiumPricingSection />
           </motion.div>
         )}
 
