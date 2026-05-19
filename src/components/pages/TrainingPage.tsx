@@ -98,6 +98,90 @@ export default function TrainingPage() {
         </div>
       </section>
 
+      {/* Premium Executive Positioning Section */}
+      <section className="w-full bg-secondary py-16 md:py-24 lg:py-28">
+        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-12 md:mb-16 lg:mb-20"
+          >
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 md:mb-6">
+              Premium Executive Training
+            </h2>
+            <p className="font-paragraph text-base md:text-lg text-foreground/80 max-w-2xl mx-auto">
+              Designed for distinguished professionals seeking elite legal education
+            </p>
+          </motion.div>
+
+          {/* Premium Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+            {[
+              {
+                title: 'One-to-One Executive Sessions',
+                description: 'Personalized instruction tailored to your strategic objectives',
+                icon: '👤'
+              },
+              {
+                title: 'Confidential Strategic Training',
+                description: 'Private, secure learning environment for sensitive topics',
+                icon: '🔒'
+              },
+              {
+                title: 'Elite Legal Experts',
+                description: 'Instruction from top-tier practitioners and thought leaders',
+                icon: '⭐'
+              },
+              {
+                title: '6-Hour Intensive Programs',
+                description: 'Comprehensive curriculum condensed into focused sessions',
+                icon: '⏱️'
+              },
+              {
+                title: 'English & French Delivery',
+                description: 'Bilingual instruction for global executive professionals',
+                icon: '🌍'
+              },
+              {
+                title: 'Strategic Case-Based Learning',
+                description: 'Real-world scenarios and landmark cases analyzed in depth',
+                icon: '📋'
+              },
+              {
+                title: 'Executive Certification',
+                description: 'Recognized credentials that enhance professional standing',
+                icon: '🏆'
+              },
+              {
+                title: 'Selective Enrollment',
+                description: 'Curated cohorts ensuring premium peer-level interaction',
+                icon: '✨'
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.05 }}
+                className="bg-background rounded-lg p-6 md:p-7 border border-accent-gold/20 hover:border-accent-gold/50 transition-all duration-300 flex flex-col h-full hover:shadow-lg hover:shadow-accent-gold/10"
+              >
+                <div className="text-3xl md:text-4xl mb-4">{item.icon}</div>
+                <h3 className="font-heading text-base md:text-lg text-foreground mb-3 leading-tight">
+                  {item.title}
+                </h3>
+                <p className="font-paragraph text-sm md:text-base text-foreground/75 leading-relaxed">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Key Features */}
       <section className="w-full bg-background py-16 md:py-24">
         <div className="max-w-[100rem] mx-auto px-6 md:px-8">
