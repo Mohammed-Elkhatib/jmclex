@@ -31,6 +31,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [applicationData, setApplicationData] = useState<any>(null);
   const { language } = useLanguageStore();
   
   const cvInputRef = useRef<HTMLInputElement>(null);
@@ -87,7 +88,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     if (!allowedMimeTypes.includes(file.type) && !hasValidExtension) {
       return { 
         valid: false, 
-        error: `Invalid file type. Only PDF and Word documents are allowed. Received: ${file.type || 'unknown'}` 
+        error: `Invalid file type. Only PDF and Word documents are allowed.` 
       };
     }
 
@@ -259,68 +260,66 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         return;
       }
 
-      const applicationData = {
+      const newApplicationData = {
         _id: crypto.randomUUID(),
         ...formData,
         yearsOfExperience: parseInt(formData.yearsOfExperience) || 0,
         _createdDate: new Date(),
         _updatedDate: new Date()
       };
+      
+      setApplicationData(newApplicationData);
 
-      // Step 1: Save to CMS
-      try {
-        await BaseCrudService.create('executivetrainingapplications', applicationData);
-      } catch (cmsError) {
-        const cmsErrorMsg = cmsError instanceof Error ? cmsError.message : 'CMS storage failed';
-        setSubmissionError(`Failed to save application to database: ${cmsErrorMsg}`);
-        console.error('CMS error:', cmsError);
-        setIsSubmitting(false);
-        return;
-      }
+      // Step 1: Save to CMS - with retry logic for mobile reliability
+      let cmsSuccess = false;
+      let retryCount = 0;
+      const maxRetries = 3;
 
-      // Step 2: Send confirmation email to applicant
-      try {
-        const applicantEmailResponse = await fetch('/api/send-consultation-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: formData.email,
-            subject: `Executive Training Application Received - ${programName}`,
-            applicantName: formData.fullName,
-            applicantEmail: formData.email,
-            program: programName,
-            message: `Dear ${formData.fullName},\n\nThank you for submitting your application to ${programName}. We have received your submission and our team will review it carefully.\n\nExpected response time: 3-5 business days.\n\nBest regards,\nJMC LEX Training Center`
-          })
-        });
-
-        if (!applicantEmailResponse.ok) {
-          console.warn('Applicant confirmation email failed, but application was saved');
+      while (!cmsSuccess && retryCount < maxRetries) {
+        try {
+          await BaseCrudService.create('executivetrainingapplications', newApplicationData);
+          cmsSuccess = true;
+        } catch (cmsError) {
+          retryCount++;
+          if (retryCount >= maxRetries) {
+            const cmsErrorMsg = cmsError instanceof Error ? cmsError.message : 'CMS storage failed';
+            setSubmissionError(`Failed to save application to database after ${maxRetries} attempts: ${cmsErrorMsg}`);
+            console.error('CMS error after retries:', cmsError);
+            setIsSubmitting(false);
+            return;
+          }
+          // Wait before retry (exponential backoff)
+          await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
         }
-      } catch (emailError) {
-        console.warn('Applicant email error:', emailError);
       }
 
-      // Step 3: Send notification email to admin
-      try {
-        const adminEmailResponse = await fetch('/api/send-consultation-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: 'contact@jmclex.com',
-            subject: `New Executive Training Application - ${programName}`,
-            applicantName: formData.fullName,
-            applicantEmail: formData.email,
-            program: programName,
-            message: `New Executive Training Application received:\n\nApplicant: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProgram: ${programName}\nLevel: ${formData.preferredProgramLevel}\nSession Format: ${formData.preferredSessionFormat}\nPreferred Language: ${formData.preferredLanguage}\nCV: ${formData.cvUpload}\nSupporting Documents: ${formData.supportingDocuments || 'None'}\n\nPlease review and follow up accordingly.`
-          })
-        });
+      // Step 2: Send confirmation email to applicant (non-blocking)
+      fetch('/api/send-consultation-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: formData.email,
+          subject: `Executive Training Application Received - ${programName}`,
+          applicantName: formData.fullName,
+          applicantEmail: formData.email,
+          program: programName,
+          message: `Dear ${formData.fullName},\n\nThank you for submitting your application to ${programName}. We have received your submission and our team will review it carefully.\n\nExpected response time: 3-5 business days.\n\nBest regards,\nJMC LEX Training Center`
+        })
+      }).catch(err => console.warn('Applicant email error:', err));
 
-        if (!adminEmailResponse.ok) {
-          console.warn('Admin notification email failed, but application was saved');
-        }
-      } catch (emailError) {
-        console.warn('Admin email error:', emailError);
-      }
+      // Step 3: Send notification email to admin (non-blocking)
+      fetch('/api/send-consultation-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'contact@jmclex.com',
+          subject: `New Executive Training Application - ${programName}`,
+          applicantName: formData.fullName,
+          applicantEmail: formData.email,
+          program: programName,
+          message: `New Executive Training Application received:\n\nApplicant: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProgram: ${programName}\nLevel: ${formData.preferredProgramLevel}\nSession Format: ${formData.preferredSessionFormat}\nPreferred Language: ${formData.preferredLanguage}\nCV: ${formData.cvUpload}\nSupporting Documents: ${formData.supportingDocuments || 'None'}\n\nPlease review and follow up accordingly.`
+        })
+      }).catch(err => console.warn('Admin email error:', err));
 
       // Success - show confirmation
       setIsSuccess(true);
@@ -349,7 +348,8 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
 
       if (onSuccess) onSuccess();
 
-      setTimeout(() => setIsSuccess(false), 5000);
+      // Keep success screen visible longer for better UX
+      setTimeout(() => setIsSuccess(false), 8000);
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'Failed to submit application';
       setSubmissionError(`Submission failed: ${errorMsg}`);
@@ -402,28 +402,97 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}
         className="space-y-8 md:space-y-10"
       >
-        {/* Success Message */}
-        <div className="bg-accent-gold/10 border border-accent-gold rounded-lg p-6 md:p-8 lg:p-12 text-center">
-          <CheckCircle className="w-12 md:w-14 lg:w-16 h-12 md:h-14 lg:h-16 text-accent-gold mx-auto mb-4 md:mb-6" />
-          <h3 className="font-heading text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4">Application Submitted Successfully</h3>
-          <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-4 md:mb-6">
-            Thank you for your application to {programName}. Your submission has been received and will be reviewed by our executive team.
-          </p>
-          <div className="bg-background rounded-lg p-4 md:p-6 mb-4 md:mb-6 text-left space-y-2 md:space-y-3">
-            <p className="font-paragraph text-xs md:text-sm text-foreground/80">
-              <span className="font-semibold text-foreground">Confirmation emails have been sent to:</span>
-            </p>
-            <ul className="space-y-1 md:space-y-2 ml-4">
-              <li className="font-paragraph text-xs md:text-sm text-foreground/80">✓ Your email: {formData.email}</li>
-              <li className="font-paragraph text-xs md:text-sm text-foreground/80">✓ Our team: contact@jmclex.com</li>
-            </ul>
+        {/* Premium Success Modal */}
+        <div className="relative bg-gradient-to-br from-accent-gold/5 via-background to-accent-gold/5 border border-accent-gold/30 rounded-2xl p-8 md:p-12 lg:p-16 text-center overflow-hidden">
+          {/* Decorative elements */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-accent-gold/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent-gold/10 rounded-full blur-2xl -ml-12 -mb-12"></div>
+          
+          <div className="relative z-10">
+            {/* Success Icon */}
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex justify-center mb-6 md:mb-8"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-accent-gold/20 rounded-full blur-xl"></div>
+                <CheckCircle className="w-16 md:w-20 lg:w-24 h-16 md:h-20 lg:h-24 text-accent-gold relative" />
+              </div>
+            </motion.div>
+
+            {/* Main Message */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <h3 className="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground mb-3 md:mb-4">
+                Application Submitted Successfully
+              </h3>
+              <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-8 md:mb-10 max-w-2xl mx-auto">
+                Thank you for your application to <span className="font-semibold text-foreground">{programName}</span>. Your submission has been received and will be reviewed by our executive team within 72 hours.
+              </p>
+            </motion.div>
+
+            {/* Confirmation Details */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="bg-background/60 backdrop-blur-sm rounded-xl p-6 md:p-8 mb-8 md:mb-10 border border-accent-gold/20 max-w-xl mx-auto"
+            >
+              <p className="font-paragraph text-xs md:text-sm text-foreground/70 mb-4">
+                <span className="font-semibold text-foreground">Confirmation emails have been sent to:</span>
+              </p>
+              <ul className="space-y-2 md:space-y-3 text-left">
+                <motion.li
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                  className="flex items-center gap-3 font-paragraph text-xs md:text-sm text-foreground/80"
+                >
+                  <CheckCircle className="w-4 h-4 text-accent-gold flex-shrink-0" />
+                  <span>{formData.email}</span>
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.5 }}
+                  className="flex items-center gap-3 font-paragraph text-xs md:text-sm text-foreground/80"
+                >
+                  <CheckCircle className="w-4 h-4 text-accent-gold flex-shrink-0" />
+                  <span>contact@jmclex.com</span>
+                </motion.li>
+              </ul>
+            </motion.div>
+
+            {/* Reference Number */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="text-center mb-8 md:mb-10"
+            >
+              <p className="font-paragraph text-xs md:text-sm text-foreground/60 mb-2">Application Reference</p>
+              <p className="font-heading text-sm md:text-base text-accent-gold font-mono tracking-wider">
+                {applicationData?._id?.substring(0, 12).toUpperCase() || 'EXEC-APP-2024'}
+              </p>
+            </motion.div>
           </div>
         </div>
 
         {/* Process Timeline */}
-        <div className="bg-secondary rounded-lg p-6 md:p-8 lg:p-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="bg-secondary rounded-lg p-6 md:p-8 lg:p-10 border border-accent-gold/20"
+        >
           <h3 className="font-heading text-2xl md:text-3xl text-foreground mb-8 md:mb-10 text-center">Executive Application Process</h3>
           
           <div className="space-y-4 md:space-y-6">
@@ -565,7 +634,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
               ))}
             </ul>
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     );
   }
