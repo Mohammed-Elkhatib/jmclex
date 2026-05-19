@@ -197,12 +197,12 @@ export default function ExecutiveApplicationForm() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="mb-8 p-6 md:p-8 bg-green-50 border border-green-200 rounded-lg flex items-start gap-4"
+          className="mb-8 p-6 md:p-8 bg-accent-gold/10 border border-accent-gold rounded-lg flex items-start gap-4"
         >
-          <CheckCircle className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
+          <CheckCircle className="w-6 h-6 text-accent-gold flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-heading text-lg text-green-900 mb-2">Application Submitted Successfully</h3>
-            <p className="font-paragraph text-sm text-green-800">
+            <h3 className="font-heading text-lg text-foreground mb-2">Application Submitted Successfully</h3>
+            <p className="font-paragraph text-sm text-foreground/80">
               Thank you for your application. Our team will review it within 72 hours and contact you to schedule a confidential consultation call.
             </p>
           </div>
@@ -215,12 +215,12 @@ export default function ExecutiveApplicationForm() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="mb-8 p-6 md:p-8 bg-red-50 border border-red-200 rounded-lg flex items-start gap-4"
+          className="mb-8 p-6 md:p-8 bg-destructive/10 border border-destructive rounded-lg flex items-start gap-4"
         >
-          <AlertCircle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-heading text-lg text-red-900 mb-2">Application Error</h3>
-            <p className="font-paragraph text-sm text-red-800">{errorMessage}</p>
+            <h3 className="font-heading text-lg text-destructive mb-2">Application Error</h3>
+            <p className="font-paragraph text-sm text-destructive/80">{errorMessage}</p>
           </div>
         </motion.div>
       )}

@@ -9,6 +9,7 @@ import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ExecutiveTrainingApplicationForm from '@/components/ExecutiveTrainingApplicationForm';
+import ExecutiveProgramsDirectory from '@/components/ExecutiveProgramsDirectory';
 
 export default function TrainingCourseDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -598,6 +599,9 @@ export default function TrainingCourseDetailPage() {
           </div>
         </section>
       )}
+
+      {/* Executive Programs Directory */}
+      <ExecutiveProgramsDirectory currentProgramId={id} />
 
       <Footer />
     </div>

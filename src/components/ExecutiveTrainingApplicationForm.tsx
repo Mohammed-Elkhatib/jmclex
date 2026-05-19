@@ -378,7 +378,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       className="space-y-8 md:space-y-10"
     >
       {/* Form Header */}
-      <div className="bg-optional-navy rounded-lg p-6 md:p-8 lg:p-10">
+      <div className="bg-secondary rounded-lg p-6 md:p-8 lg:p-10 border border-accent-gold/20">
         <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3 md:mb-4">Executive Application</h2>
         <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-6 md:mb-8">
           Apply for {programName}
@@ -387,11 +387,11 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         {/* Process Overview */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
           {[
-            { icon: '📋', label: 'Application' },
-            { icon: '⏱️', label: '72-Hour Review' },
-            { icon: '☎️', label: 'Consultation' },
-            { icon: '✓', label: 'Approval' },
-            { icon: '💳', label: 'Payment' }
+            { icon: '01', label: 'Application' },
+            { icon: '02', label: '72-Hour Review' },
+            { icon: '03', label: 'Consultation' },
+            { icon: '04', label: 'Approval' },
+            { icon: '05', label: 'Payment' }
           ].map((step, index) => (
             <motion.div
               key={step.label}
@@ -400,7 +400,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="text-center"
             >
-              <div className="text-2xl md:text-3xl mb-2">{step.icon}</div>
+              <div className="font-heading text-lg md:text-xl text-accent-gold mb-2 font-semibold">{step.icon}</div>
               <p className="font-paragraph text-xs md:text-sm text-foreground/80">{step.label}</p>
             </motion.div>
           ))}
@@ -408,56 +408,56 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       </div>
 
       {/* Application Form */}
-      <form onSubmit={handleSubmit} className="bg-optional-navy rounded-lg p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8">
+      <form onSubmit={handleSubmit} className="bg-background rounded-lg p-6 md:p-8 lg:p-10 border border-accent-gold/20 space-y-6 md:space-y-8">
         {/* Personal Information Section */}
-        <div>
+        <div className="bg-secondary rounded-lg p-5 md:p-6 border border-accent-gold/10">
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Personal Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Full Name *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Full Name *</label>
               <input
                 type="text"
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="Your full name"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Email *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Email *</label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="your.email@example.com"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Phone *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Phone *</label>
               <input
                 type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="+1 (555) 000-0000"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Country *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Country *</label>
               <input
                 type="text"
                 name="country"
                 value={formData.country}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="Your country"
               />
             </div>
@@ -465,47 +465,47 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         </div>
 
         {/* Professional Information Section */}
-        <div>
+        <div className="bg-secondary rounded-lg p-5 md:p-6 border border-accent-gold/10">
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Professional Background</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Current Position *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Current Position *</label>
               <input
                 type="text"
                 name="currentPosition"
                 value={formData.currentPosition}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="e.g., General Counsel, CFO"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Company *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Company *</label>
               <input
                 type="text"
                 name="company"
                 value={formData.company}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="Your company name"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Industry *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Industry *</label>
               <input
                 type="text"
                 name="industry"
                 value={formData.industry}
                 onChange={handleInputChange}
                 required
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="e.g., Finance, Technology, Healthcare"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Years of Experience *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Years of Experience *</label>
               <input
                 type="number"
                 name="yearsOfExperience"
@@ -513,7 +513,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
                 onChange={handleInputChange}
                 required
                 min="0"
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
                 placeholder="0"
               />
             </div>
@@ -521,49 +521,49 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         </div>
 
         {/* Program & Language Section */}
-        <div>
+        <div className="bg-secondary rounded-lg p-5 md:p-6 border border-accent-gold/10">
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Program Preferences</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Selected Program</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Selected Program</label>
               <input
                 type="text"
                 value={formData.selectedProgram}
                 disabled
-                className="w-full bg-background/50 text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 opacity-70 text-sm md:text-base"
+                className="w-full bg-background/50 text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 opacity-70 text-sm md:text-base"
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Preferred Language *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Preferred Language *</label>
               <select
                 name="preferredLanguage"
                 value={formData.preferredLanguage}
                 onChange={handleInputChange}
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
               >
                 <option value="English">English</option>
                 <option value="French">French</option>
               </select>
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Program Level *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Program Level *</label>
               <select
                 name="preferredProgramLevel"
                 value={formData.preferredProgramLevel}
                 onChange={handleInputChange}
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
               >
                 <option value="Foundations">Foundations (Level 1)</option>
                 <option value="Advanced Executive">Advanced Executive (Level 2)</option>
               </select>
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Session Format *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Session Format *</label>
               <select
                 name="preferredSessionFormat"
                 value={formData.preferredSessionFormat}
                 onChange={handleInputChange}
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors text-sm md:text-base"
               >
                 <option value="One-to-One">One-to-One (Confidential)</option>
                 <option value="Small Group">Small Group (2-3 participants)</option>
@@ -573,42 +573,42 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         </div>
 
         {/* Objectives & Motivation Section */}
-        <div>
+        <div className="bg-secondary rounded-lg p-5 md:p-6 border border-accent-gold/10">
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Professional Objectives & Availability</h3>
           <div className="space-y-4 md:space-y-6">
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Professional Objectives *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Professional Objectives *</label>
               <textarea
                 name="professionalObjectives"
                 value={formData.professionalObjectives}
                 onChange={handleInputChange}
                 required
                 rows={3}
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors resize-none text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors resize-none text-sm md:text-base"
                 placeholder="Describe your professional goals and what you hope to achieve from this program..."
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Strategic Motivation & Confidential Objectives *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Strategic Motivation & Confidential Objectives *</label>
               <textarea
                 name="strategicMotivation"
                 value={formData.strategicMotivation}
                 onChange={handleInputChange}
                 required
                 rows={3}
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors resize-none text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors resize-none text-sm md:text-base"
                 placeholder="Explain your strategic motivation and any confidential objectives for enrolling in this executive program..."
               />
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Preferred Availability *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Preferred Availability *</label>
               <textarea
                 name="preferredAvailability"
                 value={formData.preferredAvailability}
                 onChange={handleInputChange}
                 required
                 rows={3}
-                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-foreground/20 focus:border-accent-gold focus:outline-none transition-colors resize-none text-sm md:text-base"
+                className="w-full bg-background text-foreground px-3 md:px-4 py-2 md:py-3 rounded border border-accent-gold/20 focus:border-accent-gold focus:outline-none transition-colors resize-none text-sm md:text-base"
                 placeholder="Indicate your preferred dates, times, and timezone for sessions..."
               />
             </div>
@@ -616,14 +616,14 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         </div>
 
         {/* Document Upload Section */}
-        <div>
+        <div className="bg-secondary rounded-lg p-5 md:p-6 border border-accent-gold/10">
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Documents</h3>
           <p className="font-paragraph text-xs md:text-sm text-foreground/70 mb-6">
             Upload your professional documents. Supported formats: PDF, DOC, DOCX. Maximum file size: 10MB.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">CV Upload *</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">CV Upload *</label>
               <div className="relative">
                 <input
                   type="file"
@@ -635,7 +635,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
                 />
                 <label
                   htmlFor="cv-upload"
-                  className="flex items-center justify-center gap-2 w-full bg-background border-2 border-dashed border-foreground/20 rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer hover:border-accent-gold transition-colors"
+                  className="flex items-center justify-center gap-2 w-full bg-background border-2 border-dashed border-accent-gold/30 rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer hover:border-accent-gold transition-colors"
                 >
                   <Upload className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
                   <span className="font-paragraph text-xs md:text-sm text-foreground/80">
@@ -645,7 +645,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
               </div>
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Supporting Documents <span className="text-foreground/50">(Optional)</span></label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Supporting Documents <span className="text-foreground/50">(Optional)</span></label>
               <div className="relative">
                 <input
                   type="file"
@@ -656,7 +656,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
                 />
                 <label
                   htmlFor="docs-upload"
-                  className="flex items-center justify-center gap-2 w-full bg-background border-2 border-dashed border-foreground/20 rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer hover:border-accent-gold transition-colors"
+                  className="flex items-center justify-center gap-2 w-full bg-background border-2 border-dashed border-accent-gold/30 rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer hover:border-accent-gold transition-colors"
                 >
                   <Upload className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
                   <span className="font-paragraph text-xs md:text-sm text-foreground/80">
