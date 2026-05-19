@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { BaseCrudService } from '@/integrations';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { Upload, FileText, AlertCircle } from 'lucide-react';
+import { debugLog, isDebugMode } from '@/lib/debug-mode';
 
 interface TalentNetworkApplicationFormProps {
   sourcePage: string;
@@ -65,11 +66,23 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const [debugMessages, setDebugMessages] = useState<Array<{ id: string; message: string; type: 'info' | 'error' | 'success' | 'validation' | 'upload' | 'cms' }>>([]);
   const cvInputRef = useRef<HTMLInputElement>(null);
   const docsInputRef = useRef<HTMLInputElement>(null);
 
+  const addDebugMessage = (message: string, type: 'info' | 'error' | 'success' | 'validation' | 'upload' | 'cms' = 'info') => {
+    if (isDebugMode()) {
+      const id = crypto.randomUUID();
+      setDebugMessages(prev => [...prev, { id, message, type }]);
+      setTimeout(() => {
+        setDebugMessages(prev => prev.filter(msg => msg.id !== id));
+      }, 8000);
+    }
+  };
+
   const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    debugLog.info(`Input changed: ${name}`, value);
     setFormData(prev => ({
       ...prev,
       [name]: value,
@@ -86,12 +99,17 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
   const validateFile = useCallback((file: File): string | null => {
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return 'File size must be less than 10MB';
+      const error = 'File size must be less than 10MB';
+      debugLog.validation(file.name, false, error);
+      return error;
     }
     const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
     if (!allowedTypes.includes(file.type)) {
-      return 'Only PDF and Word documents are allowed';
+      const error = 'Only PDF and Word documents are allowed';
+      debugLog.validation(file.name, false, error);
+      return error;
     }
+    debugLog.validation(file.name, true);
     return null;
   }, []);
 
@@ -133,12 +151,24 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
     }
 
     setValidationErrors(errors);
+    
+    if (Object.keys(errors).length > 0) {
+      debugLog.validation('form', false, JSON.stringify(errors));
+      addDebugMessage(`Validation failed: ${Object.values(errors).join(', ')}`, 'validation');
+    } else {
+      debugLog.validation('form', true);
+      addDebugMessage('All validations passed', 'success');
+    }
+    
     return Object.keys(errors).length === 0;
   }, [formData]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, fileType: 'cvUpload' | 'supportingDocuments') => {
     const file = e.target.files?.[0];
     if (file) {
+      debugLog.upload(file.name, 'selected', { size: file.size, type: file.type });
+      addDebugMessage(`File selected: ${file.name} (${(file.size / 1024).toFixed(2)}KB)`, 'upload');
+      
       const error = validateFile(file);
       setFiles(prev => ({
         ...prev,
@@ -155,21 +185,34 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
     const formData = new FormData();
     formData.append('file', file);
 
+    debugLog.upload(file.name, 'uploading', {});
+    addDebugMessage(`Uploading ${file.name}...`, 'upload');
+
     const response = await fetch('/api/upload', {
       method: 'POST',
       body: formData,
     });
 
+    debugLog.upload(file.name, 'response', { status: response.status, ok: response.ok });
+
     if (!response.ok) {
-      throw new Error('File upload failed');
+      const errorMsg = 'File upload failed';
+      debugLog.error(`Upload failed: ${errorMsg}`, { status: response.status });
+      throw new Error(errorMsg);
     }
 
     const data = await response.json();
+    debugLog.cmsResponse('file_upload', data);
+    addDebugMessage(`Upload successful for ${file.name}`, 'success');
+    
     return data.fileUrl || data.url;
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    debugLog.buttonClick('Submit Talent Network Application', formData);
+    addDebugMessage('Form submission started', 'info');
+    
     setIsSubmitting(true);
     setErrorMessage('');
 
@@ -177,7 +220,9 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
     if (!validateForm()) {
       setIsSubmitting(false);
       setSubmitStatus('error');
-      setErrorMessage('Please fix the errors above and try again.');
+      const errorMsg = 'Please fix the errors above and try again.';
+      setErrorMessage(errorMsg);
+      addDebugMessage(errorMsg, 'error');
       return;
     }
 
@@ -187,27 +232,41 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
 
       // Upload CV if provided
       if (files.cvUpload.file) {
+        debugLog.upload(files.cvUpload.file.name, 'processing', {});
+        addDebugMessage(`Processing CV upload...`, 'upload');
+        
         setFiles(prev => ({
           ...prev,
           cvUpload: { ...prev.cvUpload, uploading: true },
         }));
         try {
           cvUrl = await uploadFileToWix(files.cvUpload.file);
+          debugLog.info('CV upload completed', { url: cvUrl });
         } catch (error) {
-          throw new Error(`CV upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          const errorMsg = `CV upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
+          debugLog.error('CV upload error', error);
+          addDebugMessage(errorMsg, 'error');
+          throw new Error(errorMsg);
         }
       }
 
       // Upload supporting documents if provided
       if (files.supportingDocuments.file) {
+        debugLog.upload(files.supportingDocuments.file.name, 'processing', {});
+        addDebugMessage(`Processing supporting documents upload...`, 'upload');
+        
         setFiles(prev => ({
           ...prev,
           supportingDocuments: { ...prev.supportingDocuments, uploading: true },
         }));
         try {
           docsUrl = await uploadFileToWix(files.supportingDocuments.file);
+          debugLog.info('Supporting documents upload completed', { url: docsUrl });
         } catch (error) {
-          throw new Error(`Supporting documents upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+          const errorMsg = `Supporting documents upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`;
+          debugLog.error('Supporting documents upload error', error);
+          addDebugMessage(errorMsg, 'error');
+          throw new Error(errorMsg);
         }
       }
 
@@ -231,7 +290,13 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
         submissionType: 'Talent Network',
       };
 
+      debugLog.info('Saving to CMS', submission._id);
+      addDebugMessage('Saving application to database...', 'info');
+
       await BaseCrudService.create('talentnetworkapplications', submission);
+
+      debugLog.cmsResponse('create_talent_network_application', { success: true, id: submission._id });
+      addDebugMessage('✓ Application submitted successfully!', 'success');
 
       setSubmitStatus('success');
       setFormData(INITIAL_FORM_DATA);
@@ -250,8 +315,12 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
         setSubmitStatus('idle');
       }, 5000);
     } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : 'An error occurred while submitting your application.';
+      debugLog.error('Submission error', error);
+      addDebugMessage(`Submission failed: ${errorMsg}`, 'error');
+      
       setSubmitStatus('error');
-      setErrorMessage(error instanceof Error ? error.message : 'An error occurred while submitting your application.');
+      setErrorMessage(errorMsg);
       // Reset uploading states on error
       setFiles(prev => ({
         cvUpload: { ...prev.cvUpload, uploading: false },
@@ -270,6 +339,34 @@ export default function TalentNetworkApplicationForm({ sourcePage }: TalentNetwo
       viewport={{ once: true }}
       className="w-full max-w-2xl mx-auto"
     >
+      {/* Debug Messages Display */}
+      {isDebugMode() && debugMessages.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-4 right-4 z-50 max-w-sm space-y-2 max-h-96 overflow-y-auto"
+        >
+          {debugMessages.map((msg) => (
+            <motion.div
+              key={msg.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className={`p-3 rounded text-xs font-paragraph backdrop-blur-sm border ${
+                msg.type === 'error' ? 'bg-destructive/20 border-destructive text-destructive' :
+                msg.type === 'success' ? 'bg-accent-gold/20 border-accent-gold text-accent-gold' :
+                msg.type === 'validation' ? 'bg-yellow-500/20 border-yellow-500 text-yellow-700' :
+                msg.type === 'upload' ? 'bg-blue-500/20 border-blue-500 text-blue-700' :
+                msg.type === 'cms' ? 'bg-green-500/20 border-green-500 text-green-700' :
+                'bg-foreground/10 border-foreground/20 text-foreground'
+              }`}
+            >
+              {msg.message}
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Success Message */}
         {submitStatus === 'success' && (

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Upload, ArrowRight, CheckCircle, Clock, Phone, Award, CreditCard, AlertCircle, Loader, X, FileText } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { useLanguageStore } from '@/lib/language-store';
+import { debugLog, isDebugMode } from '@/lib/debug-mode';
 
 interface ExecutiveTrainingApplicationFormProps {
   programName: string;
@@ -32,10 +33,21 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
   const [error, setError] = useState<string | null>(null);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [applicationData, setApplicationData] = useState<any>(null);
+  const [debugMessages, setDebugMessages] = useState<Array<{ id: string; message: string; type: 'info' | 'error' | 'success' | 'validation' | 'upload' | 'cms' }>>([]);
   const { language } = useLanguageStore();
   
   const cvInputRef = useRef<HTMLInputElement>(null);
   const docsInputRef = useRef<HTMLInputElement>(null);
+
+  const addDebugMessage = (message: string, type: 'info' | 'error' | 'success' | 'validation' | 'upload' | 'cms' = 'info') => {
+    if (isDebugMode()) {
+      const id = crypto.randomUUID();
+      setDebugMessages(prev => [...prev, { id, message, type }]);
+      setTimeout(() => {
+        setDebugMessages(prev => prev.filter(msg => msg.id !== id));
+      }, 8000);
+    }
+  };
 
   const [uploadState, setUploadState] = useState<UploadState>({
     cvUpload: { url: '', fileName: '', isUploading: false, error: null, progress: 0 },
@@ -108,6 +120,9 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     const file = e.target.files?.[0];
     if (!file) return;
 
+    debugLog.upload(file.name, 'selected', { size: file.size, type: file.type });
+    addDebugMessage(`File selected: ${file.name} (${(file.size / 1024).toFixed(2)}KB)`, 'upload');
+
     // Clear previous errors for this field
     setUploadState(prev => ({
       ...prev,
@@ -116,7 +131,10 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
 
     // Validate file
     const validation = validateFile(file);
+    debugLog.validation(fieldName, validation.valid, validation.error);
+    
     if (!validation.valid) {
+      addDebugMessage(`Validation failed for ${fieldName}: ${validation.error}`, 'error');
       setUploadState(prev => ({
         ...prev,
         [fieldName]: { ...prev[fieldName], error: validation.error || 'Invalid file' }
@@ -124,6 +142,8 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       setError(validation.error || 'File validation failed');
       return;
     }
+
+    addDebugMessage(`File validation passed for ${fieldName}`, 'success');
 
     // Set uploading state
     setUploadState(prev => ({
@@ -134,6 +154,9 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     try {
       const formDataForUpload = new FormData();
       formDataForUpload.append('file', file);
+
+      debugLog.upload(file.name, 'uploading', { fieldName });
+      addDebugMessage(`Starting upload for ${fieldName}...`, 'upload');
 
       // Simulate progress for better UX
       const progressInterval = setInterval(() => {
@@ -153,12 +176,17 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
 
       clearInterval(progressInterval);
 
+      debugLog.upload(file.name, 'response', { status: response.status, ok: response.ok });
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || `Upload failed with status ${response.status}`);
+        const errorMsg = errorData.error || `Upload failed with status ${response.status}`;
+        debugLog.error(`Upload failed: ${errorMsg}`, errorData);
+        throw new Error(errorMsg);
       }
 
       const data = await response.json();
+      debugLog.cmsResponse('file_upload', data);
 
       if (!data.fileUrl) {
         throw new Error('No file URL returned from server');
@@ -182,11 +210,17 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         }
       }));
 
+      addDebugMessage(`Upload successful for ${fieldName}`, 'success');
+      debugLog.upload(file.name, 'completed', { url: data.fileUrl });
+
       // Clear error message
       setError(null);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'File upload failed. Please try again.';
       
+      debugLog.error(`Upload error for ${fieldName}`, err);
+      addDebugMessage(`Upload failed: ${errorMessage}`, 'error');
+
       setUploadState(prev => ({
         ...prev,
         [fieldName]: {
@@ -229,6 +263,9 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    debugLog.buttonClick('Submit Application', formData);
+    addDebugMessage('Form submission started', 'info');
+    
     setIsSubmitting(true);
     setError(null);
     setSubmissionError(null);
@@ -236,22 +273,33 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     try {
       // Validate required fields (CV is now OPTIONAL)
       if (!formData.fullName || !formData.email || !formData.phone || !formData.country) {
-        setSubmissionError('Please fill in all required personal information fields.');
+        const validationError = 'Please fill in all required personal information fields.';
+        debugLog.validation('personal_info', false, validationError);
+        addDebugMessage(validationError, 'validation');
+        setSubmissionError(validationError);
         setIsSubmitting(false);
         return;
       }
 
       if (!formData.currentPosition || !formData.company || !formData.industry || !formData.yearsOfExperience) {
-        setSubmissionError('Please fill in all required professional background fields.');
+        const validationError = 'Please fill in all required professional background fields.';
+        debugLog.validation('professional_info', false, validationError);
+        addDebugMessage(validationError, 'validation');
+        setSubmissionError(validationError);
         setIsSubmitting(false);
         return;
       }
 
       if (!formData.professionalObjectives || !formData.strategicMotivation || !formData.preferredAvailability) {
-        setSubmissionError('Please fill in all required objectives and availability fields.');
+        const validationError = 'Please fill in all required objectives and availability fields.';
+        debugLog.validation('objectives', false, validationError);
+        addDebugMessage(validationError, 'validation');
+        setSubmissionError(validationError);
         setIsSubmitting(false);
         return;
       }
+
+      addDebugMessage('All validations passed', 'success');
 
       const newApplicationData = {
         _id: crypto.randomUUID(),
@@ -261,6 +309,8 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         _updatedDate: new Date()
       };
       
+      debugLog.info('Application data prepared', newApplicationData);
+      addDebugMessage(`Application ID: ${newApplicationData._id.substring(0, 12)}`, 'info');
       setApplicationData(newApplicationData);
 
       // Step 1: Save to CMS - with retry logic for mobile reliability
@@ -270,23 +320,39 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
 
       while (!cmsSuccess && retryCount < maxRetries) {
         try {
+          debugLog.info(`CMS save attempt ${retryCount + 1}/${maxRetries}`, newApplicationData._id);
+          addDebugMessage(`Saving to database (attempt ${retryCount + 1}/${maxRetries})...`, 'info');
+          
           await BaseCrudService.create('executivetrainingapplications', newApplicationData);
+          
           cmsSuccess = true;
+          debugLog.cmsResponse('create_application', { success: true, id: newApplicationData._id });
+          addDebugMessage('Successfully saved to database', 'cms');
         } catch (cmsError) {
           retryCount++;
+          const cmsErrorMsg = cmsError instanceof Error ? cmsError.message : 'CMS storage failed';
+          debugLog.error(`CMS error (attempt ${retryCount})`, cmsError);
+          addDebugMessage(`Database save failed (attempt ${retryCount}): ${cmsErrorMsg}`, 'error');
+          
           if (retryCount >= maxRetries) {
-            const cmsErrorMsg = cmsError instanceof Error ? cmsError.message : 'CMS storage failed';
-            setSubmissionError(`Failed to save application to database after ${maxRetries} attempts: ${cmsErrorMsg}`);
-            console.error('CMS error after retries:', cmsError);
+            const finalError = `Failed to save application to database after ${maxRetries} attempts: ${cmsErrorMsg}`;
+            setSubmissionError(finalError);
+            debugLog.error('CMS error after retries', cmsError);
+            addDebugMessage(finalError, 'error');
             setIsSubmitting(false);
             return;
           }
           // Wait before retry (exponential backoff)
-          await new Promise(resolve => setTimeout(resolve, 1000 * retryCount));
+          const waitTime = 1000 * retryCount;
+          debugLog.info(`Retrying in ${waitTime}ms`, retryCount);
+          await new Promise(resolve => setTimeout(resolve, waitTime));
         }
       }
 
       // Step 2: Send confirmation email to applicant (non-blocking)
+      debugLog.info('Sending applicant confirmation email', formData.email);
+      addDebugMessage('Sending confirmation email...', 'info');
+      
       fetch('/api/send-consultation-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -298,9 +364,17 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
           program: programName,
           message: `Dear ${formData.fullName},\n\nThank you for submitting your application to ${programName}. We have received your submission and our team will review it carefully.\n\nExpected response time: 3-5 business days.\n\nBest regards,\nJMC LEX Training Center`
         })
-      }).catch(err => console.warn('Applicant email error:', err));
+      }).then(res => {
+        debugLog.info('Applicant email sent', { status: res.status });
+        addDebugMessage('Confirmation email sent to applicant', 'success');
+      }).catch(err => {
+        debugLog.warn('Applicant email error', err);
+        addDebugMessage('Note: Confirmation email could not be sent', 'error');
+      });
 
       // Step 3: Send notification email to admin (non-blocking)
+      debugLog.info('Sending admin notification email', 'contact@jmclex.com');
+      
       fetch('/api/send-consultation-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -312,9 +386,16 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
           program: programName,
           message: `New Executive Training Application received:\n\nApplicant: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProgram: ${programName}\nLevel: ${formData.preferredProgramLevel}\nSession Format: ${formData.preferredSessionFormat}\nPreferred Language: ${formData.preferredLanguage}\nCV: ${formData.cvUpload}\nSupporting Documents: ${formData.supportingDocuments || 'None'}\n\nPlease review and follow up accordingly.`
         })
-      }).catch(err => console.warn('Admin email error:', err));
+      }).then(res => {
+        debugLog.info('Admin email sent', { status: res.status });
+      }).catch(err => {
+        debugLog.warn('Admin email error', err);
+      });
 
       // Success - show confirmation
+      debugLog.info('Form submission successful', newApplicationData._id);
+      addDebugMessage('✓ Application submitted successfully!', 'success');
+      
       setIsSuccess(true);
       setFormData({
         fullName: '',
@@ -345,6 +426,8 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       setTimeout(() => setIsSuccess(false), 8000);
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'Failed to submit application';
+      debugLog.error('Submission error', err);
+      addDebugMessage(`Submission failed: ${errorMsg}`, 'error');
       setSubmissionError(`Submission failed: ${errorMsg}`);
       console.error('Submission error:', err);
     } finally {
@@ -632,6 +715,23 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     );
   }
 
+  const getDebugMessageClass = (type: string) => {
+    switch (type) {
+      case 'error':
+        return 'bg-destructive/20 border-destructive text-destructive';
+      case 'success':
+        return 'bg-accent-gold/20 border-accent-gold text-accent-gold';
+      case 'validation':
+        return 'bg-yellow-500/20 border-yellow-500 text-yellow-700';
+      case 'upload':
+        return 'bg-blue-500/20 border-blue-500 text-blue-700';
+      case 'cms':
+        return 'bg-green-500/20 border-green-500 text-green-700';
+      default:
+        return 'bg-foreground/10 border-foreground/20 text-foreground';
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -640,6 +740,27 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       transition={{ duration: 0.8 }}
       className="space-y-8 md:space-y-10"
     >
+      {/* Debug Messages Display */}
+      {isDebugMode() && debugMessages.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="fixed top-4 right-4 z-50 max-w-sm space-y-2 max-h-96 overflow-y-auto"
+        >
+          {debugMessages.map((msg) => (
+            <motion.div
+              key={msg.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className={`p-3 rounded text-xs font-paragraph backdrop-blur-sm border ${getDebugMessageClass(msg.type)}`}
+            >
+              {msg.message}
+            </motion.div>
+          ))}
+        </motion.div>
+      )}
+
       {/* Form Header */}
       <div className="bg-secondary rounded-lg p-6 md:p-8 lg:p-10 border border-accent-gold/20">
         <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3 md:mb-4">Executive Application</h2>
