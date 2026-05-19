@@ -34,27 +34,53 @@ export default function TrainingPage() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative w-full bg-secondary overflow-hidden pt-20 pb-16 md:pt-28 md:pb-20">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
+      <section className="relative w-full bg-foreground overflow-hidden pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-40 lg:pb-32">
+        {/* Subtle background accent */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-accent-gold rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent-gold rounded-full blur-3xl"></div>
+        </div>
+
+        <div className="relative max-w-[100rem] mx-auto px-6 md:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
             className="text-center"
           >
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight mb-6 md:mb-8">
-              Executive Legal Training & Certification
-            </h1>
-            
-            <motion.p
+            {/* Overline */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="font-paragraph text-base md:text-lg text-foreground/80 max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed"
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="mb-6 md:mb-8"
             >
-              Premium, selective programs designed for legal professionals, executives, and strategic decision-makers seeking advanced expertise.
+              <span className="inline-block font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold font-semibold">
+                Executive Legal Education
+              </span>
+            </motion.div>
+
+            {/* Main Title */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.2 }}
+              className="font-heading text-4xl md:text-5xl lg:text-7xl text-secondary leading-tight md:leading-tight lg:leading-tight mb-8 md:mb-10 lg:mb-12 max-w-5xl mx-auto"
+            >
+              Elite Legal Experts Transferring Years of Strategic Knowledge in Six Hours
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3 }}
+              className="font-paragraph text-base md:text-lg lg:text-xl text-secondary/90 max-w-3xl mx-auto mb-12 md:mb-14 lg:mb-16 leading-relaxed"
+            >
+              Private executive legal training and certification programs for professionals, executives, legal departments, investors, and business leaders.
             </motion.p>
 
+            {/* CTA Button */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -62,9 +88,10 @@ export default function TrainingPage() {
             >
               <Link
                 to="#programs"
-                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
+                className="inline-flex items-center gap-3 bg-accent-gold text-foreground font-paragraph font-semibold px-8 md:px-10 py-4 md:py-5 rounded transition-all duration-300 hover:bg-accent-gold/90 hover:scale-105 active:scale-95"
               >
-                Explore Programs <ArrowRight className="w-5 h-5" />
+                Explore Executive Programs
+                <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
               </Link>
             </motion.div>
           </motion.div>
