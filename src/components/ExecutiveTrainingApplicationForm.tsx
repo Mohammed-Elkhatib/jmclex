@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, ArrowRight, CheckCircle, Clock, Phone, Award, CreditCard } from 'lucide-react';
+import { Upload, ArrowRight, CheckCircle, Clock, Phone, Award, CreditCard, AlertCircle, Loader, X, FileText } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { useLanguageStore } from '@/lib/language-store';
 
@@ -9,11 +9,37 @@ interface ExecutiveTrainingApplicationFormProps {
   onSuccess?: () => void;
 }
 
+interface UploadState {
+  cvUpload: {
+    url: string;
+    fileName: string;
+    isUploading: boolean;
+    error: string | null;
+    progress: number;
+  };
+  supportingDocuments: {
+    url: string;
+    fileName: string;
+    isUploading: boolean;
+    error: string | null;
+    progress: number;
+  };
+}
+
 export default function ExecutiveTrainingApplicationForm({ programName, onSuccess }: ExecutiveTrainingApplicationFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
   const { language } = useLanguageStore();
+  
+  const cvInputRef = useRef<HTMLInputElement>(null);
+  const docsInputRef = useRef<HTMLInputElement>(null);
+
+  const [uploadState, setUploadState] = useState<UploadState>({
+    cvUpload: { url: '', fileName: '', isUploading: false, error: null, progress: 0 },
+    supportingDocuments: { url: '', fileName: '', isUploading: false, error: null, progress: 0 }
+  });
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -44,43 +70,159 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     }));
   };
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, fieldName: 'cvUpload' | 'supportingDocuments') => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const validateFile = (file: File): { valid: boolean; error?: string } => {
+    // Validate file type - check both MIME type and extension
+    const allowedMimeTypes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-word.document.macroEnabled.12'
+    ];
+    
+    const fileName = file.name.toLowerCase();
+    const allowedExtensions = ['.pdf', '.doc', '.docx'];
+    const hasValidExtension = allowedExtensions.some(ext => fileName.endsWith(ext));
 
-    // Validate file type
-    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-    if (!allowedTypes.includes(file.type)) {
-      setError('Please upload a PDF or DOC file.');
-      return;
+    // Check MIME type OR extension (for mobile compatibility)
+    if (!allowedMimeTypes.includes(file.type) && !hasValidExtension) {
+      return { 
+        valid: false, 
+        error: `Invalid file type. Only PDF and Word documents are allowed. Received: ${file.type || 'unknown'}` 
+      };
     }
 
     // Validate file size (max 10MB)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      setError('File size must be less than 10MB.');
+      return { 
+        valid: false, 
+        error: `File size must be less than 10MB. Your file is ${(file.size / 1024 / 1024).toFixed(2)}MB.` 
+      };
+    }
+
+    return { valid: true };
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, fieldName: 'cvUpload' | 'supportingDocuments') => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Clear previous errors for this field
+    setUploadState(prev => ({
+      ...prev,
+      [fieldName]: { ...prev[fieldName], error: null }
+    }));
+
+    // Validate file
+    const validation = validateFile(file);
+    if (!validation.valid) {
+      setUploadState(prev => ({
+        ...prev,
+        [fieldName]: { ...prev[fieldName], error: validation.error || 'Invalid file' }
+      }));
+      setError(validation.error || 'File validation failed');
       return;
     }
+
+    // Set uploading state
+    setUploadState(prev => ({
+      ...prev,
+      [fieldName]: { ...prev[fieldName], isUploading: true, progress: 0 }
+    }));
 
     try {
       const formDataForUpload = new FormData();
       formDataForUpload.append('file', file);
+
+      // Simulate progress for better UX
+      const progressInterval = setInterval(() => {
+        setUploadState(prev => ({
+          ...prev,
+          [fieldName]: { 
+            ...prev[fieldName], 
+            progress: Math.min(prev[fieldName].progress + Math.random() * 30, 90) 
+          }
+        }));
+      }, 200);
 
       const response = await fetch('/api/upload', {
         method: 'POST',
         body: formDataForUpload
       });
 
-      if (!response.ok) throw new Error('Upload failed');
+      clearInterval(progressInterval);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Upload failed with status ${response.status}`);
+      }
+
       const data = await response.json();
-      
+
+      if (!data.fileUrl) {
+        throw new Error('No file URL returned from server');
+      }
+
+      // Update form data with file URL
       setFormData(prev => ({
         ...prev,
-        [fieldName]: data.url
+        [fieldName]: data.fileUrl
       }));
+
+      // Update upload state with success
+      setUploadState(prev => ({
+        ...prev,
+        [fieldName]: {
+          url: data.fileUrl,
+          fileName: file.name,
+          isUploading: false,
+          error: null,
+          progress: 100
+        }
+      }));
+
+      // Clear error message
+      setError(null);
     } catch (err) {
-      setError('File upload failed. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : 'File upload failed. Please try again.';
+      
+      setUploadState(prev => ({
+        ...prev,
+        [fieldName]: {
+          ...prev[fieldName],
+          isUploading: false,
+          error: errorMessage,
+          progress: 0
+        }
+      }));
+
+      setError(`Upload error for ${fieldName === 'cvUpload' ? 'CV' : 'supporting documents'}: ${errorMessage}`);
       console.error('Upload error:', err);
+    }
+  };
+
+  const removeFile = (fieldName: 'cvUpload' | 'supportingDocuments') => {
+    setFormData(prev => ({
+      ...prev,
+      [fieldName]: ''
+    }));
+
+    setUploadState(prev => ({
+      ...prev,
+      [fieldName]: {
+        url: '',
+        fileName: '',
+        isUploading: false,
+        error: null,
+        progress: 0
+      }
+    }));
+
+    // Reset file input
+    if (fieldName === 'cvUpload' && cvInputRef.current) {
+      cvInputRef.current.value = '';
+    } else if (fieldName === 'supportingDocuments' && docsInputRef.current) {
+      docsInputRef.current.value = '';
     }
   };
 
@@ -88,8 +230,35 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+    setSubmissionError(null);
 
     try {
+      // Validate required CV upload
+      if (!formData.cvUpload) {
+        setSubmissionError('CV upload is required. Please upload your CV before submitting.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // Validate required fields
+      if (!formData.fullName || !formData.email || !formData.phone || !formData.country) {
+        setSubmissionError('Please fill in all required personal information fields.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.currentPosition || !formData.company || !formData.industry || !formData.yearsOfExperience) {
+        setSubmissionError('Please fill in all required professional background fields.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.professionalObjectives || !formData.strategicMotivation || !formData.preferredAvailability) {
+        setSubmissionError('Please fill in all required objectives and availability fields.');
+        setIsSubmitting(false);
+        return;
+      }
+
       const applicationData = {
         _id: crypto.randomUUID(),
         ...formData,
@@ -98,36 +267,62 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         _updatedDate: new Date()
       };
 
-      await BaseCrudService.create('executivetrainingapplications', applicationData);
+      // Step 1: Save to CMS
+      try {
+        await BaseCrudService.create('executivetrainingapplications', applicationData);
+      } catch (cmsError) {
+        const cmsErrorMsg = cmsError instanceof Error ? cmsError.message : 'CMS storage failed';
+        setSubmissionError(`Failed to save application to database: ${cmsErrorMsg}`);
+        console.error('CMS error:', cmsError);
+        setIsSubmitting(false);
+        return;
+      }
 
-      // Send email notification to applicant
-      await fetch('/api/send-consultation-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: formData.email,
-          subject: `Executive Training Application Received - ${programName}`,
-          applicantName: formData.fullName,
-          applicantEmail: formData.email,
-          program: programName,
-          message: `Dear ${formData.fullName},\n\nThank you for submitting your application to ${programName}. We have received your submission and our team will review it carefully.\n\nExpected response time: 3-5 business days.\n\nBest regards,\nJMC LEX Training Center`
-        })
-      });
+      // Step 2: Send confirmation email to applicant
+      try {
+        const applicantEmailResponse = await fetch('/api/send-consultation-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: formData.email,
+            subject: `Executive Training Application Received - ${programName}`,
+            applicantName: formData.fullName,
+            applicantEmail: formData.email,
+            program: programName,
+            message: `Dear ${formData.fullName},\n\nThank you for submitting your application to ${programName}. We have received your submission and our team will review it carefully.\n\nExpected response time: 3-5 business days.\n\nBest regards,\nJMC LEX Training Center`
+          })
+        });
 
-      // Send email notification to admin
-      await fetch('/api/send-consultation-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: 'contact@jmclex.com',
-          subject: `New Executive Training Application - ${programName}`,
-          applicantName: formData.fullName,
-          applicantEmail: formData.email,
-          program: programName,
-          message: `New Executive Training Application received:\n\nApplicant: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProgram: ${programName}\nLevel: ${formData.preferredProgramLevel}\nSession Format: ${formData.preferredSessionFormat}\nPreferred Language: ${formData.preferredLanguage}\n\nPlease review and follow up accordingly.`
-        })
-      });
+        if (!applicantEmailResponse.ok) {
+          console.warn('Applicant confirmation email failed, but application was saved');
+        }
+      } catch (emailError) {
+        console.warn('Applicant email error:', emailError);
+      }
 
+      // Step 3: Send notification email to admin
+      try {
+        const adminEmailResponse = await fetch('/api/send-consultation-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            to: 'contact@jmclex.com',
+            subject: `New Executive Training Application - ${programName}`,
+            applicantName: formData.fullName,
+            applicantEmail: formData.email,
+            program: programName,
+            message: `New Executive Training Application received:\n\nApplicant: ${formData.fullName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nProgram: ${programName}\nLevel: ${formData.preferredProgramLevel}\nSession Format: ${formData.preferredSessionFormat}\nPreferred Language: ${formData.preferredLanguage}\nCV: ${formData.cvUpload}\nSupporting Documents: ${formData.supportingDocuments || 'None'}\n\nPlease review and follow up accordingly.`
+          })
+        });
+
+        if (!adminEmailResponse.ok) {
+          console.warn('Admin notification email failed, but application was saved');
+        }
+      } catch (emailError) {
+        console.warn('Admin email error:', emailError);
+      }
+
+      // Success - show confirmation
       setIsSuccess(true);
       setFormData({
         fullName: '',
@@ -147,11 +342,17 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         internalReviewStatus: 'Pending Review'
       });
 
+      setUploadState({
+        cvUpload: { url: '', fileName: '', isUploading: false, error: null, progress: 0 },
+        supportingDocuments: { url: '', fileName: '', isUploading: false, error: null, progress: 0 }
+      });
+
       if (onSuccess) onSuccess();
 
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (err) {
-      setError('Failed to submit application. Please try again.');
+      const errorMsg = err instanceof Error ? err.message : 'Failed to submit application';
+      setSubmissionError(`Submission failed: ${errorMsg}`);
       console.error('Submission error:', err);
     } finally {
       setIsSubmitting(false);
@@ -622,72 +823,249 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
             Upload your professional documents. Supported formats: PDF, DOC, DOCX. Maximum file size: 10MB.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            {/* CV Upload */}
             <div>
               <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">CV Upload *</label>
-              <div className="relative">
-                <input
-                  type="file"
-                  onChange={(e) => handleFileUpload(e, 'cvUpload')}
-                  accept=".pdf,.doc,.docx"
-                  className="hidden"
-                  id="cv-upload"
-                  required={!formData.cvUpload}
-                />
-                <label
-                  htmlFor="cv-upload"
-                  className="flex items-center justify-center gap-2 w-full bg-background border-2 border-dashed border-accent-gold/30 rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer hover:border-accent-gold transition-colors"
-                >
-                  <Upload className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
-                  <span className="font-paragraph text-xs md:text-sm text-foreground/80">
-                    {formData.cvUpload ? 'CV Uploaded ✓' : 'Upload CV (PDF, DOC)'}
-                  </span>
-                </label>
+              <div className="space-y-2">
+                <div className="relative">
+                  <input
+                    ref={cvInputRef}
+                    type="file"
+                    onChange={(e) => handleFileUpload(e, 'cvUpload')}
+                    accept=".pdf,.doc,.docx"
+                    className="hidden"
+                    id="cv-upload"
+                    disabled={uploadState.cvUpload.isUploading}
+                  />
+                  <label
+                    htmlFor="cv-upload"
+                    className={`flex items-center justify-center gap-2 w-full border-2 border-dashed rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer transition-all ${
+                      uploadState.cvUpload.isUploading
+                        ? 'bg-foreground/5 border-accent-gold/20 cursor-not-allowed'
+                        : uploadState.cvUpload.error
+                        ? 'bg-destructive/5 border-destructive'
+                        : uploadState.cvUpload.url
+                        ? 'bg-accent-gold/5 border-accent-gold'
+                        : 'bg-background border-accent-gold/30 hover:border-accent-gold'
+                    }`}
+                  >
+                    {uploadState.cvUpload.isUploading ? (
+                      <>
+                        <Loader className="w-4 md:w-5 h-4 md:h-5 text-accent-gold animate-spin flex-shrink-0" />
+                        <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                          Uploading... {Math.round(uploadState.cvUpload.progress)}%
+                        </span>
+                      </>
+                    ) : uploadState.cvUpload.url ? (
+                      <>
+                        <FileText className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
+                        <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                          {uploadState.cvUpload.fileName}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
+                        <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                          Click to upload CV (PDF, DOC, DOCX)
+                        </span>
+                      </>
+                    )}
+                  </label>
+                </div>
+
+                {/* Upload Progress Bar */}
+                {uploadState.cvUpload.isUploading && uploadState.cvUpload.progress > 0 && (
+                  <div className="w-full bg-foreground/10 rounded-full h-1.5 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${uploadState.cvUpload.progress}%` }}
+                      className="h-full bg-accent-gold"
+                    />
+                  </div>
+                )}
+
+                {/* File Attached Indicator */}
+                {uploadState.cvUpload.url && !uploadState.cvUpload.isUploading && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center justify-between bg-accent-gold/10 border border-accent-gold/30 rounded px-3 py-2"
+                  >
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent-gold flex-shrink-0" />
+                      <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                        ✓ {uploadState.cvUpload.fileName} attached
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFile('cvUpload')}
+                      className="text-foreground/60 hover:text-foreground transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </motion.div>
+                )}
+
+                {/* Upload Error */}
+                {uploadState.cvUpload.error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-start gap-2 bg-destructive/10 border border-destructive/30 rounded px-3 py-2"
+                  >
+                    <AlertCircle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
+                    <span className="font-paragraph text-xs text-destructive">{uploadState.cvUpload.error}</span>
+                  </motion.div>
+                )}
               </div>
             </div>
+
+            {/* Supporting Documents Upload */}
             <div>
               <label className="block font-paragraph text-xs md:text-sm text-foreground font-medium mb-2">Supporting Documents <span className="text-foreground/50">(Optional)</span></label>
-              <div className="relative">
-                <input
-                  type="file"
-                  onChange={(e) => handleFileUpload(e, 'supportingDocuments')}
-                  accept=".pdf,.doc,.docx"
-                  className="hidden"
-                  id="docs-upload"
-                />
-                <label
-                  htmlFor="docs-upload"
-                  className="flex items-center justify-center gap-2 w-full bg-background border-2 border-dashed border-accent-gold/30 rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer hover:border-accent-gold transition-colors"
-                >
-                  <Upload className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
-                  <span className="font-paragraph text-xs md:text-sm text-foreground/80">
-                    {formData.supportingDocuments ? 'Documents Uploaded ✓' : 'Upload Documents (Optional)'}
-                  </span>
-                </label>
+              <div className="space-y-2">
+                <div className="relative">
+                  <input
+                    ref={docsInputRef}
+                    type="file"
+                    onChange={(e) => handleFileUpload(e, 'supportingDocuments')}
+                    accept=".pdf,.doc,.docx"
+                    className="hidden"
+                    id="docs-upload"
+                    disabled={uploadState.supportingDocuments.isUploading}
+                  />
+                  <label
+                    htmlFor="docs-upload"
+                    className={`flex items-center justify-center gap-2 w-full border-2 border-dashed rounded px-3 md:px-4 py-4 md:py-6 cursor-pointer transition-all ${
+                      uploadState.supportingDocuments.isUploading
+                        ? 'bg-foreground/5 border-accent-gold/20 cursor-not-allowed'
+                        : uploadState.supportingDocuments.error
+                        ? 'bg-destructive/5 border-destructive'
+                        : uploadState.supportingDocuments.url
+                        ? 'bg-accent-gold/5 border-accent-gold'
+                        : 'bg-background border-accent-gold/30 hover:border-accent-gold'
+                    }`}
+                  >
+                    {uploadState.supportingDocuments.isUploading ? (
+                      <>
+                        <Loader className="w-4 md:w-5 h-4 md:h-5 text-accent-gold animate-spin flex-shrink-0" />
+                        <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                          Uploading... {Math.round(uploadState.supportingDocuments.progress)}%
+                        </span>
+                      </>
+                    ) : uploadState.supportingDocuments.url ? (
+                      <>
+                        <FileText className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
+                        <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                          {uploadState.supportingDocuments.fileName}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 md:w-5 h-4 md:h-5 text-accent-gold flex-shrink-0" />
+                        <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                          Click to upload documents (Optional)
+                        </span>
+                      </>
+                    )}
+                  </label>
+                </div>
+
+                {/* Upload Progress Bar */}
+                {uploadState.supportingDocuments.isUploading && uploadState.supportingDocuments.progress > 0 && (
+                  <div className="w-full bg-foreground/10 rounded-full h-1.5 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${uploadState.supportingDocuments.progress}%` }}
+                      className="h-full bg-accent-gold"
+                    />
+                  </div>
+                )}
+
+                {/* File Attached Indicator */}
+                {uploadState.supportingDocuments.url && !uploadState.supportingDocuments.isUploading && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-center justify-between bg-accent-gold/10 border border-accent-gold/30 rounded px-3 py-2"
+                  >
+                    <div className="flex items-center gap-2">
+                      <CheckCircle className="w-4 h-4 text-accent-gold flex-shrink-0" />
+                      <span className="font-paragraph text-xs md:text-sm text-foreground/80">
+                        ✓ {uploadState.supportingDocuments.fileName} attached
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeFile('supportingDocuments')}
+                      className="text-foreground/60 hover:text-foreground transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </motion.div>
+                )}
+
+                {/* Upload Error */}
+                {uploadState.supportingDocuments.error && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="flex items-start gap-2 bg-destructive/10 border border-destructive/30 rounded px-3 py-2"
+                  >
+                    <AlertCircle className="w-4 h-4 text-destructive flex-shrink-0 mt-0.5" />
+                    <span className="font-paragraph text-xs text-destructive">{uploadState.supportingDocuments.error}</span>
+                  </motion.div>
+                )}
               </div>
             </div>
           </div>
         </div>
 
+        {/* General Error Message */}
         {error && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="bg-destructive/10 border border-destructive rounded-lg p-3 md:p-4"
+            className="bg-destructive/10 border border-destructive rounded-lg p-3 md:p-4 flex items-start gap-3"
           >
+            <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
             <p className="font-paragraph text-xs md:text-sm text-destructive">{error}</p>
+          </motion.div>
+        )}
+
+        {/* Submission Error Message */}
+        {submissionError && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-destructive/10 border border-destructive rounded-lg p-3 md:p-4 flex items-start gap-3"
+          >
+            <AlertCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+            <p className="font-paragraph text-xs md:text-sm text-destructive">{submissionError}</p>
           </motion.div>
         )}
 
         {/* Submit Button */}
         <motion.button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || uploadState.cvUpload.isUploading || uploadState.supportingDocuments.isUploading}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm md:text-base"
         >
-          {isSubmitting ? 'Submitting...' : 'Submit Application'}
-          {!isSubmitting && <ArrowRight className="w-4 md:w-5 h-4 md:h-5" />}
+          {isSubmitting ? (
+            <>
+              <Loader className="w-4 md:w-5 h-4 md:h-5 animate-spin" />
+              Submitting...
+            </>
+          ) : (
+            <>
+              Submit Application
+              <ArrowRight className="w-4 md:w-5 h-4 md:h-5" />
+            </>
+          )}
         </motion.button>
 
         <p className="font-paragraph text-xs text-foreground/60 text-center">

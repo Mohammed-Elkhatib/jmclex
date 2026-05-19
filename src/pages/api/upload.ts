@@ -35,28 +35,24 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Validate file type
+    // Validate file type - check both MIME type and extension for mobile compatibility
     const allowedMimeTypes = [
       'application/pdf',
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-word.document.macroEnabled.12',
     ];
 
-    if (!allowedMimeTypes.includes(file.type)) {
-      return new Response(
-        JSON.stringify({ error: 'Invalid file type. Only PDF and Word documents are allowed.' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Validate file extension
     const fileName = file.name.toLowerCase();
     const allowedExtensions = ['.pdf', '.doc', '.docx'];
     const hasValidExtension = allowedExtensions.some(ext => fileName.endsWith(ext));
 
-    if (!hasValidExtension) {
+    // Check MIME type OR extension (for mobile compatibility where MIME types may not be reliable)
+    if (!allowedMimeTypes.includes(file.type) && !hasValidExtension) {
       return new Response(
-        JSON.stringify({ error: 'Invalid file extension. Only PDF and Word documents are allowed.' }),
+        JSON.stringify({ 
+          error: `Invalid file type. Only PDF and Word documents are allowed. Received: ${file.type || 'unknown'}` 
+        }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
@@ -72,6 +68,7 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({
         success: true,
+        url: fileReference,
         fileUrl: fileReference,
         fileName: file.name,
         fileSize: file.size,
