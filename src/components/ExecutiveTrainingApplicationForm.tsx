@@ -48,6 +48,20 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Validate file type
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Please upload a PDF or DOC file.');
+      return;
+    }
+
+    // Validate file size (max 10MB)
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      setError('File size must be less than 10MB.');
+      return;
+    }
+
     try {
       const formDataForUpload = new FormData();
       formDataForUpload.append('file', file);
@@ -604,6 +618,9 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
         {/* Document Upload Section */}
         <div>
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Documents</h3>
+          <p className="font-paragraph text-xs md:text-sm text-foreground/70 mb-6">
+            Upload your professional documents. Supported formats: PDF, DOC, DOCX. Maximum file size: 10MB.
+          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             <div>
               <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">CV Upload *</label>
@@ -628,7 +645,7 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
               </div>
             </div>
             <div>
-              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Supporting Documents</label>
+              <label className="block font-paragraph text-xs md:text-sm text-foreground/80 mb-2">Supporting Documents <span className="text-foreground/50">(Optional)</span></label>
               <div className="relative">
                 <input
                   type="file"
