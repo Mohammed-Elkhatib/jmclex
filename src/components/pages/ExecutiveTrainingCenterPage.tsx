@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, CheckCircle, Clock, Phone, FileCheck, CreditCard } from 'lucide-react';
@@ -8,7 +9,9 @@ import ExecutiveApplicationForm from '@/components/ExecutiveApplicationForm';
 import PremiumPricingSection from '@/components/PremiumPricingSection';
 
 export default function ExecutiveTrainingCenterPage() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'application' | 'process' | 'pricing'>('overview');
+  const [searchParams] = useSearchParams();
+  const tabParam = searchParams.get('tab') as 'overview' | 'application' | 'process' | 'pricing' | null;
+  const [activeTab, setActiveTab] = useState<'overview' | 'application' | 'process' | 'pricing'>(tabParam || 'overview');
 
   const processSteps = [
     {
@@ -74,6 +77,13 @@ export default function ExecutiveTrainingCenterPage() {
       description: 'Programs available in English and French for global professionals'
     }
   ];
+
+  // Sync activeTab with URL parameter on mount
+  useEffect(() => {
+    if (tabParam) {
+      setActiveTab(tabParam);
+    }
+  }, [tabParam]);
 
   return (
     <div className="min-h-screen bg-background">

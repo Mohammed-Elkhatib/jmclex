@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, Clock, Globe, Award, CheckCircle, BookOpen } from 'lucide-react';
-import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
+import { BaseCrudService, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,7 +12,6 @@ import PremiumPricingSection from '@/components/PremiumPricingSection';
 export default function TrainingPage() {
   const [courses, setCourses] = useState<TrainingCourses[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const { addingItemId, actions } = useCart();
   const { currency } = useCurrency();
 
   useEffect(() => {
@@ -315,8 +314,6 @@ export default function TrainingPage() {
                     key={course._id}
                     course={course}
                     index={index}
-                    addingItemId={addingItemId}
-                    actions={actions}
                     currency={currency}
                   />
                 ))}
@@ -403,7 +400,7 @@ export default function TrainingPage() {
 }
 
 // Course Card Component
-function CourseCard({ course, index, addingItemId, actions, currency }: any) {
+function CourseCard({ course, index, currency }: any) {
   return (
     <motion.div
       id={`course-${course._id}`}
@@ -453,18 +450,12 @@ function CourseCard({ course, index, addingItemId, actions, currency }: any) {
             View Details
           </Link>
           
-          <button
-            onClick={() => {
-              actions.addToCart({ 
-                collectionId: 'trainingcourses', 
-                itemId: course._id 
-              });
-            }}
-            disabled={addingItemId === course._id}
-            className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-3 sm:px-4 md:px-5 py-2 md:py-3 rounded transition-all hover:scale-105 disabled:opacity-50 text-xs sm:text-sm md:text-base"
+          <Link
+            to="/executive-training-center?tab=application"
+            className="w-full bg-foreground text-background font-paragraph font-semibold px-3 sm:px-4 md:px-5 py-2 md:py-3 rounded transition-all hover:scale-105 text-xs sm:text-sm md:text-base text-center block"
           >
-            {addingItemId === course._id ? 'Adding...' : 'Apply / Enroll'}
-          </button>
+            Request Enrollment
+          </Link>
         </div>
       </div>
     </motion.div>

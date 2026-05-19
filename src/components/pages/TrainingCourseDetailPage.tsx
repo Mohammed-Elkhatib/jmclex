@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { ArrowRight, ArrowLeft, Clock, Globe, Award, BookOpen, CheckCircle, Lock, Users, Briefcase } from 'lucide-react';
-import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
+import { BaseCrudService, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -16,7 +16,6 @@ export default function TrainingCourseDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'structure' | 'certification' | 'confidentiality'>('overview');
-  const { addingItemId, actions } = useCart();
   const { currency } = useCurrency();
 
   useEffect(() => {
@@ -514,16 +513,10 @@ export default function TrainingCourseDetailPage() {
 
                 <div className="space-y-2 md:space-y-3 mb-4 sm:mb-6 md:mb-8">
                   <button
-                    onClick={() => {
-                      actions.addToCart({
-                        collectionId: 'trainingcourses',
-                        itemId: course._id
-                      });
-                    }}
-                    disabled={addingItemId === course._id}
-                    className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-3 sm:px-4 md:px-5 py-2 md:py-3 lg:py-4 rounded transition-all hover:scale-105 disabled:opacity-50 text-xs sm:text-sm md:text-base"
+                    onClick={() => setShowApplicationForm(!showApplicationForm)}
+                    className="w-full bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-3 sm:px-4 md:px-5 py-2 md:py-3 lg:py-4 rounded transition-all hover:scale-105 text-xs sm:text-sm md:text-base"
                   >
-                    {addingItemId === course._id ? 'Adding to Cart...' : 'Add to Cart'}
+                    Request Enrollment
                   </button>
 
                   <button
