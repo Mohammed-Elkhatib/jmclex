@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Upload, ArrowRight, CheckCircle } from 'lucide-react';
+import { Upload, ArrowRight, CheckCircle, Clock, Phone, Award, CreditCard } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { useLanguageStore } from '@/lib/language-store';
 
@@ -145,32 +145,212 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
   };
 
   if (isSuccess) {
+    const processSteps = [
+      {
+        number: 1,
+        title: 'Application',
+        description: 'Your application has been submitted',
+        icon: CheckCircle,
+        status: 'completed'
+      },
+      {
+        number: 2,
+        title: '72-Hour Review',
+        description: 'Executive team review',
+        icon: Clock,
+        status: 'pending'
+      },
+      {
+        number: 3,
+        title: 'Consultation Call',
+        description: 'Confidential discussion',
+        icon: Phone,
+        status: 'pending'
+      },
+      {
+        number: 4,
+        title: 'Approval',
+        description: 'Program confirmation',
+        icon: Award,
+        status: 'pending'
+      },
+      {
+        number: 5,
+        title: 'Payment',
+        description: 'Secure payment processing',
+        icon: CreditCard,
+        status: 'pending'
+      }
+    ];
+
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-accent-gold/10 border border-accent-gold rounded-lg p-6 md:p-8 lg:p-12 text-center"
+        className="space-y-8 md:space-y-10"
       >
-        <CheckCircle className="w-12 md:w-14 lg:w-16 h-12 md:h-14 lg:h-16 text-accent-gold mx-auto mb-4 md:mb-6" />
-        <h3 className="font-heading text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4">Application Submitted Successfully</h3>
-        <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-4 md:mb-6">
-          Thank you for your application to {programName}. Your submission has been received and will be reviewed by our executive team.
-        </p>
-        <div className="bg-background rounded-lg p-4 md:p-6 mb-4 md:mb-6 text-left space-y-2 md:space-y-3">
-          <p className="font-paragraph text-xs md:text-sm text-foreground/80">
-            <span className="font-semibold text-foreground">Confirmation emails have been sent to:</span>
+        {/* Success Message */}
+        <div className="bg-accent-gold/10 border border-accent-gold rounded-lg p-6 md:p-8 lg:p-12 text-center">
+          <CheckCircle className="w-12 md:w-14 lg:w-16 h-12 md:h-14 lg:h-16 text-accent-gold mx-auto mb-4 md:mb-6" />
+          <h3 className="font-heading text-2xl md:text-3xl lg:text-4xl text-foreground mb-3 md:mb-4">Application Submitted Successfully</h3>
+          <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-4 md:mb-6">
+            Thank you for your application to {programName}. Your submission has been received and will be reviewed by our executive team.
           </p>
-          <ul className="space-y-1 md:space-y-2 ml-4">
-            <li className="font-paragraph text-xs md:text-sm text-foreground/80">✓ Your email: {formData.email}</li>
-            <li className="font-paragraph text-xs md:text-sm text-foreground/80">✓ Our team: contact@jmclex.com</li>
-          </ul>
+          <div className="bg-background rounded-lg p-4 md:p-6 mb-4 md:mb-6 text-left space-y-2 md:space-y-3">
+            <p className="font-paragraph text-xs md:text-sm text-foreground/80">
+              <span className="font-semibold text-foreground">Confirmation emails have been sent to:</span>
+            </p>
+            <ul className="space-y-1 md:space-y-2 ml-4">
+              <li className="font-paragraph text-xs md:text-sm text-foreground/80">✓ Your email: {formData.email}</li>
+              <li className="font-paragraph text-xs md:text-sm text-foreground/80">✓ Our team: contact@jmclex.com</li>
+            </ul>
+          </div>
         </div>
-        <p className="font-paragraph text-sm md:text-base text-foreground/70 mb-3 md:mb-4">
-          <span className="font-semibold text-foreground">Expected response time:</span> 72 hours
-        </p>
-        <p className="font-paragraph text-xs md:text-sm text-foreground/60">
-          Our team will contact you to discuss your application, confirm your eligibility, and arrange a confidential consultation call to finalize enrollment details and payment arrangements.
-        </p>
+
+        {/* Process Timeline */}
+        <div className="bg-secondary rounded-lg p-6 md:p-8 lg:p-10">
+          <h3 className="font-heading text-2xl md:text-3xl text-foreground mb-8 md:mb-10 text-center">Executive Application Process</h3>
+          
+          <div className="space-y-4 md:space-y-6">
+            {processSteps.map((step, index) => {
+              const StepIcon = step.icon;
+              const isCompleted = step.status === 'completed';
+              const isPending = step.status === 'pending';
+              
+              return (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="flex items-start gap-4 md:gap-6"
+                >
+                  {/* Step Indicator */}
+                  <div className="flex flex-col items-center">
+                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center font-heading text-sm md:text-base font-semibold transition-all ${
+                      isCompleted 
+                        ? 'bg-accent-gold text-secondary-foreground' 
+                        : isPending 
+                        ? 'bg-foreground/10 text-foreground/60' 
+                        : 'bg-foreground/5 text-foreground/40'
+                    }`}>
+                      <StepIcon className="w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                    {index < processSteps.length - 1 && (
+                      <div className={`w-0.5 h-12 md:h-16 mt-2 ${
+                        isCompleted ? 'bg-accent-gold' : 'bg-foreground/10'
+                      }`}></div>
+                    )}
+                  </div>
+
+                  {/* Step Content */}
+                  <div className="flex-1 pt-1 md:pt-2">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="font-heading text-base md:text-lg text-foreground">{step.title}</h4>
+                      {isCompleted && (
+                        <span className="inline-block bg-accent-gold/20 text-accent-gold px-2 md:px-3 py-0.5 rounded text-xs font-medium">Completed</span>
+                      )}
+                      {isPending && (
+                        <span className="inline-block bg-foreground/10 text-foreground/70 px-2 md:px-3 py-0.5 rounded text-xs font-medium">Pending</span>
+                      )}
+                    </div>
+                    <p className="font-paragraph text-sm md:text-base text-foreground/70">{step.description}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Timeline Details */}
+          <div className="mt-8 md:mt-10 pt-8 md:pt-10 border-t border-foreground/10 space-y-4 md:space-y-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-background rounded-lg p-4 md:p-5 border border-accent-gold/20"
+              >
+                <div className="flex items-start gap-3 md:gap-4">
+                  <Clock className="w-5 h-5 md:w-6 md:h-6 text-accent-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-heading text-sm md:text-base text-foreground mb-1">72-Hour Review</p>
+                    <p className="font-paragraph text-xs md:text-sm text-foreground/70">Our executive team will carefully review your application and qualifications.</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="bg-background rounded-lg p-4 md:p-5 border border-accent-gold/20"
+              >
+                <div className="flex items-start gap-3 md:gap-4">
+                  <Phone className="w-5 h-5 md:w-6 md:h-6 text-accent-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-heading text-sm md:text-base text-foreground mb-1">Confidential Consultation</p>
+                    <p className="font-paragraph text-xs md:text-sm text-foreground/70">Schedule a private call to discuss your program preferences and objectives.</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="bg-background rounded-lg p-4 md:p-5 border border-accent-gold/20"
+              >
+                <div className="flex items-start gap-3 md:gap-4">
+                  <Award className="w-5 h-5 md:w-6 md:h-6 text-accent-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-heading text-sm md:text-base text-foreground mb-1">Approval & Enrollment</p>
+                    <p className="font-paragraph text-xs md:text-sm text-foreground/70">Upon approval, we'll confirm your enrollment and program details.</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="bg-background rounded-lg p-4 md:p-5 border border-accent-gold/20"
+              >
+                <div className="flex items-start gap-3 md:gap-4">
+                  <CreditCard className="w-5 h-5 md:w-6 md:h-6 text-accent-gold flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-heading text-sm md:text-base text-foreground mb-1">Secure Payment</p>
+                    <p className="font-paragraph text-xs md:text-sm text-foreground/70">Complete your enrollment with secure payment processing.</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Next Steps */}
+          <div className="mt-8 md:mt-10 pt-8 md:pt-10 border-t border-foreground/10">
+            <h4 className="font-heading text-lg md:text-xl text-foreground mb-4 md:mb-5">What Happens Next</h4>
+            <ul className="space-y-2 md:space-y-3">
+              {[
+                'You will receive a confirmation email with your application reference number',
+                'Our team will contact you within 72 hours to discuss your application',
+                'We will schedule a confidential consultation call at your convenience',
+                'Upon approval, you will receive enrollment confirmation and payment details',
+                'After payment, you will receive program access and materials'
+              ].map((item, index) => (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4, delay: 0.7 + index * 0.05 }}
+                  className="flex items-start gap-3 md:gap-4"
+                >
+                  <CheckCircle className="w-4 h-4 md:w-5 md:h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                  <span className="font-paragraph text-sm md:text-base text-foreground/80">{item}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </motion.div>
     );
   }
@@ -181,14 +361,40 @@ export default function ExecutiveTrainingApplicationForm({ programName, onSucces
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="bg-optional-navy rounded-lg p-6 md:p-8 lg:p-12"
+      className="space-y-8 md:space-y-10"
     >
-      <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-2">Executive Application</h2>
-      <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-6 md:mb-8">
-        Apply for {programName}
-      </p>
+      {/* Form Header */}
+      <div className="bg-optional-navy rounded-lg p-6 md:p-8 lg:p-10">
+        <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-3 md:mb-4">Executive Application</h2>
+        <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-6 md:mb-8">
+          Apply for {programName}
+        </p>
+        
+        {/* Process Overview */}
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+          {[
+            { icon: '📋', label: 'Application' },
+            { icon: '⏱️', label: '72-Hour Review' },
+            { icon: '☎️', label: 'Consultation' },
+            { icon: '✓', label: 'Approval' },
+            { icon: '💳', label: 'Payment' }
+          ].map((step, index) => (
+            <motion.div
+              key={step.label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="text-center"
+            >
+              <div className="text-2xl md:text-3xl mb-2">{step.icon}</div>
+              <p className="font-paragraph text-xs md:text-sm text-foreground/80">{step.label}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
+      {/* Application Form */}
+      <form onSubmit={handleSubmit} className="bg-optional-navy rounded-lg p-6 md:p-8 lg:p-10 space-y-6 md:space-y-8">
         {/* Personal Information Section */}
         <div>
           <h3 className="font-heading text-xl md:text-2xl text-foreground mb-4 md:mb-6">Personal Information</h3>
