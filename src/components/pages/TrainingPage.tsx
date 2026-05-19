@@ -184,7 +184,7 @@ export default function TrainingPage() {
       </section>
 
       {/* Key Features */}
-      <section className="w-full bg-background py-12 sm:py-16 md:py-24">
+      <section className="w-full bg-background py-12 sm:py-16 md:py-24 lg:py-28">
         <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8">
             {[
@@ -239,22 +239,69 @@ export default function TrainingPage() {
       </section>
 
       {/* Training Programs */}
-      <section id="programs" className="w-full bg-secondary py-12 sm:py-16 md:py-24">
+      <section id="programs" className="w-full bg-secondary py-12 sm:py-16 md:py-24 lg:py-28">
         <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-10 sm:mb-12 md:mb-16"
+            className="text-center mb-10 sm:mb-12 md:mb-16 lg:mb-20"
           >
-            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-foreground mb-3 sm:mb-4 md:mb-5">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-3 sm:mb-4 md:mb-6">
               Available Programs
             </h2>
             <p className="font-paragraph text-sm sm:text-base md:text-lg text-foreground/80 max-w-2xl mx-auto px-2">
               Selective training programs for legal professionals and executives
             </p>
           </motion.div>
+
+          {/* Executive Programs Overview - NEW SECTION */}
+          {!isLoading && courses.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="mb-12 sm:mb-14 md:mb-16 lg:mb-20"
+            >
+              <div className="max-w-3xl mx-auto bg-background rounded-lg p-6 sm:p-7 md:p-8 lg:p-10 border border-accent-gold/20 hover:border-accent-gold/40 transition-all duration-300">
+                <h3 className="font-heading text-lg sm:text-xl md:text-2xl text-foreground mb-6 sm:mb-7 md:mb-8 text-center">
+                  Executive Programs Overview
+                </h3>
+                <div className="space-y-2 sm:space-y-2.5 md:space-y-3">
+                  {courses.map((course, index) => (
+                    <motion.button
+                      key={course._id}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                      onClick={() => {
+                        const element = document.getElementById(`course-${course._id}`);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
+                      className="w-full text-left group"
+                    >
+                      <div className="flex items-center gap-3 sm:gap-4 md:gap-5 p-3 sm:p-3.5 md:p-4 rounded-lg hover:bg-secondary transition-all duration-300">
+                        <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-full bg-accent-gold/15 border border-accent-gold/40 flex items-center justify-center">
+                          <span className="font-heading text-xs sm:text-sm md:text-base text-accent-gold font-semibold">
+                            {index + 1}
+                          </span>
+                        </span>
+                        <span className="font-paragraph text-sm sm:text-base md:text-lg text-foreground group-hover:text-accent-gold transition-colors duration-300 flex-grow text-left">
+                          {course.itemName}
+                        </span>
+                        <ArrowRight className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-accent-gold/40 group-hover:text-accent-gold group-hover:translate-x-1 transition-all duration-300 flex-shrink-0" />
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           <div className="min-h-[300px]">
             {isLoading ? (
@@ -294,89 +341,8 @@ export default function TrainingPage() {
       {/* Premium Pricing Section */}
       <PremiumPricingSection />
 
-      {/* Executive Development Package - DEPRECATED - Replaced by PremiumPricingSection */}
-      <section className="w-full bg-background py-16 md:py-24 hidden">
-        <div className="max-w-[100rem] mx-auto px-6 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="bg-secondary rounded-lg p-8 md:p-10 lg:p-12 text-center border border-accent-gold/20"
-          >
-            <h2 className="font-heading text-3xl md:text-4xl text-foreground mb-4 md:mb-6">
-              Executive Development Package
-            </h2>
-            <p className="font-paragraph text-base md:text-lg text-foreground/90 max-w-3xl mx-auto mb-10 md:mb-12">
-              Enroll in 3 or more programs and receive a 30% discount on your entire package after application review and approval.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6 mb-10 md:mb-12">
-              {[
-                {
-                  title: 'Advanced Professional Progression',
-                  description: 'Build comprehensive expertise across multiple practice areas'
-                },
-                {
-                  title: 'Executive Specialization',
-                  description: 'Develop deep knowledge in strategic legal domains'
-                },
-                {
-                  title: 'Long-Term Strategic Education',
-                  description: 'Invest in continuous professional development'
-                }
-              ].map((benefit, index) => (
-                <motion.div
-                  key={benefit.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.05 }}
-                  className="bg-background p-5 md:p-6 rounded-lg"
-                >
-                  <h3 className="font-heading text-base md:text-lg text-foreground mb-2">{benefit.title}</h3>
-                  <p className="font-paragraph text-sm text-foreground/80">{benefit.description}</p>
-                </motion.div>
-              ))}
-            </div>
-            
-            <div className="border-t border-foreground/20 pt-10 md:pt-12">
-              <h3 className="font-heading text-2xl md:text-3xl text-foreground mb-4 md:mb-5">Tailored Corporate Solutions</h3>
-              <p className="font-paragraph text-base md:text-lg text-foreground/90 mb-6 md:mb-8">
-                Customized training packages available for:
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 mb-8 md:mb-10">
-                {[
-                  'Legal Departments',
-                  'Compliance Teams',
-                  'Finance Departments',
-                  'Executive Leadership Groups'
-                ].map((group, index) => (
-                  <motion.div
-                    key={group}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: index * 0.05 }}
-                    className="bg-accent-gold/10 border border-accent-gold/30 rounded-lg p-4 md:p-5"
-                  >
-                    <p className="font-paragraph font-semibold text-foreground text-sm md:text-base">{group}</p>
-                  </motion.div>
-                ))}
-              </div>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded transition-all hover:scale-105"
-              >
-                Inquire About Corporate Packages <ArrowRight className="w-5 h-5" />
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Subscription Section */}
-      <section className="w-full bg-secondary py-12 sm:py-16 md:py-24">
+      <section className="w-full bg-secondary py-12 sm:py-16 md:py-24 lg:py-28">
         <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-14 items-center">
             <motion.div
@@ -385,7 +351,7 @@ export default function TrainingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-foreground mb-4 sm:mb-5 md:mb-7">
+              <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 sm:mb-5 md:mb-7">
                 Unlimited Access Subscription
               </h2>
               <p className="font-paragraph text-sm sm:text-base md:text-lg text-foreground/90 mb-5 sm:mb-6 md:mb-8 leading-relaxed">
@@ -440,6 +406,7 @@ export default function TrainingPage() {
 function CourseCard({ course, index, addingItemId, actions, currency }: any) {
   return (
     <motion.div
+      id={`course-${course._id}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
