@@ -1,0 +1,569 @@
+import { useState, useMemo } from 'react';
+import { ChevronDown, Search } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { Image } from '@/components/ui/image';
+
+const RESOURCE_CATEGORIES = [
+  'Corporate & Governance',
+  'Commercial Contracts',
+  'International Business',
+  'Compliance & Regulatory',
+  'Technology & AI',
+  'Employment & HR',
+  'Finance & Banking',
+  'Industrial / Aerospace / Defense',
+];
+
+const PREMIUM_RESOURCES = [
+  {
+    id: 1,
+    title: 'International Shareholder Agreement Framework',
+    category: 'Corporate & Governance',
+    summary: 'Comprehensive multi-jurisdictional shareholder agreement template with cross-border governance provisions.',
+    businessUse: 'Establishing shareholder rights, obligations, and dispute resolution mechanisms in international ventures.',
+    industries: 'Private Equity, Venture Capital, International Joint Ventures',
+    compliance: 'Compliant with UNCITRAL Model Law, EU Directives, and common law jurisdictions.',
+    complexity: 'Advanced',
+    relevance: 'High - Essential for cross-border equity structures',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 2,
+    title: 'Cross-Border M&A Due Diligence Checklist',
+    category: 'Commercial Contracts',
+    summary: 'Executive-level due diligence framework covering regulatory, financial, and operational compliance across jurisdictions.',
+    businessUse: 'Streamlining acquisition processes and identifying material risks in international transactions.',
+    industries: 'Investment Banking, Corporate Development, Strategic Acquisitions',
+    compliance: 'Aligned with FATCA, GDPR, AML/KYC requirements.',
+    complexity: 'Advanced',
+    relevance: 'Critical - Reduces transaction risk and regulatory exposure',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 3,
+    title: 'International Supply Chain Compliance Framework',
+    category: 'International Business',
+    summary: 'Strategic documentation for managing supply chain compliance across multiple jurisdictions and regulatory regimes.',
+    businessUse: 'Establishing supplier governance, sanctions compliance, and supply chain resilience protocols.',
+    industries: 'Manufacturing, Logistics, Retail, Automotive',
+    compliance: 'OFAC, EU Sanctions, UK Export Controls, ISO 27001.',
+    complexity: 'Advanced',
+    relevance: 'Critical - Mandatory for international operations',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 4,
+    title: 'GDPR & International Data Protection Compliance Manual',
+    category: 'Compliance & Regulatory',
+    summary: 'Comprehensive governance framework for international data protection, privacy, and cross-border data transfers.',
+    businessUse: 'Implementing compliant data governance, privacy policies, and international data transfer mechanisms.',
+    industries: 'Technology, Financial Services, Healthcare, E-commerce',
+    compliance: 'GDPR, CCPA, LGPD, PIPEDA, and emerging privacy regimes.',
+    complexity: 'Advanced',
+    relevance: 'Critical - Essential for international digital operations',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 5,
+    title: 'AI & Algorithmic Governance Framework',
+    category: 'Technology & AI',
+    summary: 'Executive governance framework for AI deployment, algorithmic accountability, and emerging AI regulation compliance.',
+    businessUse: 'Establishing responsible AI governance, bias mitigation, and regulatory compliance for AI-driven operations.',
+    industries: 'Financial Services, Healthcare, Technology, Automotive',
+    compliance: 'EU AI Act, NIST AI RMF, emerging global AI standards.',
+    complexity: 'Advanced',
+    relevance: 'High - Critical for emerging AI-driven business models',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 6,
+    title: 'International Executive Employment Agreement',
+    category: 'Employment & HR',
+    summary: 'Premium executive employment contract with international mobility, tax optimization, and multi-jurisdictional compliance.',
+    businessUse: 'Recruiting and retaining international executive talent with compliant compensation and benefits structures.',
+    industries: 'Corporate, Private Equity, Executive Search, Multinational Enterprises',
+    compliance: 'Compliant with employment law across major jurisdictions.',
+    complexity: 'Intermediate',
+    relevance: 'High - Essential for international talent management',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 7,
+    title: 'International Banking & Finance Compliance Framework',
+    category: 'Finance & Banking',
+    summary: 'Strategic documentation for international banking operations, sanctions compliance, and financial regulatory governance.',
+    businessUse: 'Establishing compliant banking relationships, international fund transfers, and financial regulatory protocols.',
+    industries: 'Banking, Investment Management, Private Wealth, Corporate Finance',
+    compliance: 'Basel III, FATCA, AML/KYC, OFAC, EU Banking Directives.',
+    complexity: 'Advanced',
+    relevance: 'Critical - Mandatory for international financial operations',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 8,
+    title: 'Defense & Aerospace Procurement Compliance Framework',
+    category: 'Industrial / Aerospace / Defense',
+    summary: 'Specialized governance framework for defense contracting, export controls, and aerospace regulatory compliance.',
+    businessUse: 'Managing defense contracts, export licenses, and compliance with ITAR, EAR, and international defense regulations.',
+    industries: 'Aerospace, Defense Contracting, Advanced Manufacturing',
+    compliance: 'ITAR, EAR, DCSA, NATO Security Requirements.',
+    complexity: 'Advanced',
+    relevance: 'Critical - Essential for defense sector operations',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 9,
+    title: 'International Joint Venture Agreement',
+    category: 'Corporate & Governance',
+    summary: 'Sophisticated JV framework with governance, profit allocation, and dispute resolution across multiple jurisdictions.',
+    businessUse: 'Structuring international partnerships with clear governance, capital contributions, and exit mechanisms.',
+    industries: 'Infrastructure, Energy, Technology, Manufacturing',
+    compliance: 'Aligned with local partnership laws and international commercial standards.',
+    complexity: 'Advanced',
+    relevance: 'High - Essential for strategic international partnerships',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 10,
+    title: 'Regulatory Compliance Audit Framework',
+    category: 'Compliance & Regulatory',
+    summary: 'Executive-level compliance audit methodology for assessing regulatory exposure across international operations.',
+    businessUse: 'Conducting comprehensive compliance assessments and identifying regulatory gaps across jurisdictions.',
+    industries: 'All Industries - Universal compliance framework',
+    compliance: 'Aligned with SOX, GDPR, ISO 27001, and industry-specific standards.',
+    complexity: 'Advanced',
+    relevance: 'High - Recommended for all international enterprises',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 11,
+    title: 'International Licensing & IP Protection Agreement',
+    category: 'Commercial Contracts',
+    summary: 'Premium intellectual property licensing framework with cross-border enforcement and royalty optimization.',
+    businessUse: 'Licensing technology, trademarks, and patents across multiple jurisdictions with optimized tax structures.',
+    industries: 'Technology, Pharmaceuticals, Consumer Goods, Entertainment',
+    compliance: 'TRIPS, EU IP Directives, national IP laws.',
+    complexity: 'Advanced',
+    relevance: 'High - Essential for IP-intensive businesses',
+    pricing: 'Custom Quote',
+  },
+  {
+    id: 12,
+    title: 'Sanctions & Export Control Compliance Manual',
+    category: 'International Business',
+    summary: 'Comprehensive framework for managing OFAC, EU, and international sanctions compliance in global operations.',
+    businessUse: 'Implementing sanctions screening, export license management, and international trade compliance protocols.',
+    industries: 'All Industries - Universal compliance requirement',
+    compliance: 'OFAC, EU Sanctions, UK Export Controls, UN Resolutions.',
+    complexity: 'Advanced',
+    relevance: 'Critical - Mandatory for all international trade',
+    pricing: 'Custom Quote',
+  },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
+
+export default function ContractIntelligencePage() {
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+
+  const filteredResources = useMemo(() => {
+    return PREMIUM_RESOURCES.filter((resource) => {
+      const matchesCategory = !selectedCategory || resource.category === selectedCategory;
+      const matchesSearch =
+        !searchQuery ||
+        resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        resource.summary.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  const toggleCardExpand = (id: number) => {
+    const newExpanded = new Set(expandedCards);
+    if (newExpanded.has(id)) {
+      newExpanded.delete(id);
+    } else {
+      newExpanded.add(id);
+    }
+    setExpandedCards(newExpanded);
+  };
+
+  return (
+    <div className="min-h-screen bg-white">
+      <Header />
+
+      {/* Hero Section */}
+      <section className="w-full bg-gradient-to-b from-primary via-primary to-primary/95 py-24 lg:py-32">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center"
+          >
+            <h1 className="font-heading text-5xl lg:text-7xl text-white mb-6 leading-tight">
+              Premium International Contract Intelligence & Executive Documentation Resources
+            </h1>
+            <p className="font-paragraph text-lg lg:text-xl text-secondary-foreground/90 mb-12 max-w-3xl mx-auto leading-relaxed">
+              Cross-Border Contracts, Compliance Frameworks, Governance Resources & Strategic Business Documentation.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <a
+                href="mailto:contact@jmclex.com?subject=Browse%20Resources%20-%20Contract%20Intelligence"
+                className="px-8 py-4 bg-accent-gold hover:bg-accent-gold-dark text-primary font-heading font-semibold rounded-lg transition-colors duration-300"
+              >
+                Browse Resources
+              </a>
+              <a
+                href="mailto:contact@jmclex.com?subject=Explore%20Executive%20Documentation"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-heading font-semibold rounded-lg border border-white/30 transition-colors duration-300"
+              >
+                Explore Executive Documentation
+              </a>
+              <a
+                href="mailto:contact@jmclex.com?subject=Request%20Customized%20Support"
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-heading font-semibold rounded-lg border border-white/30 transition-colors duration-300"
+              >
+                Request Customized Support
+              </a>
+            </div>
+
+            {/* Contact Display */}
+            <p className="font-paragraph text-white/80 text-sm">
+              Direct inquiries: <span className="font-semibold text-accent-gold">contact@jmclex.com</span>
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Executive Support Section */}
+      <section className="w-full py-20 lg:py-28 bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-lg p-12 lg:p-16 border border-border-subtle"
+          >
+            <h2 className="font-heading text-3xl lg:text-4xl text-primary mb-6">
+              Need Customized International Documentation Support?
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary mb-8 leading-relaxed max-w-3xl">
+              JMC LEX provides international documentation support, governance structuring assistance, compliance intelligence and cross-border strategic advisory support for companies operating internationally. Our executive team specializes in crafting bespoke compliance frameworks, contract architectures, and governance solutions tailored to your specific jurisdictional requirements and business objectives.
+            </p>
+            <p className="font-paragraph text-base text-text-muted mb-8 italic">
+              Clients may independently validate final documentation with their internal legal department or qualified local counsel in their jurisdiction.
+            </p>
+            <a
+              href="mailto:contact@jmclex.com?subject=Executive%20Support%20Request%20-%20Contract%20Intelligence"
+              className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+            >
+              Contact Executive Support
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Premium Resource Library Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Premium Contract Intelligence Library
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              Curated international legal, compliance, and governance resources designed for executive-level strategic decision-making.
+            </p>
+          </motion.div>
+
+          {/* Search Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <div className="relative">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
+              <input
+                type="text"
+                placeholder="Search resources by title or description..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-12 pr-4 py-3 border border-border-light rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
+              />
+            </div>
+          </motion.div>
+
+          {/* Category Filter */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setSelectedCategory(null)}
+                className={`px-4 py-2 rounded-lg font-paragraph text-sm font-medium transition-colors duration-300 ${
+                  selectedCategory === null
+                    ? 'bg-primary text-white'
+                    : 'bg-secondary text-primary hover:bg-secondary-dark'
+                }`}
+              >
+                All Categories
+              </button>
+              {RESOURCE_CATEGORIES.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 rounded-lg font-paragraph text-sm font-medium transition-colors duration-300 ${
+                    selectedCategory === category
+                      ? 'bg-primary text-white'
+                      : 'bg-secondary text-primary hover:bg-secondary-dark'
+                  }`}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Resource Cards Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          >
+            {filteredResources.map((resource) => (
+              <motion.div
+                key={resource.id}
+                variants={itemVariants}
+                className="border border-border-light rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white"
+              >
+                {/* Card Header */}
+                <div className="p-8 border-b border-border-subtle bg-gradient-to-r from-primary/5 to-transparent">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <span className="inline-block px-3 py-1 bg-accent-gold/20 text-primary rounded-full font-paragraph text-xs font-semibold mb-3">
+                        {resource.category}
+                      </span>
+                      <h3 className="font-heading text-xl text-primary leading-tight">{resource.title}</h3>
+                    </div>
+                  </div>
+                  <p className="font-paragraph text-base text-text-secondary">{resource.summary}</p>
+                </div>
+
+                {/* Card Body - Always Visible */}
+                <div className="p-8 space-y-6">
+                  <div>
+                    <h4 className="font-heading text-sm text-primary mb-2">Business Use</h4>
+                    <p className="font-paragraph text-sm text-text-secondary">{resource.businessUse}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-heading text-sm text-primary mb-2">Industries</h4>
+                    <p className="font-paragraph text-sm text-text-secondary">{resource.industries}</p>
+                  </div>
+
+                  {/* Expandable Section */}
+                  <div>
+                    <button
+                      onClick={() => toggleCardExpand(resource.id)}
+                      className="w-full flex items-center justify-between py-3 px-4 bg-secondary hover:bg-secondary-dark rounded-lg transition-colors duration-300 group"
+                    >
+                      <span className="font-heading text-sm text-primary font-semibold">
+                        {expandedCards.has(resource.id) ? 'Hide Details' : 'View Full Details'}
+                      </span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-primary transition-transform duration-300 ${
+                          expandedCards.has(resource.id) ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {expandedCards.has(resource.id) && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-4 space-y-4 pt-4 border-t border-border-subtle"
+                      >
+                        <div>
+                          <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">
+                            Compliance Considerations
+                          </h5>
+                          <p className="font-paragraph text-sm text-text-secondary">{resource.compliance}</p>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">
+                              Complexity Level
+                            </h5>
+                            <p className="font-paragraph text-sm text-text-secondary font-semibold">{resource.complexity}</p>
+                          </div>
+                          <div>
+                            <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">
+                              International Relevance
+                            </h5>
+                            <p className="font-paragraph text-sm text-text-secondary font-semibold">{resource.relevance}</p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">Pricing</h5>
+                          <p className="font-paragraph text-sm text-accent-gold font-semibold">{resource.pricing}</p>
+                        </div>
+                      </motion.div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Card Footer - CTAs */}
+                <div className="p-8 bg-secondary border-t border-border-subtle flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={`mailto:contact@jmclex.com?subject=Request%20Resource%20Access%20-%20${encodeURIComponent(resource.title)}`}
+                    className="flex-1 px-4 py-3 bg-primary hover:bg-primary/90 text-white font-heading text-sm font-semibold rounded-lg transition-colors duration-300 text-center"
+                  >
+                    Request Access
+                  </a>
+                  <a
+                    href={`mailto:contact@jmclex.com?subject=Request%20Customized%20Version%20-%20${encodeURIComponent(resource.title)}`}
+                    className="flex-1 px-4 py-3 bg-white border border-primary text-primary hover:bg-primary/5 font-heading text-sm font-semibold rounded-lg transition-colors duration-300 text-center"
+                  >
+                    Customize
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {filteredResources.length === 0 && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center py-12"
+            >
+              <p className="font-paragraph text-lg text-text-muted">
+                No resources found matching your criteria. Please adjust your search or filters.
+              </p>
+            </motion.div>
+          )}
+        </div>
+      </section>
+
+      {/* Legal Disclaimers Section */}
+      <section className="w-full py-20 lg:py-28 bg-primary/5">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-heading text-3xl lg:text-4xl text-primary mb-8">
+              Legal & Regulatory Disclosures
+            </h2>
+
+            <div className="space-y-6 font-paragraph text-base text-text-secondary leading-relaxed">
+              <p>
+                <span className="font-semibold text-primary">Educational & Informational Purpose:</span> JMC LEX provides international legal, compliance, governance and executive educational resources intended for informational and strategic purposes only. These resources are designed to support executive decision-making and should not be construed as legal advice.
+              </p>
+
+              <p>
+                <span className="font-semibold text-primary">Professional Legal Review Required:</span> Final legal review and validation should always be performed by qualified legal counsel licensed in the relevant jurisdiction. Users remain solely responsible for implementation and use of all resources provided.
+              </p>
+
+              <p>
+                <span className="font-semibold text-primary">No Attorney-Client Relationship:</span> No attorney-client relationship is established unless expressly agreed in writing between JMC LEX and the user. The provision of resources does not create any legal obligation or fiduciary duty.
+              </p>
+
+              <p>
+                <span className="font-semibold text-primary">Jurisdiction-Specific Adaptation:</span> Cross-border frameworks may require jurisdiction-specific adaptation and localization. Users must ensure compliance with applicable local laws, regulations, and professional standards in their respective jurisdictions.
+              </p>
+
+              <p>
+                <span className="font-semibold text-primary">Limitation of Liability:</span> JMC LEX assumes no responsibility for legal, regulatory, financial or operational consequences arising from the use of strategic documentation resources. Users acknowledge that they are using these resources at their own risk and discretion.
+              </p>
+
+              <p>
+                <span className="font-semibold text-primary">Regulatory Compliance:</span> Users are responsible for ensuring that their use of these resources complies with all applicable laws, regulations, and professional standards in their jurisdiction. JMC LEX does not warrant that resources comply with all jurisdictional requirements.
+              </p>
+
+              <p>
+                <span className="font-semibold text-primary">Updates & Modifications:</span> JMC LEX reserves the right to update, modify, or discontinue resources at any time. Users should verify that resources reflect current legal and regulatory requirements before implementation.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="w-full py-20 lg:py-28 bg-gradient-to-r from-primary to-primary/95">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-white mb-6">
+              Ready to Explore Premium Resources?
+            </h2>
+            <p className="font-paragraph text-lg text-secondary-foreground/90 mb-12 max-w-2xl mx-auto">
+              Connect with our executive team to discuss your specific compliance, governance, and strategic documentation requirements.
+            </p>
+            <a
+              href="mailto:contact@jmclex.com?subject=Premium%20Resources%20Inquiry"
+              className="inline-block px-10 py-4 bg-accent-gold hover:bg-accent-gold-dark text-primary font-heading font-semibold rounded-lg transition-colors duration-300"
+            >
+              Get in Touch
+            </a>
+            <p className="font-paragraph text-white/80 text-sm mt-8">
+              contact@jmclex.com
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}
