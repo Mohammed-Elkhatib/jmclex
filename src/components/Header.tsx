@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShoppingCart, Globe, Briefcase } from 'lucide-react';
+import { Menu, X, ShoppingCart, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '@/integrations';
 import { useLanguageStore } from '@/lib/language-store';
 import { useTranslation } from '@/lib/use-translation';
 import Cart from '@/components/Cart';
-import ExecutiveSelectionPanel from '@/components/ExecutiveSelectionPanel';
 import type { Language } from '@/lib/language-store';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [isExecutivePanelOpen, setIsExecutivePanelOpen] = useState(false);
   const location = useLocation();
   const { itemCount, actions } = useCart();
   const { language } = useLanguageStore();
@@ -113,22 +111,6 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden xl:flex items-center gap-8">
-            {/* Executive Selection Icon */}
-            <button
-              onClick={() => setIsExecutivePanelOpen(true)}
-              className="relative text-optional-navy hover:text-accent-gold transition-all duration-300 group"
-              aria-label="Executive programs"
-              title="Executive Programs"
-            >
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Briefcase className="w-6 h-6" />
-              </motion.div>
-              <div className="absolute inset-0 rounded-full bg-accent-gold/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md -z-10"></div>
-            </button>
-
             {/* Globe Language Selector */}
             <div className="relative">
               <button
@@ -284,18 +266,6 @@ export default function Header() {
                 {t('header.book-consultation')}
               </Link>
 
-              {/* Mobile Executive Programs Button */}
-              <button
-                onClick={() => {
-                  setIsMenuOpen(false);
-                  setIsExecutivePanelOpen(true);
-                }}
-                className="flex items-center justify-center gap-2 bg-accent-gold/10 text-accent-gold border border-accent-gold/30 font-paragraph font-medium px-6 py-3 rounded-lg transition-all duration-300 hover:bg-accent-gold/20 mt-2"
-              >
-                <Briefcase className="w-5 h-5" />
-                Executive Programs
-              </button>
-
               {/* Mobile Cart Button */}
               <button
                 onClick={() => {
@@ -314,12 +284,6 @@ export default function Header() {
 
       {/* Cart Component */}
       <Cart />
-
-      {/* Executive Selection Panel */}
-      <ExecutiveSelectionPanel 
-        isOpen={isExecutivePanelOpen}
-        onClose={() => setIsExecutivePanelOpen(false)}
-      />
     </header>
   );
 }
