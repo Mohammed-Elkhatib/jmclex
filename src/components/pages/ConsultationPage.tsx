@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Globe, Shield, Video, AlertCircle, CheckCircle, ChevronRight, Lock, Clock } from 'lucide-react';
+import { Calendar, Clock, Globe, Shield, Video, AlertCircle, CheckCircle, ChevronRight, Lock } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -109,6 +109,30 @@ export default function ConsultationPage() {
         itemName: itemName,
         itemPrice: consultationPrice
       });
+
+      // Send email notification to admin
+      try {
+        await fetch('/api/send-consultation-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            consultationId,
+            clientName: formData.clientName,
+            clientEmail: formData.clientEmail,
+            clientPhone: formData.clientPhone,
+            caseDetails: formData.caseDetails,
+            preferredDate: formData.preferredDate,
+            preferredTime: formData.preferredTime,
+            consultationType,
+            consultationPrice,
+            adminEmail: 'contact@jmclex.com'
+          })
+        });
+      } catch (emailError) {
+        console.warn('Email notification failed, but consultation was saved:', emailError);
+      }
 
       setSubmitSuccess(true);
       setFormData(INITIAL_FORM_DATA);

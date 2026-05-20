@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
-import { Mail, MapPin } from 'lucide-react';
+import { Mail, MapPin, MessageCircle } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -130,23 +130,53 @@ export default function ContactPage() {
           </div>
 
           {/* Quick Contact */}
-          <div className="mt-12 text-center">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
+              className="text-center"
             >
               <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-8 h-8 text-optional-navy" />
               </div>
-              <h4 className="font-heading text-2xl text-background mb-4">Contact Our International Advisory Team</h4>
-              <a href="mailto:contact@jmclex.com" className="font-paragraph text-lg text-accent-gold hover:text-accent-gold/80 transition-colors duration-300 font-semibold">
+              <h4 className="font-heading text-lg text-background mb-2">Email</h4>
+              <a href="mailto:contact@jmclex.com" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
                 contact@jmclex.com
               </a>
-              <p className="font-paragraph text-base text-background/70 mt-4">
-                For all inquiries, consultations, and strategic discussions
-              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="w-8 h-8 text-optional-navy" />
+              </div>
+              <h4 className="font-heading text-lg text-background mb-2">Lebanon</h4>
+              <a href="https://wa.me/96178873196" target="_blank" rel="noopener noreferrer" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
+                +961 78 873 196
+              </a>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-center"
+            >
+              <div className="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="w-8 h-8 text-optional-navy" />
+              </div>
+              <h4 className="font-heading text-lg text-background mb-2">France</h4>
+              <a href="https://wa.me/33769596922" target="_blank" rel="noopener noreferrer" className="font-paragraph text-base text-background/80 hover:text-accent-gold transition-colors duration-300">
+                +33 7 69 59 69 22
+              </a>
             </motion.div>
           </div>
         </div>
