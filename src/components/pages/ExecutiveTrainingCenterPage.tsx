@@ -6,11 +6,12 @@ import { ArrowRight, CheckCircle, Mail } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PremiumPricingSection from '@/components/PremiumPricingSection';
+import ExecutiveApplicationForm from '@/components/ExecutiveApplicationForm';
 
 export default function ExecutiveTrainingCenterPage() {
   const [searchParams] = useSearchParams();
-  const tabParam = searchParams.get('tab') as 'overview' | 'pricing' | null;
-  const [activeTab, setActiveTab] = useState<'overview' | 'pricing'>(tabParam || 'overview');
+  const tabParam = searchParams.get('tab') as 'overview' | 'pricing' | 'application' | null;
+  const [activeTab, setActiveTab] = useState<'overview' | 'pricing' | 'application'>(tabParam || 'overview');
 
   const benefits = [
     {
@@ -124,7 +125,8 @@ export default function ExecutiveTrainingCenterPage() {
           <div className="flex gap-1 sm:gap-2 md:gap-4 min-w-max sm:min-w-0">
             {[
               { id: 'overview', label: 'Overview' },
-              { id: 'pricing', label: 'Pricing & Offers' }
+              { id: 'pricing', label: 'Pricing & Offers' },
+              { id: 'application', label: 'Application' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -281,6 +283,35 @@ export default function ExecutiveTrainingCenterPage() {
             transition={{ duration: 0.6 }}
           >
             <PremiumPricingSection />
+          </motion.div>
+        )}
+
+        {/* Application Tab */}
+        {activeTab === 'application' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <section className="w-full py-16 md:py-24 lg:py-32 bg-background">
+              <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                  viewport={{ once: true }}
+                  className="max-w-4xl mx-auto"
+                >
+                  <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-foreground mb-4 md:mb-6 leading-tight text-center">
+                    Executive Training Application
+                  </h2>
+                  <p className="font-paragraph text-base sm:text-lg text-foreground mb-10 md:mb-12 leading-relaxed px-2 text-center">
+                    Submit your application to join our exclusive executive training programs. Our team will review your qualifications and contact you to discuss program options.
+                  </p>
+                  <ExecutiveApplicationForm />
+                </motion.div>
+              </div>
+            </section>
           </motion.div>
         )}
       </div>
