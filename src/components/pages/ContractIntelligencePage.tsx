@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users, Shield, Globe, Zap, BookOpen, Lock, CheckCircle } from 'lucide-react';
+import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users, Shield, Globe, Zap, BookOpen, Lock, CheckCircle, AlertCircle, Briefcase, Target, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -14,6 +14,76 @@ const RESOURCE_CATEGORIES = [
   'Employment & HR',
   'Finance & Banking',
   'Industrial / Aerospace / Defense',
+  'AI Governance & Regulatory',
+  'Sanctions & Export Control',
+];
+
+// Premium institutional badges
+const INSTITUTIONAL_BADGES = {
+  'Executive Grade': 'bg-accent-gold/20 text-accent-gold border border-accent-gold/30',
+  'Cross-Border Critical': 'bg-primary/10 text-primary border border-primary/30',
+  'Institutional Framework': 'bg-blue-50 text-blue-700 border border-blue-200',
+  'Most Requested': 'bg-red-50 text-red-700 border border-red-200',
+  'Enterprise Governance': 'bg-purple-50 text-purple-700 border border-purple-200',
+  'Strategic Compliance': 'bg-green-50 text-green-700 border border-green-200',
+};
+
+// Live insight cards data
+const LIVE_INSIGHTS = [
+  {
+    id: 1,
+    title: 'OFAC Sanctions Update',
+    category: 'Sanctions & Export Control',
+    timestamp: '2026-05-20',
+    content: 'New OFAC designations affecting financial services and technology sectors. Updated screening protocols recommended for international transactions.',
+    priority: 'High',
+    icon: AlertCircle,
+  },
+  {
+    id: 2,
+    title: 'EU AI Act Compliance Framework',
+    category: 'AI Governance & Regulatory',
+    timestamp: '2026-05-19',
+    content: 'EU AI Act enters enforcement phase. High-risk AI systems require immediate compliance assessment and governance documentation.',
+    priority: 'Critical',
+    icon: Cpu,
+  },
+  {
+    id: 3,
+    title: 'Export Control Regulatory Changes',
+    category: 'Aerospace & Defense',
+    timestamp: '2026-05-18',
+    content: 'BIS/EAR updates affecting aerospace and semiconductor exports. ITAR compliance requirements expanded for defense contractors.',
+    priority: 'High',
+    icon: Target,
+  },
+  {
+    id: 4,
+    title: 'International Geopolitical Compliance',
+    category: 'Cross-Border Operations',
+    timestamp: '2026-05-17',
+    content: 'Geopolitical developments affecting international operations. Multi-jurisdictional compliance review recommended for global enterprises.',
+    priority: 'Medium',
+    icon: Globe,
+  },
+  {
+    id: 5,
+    title: 'GDPR Enforcement Trends',
+    category: 'Data Protection & Privacy',
+    timestamp: '2026-05-16',
+    content: 'Increased GDPR enforcement actions across EU. Data transfer mechanisms and privacy governance frameworks require review.',
+    priority: 'High',
+    icon: Lock,
+  },
+  {
+    id: 6,
+    title: 'International Regulatory Intelligence',
+    category: 'Governance & Compliance',
+    timestamp: '2026-05-15',
+    content: 'Emerging regulatory trends in financial services, technology, and defense sectors. Strategic compliance planning essential for 2026.',
+    priority: 'Medium',
+    icon: Briefcase,
+  },
 ];
 
 const PREMIUM_RESOURCES = [
@@ -32,6 +102,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-15',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Executive Grade',
+    executiveSummary: 'Board-level governance framework for international equity structures with fiduciary compliance protocols.',
+    implementationConsiderations: 'Requires jurisdiction-specific adaptation for local partnership laws and tax optimization.',
+    jurisdictionNotes: 'Applicable across EU, common law, and civil law jurisdictions with localization support.',
+    governanceObservations: 'Aligns with OECD governance standards and institutional best practices.',
   },
   {
     id: 2,
@@ -48,6 +123,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-18',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Cross-Border Critical',
+    executiveSummary: 'Institutional-grade M&A framework covering regulatory, sanctions, and compliance due diligence across multiple jurisdictions.',
+    implementationConsiderations: 'Requires coordination with local counsel in target jurisdictions for regulatory compliance verification.',
+    jurisdictionNotes: 'Covers EU, US, UK, Asia-Pacific, and emerging markets with jurisdiction-specific compliance mapping.',
+    governanceObservations: 'Aligns with international M&A best practices and institutional governance standards.',
   },
   {
     id: 3,
@@ -64,6 +144,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-10',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Strategic Compliance',
+    executiveSummary: 'Enterprise-grade supply chain governance framework with OFAC, sanctions, and export control compliance protocols.',
+    implementationConsiderations: 'Requires integration with procurement systems and vendor management platforms for real-time compliance monitoring.',
+    jurisdictionNotes: 'Covers OFAC, EU sanctions, UK export controls, and emerging market compliance requirements.',
+    governanceObservations: 'Aligns with international supply chain resilience standards and institutional governance frameworks.',
   },
   {
     id: 4,
@@ -80,6 +165,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-12',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Institutional Framework',
+    executiveSummary: 'Comprehensive data protection governance framework covering GDPR, CCPA, LGPD, and emerging international privacy standards.',
+    implementationConsiderations: 'Requires integration with data governance systems and privacy management platforms for compliance monitoring.',
+    jurisdictionNotes: 'Covers EU (GDPR), US (CCPA), Brazil (LGPD), Canada (PIPEDA), and emerging market privacy requirements.',
+    governanceObservations: 'Aligns with international data protection standards and institutional privacy governance best practices.',
   },
   {
     id: 5,
@@ -96,6 +186,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-20',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Most Requested',
+    executiveSummary: 'Enterprise AI governance framework covering EU AI Act, NIST standards, and emerging international AI regulatory requirements.',
+    implementationConsiderations: 'Requires AI governance committee establishment and integration with AI development and deployment processes.',
+    jurisdictionNotes: 'Covers EU AI Act, US regulatory framework, and emerging global AI governance standards.',
+    governanceObservations: 'Aligns with international AI governance best practices and institutional risk management frameworks.',
   },
   {
     id: 6,
@@ -112,6 +207,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-08',
     institutionalUse: false,
     accessLevel: 'Standard',
+    badge: 'Enterprise Governance',
+    executiveSummary: 'Executive employment framework with international mobility provisions and multi-jurisdictional tax optimization.',
+    implementationConsiderations: 'Requires coordination with HR and tax advisors for jurisdiction-specific compliance.',
+    jurisdictionNotes: 'Covers major employment law jurisdictions with tax optimization provisions.',
+    governanceObservations: 'Aligns with international executive compensation best practices.',
   },
   {
     id: 7,
@@ -128,6 +228,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-14',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Cross-Border Critical',
+    executiveSummary: 'Enterprise banking compliance framework covering OFAC, AML/KYC, FATCA, and international financial regulatory requirements.',
+    implementationConsiderations: 'Requires integration with banking systems and compliance monitoring platforms.',
+    jurisdictionNotes: 'Covers US (FATCA, OFAC), EU (Banking Directives), and international financial regulatory requirements.',
+    governanceObservations: 'Aligns with Basel III standards and international banking governance best practices.',
   },
   {
     id: 8,
@@ -144,6 +249,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-11',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Strategic Compliance',
+    executiveSummary: 'Specialized aerospace and defense compliance framework covering ITAR, EAR, DCSA, and NATO security requirements.',
+    implementationConsiderations: 'Requires coordination with DCSA and export control authorities for compliance verification.',
+    jurisdictionNotes: 'Covers US (ITAR, EAR), NATO, and international defense regulatory requirements.',
+    governanceObservations: 'Aligns with defense sector governance standards and NATO security protocols.',
   },
   {
     id: 9,
@@ -160,6 +270,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-09',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Institutional Framework',
+    executiveSummary: 'Institutional JV governance framework with multi-jurisdictional compliance and strategic partnership protocols.',
+    implementationConsiderations: 'Requires coordination with local counsel in partner jurisdictions for compliance verification.',
+    jurisdictionNotes: 'Covers major commercial law jurisdictions with partnership law compliance.',
+    governanceObservations: 'Aligns with international partnership governance best practices.',
   },
   {
     id: 10,
@@ -176,6 +291,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-13',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Enterprise Governance',
+    executiveSummary: 'Comprehensive compliance audit framework for multi-jurisdictional regulatory exposure assessment.',
+    implementationConsiderations: 'Requires engagement with compliance teams and external audit partners.',
+    jurisdictionNotes: 'Applicable across all major jurisdictions with regulatory framework mapping.',
+    governanceObservations: 'Aligns with SOX, GDPR, and international compliance governance standards.',
   },
   {
     id: 11,
@@ -192,6 +312,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-16',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Executive Grade',
+    executiveSummary: 'International IP licensing framework with cross-border enforcement and tax optimization protocols.',
+    implementationConsiderations: 'Requires coordination with IP counsel and tax advisors for optimization.',
+    jurisdictionNotes: 'Covers TRIPS, EU IP Directives, and national IP law compliance.',
+    governanceObservations: 'Aligns with international IP governance best practices.',
   },
   {
     id: 12,
@@ -208,6 +333,11 @@ const PREMIUM_RESOURCES = [
     lastUpdated: '2026-05-17',
     institutionalUse: true,
     accessLevel: 'Premium',
+    badge: 'Most Requested',
+    executiveSummary: 'Enterprise sanctions compliance framework covering OFAC, EU sanctions, UK export controls, and international trade compliance.',
+    implementationConsiderations: 'Requires integration with transaction monitoring and sanctions screening systems.',
+    jurisdictionNotes: 'Covers OFAC, EU sanctions, UK export controls, and UN resolutions.',
+    governanceObservations: 'Aligns with international sanctions governance standards and compliance best practices.',
   },
 ];
 
@@ -318,6 +448,87 @@ export default function ContractIntelligencePage() {
             <p className="font-paragraph text-white/80 text-sm">
               Direct inquiries: <span className="font-semibold text-accent-gold">contact@jmclex.com</span>
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Live Executive Intelligence Insights Section */}
+      <section className="w-full py-20 lg:py-28 bg-gradient-to-b from-primary/5 to-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Live Executive Intelligence Insights
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              Real-time compliance intelligence, regulatory updates, and strategic governance observations for international operations.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {LIVE_INSIGHTS.map((insight, idx) => (
+              <motion.div
+                key={insight.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className={`p-6 rounded-lg border-l-4 ${
+                  insight.priority === 'Critical'
+                    ? 'border-l-red-500 bg-red-50'
+                    : insight.priority === 'High'
+                    ? 'border-l-accent-gold bg-accent-gold/5'
+                    : 'border-l-blue-500 bg-blue-50'
+                } hover:shadow-md transition-shadow duration-300`}
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <insight.icon className={`w-5 h-5 ${
+                      insight.priority === 'Critical'
+                        ? 'text-red-600'
+                        : insight.priority === 'High'
+                        ? 'text-accent-gold'
+                        : 'text-blue-600'
+                    }`} />
+                    <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
+                      insight.priority === 'Critical'
+                        ? 'bg-red-200 text-red-800'
+                        : insight.priority === 'High'
+                        ? 'bg-accent-gold/30 text-primary'
+                        : 'bg-blue-200 text-blue-800'
+                    }`}>
+                      {insight.priority}
+                    </span>
+                  </div>
+                </div>
+                <h3 className="font-heading text-lg text-primary mb-2">{insight.title}</h3>
+                <p className="font-paragraph text-xs text-text-muted mb-3">{insight.category} • {insight.timestamp}</p>
+                <p className="font-paragraph text-sm text-text-secondary leading-relaxed">{insight.content}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-12 p-8 bg-white rounded-lg border border-border-light text-center"
+          >
+            <p className="font-paragraph text-text-secondary mb-4">
+              Subscribe to receive real-time intelligence updates on regulatory changes, compliance trends, and strategic governance observations.
+            </p>
+            <a
+              href="mailto:contact@jmclex.com?subject=Subscribe%20to%20Executive%20Intelligence%20Updates"
+              className="inline-block px-8 py-3 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+            >
+              Subscribe to Intelligence Updates
+            </a>
           </motion.div>
         </div>
       </section>
@@ -556,7 +767,7 @@ export default function ContractIntelligencePage() {
                 <div className="p-8 border-b border-border-subtle bg-gradient-to-r from-primary/5 to-transparent">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-3">
+                      <div className="flex items-center gap-2 mb-3 flex-wrap">
                         <span className="inline-block px-3 py-1 bg-accent-gold/20 text-primary rounded-full font-paragraph text-xs font-semibold">
                           {resource.category}
                         </span>
@@ -565,11 +776,19 @@ export default function ContractIntelligencePage() {
                             Institutional
                           </span>
                         )}
+                        {resource.badge && (
+                          <span className={`inline-block px-3 py-1 rounded-full font-paragraph text-xs font-semibold ${INSTITUTIONAL_BADGES[resource.badge as keyof typeof INSTITUTIONAL_BADGES]}`}>
+                            {resource.badge}
+                          </span>
+                        )}
                       </div>
                       <h3 className="font-heading text-xl text-primary leading-tight">{resource.title}</h3>
                     </div>
                   </div>
-                  <p className="font-paragraph text-base text-text-secondary">{resource.summary}</p>
+                  <p className="font-paragraph text-base text-text-secondary mb-3">{resource.summary}</p>
+                  {resource.executiveSummary && (
+                    <p className="font-paragraph text-sm text-text-muted italic">{resource.executiveSummary}</p>
+                  )}
                 </div>
 
                 {/* Card Body - Always Visible */}
@@ -625,6 +844,27 @@ export default function ContractIntelligencePage() {
                             Compliance Considerations
                           </h5>
                           <p className="font-paragraph text-sm text-text-secondary">{resource.compliance}</p>
+                        </div>
+
+                        <div>
+                          <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">
+                            Implementation Considerations
+                          </h5>
+                          <p className="font-paragraph text-sm text-text-secondary">{resource.implementationConsiderations}</p>
+                        </div>
+
+                        <div>
+                          <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">
+                            Jurisdiction Notes
+                          </h5>
+                          <p className="font-paragraph text-sm text-text-secondary">{resource.jurisdictionNotes}</p>
+                        </div>
+
+                        <div>
+                          <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">
+                            Governance Observations
+                          </h5>
+                          <p className="font-paragraph text-sm text-text-secondary">{resource.governanceObservations}</p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
