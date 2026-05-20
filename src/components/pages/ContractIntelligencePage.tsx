@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
@@ -28,6 +28,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'High - Essential for cross-border equity structures',
     pricing: 'Custom Quote',
+    version: 'v2.1',
+    lastUpdated: '2026-05-15',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 2,
@@ -40,6 +44,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'Critical - Reduces transaction risk and regulatory exposure',
     pricing: 'Custom Quote',
+    version: 'v3.0',
+    lastUpdated: '2026-05-18',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 3,
@@ -52,6 +60,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'Critical - Mandatory for international operations',
     pricing: 'Custom Quote',
+    version: 'v2.3',
+    lastUpdated: '2026-05-10',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 4,
@@ -64,6 +76,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'Critical - Essential for international digital operations',
     pricing: 'Custom Quote',
+    version: 'v2.5',
+    lastUpdated: '2026-05-12',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 5,
@@ -76,6 +92,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'High - Critical for emerging AI-driven business models',
     pricing: 'Custom Quote',
+    version: 'v1.8',
+    lastUpdated: '2026-05-20',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 6,
@@ -88,6 +108,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Intermediate',
     relevance: 'High - Essential for international talent management',
     pricing: 'Custom Quote',
+    version: 'v2.0',
+    lastUpdated: '2026-05-08',
+    institutionalUse: false,
+    accessLevel: 'Standard',
   },
   {
     id: 7,
@@ -100,6 +124,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'Critical - Mandatory for international financial operations',
     pricing: 'Custom Quote',
+    version: 'v3.2',
+    lastUpdated: '2026-05-14',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 8,
@@ -112,6 +140,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'Critical - Essential for defense sector operations',
     pricing: 'Custom Quote',
+    version: 'v2.7',
+    lastUpdated: '2026-05-11',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 9,
@@ -124,6 +156,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'High - Essential for strategic international partnerships',
     pricing: 'Custom Quote',
+    version: 'v2.2',
+    lastUpdated: '2026-05-09',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 10,
@@ -136,6 +172,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'High - Recommended for all international enterprises',
     pricing: 'Custom Quote',
+    version: 'v2.4',
+    lastUpdated: '2026-05-13',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 11,
@@ -148,6 +188,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'High - Essential for IP-intensive businesses',
     pricing: 'Custom Quote',
+    version: 'v2.6',
+    lastUpdated: '2026-05-16',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
   {
     id: 12,
@@ -160,6 +204,10 @@ const PREMIUM_RESOURCES = [
     complexity: 'Advanced',
     relevance: 'Critical - Mandatory for all international trade',
     pricing: 'Custom Quote',
+    version: 'v3.1',
+    lastUpdated: '2026-05-17',
+    institutionalUse: true,
+    accessLevel: 'Premium',
   },
 ];
 
@@ -187,17 +235,32 @@ export default function ContractIntelligencePage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
+  const [sortBy, setSortBy] = useState<'title' | 'updated' | 'complexity'>('title');
+  const [filterByAccess, setFilterByAccess] = useState<'all' | 'premium' | 'standard'>('all');
 
   const filteredResources = useMemo(() => {
-    return PREMIUM_RESOURCES.filter((resource) => {
+    let results = PREMIUM_RESOURCES.filter((resource) => {
       const matchesCategory = !selectedCategory || resource.category === selectedCategory;
       const matchesSearch =
         !searchQuery ||
         resource.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         resource.summary.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesCategory && matchesSearch;
+      const matchesAccess = filterByAccess === 'all' || resource.accessLevel.toLowerCase() === filterByAccess;
+      return matchesCategory && matchesSearch && matchesAccess;
     });
-  }, [selectedCategory, searchQuery]);
+
+    // Sort results
+    if (sortBy === 'updated') {
+      results.sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime());
+    } else if (sortBy === 'complexity') {
+      const complexityOrder = { 'Intermediate': 1, 'Advanced': 2 };
+      results.sort((a, b) => (complexityOrder[b.complexity as keyof typeof complexityOrder] || 0) - (complexityOrder[a.complexity as keyof typeof complexityOrder] || 0));
+    } else {
+      results.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    return results;
+  }, [selectedCategory, searchQuery, sortBy, filterByAccess]);
 
   const toggleCardExpand = (id: number) => {
     const newExpanded = new Set(expandedCards);
@@ -256,6 +319,48 @@ export default function ContractIntelligencePage() {
               Direct inquiries: <span className="font-semibold text-accent-gold">contact@jmclex.com</span>
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Key Features Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Executive Intelligence Platform
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              Advanced filtering, version tracking, and institutional-grade documentation for international legal operations.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: TrendingUp, title: 'Real-Time Updates', desc: 'Latest regulatory changes & compliance updates' },
+              { icon: Award, title: 'Premium Access', desc: 'Institutional-grade documentation & frameworks' },
+              { icon: Clock, title: 'Version Control', desc: 'Track document versions & compliance timelines' },
+              { icon: Users, title: 'Expert Support', desc: 'Direct access to legal expertise team' },
+            ].map((feature, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="p-8 bg-secondary rounded-lg border border-border-subtle hover:border-accent-gold transition-colors duration-300"
+              >
+                <feature.icon className="w-8 h-8 text-accent-gold mb-4" />
+                <h3 className="font-heading text-lg text-primary mb-2">{feature.title}</h3>
+                <p className="font-paragraph text-sm text-text-secondary">{feature.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -327,6 +432,66 @@ export default function ContractIntelligencePage() {
             </div>
           </motion.div>
 
+          {/* Advanced Filters */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mb-12 space-y-6"
+          >
+            {/* Sort Controls */}
+            <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center">
+              <div className="flex items-center gap-3">
+                <Filter className="w-5 h-5 text-accent-gold" />
+                <span className="font-heading text-sm text-primary font-semibold">Sort By:</span>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { value: 'title' as const, label: 'Title (A-Z)' },
+                  { value: 'updated' as const, label: 'Recently Updated' },
+                  { value: 'complexity' as const, label: 'Complexity Level' },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setSortBy(option.value)}
+                    className={`px-4 py-2 rounded-lg font-paragraph text-sm font-medium transition-colors duration-300 ${
+                      sortBy === option.value
+                        ? 'bg-primary text-white'
+                        : 'bg-secondary text-primary hover:bg-secondary-dark'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Access Level Filter */}
+            <div className="flex flex-col lg:flex-row gap-6 items-start lg:items-center">
+              <span className="font-heading text-sm text-primary font-semibold">Access Level:</span>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { value: 'all' as const, label: 'All Resources' },
+                  { value: 'premium' as const, label: 'Premium Only' },
+                  { value: 'standard' as const, label: 'Standard' },
+                ].map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setFilterByAccess(option.value)}
+                    className={`px-4 py-2 rounded-lg font-paragraph text-sm font-medium transition-colors duration-300 ${
+                      filterByAccess === option.value
+                        ? 'bg-accent-gold text-primary'
+                        : 'bg-secondary text-primary hover:bg-secondary-dark'
+                    }`}
+                  >
+                    {option.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
           {/* Category Filter */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -362,6 +527,17 @@ export default function ContractIntelligencePage() {
             </div>
           </motion.div>
 
+          {/* Results Count */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mb-8"
+          >
+            <p className="font-paragraph text-sm text-text-muted">
+              Showing {filteredResources.length} of {PREMIUM_RESOURCES.length} resources
+            </p>
+          </motion.div>
+
           {/* Resource Cards Grid */}
           <motion.div
             variants={containerVariants}
@@ -380,9 +556,16 @@ export default function ContractIntelligencePage() {
                 <div className="p-8 border-b border-border-subtle bg-gradient-to-r from-primary/5 to-transparent">
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex-1">
-                      <span className="inline-block px-3 py-1 bg-accent-gold/20 text-primary rounded-full font-paragraph text-xs font-semibold mb-3">
-                        {resource.category}
-                      </span>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="inline-block px-3 py-1 bg-accent-gold/20 text-primary rounded-full font-paragraph text-xs font-semibold">
+                          {resource.category}
+                        </span>
+                        {resource.institutionalUse && (
+                          <span className="inline-block px-2 py-1 bg-primary/10 text-primary rounded font-paragraph text-xs font-semibold">
+                            Institutional
+                          </span>
+                        )}
+                      </div>
                       <h3 className="font-heading text-xl text-primary leading-tight">{resource.title}</h3>
                     </div>
                   </div>
@@ -399,6 +582,18 @@ export default function ContractIntelligencePage() {
                   <div>
                     <h4 className="font-heading text-sm text-primary mb-2">Industries</h4>
                     <p className="font-paragraph text-sm text-text-secondary">{resource.industries}</p>
+                  </div>
+
+                  {/* Version & Update Info */}
+                  <div className="grid grid-cols-2 gap-4 pt-4 border-t border-border-subtle">
+                    <div>
+                      <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">Version</h5>
+                      <p className="font-paragraph text-sm text-text-secondary font-semibold">{resource.version}</p>
+                    </div>
+                    <div>
+                      <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">Last Updated</h5>
+                      <p className="font-paragraph text-sm text-text-secondary font-semibold">{resource.lastUpdated}</p>
+                    </div>
                   </div>
 
                   {/* Expandable Section */}

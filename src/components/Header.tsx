@@ -67,6 +67,7 @@ export default function Header() {
     { key: 'nav.high-stakes-cases', path: '/high-stakes-cases' },
     { key: 'nav.expertise', path: '/expertise' },
     { key: 'nav.publications', path: '/publications' },
+    { key: 'Contract Intelligence', path: '/contract-intelligence' },
     { key: 'Talent Network', path: '/talent-network' },
     { key: 'Training Center & Certification', path: '/training' },
     { key: 'Executive Training Center', path: '/executive-training-center' },
