@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users } from 'lucide-react';
+import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users, Shield, Globe, Zap, BookOpen, Lock, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -681,6 +681,430 @@ export default function ContractIntelligencePage() {
               </p>
             </motion.div>
           )}
+        </div>
+      </section>
+
+      {/* Featured Executive Intelligence Resources Section */}
+      <section className="w-full py-20 lg:py-28 bg-gradient-to-b from-white to-secondary">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Featured Executive Intelligence Resources
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              Curated premium frameworks for institutional-grade governance, compliance, and strategic operations.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: 'Executive Governance Center',
+                desc: 'Board-level governance frameworks, fiduciary duty protocols, and institutional compliance architectures for multinational enterprises.',
+                features: ['Board Governance', 'Fiduciary Protocols', 'Risk Management']
+              },
+              {
+                icon: Globe,
+                title: 'Global Compliance Center',
+                desc: 'Comprehensive multi-jurisdictional compliance frameworks covering regulatory requirements across major global markets.',
+                features: ['Multi-Jurisdictional', 'Regulatory Mapping', 'Compliance Audits']
+              },
+              {
+                icon: Zap,
+                title: 'Aerospace & Defense Strategic Compliance',
+                desc: 'Specialized frameworks for ITAR, EAR, DCSA compliance and defense sector regulatory requirements.',
+                features: ['ITAR Compliance', 'Export Controls', 'Defense Standards']
+              },
+              {
+                icon: BookOpen,
+                title: 'International Business & Cross-Border Operations',
+                desc: 'Strategic documentation for international expansion, cross-border transactions, and multi-jurisdictional operations.',
+                features: ['M&A Support', 'JV Frameworks', 'Trade Compliance']
+              },
+              {
+                icon: Lock,
+                title: 'Executive Intelligence Insights',
+                desc: 'Real-time intelligence on regulatory changes, compliance trends, and strategic governance updates.',
+                features: ['Regulatory Updates', 'Trend Analysis', 'Strategic Alerts']
+              },
+              {
+                icon: CheckCircle,
+                title: 'Premium Resource Validation',
+                desc: 'Expert validation services ensuring resources align with your specific jurisdictional requirements and business objectives.',
+                features: ['Expert Review', 'Customization', 'Localization']
+              },
+            ].map((resource, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="p-8 bg-white rounded-lg border border-border-light hover:border-accent-gold hover:shadow-lg transition-all duration-300"
+              >
+                <resource.icon className="w-10 h-10 text-accent-gold mb-4" />
+                <h3 className="font-heading text-xl text-primary mb-3">{resource.title}</h3>
+                <p className="font-paragraph text-sm text-text-secondary mb-6">{resource.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {resource.features.map((feature, fidx) => (
+                    <span key={fidx} className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Executive Governance Center Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <div>
+              <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-6">
+                Executive Governance Center
+              </h2>
+              <p className="font-paragraph text-lg text-text-secondary mb-6 leading-relaxed">
+                Institutional-grade governance frameworks designed for board-level strategic decision-making. Our Executive Governance Center provides comprehensive documentation for fiduciary compliance, board protocols, and institutional risk management.
+              </p>
+              <ul className="space-y-4 mb-8">
+                {[
+                  'Board-Level Governance Protocols',
+                  'Fiduciary Duty & Liability Frameworks',
+                  'Institutional Risk Management',
+                  'Executive Compensation Structures',
+                  'Stakeholder Governance Models'
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                    <span className="font-paragraph text-text-secondary">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="mailto:contact@jmclex.com?subject=Executive%20Governance%20Center%20Inquiry"
+                className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+              >
+                Explore Governance Resources
+              </a>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-lg p-12 border border-border-light"
+            >
+              <div className="space-y-6">
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Board Governance</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Comprehensive board protocols and governance structures for multinational enterprises.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Fiduciary Compliance</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Institutional frameworks ensuring fiduciary duty compliance across jurisdictions.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Risk Management</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Strategic risk assessment and mitigation protocols for executive operations.</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Global Compliance Center Section */}
+      <section className="w-full py-20 lg:py-28 bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-lg p-12 border border-border-light order-2 lg:order-1"
+            >
+              <div className="space-y-6">
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">GDPR & Data Protection</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Comprehensive international data protection compliance frameworks.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Sanctions & Export Controls</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">OFAC, EU sanctions, and international trade compliance protocols.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">AML/KYC Frameworks</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Anti-money laundering and know-your-customer compliance architectures.</p>
+                </div>
+              </div>
+            </motion.div>
+            <div className="order-1 lg:order-2">
+              <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-6">
+                Global Compliance Center
+              </h2>
+              <p className="font-paragraph text-lg text-text-secondary mb-6 leading-relaxed">
+                Multi-jurisdictional compliance frameworks covering regulatory requirements across major global markets. Our Global Compliance Center ensures your operations meet international standards and local requirements.
+              </p>
+              <ul className="space-y-4 mb-8">
+                {[
+                  'Multi-Jurisdictional Compliance Mapping',
+                  'Regulatory Change Monitoring',
+                  'Compliance Audit Frameworks',
+                  'International Standards Alignment',
+                  'Regulatory Reporting Protocols'
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                    <span className="font-paragraph text-text-secondary">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="mailto:contact@jmclex.com?subject=Global%20Compliance%20Center%20Inquiry"
+                className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+              >
+                Access Compliance Resources
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Aerospace & Defense Strategic Compliance Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <div>
+              <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-6">
+                Aerospace & Defense Strategic Compliance
+              </h2>
+              <p className="font-paragraph text-lg text-text-secondary mb-6 leading-relaxed">
+                Specialized frameworks for defense sector operations, export controls, and aerospace regulatory compliance. Our defense-focused resources ensure compliance with ITAR, EAR, DCSA, and NATO security requirements.
+              </p>
+              <ul className="space-y-4 mb-8">
+                {[
+                  'ITAR & EAR Export Control Compliance',
+                  'Defense Contracting Frameworks',
+                  'DCSA Security Requirements',
+                  'NATO Security Protocols',
+                  'Aerospace Regulatory Compliance'
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                    <span className="font-paragraph text-text-secondary">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="mailto:contact@jmclex.com?subject=Aerospace%20Defense%20Compliance%20Inquiry"
+                className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+              >
+                Explore Defense Resources
+              </a>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-lg p-12 border border-border-light"
+            >
+              <div className="space-y-6">
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Export Controls</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">ITAR and EAR compliance frameworks for controlled technology and defense items.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Defense Contracting</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Specialized procurement and contracting protocols for defense sector operations.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Security Requirements</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">DCSA and NATO security protocols for institutional defense operations.</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* International Business & Cross-Border Operations Section */}
+      <section className="w-full py-20 lg:py-28 bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-lg p-12 border border-border-light order-2 lg:order-1"
+            >
+              <div className="space-y-6">
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">M&A Frameworks</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Cross-border mergers and acquisitions due diligence and transaction frameworks.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Joint Venture Structures</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">International partnership and joint venture governance architectures.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Trade Compliance</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">International trade, supply chain, and customs compliance protocols.</p>
+                </div>
+              </div>
+            </motion.div>
+            <div className="order-1 lg:order-2">
+              <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-6">
+                International Business & Cross-Border Operations
+              </h2>
+              <p className="font-paragraph text-lg text-text-secondary mb-6 leading-relaxed">
+                Strategic documentation for international expansion, cross-border transactions, and multi-jurisdictional operations. Our frameworks support complex international business structures and strategic partnerships.
+              </p>
+              <ul className="space-y-4 mb-8">
+                {[
+                  'Cross-Border M&A Frameworks',
+                  'International Joint Venture Structures',
+                  'Supply Chain Compliance',
+                  'International Tax Optimization',
+                  'Multi-Jurisdictional Governance'
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                    <span className="font-paragraph text-text-secondary">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="mailto:contact@jmclex.com?subject=International%20Business%20Operations%20Inquiry"
+                className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+              >
+                Explore International Resources
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Executive Intelligence Insights Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Executive Intelligence Insights
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              Real-time intelligence on regulatory changes, compliance trends, and strategic governance updates for international operations.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'Regulatory Updates',
+                desc: 'Real-time alerts on regulatory changes across major jurisdictions affecting your operations.',
+                icon: TrendingUp
+              },
+              {
+                title: 'Compliance Trends',
+                desc: 'Strategic analysis of emerging compliance requirements and regulatory trends.',
+                icon: Globe
+              },
+              {
+                title: 'Governance Intelligence',
+                desc: 'Executive insights on governance best practices and institutional standards.',
+                icon: Award
+              },
+              {
+                title: 'Strategic Alerts',
+                desc: 'Proactive notifications on regulatory developments impacting your business.',
+                icon: Zap
+              },
+              {
+                title: 'Industry Analysis',
+                desc: 'Sector-specific compliance and governance analysis for your industry.',
+                icon: BookOpen
+              },
+              {
+                title: 'Expert Commentary',
+                desc: 'Strategic insights from international legal and compliance experts.',
+                icon: Users
+              },
+            ].map((insight, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="p-8 bg-gradient-to-br from-white to-secondary rounded-lg border border-border-light hover:border-accent-gold hover:shadow-lg transition-all duration-300"
+              >
+                <insight.icon className="w-8 h-8 text-accent-gold mb-4" />
+                <h3 className="font-heading text-lg text-primary mb-3">{insight.title}</h3>
+                <p className="font-paragraph text-sm text-text-secondary">{insight.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mt-16 p-12 bg-gradient-to-r from-primary/5 to-accent-gold/5 rounded-lg border border-border-light text-center"
+          >
+            <h3 className="font-heading text-2xl text-primary mb-4">Subscribe to Executive Intelligence Updates</h3>
+            <p className="font-paragraph text-lg text-text-secondary mb-8 max-w-2xl mx-auto">
+              Stay informed on regulatory changes, compliance trends, and strategic governance updates relevant to your international operations.
+            </p>
+            <a
+              href="mailto:contact@jmclex.com?subject=Executive%20Intelligence%20Subscription%20Request"
+              className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+            >
+              Subscribe to Updates
+            </a>
+          </motion.div>
         </div>
       </section>
 
