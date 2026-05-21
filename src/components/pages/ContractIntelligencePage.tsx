@@ -452,6 +452,177 @@ export default function ContractIntelligencePage() {
         </div>
       </section>
 
+      {/* Contract & Framework Library Section */}
+      <section className="w-full py-20 lg:py-28 bg-white border-b border-border-light">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Contract & Framework Library
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-3xl">
+              Explore our comprehensive collection of documents, contracts, frameworks, and services organized by category. Click any item to jump to detailed information.
+            </p>
+          </motion.div>
+
+          {/* Library Categories Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                title: 'Corporate & Governance',
+                anchor: '#corporate-governance',
+                items: [
+                  'Shareholder Agreement',
+                  'Joint Venture Agreement',
+                  'Governance Charter',
+                  'Delegation of Authority Policy',
+                  'Investment Agreement'
+                ]
+              },
+              {
+                title: 'Commercial Contracts',
+                anchor: '#commercial-contracts',
+                items: [
+                  'Master Service Agreement (MSA)',
+                  'Service Agreement',
+                  'Distribution Agreement',
+                  'Outsourcing Agreement',
+                  'Licensing Agreement',
+                  'Strategic Partnership Agreement'
+                ]
+              },
+              {
+                title: 'International Business',
+                anchor: '#international-business',
+                items: [
+                  'International Sales Agreement',
+                  'Cross-Border Supply Agreement',
+                  'Export Agreement',
+                  'International Consulting Agreement',
+                  'GCC Commercial Documentation'
+                ]
+              },
+              {
+                title: 'Compliance & Regulatory',
+                anchor: '#compliance-regulatory',
+                items: [
+                  'AML / KYC Governance Framework',
+                  'Sanctions Compliance Manual',
+                  'OFAC Compliance Framework',
+                  'Anti-Bribery Policy',
+                  'Internal Investigation Protocol',
+                  'Third-Party Due Diligence Framework',
+                  'GDPR / Data Protection Framework',
+                  'AI Governance Framework'
+                ]
+              },
+              {
+                title: 'Technology & AI',
+                anchor: '#technology-ai',
+                items: [
+                  'SaaS Agreement',
+                  'Software Licensing Agreement',
+                  'Cloud Services Agreement',
+                  'Data Processing Agreement (DPA)',
+                  'AI Development Agreement',
+                  'API Integration Agreement'
+                ]
+              },
+              {
+                title: 'Employment & HR',
+                anchor: '#employment-hr',
+                items: [
+                  'Executive Employment Agreement',
+                  'Confidentiality Agreement / NDA',
+                  'Independent Contractor Agreement',
+                  'Employee Handbook',
+                  'Settlement Agreement'
+                ]
+              },
+              {
+                title: 'Finance & Banking',
+                anchor: '#finance-banking',
+                items: [
+                  'Loan Agreement',
+                  'Escrow Agreement',
+                  'Investment Advisory Agreement',
+                  'Banking Compliance Framework',
+                  'Trade Finance Documentation'
+                ]
+              },
+              {
+                title: 'Industrial / Aerospace / Defense',
+                anchor: '#industrial-defense',
+                items: [
+                  'Aerospace Supply Agreement',
+                  'Defense Procurement Compliance Framework',
+                  'Technical Assistance Agreement',
+                  'Engineering Services Agreement',
+                  'ITAR / EAR Export Compliance Clauses'
+                ]
+              }
+            ].map((category, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.05 }}
+                viewport={{ once: true }}
+                className="border border-border-light rounded-lg overflow-hidden hover:border-accent-gold hover:shadow-lg transition-all duration-300 bg-white"
+              >
+                <a
+                  href={category.anchor}
+                  className="block p-6 bg-gradient-to-r from-primary/5 to-transparent hover:from-primary/10 transition-colors duration-300"
+                >
+                  <h3 className="font-heading text-xl text-primary mb-4 flex items-center justify-between group">
+                    {category.title}
+                    <ChevronDown className="w-5 h-5 text-accent-gold group-hover:translate-y-1 transition-transform duration-300" />
+                  </h3>
+                </a>
+
+                {/* Collapsible Items List */}
+                <div className="px-6 pb-6 space-y-2 border-t border-border-subtle">
+                  {category.items.map((item, itemIdx) => (
+                    <motion.a
+                      key={itemIdx}
+                      href={category.anchor}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: itemIdx * 0.02 }}
+                      viewport={{ once: true }}
+                      className="flex items-center gap-3 py-2 px-3 rounded-lg hover:bg-primary/5 transition-colors duration-300 group"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent-gold group-hover:scale-150 transition-transform duration-300" />
+                      <span className="font-paragraph text-sm text-text-secondary group-hover:text-primary transition-colors duration-300">
+                        {item}
+                      </span>
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Quick Navigation Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-12 p-6 bg-primary/5 rounded-lg border border-primary/10"
+          >
+            <p className="font-paragraph text-sm text-text-secondary text-center">
+              <span className="font-semibold text-primary">💡 Tip:</span> Click on any category or item above to jump directly to the detailed section with full documentation, compliance information, and implementation guidance.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Executive Contract Intelligence Overview Section */}
       <section id="contract-overview" className="w-full py-20 lg:py-28 bg-gradient-to-b from-primary/5 to-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
