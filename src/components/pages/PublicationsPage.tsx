@@ -19,10 +19,10 @@ export default function PublicationsPage() {
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
 
   const FEATURED_CATEGORIES = [
-    'Strategic Insight',
-    'Compliance Alert',
-    'Market Analysis',
-    'Regulatory Update',
+    'Compliance & AML',
+    'AI Governance',
+    'Corporate Governance',
+    'Sanctions & Export Controls',
   ];
 
   const breadcrumbs = [
@@ -51,16 +51,18 @@ export default function PublicationsPage() {
     }
   };
 
-  const featuredArticle = {
-    _id: 'featured-1',
-    title: 'International Legal Strategy in Cross-Border Business',
-    summary: 'An introductory analysis on legal strategy and cross-border risk management.',
-    content: 'An introductory analysis on legal strategy and cross-border risk management.',
-    category: 'Strategic Insight',
-    author: 'JMC LEGAL',
-    publicationDate: new Date().toISOString(),
-    thumbnailImage: 'https://static.wixstatic.com/media/5e1235_079a8f3ba0044f73ac8409d57433f23d~mv2.png?originWidth=384&originHeight=192'
-  };
+  const featuredArticle = publications.length > 0 
+    ? publications[0]
+    : {
+        _id: 'featured-1',
+        title: 'Strategic Legal Authority on International Compliance',
+        summary: 'JMC LEX provides expert thought leadership on geopolitical law, international sanctions compliance, cross-border business strategy, and emerging regulatory developments.',
+        content: 'Strategic legal analysis for international business.',
+        category: 'Compliance & AML',
+        author: 'JMC LEX',
+        publicationDate: new Date().toISOString(),
+        thumbnailImage: 'https://static.wixstatic.com/media/5e1235_079a8f3ba0044f73ac8409d57433f23d~mv2.png?originWidth=384&originHeight=192'
+      };
 
   const filteredPublications = publications.filter(pub => {
     const matchesSearch = pub.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -163,9 +165,20 @@ export default function PublicationsPage() {
               <p className="font-paragraph text-lg text-foreground/80 mb-8 leading-relaxed">
                 {featuredArticle.summary}
               </p>
-              <a href="#publications" className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:scale-105">
-                Read Article <ArrowRight className="w-5 h-5" />
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4">
+                {featuredArticle._id !== 'featured-1' ? (
+                  <Link to={`/publications/${featuredArticle._id}`} className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:scale-105">
+                    Read Analysis <ArrowRight className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <a href="#publications" className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:scale-105">
+                    Explore Publications <ArrowRight className="w-5 h-5" />
+                  </a>
+                )}
+                <a href="mailto:contact@jmclex.com" className="inline-flex items-center gap-2 bg-foreground/10 text-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:bg-foreground/20">
+                  Discuss This Topic
+                </a>
+              </div>
             </div>
           </motion.div>
         </div>

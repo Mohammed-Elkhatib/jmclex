@@ -256,12 +256,20 @@ export default function PublicationDetailPage() {
                         <p className="font-paragraph text-sm text-foreground/70 mb-6">
                           Discuss how these legal developments may impact your business or personal matters.
                         </p>
-                        <Link
-                          to="/consultation"
-                          className="w-full inline-flex items-center justify-center bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
-                        >
-                          Schedule Consultation
-                        </Link>
+                        <div className="flex flex-col gap-3">
+                          <a
+                            href="mailto:contact@jmclex.com"
+                            className="w-full inline-flex items-center justify-center bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:scale-105"
+                          >
+                            Discuss This Topic
+                          </a>
+                          <Link
+                            to="/consultation"
+                            className="w-full inline-flex items-center justify-center bg-foreground/10 text-foreground font-paragraph font-semibold px-6 py-4 rounded transition-all hover:bg-foreground/20"
+                          >
+                            Schedule Consultation
+                          </Link>
+                        </div>
                       </div>
                     </motion.div>
                   </div>
