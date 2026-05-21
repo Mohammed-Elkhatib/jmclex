@@ -156,46 +156,43 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* 2. INTRO & KEY FIGURES - Optimized Institutional Layout */}
-      <section className="relative w-full bg-background pt-24 md:pt-32 pb-24 md:pb-32 border-t border-optional-navy/10">
+      {/* 2. INTRO & KEY FIGURES - Architectural Layout */}
+      <section className="relative w-full bg-background pt-32 pb-20 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
             
-            {/* Left Column: Typography - Optimized Hierarchy */}
-            <div className="lg:col-span-6 flex flex-col justify-center">
+            {/* Left Column: Typography */}
+            <div className="lg:col-span-7 flex flex-col justify-center">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-optional-navy mb-6 md:mb-8 leading-[1.08] text-balance">
-                  JMC LEX
+                <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-10 leading-[1.1] text-balance">
+                  JMC LEX <br/>
+                  <span className="text-optional-navy/50">International Legal Authority & Strategic Advisory</span>
                 </h2>
                 
-                <p className="font-paragraph text-lg md:text-xl text-accent-gold font-light mb-8 md:mb-12 tracking-wide">
-                  International Legal Authority & Strategic Advisory
-                </p>
-                
-                <div className="space-y-6 md:space-y-8 font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed max-w-2xl">
+                <div className="space-y-8 font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-3xl">
                   <p>
-                    Premier international law firm specializing in strategic legal advisory and cross-border operations. Trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
+                    With lawyers' expertise spanning since the 1990s, JMC LEX is a premier international law firm specializing in strategic legal advisory and cross-border operations. We serve as the trusted counsel for CEOs, investors, international corporations, and high-net-worth individuals.
                   </p>
                   <p>
-                    Navigating complex, multi-jurisdictional environments with precision, clarity, and decisive action in high-stakes scenarios since the 1990s.
+                    Our practice is built on the ability to navigate complex, multi-jurisdictional environments, providing clarity and decisive action in high-stakes scenarios.
                   </p>
                 </div>
               </motion.div>
             </div>
             
-            {/* Right Column: Image & Stats - Cleaner Layout */}
-            <div className="lg:col-span-6 relative">
+            {/* Right Column: Image & Stats */}
+            <div className="lg:col-span-5 relative">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 1 }}
-                className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden rounded-lg"
+                className="relative h-[60vh] min-h-[500px] w-full overflow-hidden rounded-lg"
               >
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_17d294d373744472ad855876521a8a6b~mv2.png?originWidth=1152&originHeight=896"
@@ -205,22 +202,22 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-optional-navy/10 mix-blend-multiply"></div>
               </motion.div>
 
-              {/* Floating Stats Box - Repositioned */}
+              {/* Floating Stats Box */}
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="absolute -bottom-16 md:-bottom-20 -left-6 md:-left-12 bg-optional-navy p-6 md:p-10 border border-accent-gold/20 rounded-lg shadow-lg"
+                className="absolute -bottom-12 -left-12 md:-left-24 bg-optional-navy p-8 md:p-12 border border-accent-gold/20 rounded-lg"
               >
-                <div className="grid grid-cols-2 gap-8 md:gap-12">
+                <div className="grid grid-cols-2 gap-12">
                   <div>
-                    <div className="text-accent-gold font-heading text-4xl md:text-5xl mb-2">200+</div>
-                    <div className="font-paragraph text-xs md:text-sm text-background/70 uppercase tracking-wider">Contracts<br/>Negotiated</div>
+                    <div className="text-accent-gold font-heading text-5xl md:text-6xl mb-2">200+</div>
+                    <div className="font-paragraph text-sm text-background/70 uppercase tracking-wider">Contracts<br/>Negotiated</div>
                   </div>
                   <div>
-                    <div className="text-accent-gold font-heading text-4xl md:text-5xl mb-2">100+</div>
-                    <div className="font-paragraph text-xs md:text-sm text-background/70 uppercase tracking-wider">Disputes<br/>Resolved</div>
+                    <div className="text-accent-gold font-heading text-5xl md:text-6xl mb-2">100+</div>
+                    <div className="font-paragraph text-sm text-background/70 uppercase tracking-wider">Disputes<br/>Resolved</div>
                   </div>
                 </div>
               </motion.div>
@@ -230,211 +227,194 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3. GCC INVESTORS & EUROPEAN STRATEGIC INTERESTS - Optimized Premium Section */}
-      <section className="relative w-full bg-background py-24 md:py-32 border-t border-optional-navy/10">
+      {/* 3. GCC INVESTORS & EUROPEAN STRATEGIC INTERESTS - Premium Narrative Section */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <div className="flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
             
-            {/* Left Column: Content - Optimized */}
-            <div className="lg:w-6/12 flex flex-col justify-center">
+            {/* Left Column: Content */}
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold"></span>
-                  <span className="font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold">GCC Investors • Europe</span>
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">GCC Investors • European Strategic Interests</span>
                 </div>
                 
-                <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-optional-navy mb-6 md:mb-8 leading-[1.15] tracking-tight">
-                  Strategic Investments & European Interests
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Protecting Strategic Investments, Mobility & International Interests Across Europe
                 </h2>
                 
-                <div className="space-y-4 md:space-y-6 font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 md:mb-12 font-light leading-relaxed">
-                  <p>
-                    We assist GCC investors, entrepreneurs, and families seeking secure access to France, Switzerland, and key European jurisdictions.
-                  </p>
-                  <p>
-                    Through our trusted network across Europe and the Middle East, we support high-value investments, cross-border operations, residency matters, real estate acquisitions, and sensitive international legal situations.
-                  </p>
-                  <p>
-                    Our centralized legal infrastructure simplifies European operations while protecting business, personal, and investment interests across France, Europe, Lebanon, and international jurisdictions.
-                  </p>
-                </div>
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  JMC LEX assists GCC investors, entrepreneurs, families, and international business operators seeking secure and strategically structured access to France, Switzerland, and key European jurisdictions.
+                  <br/><br/>
+                  Through a trusted network of lawyers and partner firms across Europe and the Middle East, we support clients involved in high-value investments, cross-border business operations, residency-related matters, real estate acquisitions, institutional disputes, and sensitive international legal situations.
+                  <br/><br/>
+                  Our role extends beyond traditional legal support. We assist international clients in anticipating risks, reducing operational complexity, protecting strategic assets, and structuring their European interests through a discreet, multilingual, and internationally coordinated approach adapted to complex cross-border environments.
+                  <br/><br/>
+                  Whether involving investment protection, banking-related disputes, international mobility, commercial structuring, regulatory exposure, or strategic representation before institutions and counterparties, our teams coordinate each stage with precision, confidentiality, and long-term strategic vision.
+                  <br/><br/>
+                  JMC LEX provides international clients with a centralized legal and strategic infrastructure designed to simplify European operations while protecting business, personal, and investment interests across France, Europe, Lebanon, and selected international jurisdictions.
+                </p>
                 
                 <Link
                   to="/consultation"
-                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-base md:text-lg group w-fit"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
                 >
-                  <span>Request Consultation</span>
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold group-hover:w-10 md:group-hover:w-12 transition-all duration-300"></span>
-                  <ArrowRight className="w-4 md:w-5 h-4 md:h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  <span>Request Strategic Consultation</span>
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </Link>
               </motion.div>
             </div>
             
-            {/* Right Column: Image - Mobile Optimized */}
-            <div className="lg:w-6/12 relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-                className="relative h-[50vh] md:h-[60vh] lg:h-[70vh] w-full overflow-hidden rounded-lg"
-              >
+            {/* Right Column: Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
                   alt="European strategic investments and international business operations"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8">
-                  <Shield className="w-10 md:w-12 h-10 md:h-12 text-accent-gold mb-3 md:mb-4 opacity-80" />
-                  <h3 className="font-heading text-2xl md:text-3xl text-optional-navy leading-tight">Strategic Protection</h3>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Shield className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">Strategic Protection,<br/>European Excellence.</h3>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* 3.2. EUROPE & EMEA - Optimized International Operations */}
-      <section className="relative w-full bg-background py-24 md:py-32 border-t border-optional-navy/10">
+      {/* 3.2. EUROPE & EMEA - International Operations Section */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <div className="flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
             
             {/* Left Column: Content */}
-            <div className="lg:w-6/12 flex flex-col justify-center">
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold"></span>
-                  <span className="font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold">Europe • EMEA • Cross-Border</span>
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Europe • EMEA • Cross-Border Private Interests</span>
                 </div>
                 
-                <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-optional-navy mb-6 md:mb-8 leading-[1.15] tracking-tight">
-                  International Operations Across Europe & GCC
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Strategic Legal Support for International Operations Across Europe, Lebanon & the GCC
                 </h2>
                 
-                <div className="space-y-4 md:space-y-6 font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 md:mb-12 font-light leading-relaxed">
-                  <p>
-                    We assist European, international, and English-speaking clients seeking reliable legal support across EMEA, Lebanon, France, and GCC jurisdictions.
-                  </p>
-                  <p>
-                    Through our international network, we support individuals, entrepreneurs, investors, and businesses in cross-border projects, investments, international mobility, and commercial operations.
-                  </p>
-                  <p>
-                    Our teams navigate complex regional environments while reducing operational uncertainty and protecting strategic interests through a discreet, coordinated approach.
-                  </p>
-                </div>
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  JMC LEX assists European, international, and English-speaking clients seeking reliable legal and strategic support across the EMEA region, Lebanon, France, and GCC jurisdictions.
+                  <br/><br/>
+                  Through our international network of lawyers, advisors, and partner firms, we support individuals, entrepreneurs, investors, families, and business operators involved in cross-border projects, investments, international mobility, commercial operations, and sensitive legal matters.
+                  <br/><br/>
+                  Our teams assist clients in navigating complex regional environments while reducing operational uncertainty, protecting strategic interests, and simplifying multi-jurisdictional procedures through a discreet and coordinated approach.
+                  <br/><br/>
+                  Whether involving investment structuring, business expansion, contractual matters, asset protection, residency-related procedures, family interests, institutional disputes, or cross-border legal coordination, JMC LEX provides multilingual and internationally oriented support adapted to complex international situations.
+                  <br/><br/>
+                  We combine strategic legal experience, international business understanding, and trusted regional partnerships to help clients operate more securely and efficiently across Europe, Lebanon, and the GCC region.
+                </p>
                 
                 <Link
                   to="/consultation"
-                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-base md:text-lg group w-fit"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
                 >
-                  <span>Discuss Operations</span>
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold group-hover:w-10 md:group-hover:w-12 transition-all duration-300"></span>
-                  <ArrowRight className="w-4 md:w-5 h-4 md:h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  <span>Discuss International Operations</span>
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </Link>
               </motion.div>
             </div>
             
-            {/* Right Column: Image */}
-            <div className="lg:w-6/12 relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-                className="relative h-[50vh] md:h-[60vh] lg:h-[70vh] w-full overflow-hidden rounded-lg"
-              >
+            {/* Right Column: Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
                   alt="International operations across Europe, Lebanon and GCC"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8">
-                  <Globe className="w-10 md:w-12 h-10 md:h-12 text-accent-gold mb-3 md:mb-4 opacity-80" />
-                  <h3 className="font-heading text-2xl md:text-3xl text-optional-navy leading-tight">Global Support</h3>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Globe className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">International<br/>Strategic Support.</h3>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* 3. DIASPORA - Optimized Narrative Section */}
-      <section className="relative w-full bg-secondary py-24 md:py-32">
+      {/* 3. DIASPORA - Sticky Narrative Section */}
+      <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <div className="flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
             
-            {/* Image Side - Mobile First */}
-            <div className="lg:w-6/12 relative order-2 lg:order-1">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-                className="relative h-[50vh] md:h-[60vh] lg:h-[70vh] w-full overflow-hidden rounded-lg"
-              >
+            {/* Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
                   alt="Global diaspora services"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent"></div>
-                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8">
-                  <Globe className="w-10 md:w-12 h-10 md:h-12 text-accent-gold mb-3 md:mb-4 opacity-80" />
-                  <h3 className="font-heading text-2xl md:text-3xl text-optional-navy leading-tight">Global Reach</h3>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Globe className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">Global Reach,<br/>Local Expertise.</h3>
                 </div>
-              </motion.div>
+              </div>
             </div>
             
-            {/* Content Side */}
-            <div className="lg:w-6/12 flex flex-col justify-center order-1 lg:order-2">
+            {/* Scrolling Content Side */}
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold"></span>
-                  <span className="font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold">Lebanese Diaspora</span>
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Lebanese Diaspora</span>
                 </div>
                 
-                <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-optional-navy mb-6 md:mb-8 leading-[1.15] tracking-tight">
-                  Global Clients & Lebanese Diaspora
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Global Clients & <br/>Lebanese Diaspora
                 </h2>
                 
-                <div className="space-y-4 md:space-y-6 font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 md:mb-12 font-light leading-relaxed">
-                  <p>
-                    We provide high-level legal services to Lebanese clients worldwide, as well as international individuals and businesses with legal matters or strategic interests in Lebanon.
-                  </p>
-                  <p>
-                    Our services extend across France, Europe, and the GCC region, supported by a trusted network of partners in key jurisdictions worldwide.
-                  </p>
-                  <p>
-                    We operate a selective client approach, delivering tailored, high-quality advice with precision, efficiency, and the highest standards of professionalism.
-                  </p>
-                </div>
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  We provide high-level legal services to Lebanese clients worldwide, as well as to international individuals and businesses of all nationalities with legal matters, disputes, or strategic interests in Lebanon.
+                  <br/><br/>
+                  Our services extend beyond Lebanon to France, across Europe, and throughout the GCC region, supported by a trusted network of partners in key jurisdictions worldwide.
+                  <br/><br/>
+                  We operate a selective client approach, allowing us to deliver tailored, high-quality legal advice and ensure the highest level of attention, precision, and strategic value in every engagement.
+                  <br/><br/>
+                  Whether you require legal representation, litigation support, corporate structuring, or strategic advisory, our cross-border expertise ensures that your rights and interests are effectively protected and managed across jurisdictions.
+                  <br/><br/>
+                  With a deep understanding of complex legal environments, we guide our clients through legal procedures with discretion, efficiency, and the highest standards of professionalism.
+                </p>
+                
 
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-base md:text-lg group w-fit"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
                 >
                   <span>Initiate Contact</span>
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold group-hover:w-10 md:group-hover:w-12 transition-all duration-300"></span>
-                  <ArrowRight className="w-4 md:w-5 h-4 md:h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </Link>
               </motion.div>
             </div>
@@ -443,87 +423,81 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3.3. HUMAN RIGHTS & INTERNATIONAL SUPPORT - Optimized Premium Narrative */}
-      <section className="relative w-full bg-background py-24 md:py-32 border-t border-optional-navy/10">
+      {/* 3.3. HUMAN RIGHTS & INTERNATIONAL SUPPORT - Discreet Premium Narrative */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <div className="flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-20">
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
             
             {/* Left Column: Content */}
-            <div className="lg:w-6/12 flex flex-col justify-center">
+            <div className="lg:w-7/12 flex flex-col justify-center py-12 lg:py-32">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold"></span>
-                  <span className="font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold">Human Rights • International Support</span>
+                <div className="inline-flex items-center gap-3 mb-8">
+                  <span className="w-8 h-[1px] bg-accent-gold"></span>
+                  <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Human Rights • International Support • Humanitarian Values</span>
                 </div>
                 
-                <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-optional-navy mb-6 md:mb-8 leading-[1.15] tracking-tight">
-                  Legal Protection & Human Dignity
+                <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl text-optional-navy mb-10 leading-[1.15] tracking-tight">
+                  Supporting Human Dignity Through International Legal Guidance
                 </h2>
                 
-                <div className="space-y-4 md:space-y-6 font-paragraph text-base md:text-lg text-optional-navy/80 mb-8 md:mb-12 font-light leading-relaxed">
-                  <p>
-                    Beyond strategic advisory, JMC LEX maintains a human-centered approach consistent with international law principles and legal protection for vulnerable individuals.
-                  </p>
-                  <p>
-                    Through our multilingual environment, we assist individuals and families facing administrative, residency-related, or cross-border legal difficulties across Europe and EMEA.
-                  </p>
-                  <p>
-                    We believe that international stability depends on protecting human dignity, legal clarity, and responsible assistance for vulnerable individuals navigating difficult cross-border situations.
-                  </p>
-                </div>
+                <p className="font-paragraph text-base md:text-lg text-optional-navy/80 mb-12 font-light leading-relaxed">
+                  Beyond strategic advisory and international legal operations, JMC LEX also believes in maintaining a human-centered approach consistent with the principles of international law, dignity, and legal protection for vulnerable individuals.
+                  <br/><br/>
+                  Through our international network and multilingual environment, we assist certain individuals and families facing administrative, residency-related, documentation, or cross-border legal difficulties across parts of Europe and the EMEA region.
+                  <br/><br/>
+                  Our role is to help facilitate legal understanding, procedural orientation, and access to trusted professional support within complex international environments while respecting the legal frameworks and institutional requirements applicable in each jurisdiction.
+                  <br/><br/>
+                  We believe that long-term international stability also depends on the protection of human dignity, legal clarity, and responsible assistance for vulnerable individuals navigating difficult cross-border situations.
+                  <br/><br/>
+                  At JMC LEX, strategic advisory and international legal sophistication remain compatible with a broader human commitment guided by professionalism, responsibility, and respect for international legal principles.
+                </p>
                 
-                <div className="mb-6 md:mb-8 pt-4 border-t border-optional-navy/10">
-                  <p className="font-paragraph text-base md:text-lg text-accent-gold font-light italic mt-6 md:mt-8">
-                    Every responsible action can make a meaningful difference.
+                <div className="mb-8 pt-4 border-t border-optional-navy/10">
+                  <p className="font-paragraph text-lg md:text-xl text-accent-gold font-light italic mt-8">
+                    Every responsible action can make a meaningful difference for the most vulnerable.
                   </p>
                 </div>
                 
                 <Link
                   to="/consultation"
-                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-base md:text-lg group w-fit"
+                  className="inline-flex items-center gap-3 text-accent-gold font-paragraph font-medium text-lg group"
                 >
-                  <span>Request Support</span>
-                  <span className="w-6 md:w-8 h-[1px] bg-accent-gold group-hover:w-10 md:group-hover:w-12 transition-all duration-300"></span>
-                  <ArrowRight className="w-4 md:w-5 h-4 md:h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  <span>Request Support Consultation</span>
+                  <span className="w-8 h-[1px] bg-accent-gold group-hover:w-12 transition-all duration-300"></span>
+                  <ArrowRight className="w-5 h-5 -ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </Link>
               </motion.div>
             </div>
             
-            {/* Right Column: Image */}
-            <div className="lg:w-6/12 relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-                className="relative h-[50vh] md:h-[60vh] lg:h-[70vh] w-full overflow-hidden rounded-lg"
-              >
+            {/* Right Column: Sticky Image Side */}
+            <div className="lg:w-5/12 relative">
+              <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
                 <Image
                   src="https://static.wixstatic.com/media/5e1235_60a06ebccff14aa6ab851af0156f7a11~mv2.png?originWidth=640&originHeight=896"
                   alt="International legal support for vulnerable individuals"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
-                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8">
-                  <Shield className="w-10 md:w-12 h-10 md:h-12 text-accent-gold mb-3 md:mb-4 opacity-80" />
-                  <h3 className="font-heading text-2xl md:text-3xl text-optional-navy leading-tight">Legal Protection</h3>
+                <div className="absolute bottom-8 left-8 right-8">
+                  <Shield className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
+                  <h3 className="font-heading text-3xl text-optional-navy">Legal Protection,<br/>Human Values.</h3>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* 3.5. ELITE BRAND BLOCK - Optimized Premium Section */}
-      <section className="relative w-full bg-background py-24 md:py-32 border-t border-optional-navy/10">
+      {/* 3.5. ELITE BRAND BLOCK - Premium Three Column Section */}
+      <section className="relative w-full bg-background py-32 border-t border-optional-navy/10">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
             {/* Column 1: Our Message */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -532,11 +506,11 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="flex flex-col items-start"
             >
-              <div className="w-10 md:w-12 h-[2px] bg-accent-gold mb-6 md:mb-8"></div>
-              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-4 md:mb-6 leading-tight">
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
                 Our Message
               </h3>
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed">
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed">
                 Precision — Discretion — Excellence
               </p>
             </motion.div>
@@ -549,12 +523,12 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="flex flex-col items-start"
             >
-              <div className="w-10 md:w-12 h-[2px] bg-accent-gold mb-6 md:mb-8"></div>
-              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-4 md:mb-6 leading-tight">
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
                 Our Objectives
               </h3>
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed">
-                High-quality execution with efficiency, responsiveness, and uncompromising standards
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed">
+                Delivering high-quality execution with efficiency, responsiveness, and uncompromising professional standards
               </p>
             </motion.div>
 
@@ -566,11 +540,11 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col items-start"
             >
-              <div className="w-10 md:w-12 h-[2px] bg-accent-gold mb-6 md:mb-8"></div>
-              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-4 md:mb-6 leading-tight">
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
                 Our Motivation
               </h3>
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed">
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed">
                 Integrity — Commitment — Performance
               </p>
             </motion.div>
@@ -578,32 +552,32 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3.7. GLOBAL STRATEGIC PRESENCE - Optimized Premium Section */}
-      <section className="relative w-full bg-secondary py-24 md:py-32">
+      {/* 3.7. GLOBAL STRATEGIC PRESENCE - Premium Institutional Section */}
+      <section className="relative w-full bg-secondary py-32">
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="mb-16 md:mb-20"
+            className="mb-20"
           >
-            <div className="inline-flex items-center gap-3 mb-6 md:mb-8">
-              <span className="w-6 md:w-8 h-[1px] bg-accent-gold"></span>
-              <span className="font-paragraph text-xs md:text-sm tracking-widest uppercase text-accent-gold">Institutional Excellence</span>
+            <div className="inline-flex items-center gap-3 mb-8">
+              <span className="w-8 h-[1px] bg-accent-gold"></span>
+              <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Institutional Excellence</span>
             </div>
             
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-optional-navy mb-6 md:mb-8 leading-[1.1] text-balance">
-              Global Strategic Presence
+            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-8 leading-[1.1] text-balance">
+              Global Strategic Presence & International Legal Intelligence
             </h2>
             
-            <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed max-w-3xl">
-              JMC LEX operates as a premier international legal platform, combining institutional-grade advisory with cross-border strategic intelligence. Our multilingual teams coordinate seamlessly across EMEA, delivering sophisticated legal solutions for complex international matters.
+            <p className="font-paragraph text-lg md:text-xl text-optional-navy/80 font-light leading-relaxed max-w-4xl">
+              JMC LEX operates as a premier international legal platform, combining institutional-grade advisory with cross-border strategic intelligence. Our multilingual teams coordinate seamlessly across EMEA, leveraging decades of collective expertise to deliver sophisticated legal solutions for complex international matters.
             </p>
           </motion.div>
 
           {/* Three Column Institutional Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
             {/* Column 1: Strategic Coordination */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -612,12 +586,12 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="flex flex-col"
             >
-              <div className="w-10 md:w-12 h-[2px] bg-accent-gold mb-6 md:mb-8"></div>
-              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-4 md:mb-6 leading-tight">
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
                 Strategic Coordination
               </h3>
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-6 md:mb-8 flex-grow">
-                Seamless coordination across multiple jurisdictions with institutional-grade precision. Unified strategy and synchronized execution.
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-8 flex-grow">
+                Seamless coordination across multiple jurisdictions with institutional-grade precision. Our teams manage complex cross-border operations with unified strategy and synchronized execution.
               </p>
               <Link
                 to="/consultation"
@@ -636,12 +610,12 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="flex flex-col"
             >
-              <div className="w-10 md:w-12 h-[2px] bg-accent-gold mb-6 md:mb-8"></div>
-              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-4 md:mb-6 leading-tight">
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
                 Legal Intelligence
               </h3>
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-6 md:mb-8 flex-grow">
-                Real-time insights into international legal developments, regulatory shifts, and geopolitical implications across EMEA markets.
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-8 flex-grow">
+                Real-time insights into international legal developments, regulatory shifts, and geopolitical implications. We anticipate risks and identify opportunities across EMEA markets.
               </p>
               <Link
                 to="/publications"
@@ -660,12 +634,12 @@ export default function HomePage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-col"
             >
-              <div className="w-10 md:w-12 h-[2px] bg-accent-gold mb-6 md:mb-8"></div>
-              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-4 md:mb-6 leading-tight">
+              <div className="w-12 h-[2px] bg-accent-gold mb-8"></div>
+              <h3 className="font-heading text-2xl md:text-3xl text-optional-navy mb-6 leading-tight">
                 Executive Advisory
               </h3>
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-6 md:mb-8 flex-grow">
-                Direct access to senior counsel for strategic decision-making. C-level advisory on international expansion and risk mitigation.
+              <p className="font-paragraph text-base md:text-lg text-optional-navy/80 font-light leading-relaxed mb-8 flex-grow">
+                Direct access to senior counsel for strategic decision-making. We provide C-level advisory on international expansion, risk mitigation, and institutional positioning.
               </p>
               <Link
                 to="/consultation"
@@ -678,7 +652,7 @@ export default function HomePage() {
           </div>
 
           {/* Divider */}
-          <div className="mt-16 md:mt-20 pt-16 md:pt-20 border-t border-optional-navy/10">
+          <div className="mt-20 pt-20 border-t border-optional-navy/10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -686,8 +660,8 @@ export default function HomePage() {
               transition={{ duration: 0.8 }}
               className="text-center"
             >
-              <p className="font-paragraph text-base md:text-lg text-optional-navy/70 font-light italic">
-                Institutional excellence meets international sophistication. Premium legal strategy for complex cross-border challenges.
+              <p className="font-paragraph text-lg md:text-xl text-optional-navy/70 font-light italic">
+                Institutional excellence meets international sophistication. JMC LEX delivers premium legal strategy for the most complex cross-border challenges.
               </p>
             </motion.div>
           </div>
