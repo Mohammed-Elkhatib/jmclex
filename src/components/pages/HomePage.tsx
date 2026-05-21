@@ -10,6 +10,7 @@ import { PAGE_METADATA_PRESETS, buildPageMetadata, getOrganizationSchema, getBre
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import InternationalIconsRow from '@/components/InternationalIconsRow';
+import PremiumPricingStructure from '@/components/PremiumPricingStructure';
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
@@ -1038,6 +1039,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 7.4. PREMIUM PRICING STRUCTURE - Executive Legal Solutions */}
+      <PremiumPricingStructure />
 
       {/* 7.5. REQUEST PROCESS - Premium Step-by-Step Section */}
       <section className="relative w-full bg-secondary py-32 border-t border-optional-navy/10">
