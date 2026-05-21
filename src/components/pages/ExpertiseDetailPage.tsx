@@ -6,6 +6,8 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { LegalExpertise } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Head } from '@/components/Head';
+import { buildPageMetadata, getBreadcrumbSchema, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -13,6 +15,7 @@ export default function ExpertiseDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [expertise, setExpertise] = useState<LegalExpertise | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [metadata, setMetadata] = useState<any>(null);
 
   useEffect(() => {
     loadExpertise();
@@ -23,6 +26,38 @@ export default function ExpertiseDetailPage() {
     try {
       const data = await BaseCrudService.getById<LegalExpertise>('legalexpertise', id);
       setExpertise(data);
+      
+      // Set metadata for SEO
+      if (data) {
+        const breadcrumbData = [
+          { name: 'Home', url: '/' },
+          { name: 'Expertise', url: '/expertise' },
+          { name: data.practiceAreaName || 'Expertise Area', url: `/expertise/${id}` },
+        ];
+        
+        const metadataConfig = buildPageMetadata({
+          title: `${data.practiceAreaName} | Legal Expertise | JMC LEX`,
+          description: data.shortDescription || data.detailedContent?.substring(0, 160),
+          keywords: [
+            data.practiceAreaName || 'Legal expertise',
+            'international law',
+            'legal services',
+            'professional services',
+          ],
+          ogImage: data.practiceAreaImage,
+          canonicalUrl: `https://www.jmclex.com/expertise/${id}`,
+          structuredData: {
+            breadcrumb: getBreadcrumbSchema(breadcrumbData),
+            service: getProfessionalServiceSchema({
+              name: data.practiceAreaName || 'Legal Service',
+              description: data.detailedContent || data.shortDescription || '',
+              url: `/expertise/${id}`,
+            }),
+          },
+        });
+        
+        setMetadata(metadataConfig);
+      }
     } catch (error) {
       console.error('Error loading expertise:', error);
     } finally {
@@ -32,6 +67,7 @@ export default function ExpertiseDetailPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {metadata && <Head metadata={metadata} />}
       <Header />
       
       <div className="min-h-screen pt-32">

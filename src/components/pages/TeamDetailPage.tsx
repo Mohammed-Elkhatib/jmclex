@@ -2,6 +2,8 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowLeft, Mail } from 'lucide-react';
+import { Head } from '@/components/Head';
+import { buildPageMetadata, getBreadcrumbSchema, getPersonSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -20,8 +22,40 @@ export default function TeamDetailPage() {
 
   const member = id === 'founder-claude' ? founderData : null;
 
+  // Build SEO metadata
+  const metadata = member ? buildPageMetadata({
+    title: `${member.name} | ${member.role} | JMC LEX Team`,
+    description: member.expertise,
+    keywords: [
+      member.name,
+      member.role,
+      'legal expert',
+      'international law',
+      'legal advisor',
+      'team member',
+    ],
+    ogImage: member.photo,
+    canonicalUrl: `https://www.jmclex.com/team/${id}`,
+    structuredData: {
+      breadcrumb: getBreadcrumbSchema([
+        { name: 'Home', url: '/' },
+        { name: 'Team', url: '/team' },
+        { name: member.name, url: `/team/${id}` },
+      ]),
+      person: getPersonSchema({
+        name: member.name,
+        role: member.role,
+        expertise: member.expertise,
+        image: member.photo,
+        email: member.contactEmail,
+        url: `/team/${id}`,
+      }),
+    },
+  }) : null;
+
   return (
     <div className="min-h-screen bg-background">
+      {metadata && <Head metadata={metadata} />}
       <Header />
       
       <div className="min-h-screen pt-32">

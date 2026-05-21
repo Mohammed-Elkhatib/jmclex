@@ -33,9 +33,15 @@ export default function PublicationDetailPage() {
       const data = await BaseCrudService.getById<Publications>('publications', id);
       setPublication(data);
       
-      // Set metadata for SEO
+      // Set metadata for SEO with breadcrumb schema
       if (data) {
-        setMetadata(getPublicationMetadata({
+        const breadcrumbData = [
+          { name: 'Home', url: '/' },
+          { name: 'Publications', url: '/publications' },
+          { name: data.title || 'Publication', url: `/publications/${id}` },
+        ];
+        
+        const metadataConfig = getPublicationMetadata({
           title: data.title || 'Publication',
           summary: data.summary || '',
           content: data.content || '',
@@ -44,7 +50,18 @@ export default function PublicationDetailPage() {
           publicationDate: data.publicationDate?.toString(),
           thumbnailImage: data.thumbnailImage,
           _id: id,
-        }));
+        });
+        
+        // Add breadcrumb schema
+        metadataConfig.structuredData = {
+          ...metadataConfig.structuredData,
+          breadcrumb: getBreadcrumbSchema(breadcrumbData),
+        };
+        
+        // Add canonical URL
+        metadataConfig.canonicalUrl = `https://www.jmclex.com/publications/${id}`;
+        
+        setMetadata(metadataConfig);
       }
       
       if (data?.category) {

@@ -14,6 +14,7 @@ export interface MetadataConfig {
   hreflang?: Array<{ lang: string; url: string }>;
   structuredData?: Record<string, any>;
   noindex?: boolean;
+  language?: string;
 }
 
 // Global defaults - institutional authority signals
@@ -131,9 +132,51 @@ export const getBreadcrumbSchema = (
 });
 
 /**
- * Article Schema - Publications Authority
- * Establishes thought leadership and content credibility
+ * FAQPage Schema - Rich Snippet Support
+ * Improves visibility in search results
  */
+export const getFAQSchema = (faqs: Array<{ question: string; answer: string }>) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(faq => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+});
+
+/**
+ * Product Schema - E-commerce & Catalog Items
+ * For contracts, training courses, publications
+ */
+export const getProductSchema = (product: {
+  name: string;
+  description: string;
+  price?: number;
+  currency?: string;
+  image?: string;
+  url: string;
+  category?: string;
+}) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: product.description,
+  image: product.image || GLOBAL_METADATA.defaultOgImage,
+  url: `${GLOBAL_METADATA.siteUrl}${product.url}`,
+  category: product.category || 'Legal Services',
+  ...(product.price && {
+    offers: {
+      '@type': 'Offer',
+      price: product.price.toString(),
+      priceCurrency: product.currency || 'EUR',
+      availability: 'https://schema.org/InStock',
+    },
+  }),
+});
 export const getArticleSchema = (article: {
   title: string;
   description: string;
@@ -188,7 +231,19 @@ export const buildPageMetadata = (
   hreflang: pageConfig.hreflang,
   structuredData: pageConfig.structuredData,
   noindex: pageConfig.noindex || false,
+  language: pageConfig.language || GLOBAL_METADATA.language,
 });
+
+/**
+ * Generate hreflang tags for multilingual content
+ * Supports EN, FR, AR, ZH
+ */
+export const getHrefLangAlternates = (path: string, languages: string[] = ['en', 'fr', 'ar', 'zh']) => {
+  return languages.map(lang => ({
+    lang,
+    url: `${GLOBAL_METADATA.siteUrl}${path}${lang !== 'en' ? `?lang=${lang}` : ''}`,
+  }));
+};
 
 /**
  * SEO-focused publication metadata

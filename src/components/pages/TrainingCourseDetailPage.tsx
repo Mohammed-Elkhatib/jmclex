@@ -6,6 +6,8 @@ import { LoadingSpinner } from '@/components/ui/loading-spinner';
 import { ArrowRight, ArrowLeft, Clock, Globe, Award, BookOpen, CheckCircle, Lock, Users, Briefcase } from 'lucide-react';
 import { BaseCrudService, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
+import { Head } from '@/components/Head';
+import { buildPageMetadata, getBreadcrumbSchema, getCourseSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ExecutiveTrainingApplicationForm from '@/components/ExecutiveTrainingApplicationForm';
@@ -17,6 +19,7 @@ export default function TrainingCourseDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'structure' | 'certification' | 'confidentiality'>('overview');
+  const [metadata, setMetadata] = useState<any>(null);
   const { currency } = useCurrency();
 
   useEffect(() => {
@@ -28,6 +31,44 @@ export default function TrainingCourseDetailPage() {
       if (!id) return;
       const data = await BaseCrudService.getById<TrainingCourses>('trainingcourses', id);
       setCourse(data);
+      
+      // Set metadata for SEO
+      if (data) {
+        const breadcrumbData = [
+          { name: 'Home', url: '/' },
+          { name: 'Training', url: '/training' },
+          { name: data.itemName || 'Training Course', url: `/training/${id}` },
+        ];
+        
+        const metadataConfig = buildPageMetadata({
+          title: `${data.itemName} | Executive Training | JMC LEX`,
+          description: data.itemDescription || data.strategicOutcomes,
+          keywords: [
+            data.itemName || 'Training course',
+            'executive training',
+            'legal training',
+            'professional development',
+            data.executiveCategory || 'Legal education',
+          ],
+          ogImage: data.itemImage,
+          canonicalUrl: `https://www.jmclex.com/training/${id}`,
+          structuredData: {
+            breadcrumb: getBreadcrumbSchema(breadcrumbData),
+            course: getCourseSchema({
+              name: data.itemName || 'Training Course',
+              description: data.itemDescription || '',
+              provider: 'JMC LEX',
+              duration: data.duration,
+              level: data.level,
+              price: data.itemPrice,
+              image: data.itemImage,
+              url: `/training/${id}`,
+            }),
+          },
+        });
+        
+        setMetadata(metadataConfig);
+      }
     } catch (error) {
       console.error('Error loading course:', error);
     } finally {
@@ -38,6 +79,7 @@ export default function TrainingCourseDetailPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
+        {metadata && <Head metadata={metadata} />}
         <Header />
         <LoadingSpinner />
       </div>
@@ -47,6 +89,7 @@ export default function TrainingCourseDetailPage() {
   if (!course) {
     return (
       <div className="min-h-screen bg-background">
+        {metadata && <Head metadata={metadata} />}
         <Header />
         <div className="max-w-[100rem] mx-auto px-6 md:px-8 py-24 md:py-32 text-center">
           <h1 className="font-heading text-4xl md:text-5xl text-foreground mb-4 md:mb-6">Course Not Found</h1>
