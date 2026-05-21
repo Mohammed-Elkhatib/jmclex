@@ -8,17 +8,18 @@ import { BaseCrudService } from '@/integrations';
 import { Contracts } from '@/entities/index';
 import PremiumExecutiveInquiryForm from '@/components/PremiumExecutiveInquiryForm';
 
+// SEO-optimized resource categories with international focus
 const RESOURCE_CATEGORIES = [
   'Corporate & Governance',
-  'Commercial Contracts',
-  'International Business',
+  'International Contracts',
+  'Cross-Border Agreements',
   'Compliance & Regulatory',
-  'Technology & AI',
+  'Sanctions & Export Control',
+  'Aerospace & Defense Compliance',
   'Employment & HR',
   'Finance & Banking',
-  'Industrial / Aerospace / Defense',
   'AI Governance & Regulatory',
-  'Sanctions & Export Control',
+  'Executive Legal Support',
 ];
 
 // Premium institutional badges
@@ -195,8 +196,8 @@ export default function ContractIntelligencePage() {
     <div className="min-h-screen bg-white">
       <Header />
 
-      {/* Hero Section */}
-      <section className="w-full bg-gradient-to-b from-primary via-primary to-primary/95 py-24 lg:py-32">
+      {/* Hero Section - SEO Optimized */}
+      <section className="w-full bg-gradient-to-b from-primary via-primary to-primary/95 py-24 lg:py-32" role="banner">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -205,31 +206,31 @@ export default function ContractIntelligencePage() {
             className="text-center"
           >
             <h1 className="font-heading text-5xl lg:text-7xl text-white mb-6 leading-tight">
-              Premium International Contract Intelligence & Executive Documentation Resources
+              International Contract Intelligence: Cross-Border Agreements & Global Compliance Frameworks
             </h1>
             <p className="font-paragraph text-lg lg:text-xl text-secondary-foreground/90 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Cross-Border Contracts, Compliance Frameworks, Governance Resources & Strategic Business Documentation.
+              Premium international contracts, cross-border legal documentation, sanctions compliance, export controls, corporate governance frameworks, and executive legal support for multinational enterprises and global organizations. Specialized expertise in aerospace compliance and international legal documentation.
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <a
-                href="mailto:contact@jmclex.com?subject=Browse%20Resources%20-%20Contract%20Intelligence"
+                href="mailto:contact@jmclex.com?subject=Browse%20International%20Contract%20Resources"
                 className="px-8 py-4 bg-accent-gold hover:bg-accent-gold-dark text-primary font-heading font-semibold rounded-lg transition-colors duration-300"
               >
-                Browse Resources
+                Browse International Resources
               </a>
               <a
-                href="mailto:contact@jmclex.com?subject=Explore%20Executive%20Documentation"
+                href="mailto:contact@jmclex.com?subject=Explore%20Compliance%20Frameworks"
                 className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-heading font-semibold rounded-lg border border-white/30 transition-colors duration-300"
               >
-                Explore Executive Documentation
+                Explore Compliance Frameworks
               </a>
               <a
-                href="mailto:contact@jmclex.com?subject=Request%20Customized%20Support"
+                href="mailto:contact@jmclex.com?subject=Request%20Cross-Border%20Support"
                 className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-heading font-semibold rounded-lg border border-white/30 transition-colors duration-300"
               >
-                Request Customized Support
+                Request Cross-Border Support
               </a>
             </div>
 
@@ -241,8 +242,8 @@ export default function ContractIntelligencePage() {
         </div>
       </section>
 
-      {/* Premium Resource Library Section */}
-      <section id="corporate-governance" className="w-full py-20 lg:py-28 bg-white">
+      {/* Premium Resource Library Section - SEO Optimized */}
+      <section id="international-contracts" className="w-full py-20 lg:py-28 bg-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           {/* Section Header */}
           <motion.div
@@ -253,11 +254,20 @@ export default function ContractIntelligencePage() {
             className="mb-16"
           >
             <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
-              Premium Contract Intelligence Library
+              International Legal Documentation & Compliance Framework Library
             </h2>
             <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
-              Curated international legal, compliance, and governance resources designed for executive-level strategic decision-making.
+              Comprehensive international contracts, cross-border agreements, sanctions compliance protocols, export control documentation, aerospace compliance frameworks, and corporate governance resources. Expertly curated for multinational enterprises, global organizations, and executive legal support. Includes OFAC compliance, ITAR requirements, and multi-jurisdictional governance frameworks.
             </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">International Contracts</span>
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">Cross-Border Agreements</span>
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">Compliance Frameworks</span>
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">Export Controls</span>
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">Sanctions Compliance</span>
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">Aerospace Compliance</span>
+              <span className="inline-block px-3 py-1 bg-accent-gold/10 text-primary rounded-full font-paragraph text-xs font-semibold">Corporate Governance</span>
+            </div>
           </motion.div>
 
           {/* Search Bar */}
@@ -272,7 +282,7 @@ export default function ContractIntelligencePage() {
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-muted" />
               <input
                 type="text"
-                placeholder="Search resources by title or description..."
+                placeholder="Search international contracts, compliance frameworks, export controls, cross-border agreements, sanctions compliance, aerospace compliance..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-12 pr-4 py-3 border border-border-light rounded-lg font-paragraph text-base focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent"
@@ -617,10 +627,10 @@ export default function ContractIntelligencePage() {
             viewport={{ once: true }}
           >
             <h2 className="font-heading text-4xl lg:text-5xl text-white mb-6">
-              Ready to Explore Premium Resources?
+              Ready to Access Premium International Contract Resources?
             </h2>
             <p className="font-paragraph text-lg text-secondary-foreground/90 mb-12 max-w-2xl mx-auto">
-              Connect with our executive team to discuss your specific compliance, governance, and strategic documentation requirements.
+              Connect with our executive team to discuss your specific international compliance, cross-border governance, and strategic documentation requirements.
             </p>
             <a
               href="mailto:contact@jmclex.com?subject=Premium%20Resources%20Inquiry"
