@@ -5,6 +5,8 @@ import { MapPin, MessageCircle } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { OfficeLocations } from '@/entities';
 import { useTranslation } from '@/lib/use-translation';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getLocalBusinessSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -13,54 +15,10 @@ export default function GlobalPresencePage() {
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
-  // SEO: Structured data for schema.org - Locations
-  useEffect(() => {
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "JMC LEX",
-      "url": "https://jmclex.com",
-      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"],
-      "location": [
-        {
-          "@type": "Place",
-          "name": "JMC LEX - Lebanon",
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "LB",
-            "addressLocality": "Beirut"
-          }
-        },
-        {
-          "@type": "Place",
-          "name": "JMC LEX - France",
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "FR",
-            "addressLocality": "Strasbourg"
-          }
-        },
-        {
-          "@type": "Place",
-          "name": "JMC LEX - UAE",
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "AE",
-            "addressLocality": "Dubai"
-          }
-        }
-      ]
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schemaData);
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.globalPresence,
+    canonicalUrl: 'https://www.jmclex.com/global-presence',
+  });
 
   useEffect(() => {
     loadOffices();
@@ -95,6 +53,7 @@ export default function GlobalPresencePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

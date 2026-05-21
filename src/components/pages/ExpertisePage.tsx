@@ -5,6 +5,8 @@ import { Image } from '@/components/ui/image';
 import { ArrowRight } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { LegalExpertise } from '@/entities';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -12,6 +14,17 @@ export default function ExpertisePage() {
   const [expertise, setExpertise] = useState<LegalExpertise[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<string>('all');
+
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.expertise,
+    canonicalUrl: 'https://www.jmclex.com/expertise',
+    structuredData: getProfessionalServiceSchema({
+      name: 'Legal Expertise & Practice Areas',
+      description: 'Specialized legal services in corporate law, compliance, cross-border transactions, litigation, and strategic advisory for international business.',
+      serviceType: 'Legal Services',
+      url: '/expertise',
+    }),
+  });
 
   useEffect(() => {
     loadExpertise();
@@ -38,6 +51,7 @@ export default function ExpertisePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

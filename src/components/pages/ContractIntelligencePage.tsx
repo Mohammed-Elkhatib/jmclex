@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
 import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users, Shield, Globe, Zap, BookOpen, Lock, CheckCircle, AlertCircle, Briefcase, Target, Cpu, FileText, Eye, Settings, BadgeCheck, FileCheck, Handshake, Scale, Building2, GitBranch, Layers, AlertTriangle, Truck, Plane, BarChart3, Gavel } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
@@ -485,6 +487,16 @@ export default function ContractIntelligencePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <Head metadata={buildPageMetadata({
+        ...PAGE_METADATA_PRESETS.contractIntelligence,
+        canonicalUrl: 'https://www.jmclex.com/contract-intelligence',
+        structuredData: getProfessionalServiceSchema({
+          name: 'Contract Intelligence & Executive Documentation',
+          description: 'Advanced contract intelligence, analysis, and management solutions for multinational corporations and legal teams.',
+          serviceType: 'Legal Technology',
+          url: '/contract-intelligence',
+        }),
+      })} />
       <Header />
 
       {/* Hero Section */}

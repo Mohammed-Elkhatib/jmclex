@@ -25,6 +25,17 @@ export default function PublicationsPage() {
     'Regulatory Update',
   ];
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Publications', url: '/publications' },
+  ];
+
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.publications,
+    canonicalUrl: 'https://www.jmclex.com/publications',
+    structuredData: getBreadcrumbSchema(breadcrumbs),
+  });
+
   useEffect(() => {
     loadPublications();
   }, []);
@@ -67,16 +78,6 @@ export default function PublicationsPage() {
   const otherCategories = categories.filter(cat => 
     cat !== 'all' && !FEATURED_CATEGORIES.includes(cat)
   );
-
-  const breadcrumbs = [
-    { name: 'Home', url: '/' },
-    { name: 'Publications', url: '/publications' },
-  ];
-
-  const pageMetadata = buildPageMetadata({
-    ...PAGE_METADATA_PRESETS.publications,
-    structuredData: getBreadcrumbSchema(breadcrumbs),
-  });
 
   return (
     <div className="min-h-screen bg-background">

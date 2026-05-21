@@ -1,12 +1,25 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, ArrowRight, CheckCircle2, Mail, Phone } from 'lucide-react';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 
 const ExecutiveInternationalContractsPage = () => {
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.executiveInternationalContracts,
+    canonicalUrl: 'https://www.jmclex.com/executive-international-contracts',
+    structuredData: getProfessionalServiceSchema({
+      name: 'Executive International Contracts',
+      description: 'Specialized expertise in complex international contracts, executive agreements, and cross-border commercial arrangements.',
+      serviceType: 'Contract Advisory',
+      url: '/executive-international-contracts',
+    }),
+  });
+
   const [expandedCategory, setExpandedCategory] = useState<string | null>('corporate-governance');
   const [activeService, setActiveService] = useState<string | null>(null);
   const contractsRef = useRef<HTMLDivElement>(null);

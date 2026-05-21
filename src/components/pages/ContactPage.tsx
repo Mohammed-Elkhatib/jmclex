@@ -6,10 +6,17 @@ import { BaseCrudService } from '@/integrations';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function ContactPage() {
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.contact,
+    canonicalUrl: 'https://www.jmclex.com/contact',
+  });
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -52,6 +59,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

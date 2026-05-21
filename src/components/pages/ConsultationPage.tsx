@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { Calendar, Clock, Globe, Shield, Video, AlertCircle, CheckCircle, ChevronRight, Lock } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Cart from '@/components/Cart';
@@ -33,6 +35,17 @@ const INITIAL_FORM_DATA: ConsultationFormData = {
 export default function ConsultationPage() {
   const [consultationType, setConsultationType] = useState<'standard' | 'emergency'>('standard');
   const [formStep, setFormStep] = useState<'contact' | 'details'>('contact');
+  
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.consultation,
+    canonicalUrl: 'https://www.jmclex.com/consultation',
+    structuredData: getProfessionalServiceSchema({
+      name: 'Legal Consultation Services',
+      description: 'Book a confidential consultation with our international legal experts for strategic advice on cross-border business, compliance, and corporate matters.',
+      serviceType: 'Legal Consultation',
+      url: '/consultation',
+    }),
+  });
   
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -169,6 +182,7 @@ export default function ConsultationPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       <Cart />
       

@@ -3,41 +3,21 @@ import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, Award, Globe, Users, Target } from 'lucide-react';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getOrganizationSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function AboutPage() {
-  // SEO: Structured data for schema.org
-  useEffect(() => {
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "JMC LEX",
-      "description": "International legal authority and strategic advisory firm specializing in cross-border matters, compliance, and institutional governance",
-      "url": "https://jmclex.com",
-      "foundingDate": "1990",
-      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"],
-      "knowsAbout": ["International Law", "Cross-Border Transactions", "Regulatory Compliance", "Geopolitical Law", "EMEA Markets", "Lebanese Diaspora Services"],
-      "sameAs": ["https://jmclex.com"],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "Legal Advisory",
-        "availableLanguage": ["en", "fr", "ar"]
-      }
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schemaData);
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.about,
+    canonicalUrl: 'https://www.jmclex.com/about',
+    structuredData: getOrganizationSchema(),
+  });
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

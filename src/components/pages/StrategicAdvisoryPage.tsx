@@ -2,12 +2,26 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, Target, TrendingUp, Shield, Globe } from 'lucide-react';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function StrategicAdvisoryPage() {
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.strategicAdvisory,
+    canonicalUrl: 'https://www.jmclex.com/strategic-advisory',
+    structuredData: getProfessionalServiceSchema({
+      name: 'Strategic Legal Advisory',
+      description: 'Strategic legal advisory for multinational corporations navigating complex cross-border transactions, regulatory challenges, and geopolitical risks.',
+      serviceType: 'Strategic Legal Advisory',
+      url: '/strategic-advisory',
+    }),
+  });
+
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

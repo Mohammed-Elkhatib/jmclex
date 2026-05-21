@@ -5,6 +5,8 @@ import { Image } from '@/components/ui/image';
 import { ArrowRight, Clock, Globe, Award, CheckCircle, BookOpen } from 'lucide-react';
 import { BaseCrudService, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { TrainingCourses } from '@/entities';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getCourseSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import PremiumPricingSection from '@/components/PremiumPricingSection';
@@ -13,6 +15,17 @@ export default function TrainingPage() {
   const [courses, setCourses] = useState<TrainingCourses[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { currency } = useCurrency();
+
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.training,
+    canonicalUrl: 'https://www.jmclex.com/training',
+    structuredData: getCourseSchema({
+      name: 'Executive Legal Training Programs',
+      description: 'Premium executive training programs in international law, compliance, and strategic legal management for corporate professionals.',
+      provider: 'JMC LEX',
+      url: '/training',
+    }),
+  });
 
   useEffect(() => {
     loadCourses();
@@ -31,6 +44,7 @@ export default function TrainingPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

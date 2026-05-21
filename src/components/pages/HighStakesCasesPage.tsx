@@ -6,6 +6,8 @@ import { ArrowRight, Scale, Shield, Globe } from 'lucide-react';
 import { BaseCrudService } from '@/integrations';
 import { HighStakesCases } from '@/entities';
 import { LoadingSpinner } from '@/components/ui/loading-spinner';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -13,27 +15,16 @@ export default function HighStakesCasesPage() {
   const [cases, setCases] = useState<HighStakesCases[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // SEO: Structured data for schema.org - High-Stakes Cases
-  useEffect(() => {
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "LegalService",
-      "name": "JMC LEX - High-Stakes Legal Cases",
-      "description": "Institutional expertise in complex multi-jurisdictional disputes, international litigation, and high-stakes legal matters",
-      "url": "https://jmclex.com/high-stakes-cases",
-      "serviceType": ["International Litigation", "Complex Disputes", "Multi-Jurisdictional Matters", "Strategic Legal Advisory"],
-      "areaServed": ["FR", "LB", "AE", "SA", "KW", "CH", "EU"]
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schemaData);
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.highStakesCases,
+    canonicalUrl: 'https://www.jmclex.com/high-stakes-cases',
+    structuredData: getProfessionalServiceSchema({
+      name: 'High-Stakes Legal Cases & Complex Litigation',
+      description: 'Complex multi-jurisdictional litigation and high-stakes case management for multinational corporations and high-net-worth individuals.',
+      serviceType: 'Complex Litigation',
+      url: '/high-stakes-cases',
+    }),
+  });
 
   useEffect(() => {
     loadCases();
@@ -52,6 +43,7 @@ export default function HighStakesCasesPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

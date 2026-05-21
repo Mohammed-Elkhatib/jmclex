@@ -3,53 +3,23 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Image } from '@/components/ui/image';
 import { ArrowRight, Mail, Calendar } from 'lucide-react';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getPersonSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function TeamPage() {
   const [isLoading, setIsLoading] = useState(true);
 
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.team,
+    canonicalUrl: 'https://www.jmclex.com/team',
+  });
+
   useEffect(() => {
     // Simulate loading for consistency
     const timer = setTimeout(() => setIsLoading(false), 300);
     return () => clearTimeout(timer);
-  }, []);
-
-  // SEO: Structured data for schema.org - Team/People
-  useEffect(() => {
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "JMC LEX",
-      "url": "https://jmclex.com",
-      "member": [
-        {
-          "@type": "Person",
-          "name": "Claude Mcheik",
-          "jobTitle": "Founder — International Legal Strategist",
-          "description": "Attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience",
-          "knowsAbout": ["International Law", "Cross-Border M&A", "Tax Law", "Compliance", "EMEA Markets"],
-          "speaksLanguages": ["French", "English", "Arabic"]
-        },
-        {
-          "@type": "Person",
-          "name": "Me Antoine Y. S.",
-          "jobTitle": "Co-Founder — Senior Legal Counsel",
-          "description": "Attorney at law and senior legal counsel with over 36 years of institutional legal experience",
-          "knowsAbout": ["International Law", "Litigation", "Commercial Law", "Regional Authority", "MEA Markets"],
-          "speaksLanguages": ["French", "English", "Arabic"]
-        }
-      ]
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schemaData);
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
   }, []);
 
   const foundersData = [
@@ -87,6 +57,7 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       
       {/* Hero Section */}

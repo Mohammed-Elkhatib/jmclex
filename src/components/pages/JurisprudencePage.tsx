@@ -5,6 +5,8 @@ import { Image } from '@/components/ui/image';
 import { ArrowRight, Database, Search, Lock, BookOpen } from 'lucide-react';
 import { BaseCrudService, useCart, useCurrency, formatPrice, DEFAULT_CURRENCY } from '@/integrations';
 import { JurisprudenceDatabase } from '@/entities';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Cart from '@/components/Cart';
@@ -14,6 +16,17 @@ export default function JurisprudencePage() {
   const [isLoading, setIsLoading] = useState(true);
   const { addingItemId, actions } = useCart();
   const { currency } = useCurrency();
+
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.jurisprudence,
+    canonicalUrl: 'https://www.jmclex.com/jurisprudence',
+    structuredData: getProfessionalServiceSchema({
+      name: 'Jurisprudence Database & Legal Research',
+      description: 'Comprehensive jurisprudence database with curated case law, legal precedents, and research materials for international law.',
+      serviceType: 'Legal Research',
+      url: '/jurisprudence',
+    }),
+  });
 
   useEffect(() => {
     loadItems();
@@ -32,6 +45,7 @@ export default function JurisprudencePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      <Head metadata={pageMetadata} />
       <Header />
       <Cart />
       

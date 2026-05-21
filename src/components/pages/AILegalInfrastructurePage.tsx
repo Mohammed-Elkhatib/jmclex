@@ -6,60 +6,48 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Image } from '@/components/ui/image';
 import { ChevronRight, Shield, Globe, FileText, Zap, BarChart3, Lock } from 'lucide-react';
+import { Head } from '@/components/Head';
+import { PAGE_METADATA_PRESETS, buildPageMetadata, getProfessionalServiceSchema } from '@/lib/metadata';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" as const },
+  },
+};
 
 export default function AILegalInfrastructurePage() {
   const [activeTab, setActiveTab] = useState('intelligence');
 
-  // SEO: Structured data for schema.org - AI Legal Infrastructure
-  useEffect(() => {
-    const schemaData = {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "JMC LEX AI Legal Infrastructure",
-      "description": "Advanced AI-powered legal intelligence platform for institutional-grade legal analysis, compliance monitoring, and strategic advisory",
-      "url": "https://jmclex.com/ai-legal-infrastructure",
-      "applicationCategory": "LegalApplication",
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "USD",
-        "price": "Contact for pricing"
-      },
-      "featureList": ["Legal Intelligence", "Compliance Monitoring", "Regulatory Analysis", "Geopolitical Tracking", "Risk Assessment"]
-    };
-    
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(schemaData);
-    document.head.appendChild(script);
-    
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
+  const pageMetadata = buildPageMetadata({
+    ...PAGE_METADATA_PRESETS.aiLegalInfrastructure,
+    canonicalUrl: 'https://www.jmclex.com/ai-legal-infrastructure',
+    structuredData: getProfessionalServiceSchema({
+      name: 'AI Legal Infrastructure & Technology Solutions',
+      description: 'Cutting-edge AI-powered legal infrastructure and technology solutions for compliance, contract intelligence, and legal operations.',
+      serviceType: 'Legal Technology',
+      url: '/ai-legal-infrastructure',
+    }),
+  });
 
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground">
+    <div>
+      <Head metadata={pageMetadata} />
       <Header />
+      <div className="min-h-screen bg-primary text-primary-foreground">
 
       {/* HERO SECTION */}
       <section className="relative w-full overflow-hidden pt-20 pb-24">
@@ -435,6 +423,7 @@ export default function AILegalInfrastructurePage() {
       </section>
 
       <Footer />
+      </div>
     </div>
   );
 }
