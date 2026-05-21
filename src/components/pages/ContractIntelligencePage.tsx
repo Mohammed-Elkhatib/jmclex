@@ -452,8 +452,8 @@ export default function ContractIntelligencePage() {
         </div>
       </section>
 
-      {/* Live Executive Intelligence Insights Section */}
-      <section className="w-full py-20 lg:py-28 bg-gradient-to-b from-primary/5 to-white">
+      {/* Executive Contract Intelligence Overview Section */}
+      <section id="contract-overview" className="w-full py-20 lg:py-28 bg-gradient-to-b from-primary/5 to-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -463,73 +463,80 @@ export default function ContractIntelligencePage() {
             className="mb-16"
           >
             <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
-              Live Executive Intelligence Insights
+              Executive Contract Intelligence Overview
             </h2>
             <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
-              Real-time compliance intelligence, regulatory updates, and strategic governance observations for international operations.
+              Strategic international documentation, governance frameworks, compliance resources and cross-border operational support.
             </p>
           </motion.div>
 
+          {/* Navigation Overview Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {LIVE_INSIGHTS.map((insight, idx) => (
-              <motion.div
-                key={insight.id}
+            {[
+              {
+                title: 'Corporate & Governance',
+                description: 'International shareholder agreements, joint venture structures, and board governance frameworks.',
+                anchor: '#corporate-governance',
+                icon: Shield
+              },
+              {
+                title: 'Commercial Contracts',
+                description: 'Master service agreements, licensing frameworks, and distribution agreements for international commerce.',
+                anchor: '#commercial-contracts',
+                icon: Briefcase
+              },
+              {
+                title: 'International Business',
+                description: 'Cross-border sales agreements, supply chain compliance, and international trade documentation.',
+                anchor: '#international-business',
+                icon: Globe
+              },
+              {
+                title: 'Compliance & Regulatory',
+                description: 'OFAC sanctions, AML/KYC governance, GDPR frameworks, and regulatory compliance protocols.',
+                anchor: '#compliance-regulatory',
+                icon: CheckCircle
+              },
+              {
+                title: 'Technology & AI',
+                description: 'SaaS agreements, data processing agreements, AI governance, and cybersecurity frameworks.',
+                anchor: '#technology-ai',
+                icon: Cpu
+              },
+              {
+                title: 'Employment & HR',
+                description: 'Executive employment agreements, contractor agreements, and international employee handbooks.',
+                anchor: '#employment-hr',
+                icon: Users
+              },
+              {
+                title: 'Finance & Banking',
+                description: 'Banking compliance, loan agreements, investment advisory, and trade finance documentation.',
+                anchor: '#finance-banking',
+                icon: TrendingUp
+              },
+              {
+                title: 'Industrial / Aerospace / Defense',
+                description: 'ITAR/EAR compliance, aerospace supply agreements, and defense procurement frameworks.',
+                anchor: '#industrial-defense',
+                icon: Target
+              },
+            ].map((item, idx) => (
+              <motion.a
+                key={idx}
+                href={item.anchor}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className={`p-6 rounded-lg border-l-4 ${
-                  insight.priority === 'Critical'
-                    ? 'border-l-red-500 bg-red-50'
-                    : insight.priority === 'High'
-                    ? 'border-l-accent-gold bg-accent-gold/5'
-                    : 'border-l-blue-500 bg-blue-50'
-                } hover:shadow-md transition-shadow duration-300`}
+                className="p-6 rounded-lg bg-white border border-border-light hover:border-accent-gold hover:shadow-lg transition-all duration-300 group cursor-pointer"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <insight.icon className={`w-5 h-5 ${
-                      insight.priority === 'Critical'
-                        ? 'text-red-600'
-                        : insight.priority === 'High'
-                        ? 'text-accent-gold'
-                        : 'text-blue-600'
-                    }`} />
-                    <span className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                      insight.priority === 'Critical'
-                        ? 'bg-red-200 text-red-800'
-                        : insight.priority === 'High'
-                        ? 'bg-accent-gold/30 text-primary'
-                        : 'bg-blue-200 text-blue-800'
-                    }`}>
-                      {insight.priority}
-                    </span>
-                  </div>
-                </div>
-                <h3 className="font-heading text-lg text-primary mb-2">{insight.title}</h3>
-                <p className="font-paragraph text-xs text-text-muted mb-3">{insight.category} • {insight.timestamp}</p>
-                <p className="font-paragraph text-sm text-text-secondary leading-relaxed">{insight.content}</p>
-              </motion.div>
+                <item.icon className="w-8 h-8 text-accent-gold mb-3 group-hover:scale-110 transition-transform duration-300" />
+                <h3 className="font-heading text-lg text-primary mb-2 group-hover:text-accent-gold transition-colors duration-300">{item.title}</h3>
+                <p className="font-paragraph text-sm text-text-secondary">{item.description}</p>
+              </motion.a>
             ))}
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="mt-12 p-8 bg-white rounded-lg border border-border-light text-center"
-          >
-            <p className="font-paragraph text-text-secondary mb-4">
-              Subscribe to receive real-time intelligence updates on regulatory changes, compliance trends, and strategic governance observations.
-            </p>
-            <a
-              href="mailto:contact@jmclex.com?subject=Subscribe%20to%20Executive%20Intelligence%20Updates"
-              className="inline-block px-8 py-3 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
-            >
-              Subscribe to Intelligence Updates
-            </a>
-          </motion.div>
         </div>
       </section>
 
@@ -605,7 +612,7 @@ export default function ContractIntelligencePage() {
       </section>
 
       {/* Premium Resource Library Section */}
-      <section className="w-full py-20 lg:py-28 bg-white">
+      <section id="corporate-governance" className="w-full py-20 lg:py-28 bg-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           {/* Section Header */}
           <motion.div
@@ -925,7 +932,7 @@ export default function ContractIntelligencePage() {
       </section>
 
       {/* Featured Executive Intelligence Resources Section */}
-      <section className="w-full py-20 lg:py-28 bg-gradient-to-b from-white to-secondary">
+      <section id="commercial-contracts" className="w-full py-20 lg:py-28 bg-gradient-to-b from-white to-secondary">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1006,7 +1013,7 @@ export default function ContractIntelligencePage() {
       </section>
 
       {/* Executive Governance Center Section */}
-      <section className="w-full py-20 lg:py-28 bg-white">
+      <section id="international-business" className="w-full py-20 lg:py-28 bg-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1070,7 +1077,7 @@ export default function ContractIntelligencePage() {
       </section>
 
       {/* Global Compliance Center Section */}
-      <section className="w-full py-20 lg:py-28 bg-secondary">
+      <section id="compliance-regulatory" className="w-full py-20 lg:py-28 bg-secondary">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1134,7 +1141,7 @@ export default function ContractIntelligencePage() {
       </section>
 
       {/* Aerospace & Defense Strategic Compliance Section */}
-      <section className="w-full py-20 lg:py-28 bg-white">
+      <section id="technology-ai" className="w-full py-20 lg:py-28 bg-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1198,7 +1205,7 @@ export default function ContractIntelligencePage() {
       </section>
 
       {/* International Business & Cross-Border Operations Section */}
-      <section className="w-full py-20 lg:py-28 bg-secondary">
+      <section id="employment-hr" className="w-full py-20 lg:py-28 bg-secondary">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -1261,7 +1268,7 @@ export default function ContractIntelligencePage() {
         </div>
       </section>
 
-      {/* Executive Intelligence Insights Section */}
+      {/* Executive Strategic Documentation & Contract Support Section */}
       <section className="w-full py-20 lg:py-28 bg-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
@@ -1272,83 +1279,149 @@ export default function ContractIntelligencePage() {
             className="mb-16"
           >
             <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
-              Executive Intelligence Insights
+              Executive Strategic Documentation & Contract Support
             </h2>
-            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
-              Real-time intelligence on regulatory changes, compliance trends, and strategic governance updates for international operations.
+            <p className="font-paragraph text-lg text-text-secondary max-w-3xl">
+              Comprehensive assistance in identifying appropriate contractual structures, drafting agreements, reviewing existing documentation, and strengthening legal protections.
             </p>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Regulatory Updates',
-                desc: 'Real-time alerts on regulatory changes across major jurisdictions affecting your operations.',
-                icon: TrendingUp
-              },
-              {
-                title: 'Compliance Trends',
-                desc: 'Strategic analysis of emerging compliance requirements and regulatory trends.',
-                icon: Globe
-              },
-              {
-                title: 'Governance Intelligence',
-                desc: 'Executive insights on governance best practices and institutional standards.',
-                icon: Award
-              },
-              {
-                title: 'Strategic Alerts',
-                desc: 'Proactive notifications on regulatory developments impacting your business.',
-                icon: Zap
-              },
-              {
-                title: 'Industry Analysis',
-                desc: 'Sector-specific compliance and governance analysis for your industry.',
-                icon: BookOpen
-              },
-              {
-                title: 'Expert Commentary',
-                desc: 'Strategic insights from international legal and compliance experts.',
-                icon: Users
-              },
-            ].map((insight, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="p-8 bg-gradient-to-br from-white to-secondary rounded-lg border border-border-light hover:border-accent-gold hover:shadow-lg transition-all duration-300"
-              >
-                <insight.icon className="w-8 h-8 text-accent-gold mb-4" />
-                <h3 className="font-heading text-lg text-primary mb-3">{insight.title}</h3>
-                <p className="font-paragraph text-sm text-text-secondary">{insight.desc}</p>
-              </motion.div>
-            ))}
-          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="mt-16 p-12 bg-gradient-to-r from-primary/5 to-accent-gold/5 rounded-lg border border-border-light text-center"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16"
           >
-            <h3 className="font-heading text-2xl text-primary mb-4">Subscribe to Executive Intelligence Updates</h3>
-            <p className="font-paragraph text-lg text-text-secondary mb-8 max-w-2xl mx-auto">
-              Stay informed on regulatory changes, compliance trends, and strategic governance updates relevant to your international operations.
-            </p>
-            <a
-              href="mailto:contact@jmclex.com?subject=Executive%20Intelligence%20Subscription%20Request"
-              className="inline-block px-8 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+            <div className="space-y-6">
+              <div>
+                <h3 className="font-heading text-xl text-primary mb-3">Our Expertise</h3>
+                <ul className="space-y-3">
+                  {[
+                    'Identifying appropriate contractual structures for your business objectives',
+                    'Drafting comprehensive agreements tailored to your specific requirements',
+                    'Reviewing existing contracts and strengthening legal protections',
+                    'Supporting compliance structures and governance frameworks',
+                    'AML/KYC governance and sanctions compliance reviews',
+                    'Financial crime investigation support and cross-border operational structuring'
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
+                      <span className="font-paragraph text-text-secondary">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-6 border-t border-border-light">
+                <p className="font-paragraph text-sm text-text-muted italic mb-4">
+                  <span className="font-semibold text-primary">Confidentiality:</span> All strategic exchanges remain strictly confidential following appropriate confidentiality undertakings and NDAs where required.
+                </p>
+                <p className="font-paragraph text-sm text-text-muted italic">
+                  <span className="font-semibold text-primary">Legal Validation:</span> Final legal validation should always be completed by qualified local counsel in your jurisdiction.
+                </p>
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="bg-gradient-to-br from-primary/10 to-accent-gold/10 rounded-lg p-12 border border-border-light"
             >
-              Subscribe to Updates
+              <div className="space-y-6">
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Contract Drafting & Review</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Expert assistance in drafting new agreements and reviewing existing contracts to strengthen legal protections.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Compliance & Governance</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Supporting compliance structures, AML/KYC governance, and sanctions compliance reviews across jurisdictions.</p>
+                </div>
+                <div className="p-6 bg-white rounded-lg border border-border-subtle">
+                  <h4 className="font-heading text-lg text-primary mb-2">Cross-Border Operations</h4>
+                  <p className="font-paragraph text-sm text-text-secondary">Strategic structuring for international operations, financial crime investigation support, and multi-jurisdictional coordination.</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+          >
+            <a
+              href="mailto:contact@jmclex.com?subject=Request%20Executive%20Support"
+              className="px-6 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300 text-center"
+            >
+              Request Executive Support
+            </a>
+            <a
+              href="mailto:contact@jmclex.com?subject=Request%20Contract%20Review"
+              className="px-6 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300 text-center"
+            >
+              Request Contract Review
+            </a>
+            <a
+              href="mailto:contact@jmclex.com?subject=Request%20Customized%20Draft"
+              className="px-6 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300 text-center"
+            >
+              Request Customized Draft
+            </a>
+            <a
+              href="mailto:contact@jmclex.com?subject=Discuss%20Cross-Border%20Operations"
+              className="px-6 py-4 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300 text-center"
+            >
+              Discuss Cross-Border Operations
             </a>
           </motion.div>
         </div>
       </section>
 
-      {/* Legal Disclaimers Section */}
+      {/* Finance & Banking Section */}
+      <section id="finance-banking" className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Finance & Banking Resources
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              International banking compliance, loan agreements, investment advisory, and trade finance documentation frameworks.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Industrial / Aerospace / Defense Section */}
+      <section id="industrial-defense" className="w-full py-20 lg:py-28 bg-secondary">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Industrial / Aerospace / Defense Resources
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              ITAR/EAR compliance, aerospace supply agreements, defense procurement frameworks, and export control documentation.
+            </p>
+          </motion.div>
+        </div>
+      </section>
       <section className="w-full py-20 lg:py-28 bg-primary/5">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
