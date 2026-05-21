@@ -1039,6 +1039,196 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 7.5. REQUEST PROCESS - Premium Step-by-Step Section */}
+      <section className="relative w-full bg-secondary py-32 border-t border-optional-navy/10">
+        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+            className="mb-20 text-center"
+          >
+            <div className="inline-flex items-center gap-3 mb-8 justify-center">
+              <span className="w-8 h-[1px] bg-accent-gold"></span>
+              <span className="font-paragraph text-sm tracking-widest uppercase text-accent-gold">Streamlined Process</span>
+              <span className="w-8 h-[1px] bg-accent-gold"></span>
+            </div>
+            
+            <h2 className="font-heading text-4xl md:text-6xl lg:text-7xl text-optional-navy mb-8 leading-[1.1]">
+              Request Process
+            </h2>
+            
+            <p className="font-paragraph text-lg md:text-xl text-optional-navy/70 font-light max-w-3xl mx-auto">
+              A transparent, efficient pathway to accessing our premium legal services and strategic advisory.
+            </p>
+          </motion.div>
+
+          {/* Six-Step Process Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {/* Step 1 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0 }}
+              className="relative group"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center font-heading text-lg text-optional-navy font-bold">
+                1
+              </div>
+              
+              <div className="bg-background rounded-lg p-8 md:p-10 border border-optional-navy/10 group-hover:border-accent-gold/30 transition-colors duration-300 h-full flex flex-col pt-12">
+                <div className="w-10 h-[2px] bg-accent-gold mb-6"></div>
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">
+                  Select a Contract or Framework
+                </h3>
+                <p className="font-paragraph text-base text-optional-navy/70 font-light leading-relaxed flex-grow">
+                  Browse our curated selection of legal templates, frameworks, and service offerings tailored to your specific needs.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 2 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="relative group"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center font-heading text-lg text-optional-navy font-bold">
+                2
+              </div>
+              
+              <div className="bg-background rounded-lg p-8 md:p-10 border border-optional-navy/10 group-hover:border-accent-gold/30 transition-colors duration-300 h-full flex flex-col pt-12">
+                <div className="w-10 h-[2px] bg-accent-gold mb-6"></div>
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">
+                  Submit Your Request
+                </h3>
+                <p className="font-paragraph text-base text-optional-navy/70 font-light leading-relaxed flex-grow">
+                  Complete our secure intake form with project details, timeline, and specific requirements for your engagement.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 3 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative group"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center font-heading text-lg text-optional-navy font-bold">
+                3
+              </div>
+              
+              <div className="bg-background rounded-lg p-8 md:p-10 border border-optional-navy/10 group-hover:border-accent-gold/30 transition-colors duration-300 h-full flex flex-col pt-12">
+                <div className="w-10 h-[2px] bg-accent-gold mb-6"></div>
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">
+                  Executive Review & Discussion
+                </h3>
+                <p className="font-paragraph text-base text-optional-navy/70 font-light leading-relaxed flex-grow">
+                  Our senior legal team conducts a comprehensive review and schedules a strategic consultation to discuss your objectives.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 4 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative group"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center font-heading text-lg text-optional-navy font-bold">
+                4
+              </div>
+              
+              <div className="bg-background rounded-lg p-8 md:p-10 border border-optional-navy/10 group-hover:border-accent-gold/30 transition-colors duration-300 h-full flex flex-col pt-12">
+                <div className="w-10 h-[2px] bg-accent-gold mb-6"></div>
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">
+                  Customization if Required
+                </h3>
+                <p className="font-paragraph text-base text-optional-navy/70 font-light leading-relaxed flex-grow">
+                  We tailor frameworks and agreements to your specific jurisdiction, industry requirements, and strategic priorities.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 5 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="relative group"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center font-heading text-lg text-optional-navy font-bold">
+                5
+              </div>
+              
+              <div className="bg-background rounded-lg p-8 md:p-10 border border-optional-navy/10 group-hover:border-accent-gold/30 transition-colors duration-300 h-full flex flex-col pt-12">
+                <div className="w-10 h-[2px] bg-accent-gold mb-6"></div>
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">
+                  Delivery of Documentation
+                </h3>
+                <p className="font-paragraph text-base text-optional-navy/70 font-light leading-relaxed flex-grow">
+                  Receive finalized, professionally executed legal documents with comprehensive explanatory notes and implementation guidance.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Step 6 */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="relative group"
+            >
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-accent-gold rounded-full flex items-center justify-center font-heading text-lg text-optional-navy font-bold">
+                6
+              </div>
+              
+              <div className="bg-background rounded-lg p-8 md:p-10 border border-optional-navy/10 group-hover:border-accent-gold/30 transition-colors duration-300 h-full flex flex-col pt-12">
+                <div className="w-10 h-[2px] bg-accent-gold mb-6"></div>
+                <h3 className="font-heading text-2xl text-optional-navy mb-4">
+                  Final Local Legal Validation
+                </h3>
+                <p className="font-paragraph text-base text-optional-navy/70 font-light leading-relaxed flex-grow">
+                  Coordinate with local counsel in your jurisdiction to ensure full compliance and readiness for execution.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* CTA Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col items-center justify-center text-center pt-12 border-t border-optional-navy/10"
+          >
+            <p className="font-paragraph text-lg text-optional-navy/70 mb-10 font-light max-w-2xl">
+              Ready to move forward with your legal strategy? Our team is prepared to guide you through every stage of the process with precision and professionalism.
+            </p>
+            
+            <Link
+              to="/consultation"
+              className="group relative inline-flex items-center justify-center gap-3 bg-accent-gold text-optional-navy font-paragraph font-medium px-12 py-6 rounded-lg overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+            >
+              <span className="relative z-10 text-lg">Discuss Your Project</span>
+              <ArrowRight className="w-6 h-6 relative z-10 group-hover:translate-x-1 transition-transform" />
+              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* 8. FINAL CTA - High Impact Conversion */}
       <section className="relative w-full bg-background py-40 overflow-hidden">
         {/* Background Elements */}
