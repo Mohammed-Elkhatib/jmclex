@@ -31,6 +31,7 @@ import PrivacyPage from '@/components/pages/PrivacyPage';
 import TermsPage from '@/components/pages/TermsPage';
 import DisclaimerPage from '@/components/pages/DisclaimerPage';
 import ContractIntelligencePage from '@/components/pages/ContractIntelligencePage';
+import ExecutiveInternationalContractsPage from '@/components/pages/ExecutiveInternationalContractsPage';
 
 // Layout component that includes ScrollToTop
 function Layout() {
@@ -166,6 +167,10 @@ const router = createBrowserRouter([
       {
         path: "contract-intelligence",
         element: <ContractIntelligencePage />,
+      },
+      {
+        path: "executive-international-contracts",
+        element: <ExecutiveInternationalContractsPage />,
       },
       {
         path: "*",
