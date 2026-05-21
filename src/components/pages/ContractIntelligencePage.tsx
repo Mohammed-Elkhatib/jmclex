@@ -427,6 +427,7 @@ export default function ContractIntelligencePage() {
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set());
   const [sortBy, setSortBy] = useState<'title' | 'updated' | 'complexity'>('title');
   const [filterByAccess, setFilterByAccess] = useState<'all' | 'premium' | 'standard'>('all');
+  const [activeSmartFilters, setActiveSmartFilters] = useState<Set<string>>(new Set());
 
   const filteredResources = useMemo(() => {
     let results = PREMIUM_RESOURCES.filter((resource) => {
@@ -461,6 +462,26 @@ export default function ContractIntelligencePage() {
     }
     setExpandedCards(newExpanded);
   };
+
+  const toggleSmartFilter = (filter: string) => {
+    const newFilters = new Set(activeSmartFilters);
+    if (newFilters.has(filter)) {
+      newFilters.delete(filter);
+    } else {
+      newFilters.add(filter);
+    }
+    setActiveSmartFilters(newFilters);
+  };
+
+  const SMART_FILTERS = [
+    { id: 'contract-type', label: 'Contract Type', icon: FileText },
+    { id: 'industry', label: 'Industry', icon: Building2 },
+    { id: 'compliance', label: 'Compliance Area', icon: CheckCircle },
+    { id: 'international', label: 'International Operations', icon: Globe },
+    { id: 'governance', label: 'Governance', icon: Shield },
+    { id: 'aerospace', label: 'Aerospace & Defense', icon: Plane },
+    { id: 'corporate', label: 'Corporate Structure', icon: Layers },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
