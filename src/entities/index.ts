@@ -57,6 +57,58 @@ export interface ContactInquiries {
 
 
 /**
+ * Collection ID: contracts
+ * @catalog This collection is an eCommerce catalog
+ * Interface for Contracts
+ */
+export interface Contracts {
+  _id: string;
+  _createdDate?: Date;
+  _updatedDate?: Date;
+  /** @wixFieldType text */
+  itemName?: string;
+  /** @wixFieldType number */
+  itemPrice?: number;
+  /** @wixFieldType image - Contains image URL, render with <Image> component, NOT as text */
+  itemImage?: string;
+  /** @wixFieldType text */
+  category?: string;
+  /** @wixFieldType text */
+  industry?: string;
+  /** @wixFieldType text */
+  itemDescription?: string;
+  /** @wixFieldType text */
+  businessUse?: string;
+  /** @wixFieldType text */
+  complianceScope?: string;
+  /** @wixFieldType text */
+  version?: string;
+  /** @wixFieldType datetime */
+  lastUpdated?: Date | string;
+  /** @wixFieldType url */
+  downloadLink?: string;
+  /** @wixFieldType text */
+  summary?: string;
+  /** @wixFieldType text */
+  executiveSummary?: string;
+  /** @wixFieldType text */
+  implementationConsiderations?: string;
+  /** @wixFieldType text */
+  jurisdictionNotes?: string;
+  /** @wixFieldType text */
+  governanceObservations?: string;
+  /** @wixFieldType text */
+  complexity?: string;
+  /** @wixFieldType text */
+  relevance?: string;
+  /** @wixFieldType text */
+  classificationPricing?: string;
+  /** @wixFieldType text */
+  institutionalUse?: string;
+}
+
+
+/**
  * Collection ID: executivetrainingapplications
  * Interface for ExecutiveTrainingApplications
  */
