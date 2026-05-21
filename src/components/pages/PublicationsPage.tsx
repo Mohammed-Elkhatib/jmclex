@@ -11,6 +11,7 @@ import { PAGE_METADATA_PRESETS, buildPageMetadata, getBreadcrumbSchema } from '@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FeaturedCategoryBadge from '@/components/FeaturedCategoryBadge';
+import PublicationUploadGuide from '@/components/PublicationUploadGuide';
 
 export default function PublicationsPage() {
   const [publications, setPublications] = useState<Publications[]>([]);
@@ -312,6 +313,9 @@ export default function PublicationsPage() {
           </div>
         </div>
       </section>
+
+      {/* Publication Upload Guide */}
+      <PublicationUploadGuide />
 
       {/* CTA Section */}
       <section className="w-full bg-optional-navy py-32">
