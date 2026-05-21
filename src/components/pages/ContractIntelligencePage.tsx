@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users, Shield, Globe, Zap, BookOpen, Lock, CheckCircle, AlertCircle, Briefcase, Target, Cpu, FileText, Eye, Settings, BadgeCheck } from 'lucide-react';
+import { ChevronDown, Search, Filter, TrendingUp, Award, Clock, Users, Shield, Globe, Zap, BookOpen, Lock, CheckCircle, AlertCircle, Briefcase, Target, Cpu, FileText, Eye, Settings, BadgeCheck, FileCheck, Handshake, Scale, Building2, GitBranch, Layers, AlertTriangle, Truck, Plane, BarChart3, Gavel } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -1421,6 +1421,162 @@ export default function ContractIntelligencePage() {
                 <span className="font-semibold text-primary">Updates & Modifications:</span> JMC LEX reserves the right to update, modify, or discontinue resources at any time. Users should verify that resources reflect current legal and regulatory requirements before implementation.
               </p>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Available Executive Legal & Compliance Services Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Available Executive Legal & Compliance Services
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-3xl">
+              Comprehensive legal and compliance support services tailored for executive-level requirements and international operations.
+            </p>
+          </motion.div>
+
+          {/* Services Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {[
+              {
+                id: 1,
+                title: 'Contract Drafting',
+                description: 'Expert drafting of comprehensive international contracts tailored to your specific business requirements and jurisdictional compliance.',
+                icon: FileCheck
+              },
+              {
+                id: 2,
+                title: 'Contract Review',
+                description: 'Thorough review and analysis of existing contracts to identify risks, strengthen protections, and optimize commercial terms.',
+                icon: Eye
+              },
+              {
+                id: 3,
+                title: 'NDA & Confidentiality Agreements',
+                description: 'Customized non-disclosure and confidentiality agreements protecting sensitive business information across jurisdictions.',
+                icon: Lock
+              },
+              {
+                id: 4,
+                title: 'Shareholder Agreements',
+                description: 'Sophisticated shareholder governance frameworks with voting rights, profit allocation, and dispute resolution mechanisms.',
+                icon: Handshake
+              },
+              {
+                id: 5,
+                title: 'Joint Venture Structures',
+                description: 'Strategic JV documentation with clear governance, capital structures, and exit provisions for international partnerships.',
+                icon: GitBranch
+              },
+              {
+                id: 6,
+                title: 'Cross-Border Commercial Agreements',
+                description: 'International commercial contracts addressing multi-jurisdictional compliance, currency, and regulatory requirements.',
+                icon: Globe
+              },
+              {
+                id: 7,
+                title: 'Compliance Frameworks',
+                description: 'Comprehensive compliance governance structures covering regulatory requirements across multiple jurisdictions.',
+                icon: CheckCircle
+              },
+              {
+                id: 8,
+                title: 'Sanctions & Export Control Reviews',
+                description: 'OFAC, EU sanctions, and export control compliance assessments for international transactions and operations.',
+                icon: AlertTriangle
+              },
+              {
+                id: 9,
+                title: 'Supply Chain Compliance',
+                description: 'Vendor governance, sanctions screening, and supply chain resilience protocols for global procurement operations.',
+                icon: Truck
+              },
+              {
+                id: 10,
+                title: 'Aerospace & Defense Compliance',
+                description: 'Specialized ITAR, EAR, and DCSA compliance frameworks for defense sector operations and procurement.',
+                icon: Plane
+              },
+              {
+                id: 11,
+                title: 'Corporate Governance Documentation',
+                description: 'Board-level governance protocols, delegation frameworks, and institutional risk management documentation.',
+                icon: Building2
+              },
+              {
+                id: 12,
+                title: 'Risk Management Frameworks',
+                description: 'Executive-level risk assessment, mitigation strategies, and governance frameworks for operational resilience.',
+                icon: BarChart3
+              },
+              {
+                id: 13,
+                title: 'Executive Legal Support',
+                description: 'Comprehensive legal advisory support for executive decision-making and strategic business operations.',
+                icon: Gavel
+              }
+            ].map((service, idx) => (
+              <motion.div
+                key={service.id}
+                variants={itemVariants}
+                className="p-8 rounded-lg bg-white border border-border-light hover:border-accent-gold hover:shadow-lg transition-all duration-300 group flex flex-col"
+              >
+                {/* Icon */}
+                <service.icon className="w-8 h-8 text-accent-gold mb-4 group-hover:scale-110 transition-transform duration-300" />
+
+                {/* Title */}
+                <h3 className="font-heading text-lg text-primary mb-3 group-hover:text-accent-gold transition-colors duration-300">
+                  {service.title}
+                </h3>
+
+                {/* Description */}
+                <p className="font-paragraph text-sm text-text-secondary mb-6 flex-grow">
+                  {service.description}
+                </p>
+
+                {/* Request Support Button */}
+                <a
+                  href={`mailto:contact@jmclex.com?subject=Request%20Support%20-%20${encodeURIComponent(service.title)}`}
+                  className="inline-block px-4 py-2 bg-primary hover:bg-primary/90 text-white font-heading text-sm font-semibold rounded-lg transition-colors duration-300 text-center"
+                >
+                  Request Support
+                </a>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+            className="mt-16 p-8 bg-primary/5 rounded-lg border border-primary/10 text-center"
+          >
+            <p className="font-paragraph text-base text-text-secondary mb-6">
+              Need a service not listed above? Our executive team provides customized legal and compliance support tailored to your specific requirements.
+            </p>
+            <a
+              href="mailto:contact@jmclex.com?subject=Customized%20Legal%20Support%20Inquiry"
+              className="inline-block px-8 py-3 bg-primary hover:bg-primary/90 text-white font-heading font-semibold rounded-lg transition-colors duration-300"
+            >
+              Discuss Your Requirements
+            </a>
           </motion.div>
         </div>
       </section>
