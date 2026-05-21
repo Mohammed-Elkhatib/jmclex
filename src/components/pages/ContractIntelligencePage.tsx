@@ -1167,6 +1167,39 @@ export default function ContractIntelligencePage() {
                           <h5 className="font-heading text-xs text-primary mb-1 uppercase tracking-wide">Pricing</h5>
                           <p className="font-paragraph text-sm text-accent-gold font-semibold">{resource.pricing}</p>
                         </div>
+
+                        {/* Contract Action Buttons */}
+                        <div className="pt-6 border-t border-border-subtle">
+                          <h5 className="font-heading text-xs text-primary mb-4 uppercase tracking-wide">
+                            Contract Actions
+                          </h5>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <a
+                              href={`mailto:contact@jmclex.com?subject=Download%20Framework%20-%20${encodeURIComponent(resource.title)}`}
+                              className="px-4 py-3 bg-accent-gold hover:bg-accent-gold-dark text-primary font-heading text-sm font-semibold rounded-lg transition-all duration-300 text-center hover:shadow-md"
+                            >
+                              Download Framework
+                            </a>
+                            <a
+                              href={`mailto:contact@jmclex.com?subject=Request%20Review%20-%20${encodeURIComponent(resource.title)}`}
+                              className="px-4 py-3 bg-primary hover:bg-primary/90 text-white font-heading text-sm font-semibold rounded-lg transition-all duration-300 text-center hover:shadow-md"
+                            >
+                              Request Review
+                            </a>
+                            <a
+                              href={`mailto:contact@jmclex.com?subject=Request%20Customization%20-%20${encodeURIComponent(resource.title)}`}
+                              className="px-4 py-3 bg-white border-2 border-primary text-primary hover:bg-primary/5 font-heading text-sm font-semibold rounded-lg transition-all duration-300 text-center hover:shadow-md"
+                            >
+                              Request Customization
+                            </a>
+                            <a
+                              href={`mailto:contact@jmclex.com?subject=Discuss%20International%20Structure%20-%20${encodeURIComponent(resource.title)}`}
+                              className="px-4 py-3 bg-white border-2 border-accent-gold text-primary hover:bg-accent-gold/5 font-heading text-sm font-semibold rounded-lg transition-all duration-300 text-center hover:shadow-md"
+                            >
+                              Discuss International Structure
+                            </a>
+                          </div>
+                        </div>
                       </motion.div>
                     )}
                   </div>
