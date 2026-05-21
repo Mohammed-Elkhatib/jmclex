@@ -711,7 +711,7 @@ export default function ContractIntelligencePage() {
         </div>
       </section>
 
-      {/* Key Features Section */}
+      {/* How Clients Use This Platform Section */}
       <section className="w-full py-20 lg:py-28 bg-white">
         <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
           <motion.div
@@ -722,34 +722,56 @@ export default function ContractIntelligencePage() {
             className="mb-16"
           >
             <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
-              Executive Intelligence Platform
+              How Clients Use This Platform
             </h2>
             <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
-              Advanced filtering, version tracking, and institutional-grade documentation for international legal operations.
+              Practical solutions for international legal operations and strategic business documentation.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { icon: TrendingUp, title: 'Real-Time Updates', desc: 'Latest regulatory changes & compliance updates' },
-              { icon: Award, title: 'Premium Access', desc: 'Institutional-grade documentation & frameworks' },
-              { icon: Clock, title: 'Version Control', desc: 'Track document versions & compliance timelines' },
-              { icon: Users, title: 'Expert Support', desc: 'Direct access to legal expertise team' },
-            ].map((feature, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="p-8 bg-secondary rounded-lg border border-border-subtle hover:border-accent-gold transition-colors duration-300"
-              >
-                <feature.icon className="w-8 h-8 text-accent-gold mb-4" />
-                <h3 className="font-heading text-lg text-primary mb-2">{feature.title}</h3>
-                <p className="font-paragraph text-sm text-text-secondary">{feature.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-lg p-12 lg:p-16 border border-border-light"
+          >
+            <div className="space-y-8">
+              <div>
+                <h3 className="font-heading text-2xl text-primary mb-6">Clients may use this platform to:</h3>
+                <ul className="space-y-4">
+                  {[
+                    'Identify the appropriate contract or framework for a specific business operation',
+                    'Request a customized draft tailored to their specific requirements',
+                    'Submit an existing draft for review and correction',
+                    'Obtain contract structuring support for complex transactions',
+                    'Receive compliance, AML/KYC, sanctions, financial crime or internal investigation documentation support',
+                    'Prepare documentation for review by their local legal counsel',
+                    'Save time, reduce legal uncertainty and organize cross-border documentation more efficiently'
+                  ].map((item, idx) => (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: idx * 0.05 }}
+                      viewport={{ once: true }}
+                      className="flex items-start gap-4"
+                    >
+                      <CheckCircle className="w-6 h-6 text-accent-gold flex-shrink-0 mt-0.5" />
+                      <span className="font-paragraph text-base text-text-secondary">{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-8 border-t border-border-light">
+                <h3 className="font-heading text-lg text-primary mb-4">Confidentiality & Security</h3>
+                <p className="font-paragraph text-base text-text-secondary leading-relaxed">
+                  All strategic exchanges are handled confidentially. Where appropriate, an NDA or confidentiality undertaking may be signed before reviewing sensitive documentation.
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
