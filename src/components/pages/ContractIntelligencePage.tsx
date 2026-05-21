@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { Image } from '@/components/ui/image';
 import { BaseCrudService } from '@/integrations';
 import { Contracts } from '@/entities/index';
+import PremiumExecutiveInquiryForm from '@/components/PremiumExecutiveInquiryForm';
 
 const RESOURCE_CATEGORIES = [
   'Corporate & Governance',
@@ -573,6 +574,36 @@ export default function ContractIntelligencePage() {
               </p>
             </motion.div>
           )}
+        </div>
+      </section>
+
+      {/* Premium Executive Inquiry Form Section */}
+      <section className="w-full py-20 lg:py-28 bg-white">
+        <div className="max-w-[100rem] mx-auto px-6 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="mb-16"
+          >
+            <h2 className="font-heading text-4xl lg:text-5xl text-primary mb-4">
+              Request Premium Support
+            </h2>
+            <p className="font-paragraph text-lg text-text-secondary max-w-2xl">
+              Connect with our strategic advisory team for customized contract solutions and executive guidance.
+            </p>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="bg-gradient-to-br from-secondary to-white border border-border-light rounded-lg p-8 lg:p-12"
+          >
+            <PremiumExecutiveInquiryForm />
+          </motion.div>
         </div>
       </section>
 
