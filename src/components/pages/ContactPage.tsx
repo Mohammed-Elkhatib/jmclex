@@ -32,14 +32,39 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
+      const inquiryId = crypto.randomUUID();
+      
+      // Save to CMS collection
       await BaseCrudService.create('contactinquiries', {
-        _id: crypto.randomUUID(),
+        _id: inquiryId,
         name: formData.name,
         email: formData.email,
         phone: formData.phone,
         subject: formData.country,
         message: formData.message
       });
+
+      // Send email notification to admin
+      try {
+        await fetch('/api/send-consultation-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            to: 'contact@jmclex.com',
+            subject: `New Contact Inquiry from ${formData.name}`,
+            inquiryName: formData.name,
+            inquiryEmail: formData.email,
+            inquiryPhone: formData.phone,
+            inquiryCountry: formData.country,
+            inquirySubject: 'Contact Form Inquiry',
+            inquiryMessage: formData.message
+          })
+        });
+      } catch (emailError) {
+        console.warn('Email notification failed, but inquiry was saved:', emailError);
+      }
 
       setSubmitSuccess(true);
       setFormData({

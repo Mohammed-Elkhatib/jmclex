@@ -131,6 +131,8 @@ export default function ConsultationPage() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
+            to: 'contact@jmclex.com',
+            subject: `New ${consultationType === 'emergency' ? 'Emergency ' : ''}Consultation Request from ${formData.clientName}`,
             consultationId,
             clientName: formData.clientName,
             clientEmail: formData.clientEmail,

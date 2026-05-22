@@ -77,8 +77,11 @@ export default function PremiumExecutiveInquiryForm() {
     setSubmitStatus('idle');
 
     try {
+      const inquiryId = crypto.randomUUID();
+      
+      // Save to CMS collection
       await BaseCrudService.create('contactinquiries', {
-        _id: crypto.randomUUID(),
+        _id: inquiryId,
         name: formData.fullName,
         email: formData.email,
         phone: '',
@@ -94,6 +97,30 @@ Message:
 ${formData.message}
         `.trim()
       });
+
+      // Send email notification to admin
+      try {
+        await fetch('/api/send-consultation-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            to: 'contact@jmclex.com',
+            subject: `New Executive Inquiry from ${formData.fullName}`,
+            executiveFullName: formData.fullName,
+            executiveEmail: formData.email,
+            executiveCompany: formData.company,
+            executiveCountry: formData.country,
+            executiveIndustry: formData.industry,
+            executiveRequestedContract: formData.requestedContract,
+            executiveTypeOfAssistance: formData.typeOfAssistance,
+            executiveMessage: formData.message
+          })
+        });
+      } catch (emailError) {
+        console.warn('Email notification failed, but inquiry was saved:', emailError);
+      }
 
       setSubmitStatus('success');
       setFormData({
