@@ -69,15 +69,25 @@ export const Head = ({ metadata }: HeadProps) => {
       <link rel="alternate" hrefLang="zh" href={`${config.canonicalUrl}?lang=zh`} />
       
       {/* Structured Data - Organization Schema */}
-      <script type="application/ld+json">
-        {JSON.stringify(getOrganizationSchema())}
-      </script>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(getOrganizationSchema()) }} />
       
       {/* Page-specific Structured Data */}
       {config.structuredData && (
-        <script type="application/ld+json">
-          {JSON.stringify(config.structuredData)}
-        </script>
+        <>
+          {/* Handle multiple schemas */}
+          {Array.isArray(config.structuredData) ? (
+            config.structuredData.map((schema, index) => (
+              <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+            ))
+          ) : (
+            // Handle object with multiple schema properties
+            Object.entries(config.structuredData).map(([key, schema]) => (
+              schema && (
+                <script key={key} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+              )
+            ))
+          )}
+        </>
       )}
       
       {/* Fonts */}

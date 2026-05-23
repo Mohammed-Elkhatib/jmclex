@@ -177,6 +177,7 @@ export const getProductSchema = (product: {
     },
   }),
 });
+
 export const getArticleSchema = (article: {
   title: string;
   description: string;
