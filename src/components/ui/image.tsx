@@ -131,6 +131,7 @@ const WixImage = forwardRef<HTMLImageElement, WixImageProps>(
         <img
           ref={imgRef}
           className={`w-full h-full inset-0 absolute ${fittingType === 'fit' ? 'object-contain' : 'object-cover'}`}
+          loading="lazy"
           {...imgProps}
         />
       </ImageWrapper>
@@ -163,7 +164,7 @@ export const Image = forwardRef<HTMLImageElement, ImageProps>(
 
     if (!imageData) {
       const isErrorUrl = imgSrc === FALLBACK_IMAGE_URL
-      return <img ref={ref} src={imgSrc} {...imageProps} data-error-image={isErrorUrl} />
+      return <img ref={ref} src={imgSrc} loading="lazy" {...imageProps} data-error-image={isErrorUrl} />
     }
 
     return <WixImage ref={ref} data={imageData} {...imageProps} />

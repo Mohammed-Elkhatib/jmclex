@@ -62,6 +62,12 @@ export const Head = ({ metadata }: HeadProps) => {
       ))}
       <link rel="alternate" hrefLang="x-default" href={GLOBAL_METADATA.siteUrl} />
       
+      {/* Multilingual hreflang tags for all supported languages */}
+      <link rel="alternate" hrefLang="en" href={config.canonicalUrl} />
+      <link rel="alternate" hrefLang="fr" href={`${config.canonicalUrl}?lang=fr`} />
+      <link rel="alternate" hrefLang="ar" href={`${config.canonicalUrl}?lang=ar`} />
+      <link rel="alternate" hrefLang="zh" href={`${config.canonicalUrl}?lang=zh`} />
+      
       {/* Structured Data - Organization Schema */}
       <script type="application/ld+json">
         {JSON.stringify(getOrganizationSchema())}
