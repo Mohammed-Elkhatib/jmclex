@@ -75,7 +75,7 @@ export default function Header() {
     { key: 'nav.jurisprudence', path: '/jurisprudence' },
     { key: 'AI Legal Infrastructure', path: '/ai-legal-infrastructure' },
     { key: 'nav.global-presence', path: '/global-presence' },
-    { key: 'nav.legal-network', path: '/team' },
+    { key: 'nav.our-legal-network', path: '/team' },
     { key: 'nav.about', path: '/about' },
     { key: 'nav.contact', path: '/contact' }
   ];
