@@ -62,7 +62,7 @@ export default function TermsPage() {
             <p className="font-paragraph text-lg text-background/80 max-w-2xl mx-auto">
               Please read these terms carefully. By using JMC LEX services, you agree to be bound by these terms and conditions.
             </p>
-            <p className="font-paragraph text-sm text-background/60 mt-6">
+            <p className="font-paragraph text-sm text-background/70 mt-6">
               Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </motion.div>

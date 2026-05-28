@@ -168,22 +168,22 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="pt-12 border-t border-optional-navy/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="font-paragraph text-xs text-background/60">
+            <p className="font-paragraph text-xs text-background/70">
               © {new Date().getFullYear()} JMC LEX. All rights reserved. Lawyers' expertise since the 1990s.
             </p>
             <div className="flex gap-6">
-              <Link to="/privacy" className="font-paragraph text-xs text-background/60 hover:text-accent-gold transition-colors duration-300">
+              <Link to="/privacy" className="font-paragraph text-xs text-background/70 hover:text-accent-gold transition-colors duration-300">
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="font-paragraph text-xs text-background/60 hover:text-accent-gold transition-colors duration-300">
+              <Link to="/terms" className="font-paragraph text-xs text-background/70 hover:text-accent-gold transition-colors duration-300">
                 Terms of Service
               </Link>
-              <Link to="/disclaimer" className="font-paragraph text-xs text-background/60 hover:text-accent-gold transition-colors duration-300">
+              <Link to="/disclaimer" className="font-paragraph text-xs text-background/70 hover:text-accent-gold transition-colors duration-300">
                 Legal Disclaimer
               </Link>
             </div>
           </div>
-          <p className="font-paragraph text-xs text-background/50 mt-6 text-center md:text-left">
+          <p className="font-paragraph text-xs text-background/60 mt-6 text-center md:text-left">
             Attorney-client privilege applies to all communications. This website does not constitute legal advice. 
             Consultation required for specific legal matters.
           </p>

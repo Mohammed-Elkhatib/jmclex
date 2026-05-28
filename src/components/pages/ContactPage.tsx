@@ -371,7 +371,7 @@ export default function ContactPage() {
                 <p className="font-paragraph text-base text-background/80 mb-4">
                   Monday - Friday: 9:00 AM - 6:00 PM
                 </p>
-                <p className="font-paragraph text-sm text-background/60">
+                <p className="font-paragraph text-sm text-background/70">
                   Emergency consultations available by appointment
                 </p>
               </div>

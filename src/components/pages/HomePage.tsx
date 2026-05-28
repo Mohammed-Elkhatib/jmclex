@@ -68,9 +68,9 @@ export default function HomePage() {
           />
         </motion.div>
         
-        {/* Sophisticated Gradient Overlays - Premium Cinema Effect */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/15 via-background/35 to-background/80"></div>
-        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_10%,#0A1F2F_95%)] opacity-35"></div>
+        {/* Sophisticated Gradient Overlays - Premium Cinema Effect - REDUCED OPACITY FOR TEXT VISIBILITY */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-background/5 via-background/15 to-background/50"></div>
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,transparent_30%,#0A1F2F_90%)] opacity-10"></div>
         
         <div className="relative z-20 w-full max-w-[120rem] mx-auto px-6 md:px-12 flex flex-col items-center text-center mt-24 md:mt-32">
           <motion.div
@@ -129,7 +129,7 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.8 }}
-            className="flex items-center justify-center gap-3 text-background/50 font-paragraph text-xs md:text-sm uppercase tracking-[0.15em]"
+            className="flex items-center justify-center gap-3 text-background/70 font-paragraph text-xs md:text-sm uppercase tracking-[0.15em]"
           >
             <span className="w-6 h-[1px] bg-background/30"></span>
             <span>Global Institutional Network • EMEA & International Markets</span>
@@ -144,7 +144,7 @@ export default function HomePage() {
           transition={{ delay: 1.5, duration: 1 }}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20"
         >
-          <span className="font-paragraph text-xs tracking-widest text-background/60 uppercase">Scroll to explore</span>
+          <span className="font-paragraph text-xs tracking-widest text-background/70 uppercase">Scroll to explore</span>
           <div className="w-[1px] h-16 bg-background/30 overflow-hidden">
             <motion.div 
               animate={{ y: ["-100%", "100%"] }}
@@ -213,11 +213,11 @@ export default function HomePage() {
                 <div className="grid grid-cols-2 gap-12">
                   <div>
                     <div className="text-accent-gold font-heading text-5xl md:text-6xl mb-2 font-light">200+</div>
-                    <div className="font-paragraph text-xs text-background/60 uppercase tracking-wider font-light">Contracts<br/>Negotiated</div>
+                    <div className="font-paragraph text-xs text-background/70 uppercase tracking-wider font-light">Contracts<br/>Negotiated</div>
                   </div>
                   <div>
                     <div className="text-accent-gold font-heading text-5xl md:text-6xl mb-2 font-light">100+</div>
-                    <div className="font-paragraph text-xs text-background/60 uppercase tracking-wider font-light">Disputes<br/>Resolved</div>
+                    <div className="font-paragraph text-xs text-background/70 uppercase tracking-wider font-light">Disputes<br/>Resolved</div>
                   </div>
                 </div>
               </motion.div>
@@ -718,9 +718,7 @@ export default function HomePage() {
                 
                 <item.icon className="w-10 h-10 text-accent-gold mb-8 opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" />
                 <h3 className="font-heading text-2xl text-background mb-4">{item.title}</h3>
-                <p className="font-paragraph text-sm text-background/60 mb-8 line-clamp-2 font-light">
-                  {item.desc}
-                </p>
+                <p className="font-paragraph text-sm text-background/80 mb-8 line-clamp-2 font-light">{item.desc}</p>
                 
                 <Link
                   to="/expertise"
@@ -896,7 +894,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mb-3">
-                  <span className="font-paragraph text-sm text-optional-navy/50">{pub.date}</span>
+                  <span className="font-paragraph text-sm text-optional-navy/70">{pub.date}</span>
                   <span className="w-8 h-[1px] bg-optional-navy/20"></span>
                 </div>
                 <h3 className="font-heading text-2xl text-optional-navy group-hover:text-accent-gold transition-colors duration-300">
@@ -1272,7 +1270,7 @@ export default function HomePage() {
                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
               </Link>
               
-              <div className="flex items-center gap-4 text-optional-navy/50 font-paragraph text-sm uppercase tracking-widest">
+              <div className="flex items-center gap-4 text-optional-navy/70 font-paragraph text-sm uppercase tracking-widest">
                 <span>EN</span>
                 <span className="w-1 h-1 rounded-full bg-accent-gold"></span>
                 <span>FR</span>

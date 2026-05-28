@@ -169,7 +169,7 @@ export default function Header() {
                       >
                         <span className="text-lg">{languageFlags[lang]}</span>
                         <span className="font-paragraph text-sm">{languageNames[lang]}</span>
-                        <span className="font-paragraph text-xs text-optional-navy/50 ml-auto">({lang})</span>
+                        <span className="font-paragraph text-xs text-optional-navy/70 ml-auto">({lang})</span>
                       </button>
                     ))}
                   </motion.div>
@@ -270,7 +270,7 @@ export default function Header() {
                       >
                         <span className="text-lg">{languageFlags[lang]}</span>
                         <span className="font-paragraph text-sm">{languageNames[lang]}</span>
-                        <span className="font-paragraph text-xs text-optional-navy/50 ml-auto">({lang})</span>
+                        <span className="font-paragraph text-xs text-optional-navy/70 ml-auto">({lang})</span>
                       </button>
                     ))}
                   </motion.div>

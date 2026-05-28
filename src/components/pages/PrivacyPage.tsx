@@ -50,7 +50,7 @@ export default function PrivacyPage() {
             <p className="font-paragraph text-lg text-background/80 max-w-2xl mx-auto">
               Your privacy is paramount to JMC LEX. We are committed to transparency and protecting your personal information with the highest standards of confidentiality.
             </p>
-            <p className="font-paragraph text-sm text-background/60 mt-6">
+            <p className="font-paragraph text-sm text-background/70 mt-6">
               Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
             </p>
           </motion.div>
