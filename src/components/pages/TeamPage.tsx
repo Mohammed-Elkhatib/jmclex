@@ -26,8 +26,8 @@ export default function TeamPage() {
     {
       _id: 'founder-claude',
       name: 'Claude Mcheik',
-      role: 'Founder',
-      title: 'Founder — International Legal Strategist & Academic Authority',
+      role: 'Of Counsel & Senior Business Advisor',
+      title: 'Of Counsel & Senior Business Advisor — International Legal Strategist & Academic Authority',
       bio: 'Claude Mcheik is an attorney at law, senior legal counsel, academic and international legal strategist with over 25 years of professional experience and more than 13 years as an attorney at law and senior legal advisor. He has built a distinguished cross-border legal career between France and Lebanon, advising multinational corporations, institutional investors, entrepreneurs and executive decision-makers on complex legal, tax, corporate and multi-jurisdictional matters. His institutional work encompasses international business structuring, cross-border M&A, commercial transactions, tax-driven legal analysis, governance frameworks, compliance sophistication, dispute strategy and executive-level advisory across EMEA. Alongside his legal practice, he has taught law in leading universities and business schools, developing a strong academic research profile that combines intellectual rigor, strategic thinking and practical legal execution. Fluent in French, English and Arabic, he provides institutional advisory to Lebanese diaspora clients, international investors and business leaders seeking to structure, secure and expand their projects across Europe, France, Switzerland, Lebanon and the wider Middle East.',
       additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_8ccced5019da4821b2c124bf7919b832~mv2.jpg',
@@ -36,9 +36,9 @@ export default function TeamPage() {
     {
       _id: 'cofounder-antoine',
       name: 'Me Antoine Y. S.',
-      role: 'Co-Founder',
-      title: 'Co-Founder — Senior Legal Counsel & Regional Authority',
-      bio: "Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of institutional legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region, with deep institutional authority across the region. His work reflects decades of sophisticated litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and highly trusted legal judgment to clients facing sensitive legal and business issues. As Co-Founder of JMC LEX, he contributes senior legal wisdom, regional institutional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, institutional investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.",
+      role: 'Attorney at Law & Senior Legal Advisor',
+      title: 'Attorney at Law & Senior Legal Advisor — Regional Authority',
+      bio: "Me Antoine Y. S. is an attorney at law and senior legal counsel with over 36 years of institutional legal experience. He is recognized as one of the established pillars of legal practice in Lebanon and the MEA region, with deep institutional authority across the region. His work reflects decades of sophisticated litigation, legal advisory, negotiation and strategic counsel in complex civil, commercial, corporate and cross-border matters. He brings deep regional knowledge, institutional experience and highly trusted legal judgment to clients facing sensitive legal and business issues. As a key member of JMC LEX, he contributes senior legal wisdom, regional institutional authority and strategic oversight to the platform's international advisory work, particularly for Lebanese diaspora clients, institutional investors and companies requiring reliable legal support in Lebanon, Europe, France, Switzerland and the wider MEA region.",
       additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_50ee51499d964a9185c94fd9cad9eb21~mv2.png',
       contactEmail: 'Contact@JMCLex.com'
@@ -46,8 +46,8 @@ export default function TeamPage() {
     {
       _id: 'officemanager-julia',
       name: 'Julia NAS',
-      role: 'Office Manager',
-      title: 'Office Manager — International Legal Operations',
+      role: 'Legal & Business Advisor',
+      title: 'Legal & Business Advisor — International Legal Operations',
       bio: 'Julia NAS is a jurist specialized in international law and training management, with experience across multiple law firms and corporate environments. She has been a key member of JMC LEX since 2021, overseeing client relations, internal coordination, and ensuring efficiency, confidentiality, and responsiveness at all levels of the firm.',
       additionalBio: null,
       photo: 'https://static.wixstatic.com/media/5e1235_86cc71da96ec4c8cbad0b1ad56f3d853~mv2.jpg',
@@ -71,21 +71,21 @@ export default function TeamPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background"></div>
         </div>
         
-        <div className="relative z-10 max-w-[100rem] mx-auto px-8 py-32 text-center">
+        <div className="relative z-10 max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8 py-24 md:py-32 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-heading text-6xl md:text-7xl text-foreground mb-8"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-6 md:mb-8 leading-tight"
           >
-            International Legal Leadership & Institutional Advisory Team
+            International Legal Network & Institutional Advisory
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
+            className="font-paragraph text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/90 max-w-4xl mx-auto px-2"
           >
             Accomplished legal professionals with 60+ years of combined international experience, institutional authority, and sophisticated multilingual advisory expertise across EMEA
           </motion.p>
@@ -95,11 +95,11 @@ export default function TeamPage() {
 
 
       {/* Founders Section */}
-      <section className="w-full bg-background py-32">
-        <div className="max-w-[120rem] mx-auto px-6 md:px-12">
+      <section className="w-full bg-background py-20 md:py-32">
+        <div className="max-w-[120rem] mx-auto px-4 sm:px-6 md:px-12">
           <div className="min-h-[600px]">
             {isLoading ? null : (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
                 {foundersData.map((founder, index) => (
                   <motion.div
                     key={founder._id}
@@ -109,7 +109,7 @@ export default function TeamPage() {
                     transition={{ duration: 0.8, delay: index * 0.2 }}
                     className="flex flex-col"
                   >
-                    <div className="relative h-[500px] mb-8 overflow-hidden rounded-lg group">
+                    <div className="relative h-[350px] sm:h-[400px] md:h-[500px] mb-6 md:mb-8 overflow-hidden rounded-lg group">
                       <Image
                         src={founder.photo}
                         alt={founder.name}

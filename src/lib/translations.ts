@@ -14,7 +14,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'nav.training': 'Training Center',
     'nav.jurisprudence': 'Jurisprudence',
     'nav.global-presence': 'Global Presence',
-    'nav.team': 'Our Team',
+    'nav.legal-network': 'Our Legal Network',
     'nav.about': 'About',
     'nav.contact': 'Contact',
 

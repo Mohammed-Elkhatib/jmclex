@@ -13,6 +13,23 @@ import InternationalIconsRow from '@/components/InternationalIconsRow';
 import PremiumPricingStructure from '@/components/PremiumPricingStructure';
 import { scrollAnimationConfig, scrollAnimationConfigStaggered } from '@/lib/animation-utils';
 
+// Rotating Globe Component
+function RotatingGlobe() {
+  return (
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+      className="w-full h-full"
+    >
+      <Image
+        src="https://static.wixstatic.com/media/5e1235_b6a4ec1d69ff48c1943d539f939f84a2~mv2.jpg"
+        alt="Legal Protection, Human Values - Rotating globe"
+        className="w-full h-full object-cover"
+      />
+    </motion.div>
+  );
+}
+
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
   { title: 'Corporate Law', icon: Building2, desc: 'Cross-border M&A, restructuring, and corporate governance.' },
