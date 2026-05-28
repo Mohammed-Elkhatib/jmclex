@@ -107,7 +107,7 @@ export default function PublicationsPage() {
       </section>
       
       {/* Hero Section */}
-      <section className="relative w-full min-h-[70vh] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="https://static.wixstatic.com/media/5e1235_71982afc946a48a4ba145d5a053130cb~mv2.png?originWidth=1152&originHeight=576"
@@ -117,12 +117,12 @@ export default function PublicationsPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 to-background"></div>
         </div>
         
-        <div className="relative z-10 max-w-[100rem] mx-auto px-8 py-32 text-center">
+        <div className="relative z-10 max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24 lg:py-32 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-heading text-6xl md:text-7xl text-foreground mb-8"
+            className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground mb-6 md:mb-8 leading-tight"
           >
             Legal Authority, Strategic Insights & International Compliance Analysis
           </motion.h1>
@@ -131,7 +131,7 @@ export default function PublicationsPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-paragraph text-xl md:text-2xl text-foreground/90 max-w-4xl mx-auto"
+            className="font-paragraph text-base sm:text-lg md:text-xl lg:text-2xl text-foreground/90 max-w-4xl mx-auto px-2"
           >
             Expert thought leadership on geopolitical law, international sanctions compliance, cross-border business strategy, and emerging regulatory developments
           </motion.p>
@@ -139,16 +139,16 @@ export default function PublicationsPage() {
       </section>
 
       {/* Featured Article */}
-      <section className="w-full bg-optional-navy py-32">
-        <div className="max-w-[100rem] mx-auto px-8">
+      <section className="w-full bg-optional-navy py-16 md:py-24 lg:py-32">
+        <div className="max-w-[100rem] mx-auto px-4 sm:px-6 md:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center"
           >
-            <div className="relative h-[400px] rounded overflow-hidden">
+            <div className="relative h-[250px] sm:h-[350px] md:h-[400px] rounded overflow-hidden">
               <Image
                 src={featuredArticle.thumbnailImage}
                 alt={featuredArticle.title}
@@ -156,26 +156,26 @@ export default function PublicationsPage() {
               />
             </div>
             <div>
-              <div className="inline-block bg-accent-gold text-secondary-foreground px-4 py-2 rounded text-sm font-paragraph font-medium mb-6">
+              <div className="inline-block bg-accent-gold text-secondary-foreground px-3 md:px-4 py-1 md:py-2 rounded text-xs md:text-sm font-paragraph font-medium mb-4 md:mb-6">
                 {featuredArticle.category}
               </div>
-              <h2 className="font-heading text-4xl md:text-5xl text-foreground mb-6">
+              <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4 md:mb-6 leading-tight">
                 {featuredArticle.title}
               </h2>
-              <p className="font-paragraph text-lg text-foreground/80 mb-8 leading-relaxed">
+              <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-6 md:mb-8 leading-relaxed">
                 {featuredArticle.summary}
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                 {featuredArticle._id !== 'featured-1' ? (
-                  <Link to={`/publications/${featuredArticle._id}`} className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:scale-105">
-                    Read Analysis <ArrowRight className="w-5 h-5" />
+                  <Link to={`/publications/${featuredArticle._id}`} className="inline-flex items-center justify-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded text-sm md:text-lg transition-all hover:scale-105">
+                    Read Analysis <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                   </Link>
                 ) : (
-                  <a href="#publications" className="inline-flex items-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:scale-105">
-                    Explore Publications <ArrowRight className="w-5 h-5" />
+                  <a href="#publications" className="inline-flex items-center justify-center gap-2 bg-accent-gold text-secondary-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded text-sm md:text-lg transition-all hover:scale-105">
+                    Explore Publications <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
                   </a>
                 )}
-                <a href="mailto:contact@jmclex.com" className="inline-flex items-center gap-2 bg-foreground/10 text-foreground font-paragraph font-semibold px-8 py-4 rounded text-lg transition-all hover:bg-foreground/20">
+                <a href="mailto:contact@jmclex.com" className="inline-flex items-center justify-center gap-2 bg-foreground/10 text-foreground font-paragraph font-semibold px-6 md:px-8 py-3 md:py-4 rounded text-sm md:text-lg transition-all hover:bg-foreground/20">
                   Discuss This Topic
                 </a>
               </div>
