@@ -13,6 +13,8 @@ export default function TeamPage() {
 
   const pageMetadata = buildPageMetadata({
     ...PAGE_METADATA_PRESETS.team,
+    title: 'Our Legal Network | International Legal Advisors | JMC LEX',
+    description: 'Meet JMC LEX\'s international legal network of accomplished advisors, legal correspondents, and strategic partners across EMEA. 60+ years of combined institutional experience.',
     canonicalUrl: 'https://www.jmclex.com/team',
   });
 
