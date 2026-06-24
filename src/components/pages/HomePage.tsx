@@ -1036,11 +1036,6 @@ export default function HomePage() {
       <section className="relative w-full bg-background py-48 overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="https://static.wixstatic.com/media/5e1235_5ce85cf63b7c4bbcb35cc147acc4cbb8~mv2.png?originWidth=1152&originHeight=768"
-            alt="Legal Consultation"
-            className="w-full h-full object-cover opacity-20 grayscale"
-          />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/90 to-background/40"></div>
         </div>
 
