@@ -13,22 +13,7 @@ import InternationalIconsRow from '@/components/InternationalIconsRow';
 import PremiumPricingStructure from '@/components/PremiumPricingStructure';
 import { scrollAnimationConfig, scrollAnimationConfigStaggered } from '@/lib/animation-utils';
 
-// Rotating Globe Component
-function RotatingGlobe() {
-  return (
-    <motion.div
-      animate={{ rotate: 360 }}
-      transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-      className="w-full h-full"
-    >
-      <Image
-        src="https://static.wixstatic.com/media/5e1235_b6a4ec1d69ff48c1943d539f939f84a2~mv2.jpg"
-        alt="Legal Protection, Human Values - Rotating globe"
-        className="w-full h-full object-cover"
-      />
-    </motion.div>
-  );
-}
+
 
 // --- Canonical Data Sources ---
 const EXPERTISE_AREAS = [
@@ -250,10 +235,14 @@ export default function HomePage() {
         <div className="max-w-[120rem] mx-auto px-6 md:px-12">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
             
-            {/* Sticky Image Side with Rotating Globe */}
+            {/* Sticky Image Side */}
             <div className="lg:w-5/12 relative">
               <div className="sticky top-32 h-[70vh] w-full overflow-hidden rounded-lg">
-                <RotatingGlobe />
+                <Image
+                  src="https://static.wixstatic.com/media/5e1235_a7145b100be847c4b8b9c40cfc50a483~mv2.jpg"
+                  alt="Global reach and local expertise"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent"></div>
                 <div className="absolute bottom-8 left-8 right-8">
                   <Globe className="w-12 h-12 text-accent-gold mb-4 opacity-80" />
