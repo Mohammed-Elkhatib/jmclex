@@ -46,6 +46,19 @@ export default function TeamPage() {
       contactEmail: 'Contact@JMCLex.com'
     },
     {
+      _id: 'counsel-chafic',
+      name: 'Maître Chafic Antoun',
+      role: 'Of Counsel Partner — Lebanon & MENA',
+      title: 'Of Counsel Partner — Lebanon & MENA',
+      bio: 'Member of the Beirut Bar Association, Maître Chafic Antoun is a Lebanese attorney with extensive experience in intellectual property, civil and criminal litigation, corporate law, administrative law, arbitration, and legal research. He has developed particular expertise in public international law, international water law, and interstate disputes. Alongside his legal practice, he is actively involved in legal research and legal education. As Of Counsel Partner for Lebanon and the MENA region, he collaborates with JMC LEX International on cross-border matters requiring Lebanese law expertise, local judicial representation, legal research, and strategic support in complex regional and international matters.',
+      additionalBio: null,
+      photo: 'https://static.wixstatic.com/media/5e1235_fa890b4c5a2b4ff89b222cfd71e9cad2~mv2.jpg',
+      contactEmail: 'Contact@JMCLex.com',
+      jurisdictions: 'Lebanon • MENA • International',
+      languages: 'Arabic • French • English',
+      location: 'Beirut, Lebanon'
+    },
+    {
       _id: 'officemanager-julia',
       name: 'Julia NAS',
       role: 'Legal & Business Advisor',
@@ -137,6 +150,24 @@ export default function TeamPage() {
                     {founder.additionalBio && (
                       <p className="font-paragraph text-base md:text-lg text-foreground/80 mb-8 font-light leading-relaxed italic">
                         {founder.additionalBio}
+                      </p>
+                    )}
+
+                    {founder.location && (
+                      <p className="font-paragraph text-sm text-foreground/70 mb-4">
+                        <span className="font-semibold text-foreground/80">Location:</span> {founder.location}
+                      </p>
+                    )}
+
+                    {founder.jurisdictions && (
+                      <p className="font-paragraph text-sm text-foreground/70 mb-4">
+                        <span className="font-semibold text-foreground/80">Jurisdictions:</span> {founder.jurisdictions}
+                      </p>
+                    )}
+
+                    {founder.languages && (
+                      <p className="font-paragraph text-sm text-foreground/70 mb-6">
+                        <span className="font-semibold text-foreground/80">Languages:</span> {founder.languages}
                       </p>
                     )}
 
